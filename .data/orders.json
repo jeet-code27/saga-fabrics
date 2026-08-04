@@ -1,0 +1,57 @@
+[
+  {
+    "id": "SAGA-ORD-9821",
+    "razorpayOrderId": "order_Nx829410A",
+    "razorpayPaymentId": "pay_Nx829555B",
+    "customer": {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@example.com",
+      "phone": "+91 98765 43210",
+      "address": "42, Royal Residency, C-Scheme",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "pincode": "302001",
+      "notes": "Please dispatch via BlueDart express courier"
+    },
+    "items": [
+      {
+        "productId": "saga-001",
+        "productTitle": "Gulabi Baugh Powder Blue Chikankari Kurti Set",
+        "image": "/images/products/powder-blue-kurti.jpg",
+        "size": "M",
+        "price": 2299,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 2299,
+    "status": "Processing",
+    "createdAt": "2026-08-03T07:00:10.422Z"
+  },
+  {
+    "id": "SAGA-ORD-9822",
+    "razorpayOrderId": "order_Nx992211C",
+    "razorpayPaymentId": "pay_Nx992288D",
+    "customer": {
+      "name": "Ananya Verma",
+      "email": "ananya.v@example.com",
+      "phone": "+91 98112 33445",
+      "address": "B-104, Malviya Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "pincode": "302017"
+    },
+    "items": [
+      {
+        "productId": "saga-003",
+        "productTitle": "Rani Pink Royalty Kurti & Dupatta Set",
+        "image": "/images/products/rani-pink-kurti.jpg",
+        "size": "L",
+        "price": 2699,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 2699,
+    "status": "Delivered",
+    "createdAt": "2026-08-02T08:00:10.423Z"
+  }
+]
