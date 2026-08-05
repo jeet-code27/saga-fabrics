@@ -51,7 +51,9 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />
-                <span>+91 98290 12345 / WhatsApp Support</span>
+                <a href="https://wa.me/917023352132" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAF6F1] transition-colors">
+                  +91 70233 52132 / WhatsApp Support
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7FA79A] shrink-0" />

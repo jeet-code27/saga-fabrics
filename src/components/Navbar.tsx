@@ -139,7 +139,9 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
             </a>
             <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#7A1B38]" />
-              <span>WhatsApp Support: +91 98290 12345</span>
+              <a href="https://wa.me/917023352132" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                WhatsApp Support: +91 70233 52132
+              </a>
             </div>
           </nav>
         </div>
