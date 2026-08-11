@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Product, Size } from '@/types';
-import { X, Star, Shield, RefreshCw, Truck, Ruler } from 'lucide-react';
+import { X, Star, Shield, RefreshCw, Truck, Scissors } from 'lucide-react';
 
 interface ProductModalProps {
   product: Product | null;
@@ -13,14 +13,10 @@ interface ProductModalProps {
 
 export const ProductModal: React.FC<ProductModalProps> = ({
   product,
-  initialSize = 'M',
   onClose,
   onProceedToBuy,
 }) => {
   if (!product) return null;
-
-  const [selectedSize, setSelectedSize] = useState<Size>(initialSize);
-  const [showSizeChart, setShowSizeChart] = useState(false);
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
@@ -31,7 +27,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 backdrop-blur-md text-[#2B2723] hover:bg-[#65897D] hover:text-white transition-colors shadow-sm"
+          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 backdrop-blur-md text-[#2B2723] hover:bg-[#65897D] hover:text-white transition-colors shadow-sm cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -91,7 +87,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             {/* Fabric Specifications */}
             <div className="grid grid-cols-2 gap-2.5 text-xs">
               <div className="p-2.5 bg-[#FAF6F1] rounded-xl border border-[#DCD3C7]">
-                <span className="text-[#8A8178] block font-medium">Fabric</span>
+                <span className="text-[#8A8178] block font-medium">Fabric Type</span>
                 <span className="font-serif font-bold text-[#2B2723]">{product.fabric}</span>
               </div>
               <div className="p-2.5 bg-[#FAF6F1] rounded-xl border border-[#DCD3C7]">
@@ -100,33 +96,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
             </div>
 
-            {/* Size Selector */}
-            <div className="space-y-2 pt-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-[#2B2723]">Select Size (Standard India):</span>
-                <button
-                  type="button"
-                  onClick={() => setShowSizeChart(true)}
-                  className="text-xs text-[#65897D] font-semibold flex items-center gap-1 hover:underline"
-                >
-                  <Ruler className="w-3.5 h-3.5" /> Size Chart
-                </button>
-              </div>
-
-              <div className="grid grid-cols-5 gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`py-2 text-xs font-bold rounded-xl border transition-all ${
-                      selectedSize === size
-                        ? 'bg-[#7FA79A] text-white border-[#7FA79A] shadow-xs'
-                        : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7FA79A]'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {/* Unstitched Fabric Guarantee Box */}
+            <div className="p-3.5 bg-[#7A1B38]/5 rounded-2xl border border-[#7A1B38]/20 flex items-start gap-3">
+              <Scissors className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
+              <div className="text-xs space-y-0.5">
+                <span className="font-bold text-[#7A1B38] block">100% Unstitched Fabric Suit Set</span>
+                <p className="text-[#8A8178] text-[11px] leading-relaxed">
+                  Contains full unstitched fabric material. Ready to be custom tailored into your preferred fitting (Kurtis, Salwar Suits, Shararas or Pants) by any tailor.
+                </p>
               </div>
             </div>
 
@@ -136,7 +113,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <Truck className="w-4 h-4 text-[#65897D]" /> Free Delivery
               </div>
               <div className="flex items-center gap-1.5">
-                <RefreshCw className="w-4 h-4 text-[#65897D]" /> 7-Day Exchange
+                <Shield className="w-4 h-4 text-[#65897D]" /> Quality Checked
               </div>
               <div className="flex items-center gap-1.5">
                 <Shield className="w-4 h-4 text-[#65897D]" /> Razorpay Safe
@@ -148,72 +125,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           {/* Action Button */}
           <div className="pt-4 border-t border-[#DCD3C7]">
             <button
-              onClick={() => onProceedToBuy(product, selectedSize)}
-              className="w-full py-4 bg-[#2B2723] hover:bg-[#65897D] text-white font-medium rounded-2xl transition-colors text-sm shadow-md"
+              onClick={() => onProceedToBuy(product, 'Unstitched')}
+              className="w-full py-4 bg-[#2B2723] hover:bg-[#65897D] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer"
             >
-              Direct Buy with Razorpay ({selectedSize})
+              Direct Buy with Razorpay
             </button>
           </div>
         </div>
       </div>
-
-      {/* Size Chart Modal Overlay */}
-      {showSizeChart && (
-        <div className="fixed inset-0 z-60 bg-black/60 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-[#DCD3C7] space-y-4">
-            <div className="flex items-center justify-between border-b border-[#DCD3C7] pb-3">
-              <h3 className="text-base font-serif font-bold text-[#2B2723]">Kurti Size Measurement (Inches)</h3>
-              <button onClick={() => setShowSizeChart(false)} className="text-[#8A8178] hover:text-[#2B2723]">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="space-y-2 text-xs text-[#2B2723]">
-              <div className="flex justify-between font-bold bg-[#FAF6F1] p-2 rounded-lg border border-[#DCD3C7]">
-                <span>Size</span>
-                <span>Bust</span>
-                <span>Waist</span>
-                <span>Hips</span>
-              </div>
-              <div className="flex justify-between p-2 border-b border-[#EDE6DC]">
-                <span className="font-bold text-[#65897D]">S</span>
-                <span>36"</span>
-                <span>32"</span>
-                <span>38"</span>
-              </div>
-              <div className="flex justify-between p-2 border-b border-[#EDE6DC]">
-                <span className="font-bold text-[#65897D]">M</span>
-                <span>38"</span>
-                <span>34"</span>
-                <span>40"</span>
-              </div>
-              <div className="flex justify-between p-2 border-b border-[#EDE6DC]">
-                <span className="font-bold text-[#65897D]">L</span>
-                <span>40"</span>
-                <span>36"</span>
-                <span>42"</span>
-              </div>
-              <div className="flex justify-between p-2 border-b border-[#EDE6DC]">
-                <span className="font-bold text-[#65897D]">XL</span>
-                <span>42"</span>
-                <span>38"</span>
-                <span>44"</span>
-              </div>
-              <div className="flex justify-between p-2">
-                <span className="font-bold text-[#65897D]">XXL</span>
-                <span>44"</span>
-                <span>40"</span>
-                <span>46"</span>
-              </div>
-            </div>
-            <button
-              onClick={() => setShowSizeChart(false)}
-              className="w-full py-2.5 bg-[#7FA79A] text-white text-xs font-bold rounded-xl"
-            >
-              Got it
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

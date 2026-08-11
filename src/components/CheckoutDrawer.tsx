@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Product, Size, CustomerInfo, Order } from '@/types';
-import { X, Lock, ShieldCheck, CreditCard } from 'lucide-react';
+import { X, Lock, ShieldCheck, CreditCard, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -15,6 +15,7 @@ interface CheckoutDrawerProps {
   product: Product | null;
   size: Size;
   onClose: () => void;
+  onRemoveProduct?: () => void;
   onSuccess: (order: Order) => void;
 }
 
@@ -23,10 +24,43 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   product,
   size,
   onClose,
+  onRemoveProduct,
   onSuccess,
 }) => {
-  if (!isOpen || !product) return null;
+  if (!isOpen) return null;
 
+  // Empty Cart View when product is removed
+  if (!product) {
+    return (
+      <div className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-xs flex justify-end">
+        <div className="relative bg-white w-full max-w-lg h-full shadow-2xl flex flex-col justify-between border-l border-[#EDE7E1] animate-slideLeft">
+          <div className="p-5 bg-[#FAF6F1] border-b border-[#DCD3C7] flex items-center justify-between">
+            <h3 className="text-base font-serif font-bold text-[#2B2723]">Your Cart</h3>
+            <button onClick={onClose} className="p-2 rounded-full hover:bg-[#EDE6DC] text-[#2B2723] cursor-pointer">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="p-8 text-center flex-1 flex flex-col items-center justify-center space-y-4">
+            <div className="w-20 h-20 rounded-full bg-[#FAF6F1] border border-[#DCD3C7] flex items-center justify-center text-[#7A1B38] shadow-inner">
+              <ShoppingCart className="w-10 h-10" />
+            </div>
+            <h4 className="text-xl font-serif font-bold text-[#2B2723]">Your Shopping Cart is Empty</h4>
+            <p className="text-xs text-[#8A8178] max-w-xs leading-relaxed">
+              You have removed the item from your cart. Browse our Jaipur unstitched collection to add items.
+            </p>
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white text-xs font-bold rounded-full shadow-md transition-colors cursor-pointer"
+            >
+              Explore Collection
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const [quantity, setQuantity] = useState<number>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,6 +74,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     pincode: '',
     notes: '',
   });
+
+  const totalAmount = product.price * quantity;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -69,7 +105,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: product.price,
+          amount: totalAmount,
           receipt: `saga_${Date.now()}`,
         }),
       });
@@ -84,18 +120,18 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         productId: product.id,
         productTitle: product.title,
         image: product.images[0],
-        size: size,
+        size: size || 'Unstitched',
         price: product.price,
-        quantity: 1,
+        quantity: quantity,
       };
 
       // 2. Setup Razorpay Modal options
       const options = {
-        key: orderData.key || 'rzp_test_SagaFabricsDemoKey',
+        key: orderData.key || 'rzp_test_TONWjBcoyCwxN0',
         amount: orderData.amount,
         currency: 'INR',
         name: 'SAGA FABRICS',
-        description: `${product.title} (Size: ${size})`,
+        description: `${product.title} (${quantity} Set${quantity > 1 ? 's' : ''})`,
         image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=120&auto=format&fit=crop&q=80',
         order_id: orderData.id,
         prefill: {
@@ -119,7 +155,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
                 razorpay_signature: response.razorpay_signature || 'mock_signature',
                 customer: form,
                 items: [orderItem],
-                totalAmount: product.price,
+                totalAmount: totalAmount,
                 isMock: orderData.isMock,
               }),
             });
@@ -184,7 +220,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-[#EDE6DC] text-[#2B2723] transition-colors"
+            className="p-2 rounded-full hover:bg-[#EDE6DC] text-[#2B2723] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -193,24 +229,76 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         {/* Scrollable Form Content */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-white">
           
-          {/* Order Summary Card */}
-          <div className="p-4 bg-[#FAF6F1] rounded-2xl border border-[#DCD3C7] flex items-center gap-4">
-            <img
-              src={product.images[0]}
-              alt={product.title}
-              className="w-16 h-20 object-cover object-top rounded-xl border border-[#DCD3C7]"
-            />
-            <div className="flex-1 min-w-0">
-              <span className="text-[10px] font-bold uppercase text-[#65897D] tracking-wider">Order Summary</span>
-              <h4 className="text-sm font-serif font-bold text-[#2B2723] truncate">{product.title}</h4>
-              <div className="flex items-center gap-2 text-xs text-[#8A8178] mt-1">
-                <span>Size: <strong className="text-[#65897D] font-bold">{size}</strong></span>
-                <span>•</span>
-                <span>Qty: 1</span>
+          {/* Order Summary Card with Quantity Controls & Remove Option */}
+          <div className="p-4 bg-[#FAF6F1] rounded-2xl border border-[#DCD3C7] space-y-3">
+            <div className="flex items-start gap-4 relative">
+              <img
+                src={product.images[0]}
+                alt={product.title}
+                className="w-16 h-20 object-cover object-top rounded-xl border border-[#DCD3C7]"
+              />
+              <div className="flex-1 min-w-0 pr-8">
+                <span className="text-[10px] font-bold uppercase text-[#65897D] tracking-wider">Order Item</span>
+                <h4 className="text-sm font-serif font-bold text-[#2B2723] truncate">{product.title}</h4>
+                <div className="flex items-center gap-2 text-xs text-[#8A8178] mt-0.5">
+                  <span>Type: <strong className="text-[#7A1B38] font-bold">Unstitched Fabric Set</strong></span>
+                </div>
+                <div className="text-xs text-[#8A8178] mt-0.5">
+                  Unit Price: <strong className="text-[#2B2723]">₹{product.price.toLocaleString('en-IN')}</strong>
+                </div>
               </div>
-              <div className="text-sm font-serif font-bold text-[#65897D] mt-1">
-                ₹{product.price.toLocaleString('en-IN')}{' '}
-                <span className="text-xs text-[#7FA79A] font-medium">Free Express Delivery</span>
+              
+              {/* Trash Remove Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onRemoveProduct) {
+                    onRemoveProduct();
+                  } else {
+                    onClose();
+                  }
+                }}
+                className="absolute top-0 right-0 p-1.5 rounded-xl text-rose-700 hover:bg-rose-100 hover:text-rose-800 border border-rose-200 transition-colors cursor-pointer flex items-center gap-1 text-[11px] font-bold"
+                title="Remove Item from Cart"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Remove</span>
+              </button>
+            </div>
+
+            {/* Interactive Quantity Selector Bar */}
+            <div className="flex items-center justify-between pt-2.5 border-t border-[#E4D9CC]">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-[#2B2723]">Quantity:</span>
+                <div className="flex items-center border border-[#DCD3C7] rounded-xl bg-white overflow-hidden shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                    disabled={quantity <= 1}
+                    className="p-1.5 text-xs font-bold text-[#2B2723] hover:bg-[#FAF6F1] disabled:opacity-30 transition-colors cursor-pointer"
+                    title="Decrease Quantity"
+                  >
+                    <Minus className="w-3.5 h-3.5 text-[#7A1B38]" />
+                  </button>
+                  <span className="px-3 py-1 text-xs font-bold font-mono text-[#7A1B38] bg-[#FAF6F1]">
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((prev) => prev + 1)}
+                    className="p-1.5 text-xs font-bold text-[#2B2723] hover:bg-[#FAF6F1] transition-colors cursor-pointer"
+                    title="Increase Quantity"
+                  >
+                    <Plus className="w-3.5 h-3.5 text-[#7A1B38]" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <span className="text-[10px] uppercase font-bold text-[#8A8178]">Total</span>
+                <p className="text-base font-serif font-bold text-[#7A1B38]">
+                  ₹{totalAmount.toLocaleString('en-IN')}
+                </p>
               </div>
             </div>
           </div>
@@ -336,9 +424,9 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         {/* Drawer Footer & Payment CTA */}
         <div className="p-5 bg-[#FAF6F1] border-t border-[#DCD3C7] space-y-3">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-[#8A8178]">Total Payable Amount:</span>
-            <span className="text-2xl font-serif font-bold text-[#65897D]">
-              ₹{product.price.toLocaleString('en-IN')}
+            <span className="text-[#8A8178]">Total Payable ({quantity} Set{quantity > 1 ? 's' : ''}):</span>
+            <span className="text-2xl font-serif font-bold text-[#7A1B38]">
+              ₹{totalAmount.toLocaleString('en-IN')}
             </span>
           </div>
 
@@ -346,7 +434,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
             type="submit"
             form="checkout-form"
             disabled={loading}
-            className="w-full py-4 bg-[#7FA79A] hover:bg-[#65897D] disabled:opacity-50 text-white font-medium rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 text-base"
+            className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] disabled:opacity-50 text-white font-medium rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 text-base cursor-pointer"
           >
             {loading ? (
               <span className="flex items-center gap-2">
@@ -355,8 +443,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               </span>
             ) : (
               <>
-                <CreditCard className="w-5 h-5 text-[#E88DAE]" />
-                <span>Pay ₹{product.price.toLocaleString('en-IN')} via Razorpay</span>
+                <CreditCard className="w-5 h-5 text-[#B59757]" />
+                <span>Pay ₹{totalAmount.toLocaleString('en-IN')} via Razorpay</span>
               </>
             )}
           </button>

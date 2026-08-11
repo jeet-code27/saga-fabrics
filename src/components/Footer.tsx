@@ -13,9 +13,9 @@ export const Footer: React.FC = () => {
           {/* Brand Intro Column */}
           <div className="space-y-4 md:col-span-2">
             <img
-              src="/images/saga-fabrics-logo.png"
+              src="/images/saga-fabrics-logo-new.png"
               alt="Saga Fabrics"
-              className="h-14 sm:h-16 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
+              className="h-16 sm:h-20 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
             />
             <p className="text-xs text-[#8A8178] leading-relaxed max-w-md">
               Rooted in the royal heritage of Jaipur, <strong>Saga Fabrics</strong> curates handcrafted Chikankari & Handblock printed Kurtis in soft ethnic pastel hues. Every garment represents centuries of Indian textile artistry.
@@ -34,10 +34,10 @@ export const Footer: React.FC = () => {
           <div className="space-y-3 text-xs">
             <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Quick Navigation</h4>
             <ul className="space-y-2 text-[#8A8178]">
-              <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Festive Kurti Collection</a></li>
+              <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Unstitched Suit Fabrics</a></li>
               <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari & Handblock</a></li>
               <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Jaipur Craft Process</a></li>
-              <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Size Guide & Care FAQs</a></li>
+              <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>
             </ul>
           </div>
 
@@ -66,11 +66,13 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8178] gap-4">
-          <p>© {new Date().getFullYear()} Saga Fabrics, Jaipur. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Saga Fabrics, Jaipur. All Rights Reserved. (No Returns Policy)</p>
           <div className="flex items-center gap-4 text-[11px]">
-            <span>100% Secure Razorpay Checkout</span>
+            <a href="/terms-and-conditions" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Terms & Conditions</a>
             <span>•</span>
-            <span>Jaipur Artisanal Fashion</span>
+            <a href="/privacy-policy" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Privacy Policy</a>
+            <span>•</span>
+            <span>Razorpay Safe</span>
           </div>
         </div>
 

@@ -12,8 +12,8 @@ export const FaqSection: React.FC = () => {
       answer: 'Yes, absolutely! Every Saga Fabrics Kurti is crafted from 100% pure organic cotton, Chanderi cotton, or soft Mulmul. We never use synthetic polyester blends, ensuring maximum breathability even in hot summers.',
     },
     {
-      question: 'How do I choose the correct size? What if it doesn’t fit?',
-      answer: 'Our garments fit true to standard Indian sizing: S (36"), M (38"), L (40"), XL (42"), XXL (44"). If you require a size swap, we offer a hassle-free 7-day doorstep size replacement guarantee.',
+      question: 'Are these suit sets stitched or unstitched?',
+      answer: 'All our suit sets are 100% authentic Jaipur unstitched suit fabric sets (Top material: ~2.5m, Bottom material: ~2.5m, Dupatta: ~2.25m). They are designed for custom boutique stitching so you can get them tailored to your perfect fit and style.',
     },
     {
       question: 'How long does express shipping take across India?',

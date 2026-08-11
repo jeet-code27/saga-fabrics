@@ -31,19 +31,19 @@ export default function HomePage() {
   }>({
     isOpen: false,
     product: null,
-    size: 'M',
+    size: 'Unstitched',
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [activeFilter, setActiveFilter] = useState<'All' | 'Chikankari' | 'Handblock' | '3-Piece Set'>('All');
 
   // Handle Quick View modal trigger
-  const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
+  const handleOpenProductModal = (product: Product, initialSize: Size = 'Unstitched') => {
     setSelectedProductModal({ product, size: initialSize });
   };
 
   // Handle Direct Buy trigger
-  const handleDirectBuy = (product: Product, size: Size) => {
+  const handleDirectBuy = (product: Product, size: Size = 'Unstitched') => {
     setSelectedProductModal(null);
     setCheckoutState({
       isOpen: true,
@@ -68,7 +68,7 @@ export default function HomePage() {
         cartCount={checkoutState.isOpen ? 1 : 0}
         onOpenCart={() => {
           if (PRODUCTS.length > 0) {
-            handleDirectBuy(PRODUCTS[0], 'M');
+            handleDirectBuy(PRODUCTS[0], 'Unstitched');
           }
         }}
       />
@@ -95,10 +95,10 @@ export default function HomePage() {
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Jaipur Edit
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Women's Ethnic Collection
+              Curated Unstitched Ethnic Suit Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              Select your size (`S`, `M`, `L`, `XL`, `XXL`) & order directly with instant Razorpay checkout.
+              100% Premium Unstitched Jaipur Fabrics & Material • Order directly with instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}
@@ -152,7 +152,7 @@ export default function HomePage() {
         <CraftStory />
 
         {/* 6. Interactive Style & Occasion Guide */}
-        <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'M')} />
+        <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'Unstitched')} />
 
         {/* 7. Verified Customer Reviews */}
         <CustomerReviews />
@@ -191,7 +191,8 @@ export default function HomePage() {
         isOpen={checkoutState.isOpen}
         product={checkoutState.product}
         size={checkoutState.size}
-        onClose={() => setCheckoutState({ isOpen: false, product: null, size: 'M' })}
+        onClose={() => setCheckoutState({ isOpen: false, product: null, size: 'Unstitched' })}
+        onRemoveProduct={() => setCheckoutState((prev) => ({ ...prev, product: null }))}
         onSuccess={(order) => {
           setCompletedOrder(order);
         }}

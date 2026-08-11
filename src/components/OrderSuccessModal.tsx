@@ -74,7 +74,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
               <div className="flex-1">
                 <h4 className="text-xs font-bold text-[#1C1917] font-serif">{item.productTitle}</h4>
                 <div className="flex items-center gap-3 text-xs text-[#57534E] mt-1">
-                  <span>Size: <strong className="text-[#8B263E]">{item.size}</strong></span>
+                  <span>Type: <strong className="text-[#8B263E]">{item.size === 'Unstitched' ? 'Unstitched Fabric Set' : item.size || 'Unstitched Fabric'}</strong></span>
                   <span>Total: <strong>₹{order.totalAmount.toLocaleString('en-IN')}</strong></span>
                 </div>
               </div>

@@ -169,13 +169,13 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
             {/* Action CTA */}
             <div className="pt-4 border-t border-[#EDE6DC] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-[#8A8178]">
-                Available in Sizes: <span className="font-bold text-[#2B2723]">S, M, L, XL, XXL</span>
+                Material: <span className="font-bold text-[#7A1B38]">100% Premium Unstitched Fabric Set</span>
               </div>
               <button
-                onClick={() => onSelectProduct(matchedProduct, 'M')}
-                className="w-full sm:w-auto px-6 py-3 bg-[#7FA79A] hover:bg-[#65897D] text-white text-xs font-medium rounded-full shadow-md transition-all flex items-center justify-center gap-2 group tracking-wide"
+                onClick={() => onSelectProduct(matchedProduct, 'Unstitched')}
+                className="w-full sm:w-auto px-6 py-3 bg-[#7FA79A] hover:bg-[#65897D] text-white text-xs font-medium rounded-full shadow-md transition-all flex items-center justify-center gap-2 group tracking-wide cursor-pointer"
               >
-                <span>Quick Buy This Outfit</span>
+                <span>Quick Buy This Material</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>

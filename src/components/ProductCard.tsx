@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Product, Size } from '@/types';
-import { Eye, ShoppingCart, Star } from 'lucide-react';
+import { Eye, ShoppingCart, Star, Scissors } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -15,13 +15,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onSelectProduct,
   onDirectBuy,
 }) => {
-  const [selectedSize, setSelectedSize] = useState<Size>('M');
-
   return (
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       
       {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, selectedSize)}>
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, 'Unstitched')}>
         <img
           src={product.images[0]}
           alt={product.title}
@@ -56,7 +54,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onSelectProduct(product, selectedSize);
+              onSelectProduct(product, 'Unstitched');
             }}
             className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5"
           >
@@ -75,12 +73,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="font-bold text-[#2B2723]">{product.rating}</span>
               <span className="text-[#8A8178]">({product.reviewsCount})</span>
             </div>
-            <span className="font-medium text-[#5C7056]">{product.fabric.split(' ')[0]} Cotton</span>
+            <span className="font-medium text-[#5C7056]">Pure Cotton</span>
           </div>
 
           {/* Title */}
           <h3
-            onClick={() => onSelectProduct(product, selectedSize)}
+            onClick={() => onSelectProduct(product, 'Unstitched')}
             className="text-base font-serif font-semibold text-[#2B2723] group-hover:text-[#7A1B38] transition-colors cursor-pointer line-clamp-1"
           >
             {product.title}
@@ -95,37 +93,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Size Selection */}
-        <div className="space-y-2 pt-2 border-t border-[#F3ECE2]">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#2B2723]">Select Size:</span>
-            <span className="text-[11px] font-medium text-[#7A1B38]">Selected: {selectedSize}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            {product.sizes.map((size) => (
-              <button
-                key={size}
-                type="button"
-                onClick={() => setSelectedSize(size)}
-                className={`flex-1 py-1.5 text-xs font-bold rounded-lg border transition-all ${
-                  selectedSize === size
-                    ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-xs'
-                    : 'bg-[#FAF6F1] text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38]'
-                }`}
-              >
-                {size}
-              </button>
-            ))}
+        {/* Unstitched Specification Badge */}
+        <div className="pt-2 border-t border-[#F3ECE2]">
+          <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
+            <Scissors className="w-4 h-4 shrink-0 text-[#7A1B38]" />
+            <span>100% Unstitched Suit Fabric Set</span>
           </div>
         </div>
 
         {/* Action Button */}
         <button
-          onClick={() => onDirectBuy(product, selectedSize)}
-          className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm"
+          onClick={() => onDirectBuy(product, 'Unstitched')}
+          className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
         >
           <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-          <span>Buy Now ({selectedSize})</span>
+          <span>Buy Now</span>
         </button>
 
       </div>

@@ -167,6 +167,7 @@ export default function AdminPage() {
               <Link href="/" className="p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
+              <img src="/images/saga-fabrics-logo-new.png" alt="Saga Fabrics" className="h-10 w-auto object-contain" />
               <div>
                 <h1 className="text-xl font-bold font-serif text-[#9E6962]">SAGA FABRICS Admin</h1>
                 <p className="text-[11px] text-[#78716C] font-medium">Order Fulfillment & Razorpay Payments</p>
@@ -288,7 +289,7 @@ export default function AdminPage() {
                   <tr>
                     <th className="py-3.5 px-4">Order ID & Date</th>
                     <th className="py-3.5 px-4">Customer Details</th>
-                    <th className="py-3.5 px-4">Product & Size</th>
+                    <th className="py-3.5 px-4">Product & Spec</th>
                     <th className="py-3.5 px-4">Amount</th>
                     <th className="py-3.5 px-4">Razorpay Payment ID</th>
                     <th className="py-3.5 px-4">Status</th>
@@ -335,7 +336,7 @@ export default function AdminPage() {
                                   {item.productTitle}
                                 </p>
                                 <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
-                                  Size: {item.size}
+                                  {item.size === 'Unstitched' ? 'Unstitched' : `Size: ${item.size}`}
                                 </span>
                               </div>
                             </div>
@@ -447,7 +448,7 @@ export default function AdminPage() {
                 <div className="flex-1">
                   <h4 className="font-serif font-bold text-sm text-[#2D2A26]">{selectedOrder.items[0].productTitle}</h4>
                   <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1">
-                    <span>Size Selected: <strong className="text-[#9E6962]">{selectedOrder.items[0].size}</strong></span>
+                    <span>Item Spec: <strong className="text-[#9E6962]">{selectedOrder.items[0].size === 'Unstitched' ? '100% Unstitched Fabric Set' : selectedOrder.items[0].size || 'Unstitched'}</strong></span>
                     <span>•</span>
                     <span>Price: <strong>₹{selectedOrder.items[0].price}</strong></span>
                   </div>

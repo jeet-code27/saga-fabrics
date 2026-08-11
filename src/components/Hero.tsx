@@ -89,9 +89,9 @@ export const Hero: React.FC = () => {
           <div className="bg-white/95 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-2xl max-w-xs space-y-3 transform hover:-translate-y-1 transition-transform">
             <div className="flex items-center gap-3">
               <img
-                src="/images/saga-fabrics-logo.png"
+                src="/images/saga-fabrics-logo-new.png"
                 alt="Saga Fabrics"
-                className="w-10 h-10 object-contain rounded-xl bg-[#FAF6F1] p-1 border border-[#E4D9CC] shrink-0"
+                className="w-12 h-12 object-contain rounded-xl bg-[#FAF6F1] p-1 border border-[#E4D9CC] shrink-0"
               />
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[#5C7056]">New Handblock Edit</span>

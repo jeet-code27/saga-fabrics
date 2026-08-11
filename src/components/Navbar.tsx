@@ -69,9 +69,9 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
           <div className="flex items-center justify-center">
             <Link href="/" className="group inline-block">
               <img
-                src="/images/saga-fabrics-logo.png"
+                src="/images/saga-fabrics-logo-new.png"
                 alt="Saga Fabrics"
-                className="h-12 sm:h-16 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-14 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </Link>
           </div>
@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
             >
-              ❓ FAQs & Size Guide
+              ❓ Fabric Care & FAQs
             </a>
             <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#7A1B38]" />

@@ -1,4 +1,4 @@
-export type Size = 'S' | 'M' | 'L' | 'XL' | 'XXL';
+export type Size = 'Unstitched' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | string;
 
 export interface Product {
   id: string;
@@ -13,7 +13,7 @@ export interface Product {
   color: string;
   colorHex: string;
   images: string[];
-  sizes: Size[];
+  sizes?: Size[];
   tags: string[];
   inStock: boolean;
   rating: number;

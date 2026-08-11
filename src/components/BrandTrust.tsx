@@ -31,11 +31,11 @@ export const BrandTrust: React.FC = () => {
 
           <div className="flex items-start gap-4 justify-center sm:justify-start group">
             <div className="w-12 h-12 rounded-2xl bg-[#7FA79A]/15 border border-[#7FA79A]/30 flex items-center justify-center text-[#65897D] shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <RefreshCw className="w-6 h-6" />
+              <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">Easy Size Exchange</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Hassle-free 7-Day doorstep size replacement guarantee.</p>
+              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Quality Inspected</h4>
+              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Every unstitched fabric length undergoes strict quality check. (No Returns Policy)</p>
             </div>
           </div>
 

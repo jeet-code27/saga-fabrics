@@ -22,7 +22,7 @@ export const CustomerReviews: React.FC = () => {
       location: 'Bengaluru',
       rating: 5,
       productName: 'Amer Turquoise Handblock Set',
-      comment: 'Ordered on Tuesday and received in Bangalore by Friday! The fitting is spot on true to size, and the handblock prints have that unmistakable authentic Jaipur charm.',
+      comment: 'Ordered on Tuesday and received in Bangalore by Friday! The unstitched fabric quality is top-notch with generous length for tailor-stitching, and the block prints are gorgeous.',
       date: 'Verified Buyer • 1 week ago',
       initials: 'PR',
       avatarBg: 'bg-[#E88DAE]/15 text-[#E88DAE]',
@@ -33,7 +33,7 @@ export const CustomerReviews: React.FC = () => {
       location: 'Mumbai',
       rating: 5,
       productName: 'Rani Pink Royalty 3-Piece Suit',
-      comment: 'Saga Fabrics has become my absolute favorite for ethnic wear. The Rani Pink suit dupatta is so airy and elegant. Got so many compliments at my niece’s sangeet!',
+      comment: 'Saga Fabrics has become my absolute favorite for unstitched suit sets. The Rani Pink suit dupatta is so airy and elegant. Got it stitched at my boutique and got so many compliments!',
       date: 'Verified Buyer • 2 weeks ago',
       initials: 'MK',
       avatarBg: 'bg-[#7FA79A]/15 text-[#65897D]',
@@ -44,7 +44,7 @@ export const CustomerReviews: React.FC = () => {
       location: 'Jaipur',
       rating: 5,
       productName: 'Jaipur Pearl White Tunic',
-      comment: 'Living in Jaipur, I know authentic handblock and Chikankari work. The stitch density and fabric finish are top-tier. Highly recommended for daily understated luxury.',
+      comment: 'Living in Jaipur, I know authentic handblock and Chikankari work. The fabric thread count and print finish are top-tier. Highly recommended for unstitched ethnic wear.',
       date: 'Verified Buyer • 3 weeks ago',
       initials: 'KM',
       avatarBg: 'bg-[#E88DAE]/15 text-[#E88DAE]',
@@ -132,7 +132,7 @@ export const CustomerReviews: React.FC = () => {
           </div>
           <div>
             <p className="text-xl sm:text-2xl font-serif font-bold text-[#E88DAE]">99.2%</p>
-            <p className="text-xs text-[#8A8178] font-medium mt-1">Positive Fit Rating</p>
+            <p className="text-xs text-[#8A8178] font-medium mt-1">Satisfaction Rating</p>
           </div>
           <div>
             <p className="text-xl sm:text-2xl font-serif font-bold text-[#7FA79A]">100%</p>
@@ -140,7 +140,7 @@ export const CustomerReviews: React.FC = () => {
           </div>
           <div>
             <p className="text-xl sm:text-2xl font-serif font-bold text-[#2B2723]">7 Days</p>
-            <p className="text-xs text-[#8A8178] font-medium mt-1">Free Size Exchange</p>
+            <p className="text-xs text-[#8A8178] font-medium mt-1">Easy Product Exchange</p>
           </div>
         </div>
 
