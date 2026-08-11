@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin } from 'lucide-react';
 
 interface NavbarProps {
-  cartCount: number;
-  onOpenCart: () => void;
+  cartCount?: number;
+  onOpenCart?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
+export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

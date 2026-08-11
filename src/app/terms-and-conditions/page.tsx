@@ -13,7 +13,7 @@ export default function TermsAndConditionsPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
       {/* Header Navigation */}
-      <Navbar cartCount={0} onOpenCart={() => {}} />
+      <Navbar cartCount={0} />
 
       <main className="flex-1 py-12 md:py-20 px-6 lg:px-12 max-w-4xl mx-auto w-full">
         {/* Back Link */}
