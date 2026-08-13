@@ -46,7 +46,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
             </div>
             <h4 className="text-xl font-serif font-bold text-[#2B2723]">Your Shopping Cart is Empty</h4>
             <p className="text-xs text-[#8A8178] max-w-xs leading-relaxed">
-              You have removed the item from your cart. Browse our Jaipur unstitched collection to add items.
+              You have removed the item from your cart. Browse our unstitched Chikankari collection to add items.
             </p>
             <button
               onClick={onClose}
@@ -69,8 +69,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     email: '',
     phone: '',
     address: '',
-    city: 'Jaipur',
-    state: 'Rajasthan',
+    city: '',
+    state: '',
     pincode: '',
     notes: '',
   });
@@ -241,7 +241,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
                 <span className="text-[10px] font-bold uppercase text-[#65897D] tracking-wider">Order Item</span>
                 <h4 className="text-sm font-serif font-bold text-[#2B2723] truncate">{product.title}</h4>
                 <div className="flex items-center gap-2 text-xs text-[#8A8178] mt-0.5">
-                  <span>Type: <strong className="text-[#7A1B38] font-bold">Unstitched Fabric Set</strong></span>
+                  <span>Size: <strong className="text-[#7A1B38] font-bold">Size {size || 'M'}</strong> • <span className="text-[#65897D]">Pure Cotton Short Kurti</span></span>
                 </div>
                 <div className="text-xs text-[#8A8178] mt-0.5">
                   Unit Price: <strong className="text-[#2B2723]">₹{product.price.toLocaleString('en-IN')}</strong>

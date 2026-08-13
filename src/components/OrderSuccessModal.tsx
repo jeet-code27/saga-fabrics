@@ -45,7 +45,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
           </div>
           <span className="text-xs uppercase tracking-widest text-[#FFD700] font-bold">Payment Verified</span>
           <h2 className="text-2xl font-bold font-serif mt-1">Order Placed Successfully!</h2>
-          <p className="text-xs text-white/80 mt-1">Thank you for choosing SAGA FABRICS, Jaipur</p>
+          <p className="text-xs text-white/80 mt-1">Thank you for choosing SAGA FABRICS</p>
         </div>
 
         {/* Order Details Body */}
@@ -95,7 +95,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
           <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">
             <Package className="w-5 h-5 text-emerald-700 shrink-0" />
             <div>
-              <p className="font-bold">Dispatching in 24 Hours from Jaipur Workshop</p>
+              <p className="font-bold">Dispatching in 24 Hours from Workshop</p>
               <p className="text-[11px] text-emerald-800">You will receive SMS & WhatsApp tracking updates.</p>
             </div>
           </div>

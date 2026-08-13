@@ -20,8 +20,8 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
       productId: 'saga-003', // Rani Pink
       stylingTips: [
         'Pair with traditional silver Jhumkas & statement Bangles',
-        'Drape the lightweight chiffon dupatta over one shoulder',
-        'Complete with embroidered Jaipuri Mojris or Block Heels',
+        'Drape the breathable pure cotton dupatta over one shoulder',
+        'Complete with statement earrings or traditional Mojris',
       ],
       tag: 'Festive Glamour',
       accentColor: 'text-[#E88DAE]',
@@ -87,7 +87,7 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
             How to Style Sage Fabrics for Every Occasion
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178]">
-            From morning office meetings to evening celebrations, find the perfect Jaipuri ensemble and accessories.
+            From morning office meetings to evening celebrations, find the perfect Chikankari ensemble and accessories.
           </p>
         </div>
 
@@ -169,13 +169,13 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
             {/* Action CTA */}
             <div className="pt-4 border-t border-[#EDE6DC] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-[#8A8178]">
-                Material: <span className="font-bold text-[#7A1B38]">100% Premium Unstitched Fabric Set</span>
+                Material: <span className="font-bold text-[#7A1B38]">100% Breathable Cotton Short Kurti</span>
               </div>
               <button
-                onClick={() => onSelectProduct(matchedProduct, 'Unstitched')}
+                onClick={() => onSelectProduct(matchedProduct, 'M')}
                 className="w-full sm:w-auto px-6 py-3 bg-[#7FA79A] hover:bg-[#65897D] text-white text-xs font-medium rounded-full shadow-md transition-all flex items-center justify-center gap-2 group tracking-wide cursor-pointer"
               >
-                <span>Quick Buy This Material</span>
+                <span>Quick Buy Short Kurti</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>

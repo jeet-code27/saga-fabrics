@@ -19,9 +19,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Saga Fabrics — Artisanal Ethnic Wear',
-  description: 'Handcrafted Chikankari & Jaipur Handblock print Kurtis. Authentic ethnic fashion in soft Jaipuri pastels.',
-  keywords: ['Saga Fabrics', 'Jaipur Kurtis', 'Chikankari Kurti', 'Handblock Print Kurti', 'Women Ethnic Wear Jaipur'],
+  title: 'Saga Fabrics — Handcrafted Chikankari Suit Sets',
+  description: 'Handcrafted Chikankari Unstitched Suit Sets with Pure Cotton Dupattas. Authentic ethnic fashion in soft pastel hues.',
+  keywords: ['Saga Fabrics', 'Chikankari Suit Set', 'Unstitched Suit Material', 'Lucknowi Chikankari', 'Cotton Dupatta Suit Set'],
 };
 
 export default function RootLayout({

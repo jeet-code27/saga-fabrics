@@ -9,11 +9,11 @@ export const CraftStory: React.FC = () => {
   const steps = [
     {
       num: '01',
-      title: 'Teak Block Carving',
-      subtitle: 'Precision Hand-Chiseling',
-      description: 'Master sculptors in Sanganer carve intricate paisley and floral motifs into seasoned Sheesham wood blocks with microscopic precision.',
+      title: 'Artisanal Motif Design',
+      subtitle: 'Precision Motif Sketching',
+      description: 'Master artisans outline delicate paisley and floral Chikankari motifs onto pure cotton fabric before hand embroidery begins.',
       icon: Scissors,
-      tag: '100% Hand Carved',
+      tag: '100% Hand Designed',
       image: '/images/craft/step-1-block-carving.png',
     },
     {
@@ -62,7 +62,7 @@ export const CraftStory: React.FC = () => {
             The Making of a Sage Fabrics Masterpiece
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
-            Take a glimpse into our Jaipur atelier, where traditional techniques meet contemporary elegance.
+            Take a glimpse into our artisan studio, where traditional techniques meet contemporary elegance.
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export const CraftStory: React.FC = () => {
               </div>
               <div>
                 <p className="text-xs text-[#8A8178] font-medium uppercase tracking-wider">Origin</p>
-                <p className="text-sm font-serif font-semibold text-[#2B2723] mt-0.5">Atelier Jaipur, Rajasthan</p>
+                <p className="text-sm font-serif font-semibold text-[#2B2723] mt-0.5">Handcrafted Artisan Workshop</p>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@ export const CraftStory: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <p className="text-xs uppercase tracking-widest text-[#E88DAE] font-bold">Jaipur Craft Studio</p>
+              <p className="text-xs uppercase tracking-widest text-[#E88DAE] font-bold">Chikankari Craft Studio</p>
               <p className="text-sm font-serif font-bold">Crafted with Love & Precision</p>
             </div>
           </div>

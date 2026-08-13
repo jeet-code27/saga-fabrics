@@ -14,8 +14,8 @@ export const BrandTrust: React.FC = () => {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Jaipur Artisanal</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Handcrafted by traditional master artisans in Jaipur, Rajasthan.</p>
+              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Chikankari Artisanal</h4>
+              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Handcrafted by traditional master Chikankari artisans in India.</p>
             </div>
           </div>
 

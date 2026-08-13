@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-xs sm:text-sm text-[#8A8178] max-w-xl mx-auto">
-            Last Updated: August 2026 • Your privacy is deeply important to us at Saga Fabrics, Jaipur.
+            Last Updated: August 2026 • Your privacy is deeply important to us at Saga Fabrics.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E4D9CC] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723]">5. Customer Support Contact</h2>
             <p>
-              If you have any questions regarding your order status or privacy policy, please contact our Jaipur studio:
+              If you have any questions regarding your order status or privacy policy, please contact our customer support atelier:
             </p>
             <div className="space-y-2 pt-2 text-xs text-[#2B2723]">
               <p className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export default function PrivacyPolicyPage() {
                 <Mail className="w-4 h-4 text-[#7A1B38]" /> Email Support: <strong>support@sagafabrics.com</strong>
               </p>
               <p className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#7A1B38] shrink-0 mt-0.5" /> Studio Address: <strong>Johari Bazar & C-Scheme, Jaipur, Rajasthan 302001</strong>
+                <MapPin className="w-4 h-4 text-[#7A1B38] shrink-0 mt-0.5" /> Studio: <strong>Customer Care & Dispatch Atelier</strong>
               </p>
             </div>
           </section>

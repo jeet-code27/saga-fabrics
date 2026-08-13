@@ -9,23 +9,23 @@ export const FaqSection: React.FC = () => {
   const faqs = [
     {
       question: 'Are your fabrics 100% pure cotton & breathable?',
-      answer: 'Yes, absolutely! Every Saga Fabrics Kurti is crafted from 100% pure organic cotton, Chanderi cotton, or soft Mulmul. We never use synthetic polyester blends, ensuring maximum breathability even in hot summers.',
+      answer: 'Yes, absolutely! Every Saga Fabrics suit set is crafted from 100% pure organic cotton, Chanderi cotton, or soft Mulmul, complete with a breathable pure cotton dupatta. We never use synthetic polyester blends.',
     },
     {
       question: 'Are these suit sets stitched or unstitched?',
-      answer: 'All our suit sets are 100% authentic Jaipur unstitched suit fabric sets (Top material: ~2.5m, Bottom material: ~2.5m, Dupatta: ~2.25m). They are designed for custom boutique stitching so you can get them tailored to your perfect fit and style.',
+      answer: 'All our suit sets are 100% authentic unstitched Chikankari suit fabric sets (Top material: ~2.5m, Bottom material: ~2.5m, Pure Cotton Dupatta: ~2.25m). They are designed for custom boutique stitching so you can get them tailored to your perfect fit and style.',
     },
     {
       question: 'How long does express shipping take across India?',
-      answer: 'All orders are packed with care and dispatched from our Jaipur studio within 24 hours. Express delivery arrives within 2 to 4 business days across all PIN codes in India, complete with live tracking.',
+      answer: 'All orders are packed with care and dispatched from our studio within 24 hours. Express delivery arrives within 2 to 4 business days across all PIN codes in India, complete with live tracking.',
     },
     {
       question: 'Is instant Razorpay checkout safe? Can I pay with UPI?',
       answer: 'Yes! We integrate with Razorpay using 256-bit bank-grade SSL encryption. You can complete payment instantly via Google Pay, PhonePe, Paytm, Credit/Debit cards, or NetBanking.',
     },
     {
-      question: 'How should I wash and care for handblock & Chikankari kurtis?',
-      answer: 'We recommend gentle hand washing in cold water with a mild detergent for the first few washes. Avoid harsh bleaching. Line dry in shade to preserve natural dyes and embroidery threads.',
+      question: 'How should I wash and care for Chikankari suit sets?',
+      answer: 'We recommend gentle hand washing in cold water with a mild detergent for the first few washes. Avoid harsh bleaching. Line dry in shade to preserve natural thread embroidery.',
     },
   ];
 
@@ -46,7 +46,7 @@ export const FaqSection: React.FC = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-sm text-[#8A8178]">
-            Everything you need to know about our handcrafted Jaipur fabrics, sizing, shipping & payments.
+            Everything you need to know about our handcrafted unstitched Chikankari fabrics, sizing, shipping & payments.
           </p>
         </div>
 

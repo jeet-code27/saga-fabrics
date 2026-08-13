@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Product, Size } from '@/types';
-import { Eye, ShoppingCart, Star, Scissors } from 'lucide-react';
+import { Eye, ShoppingCart, Star, Sparkles } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -19,7 +19,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       
       {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, 'Unstitched')}>
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, 'M')}>
         <img
           src={product.images[0]}
           alt={product.title}
@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white shadow-xs ${
                 tag === 'Bestseller'
                   ? 'bg-[#7A1B38]'
-                  : tag === 'Royal Edition'
+                  : tag === 'Royal Edition' || tag === 'Royal Edit'
                   ? 'bg-[#B59757]'
                   : 'bg-[#5C7056]'
               }`}
@@ -54,7 +54,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onSelectProduct(product, 'Unstitched');
+              onSelectProduct(product, 'M');
             }}
             className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5"
           >
@@ -73,12 +73,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="font-bold text-[#2B2723]">{product.rating}</span>
               <span className="text-[#8A8178]">({product.reviewsCount})</span>
             </div>
-            <span className="font-medium text-[#5C7056]">Pure Cotton</span>
+            <span className="font-medium text-[#5C7056]">Pure Cotton Tunic</span>
           </div>
 
           {/* Title */}
           <h3
-            onClick={() => onSelectProduct(product, 'Unstitched')}
+            onClick={() => onSelectProduct(product, 'M')}
             className="text-base font-serif font-semibold text-[#2B2723] group-hover:text-[#7A1B38] transition-colors cursor-pointer line-clamp-1"
           >
             {product.title}
@@ -93,17 +93,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Unstitched Specification Badge */}
+        {/* Short Kurti Specification Badge */}
         <div className="pt-2 border-t border-[#F3ECE2]">
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
-            <Scissors className="w-4 h-4 shrink-0 text-[#7A1B38]" />
-            <span>100% Unstitched Suit Fabric Set</span>
+            <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
+            <span>100% Pure Cotton Short Kurti</span>
           </div>
         </div>
 
         {/* Action Button */}
         <button
-          onClick={() => onDirectBuy(product, 'Unstitched')}
+          onClick={() => onDirectBuy(product, 'M')}
           className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
         >
           <ShoppingCart className="w-4 h-4 text-[#B59757]" />

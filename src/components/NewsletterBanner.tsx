@@ -26,7 +26,7 @@ export const NewsletterBanner: React.FC = () => {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider text-[#FEE8E4]">
           <Gift className="w-4 h-4 text-[#F7C687]" />
-          <span>Exclusive VIP Jaipur Edit Offer</span>
+          <span>Exclusive VIP Chikankari Edit Offer</span>
         </div>
 
         {/* Heading */}

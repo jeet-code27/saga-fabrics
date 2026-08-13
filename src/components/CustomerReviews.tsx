@@ -10,8 +10,8 @@ export const CustomerReviews: React.FC = () => {
       name: 'Ananya Sharma',
       location: 'New Delhi',
       rating: 5,
-      productName: 'Gulabi Baugh Chikankari Set',
-      comment: 'The Gulabi Baugh Chikankari set exceeded all my expectations! The pure cotton fabric is extraordinarily soft for Delhi heat, and the intricate needlework looks like it cost 3x more.',
+      productName: 'Royal Indigo White Short Kurti',
+      comment: 'The Royal Indigo short kurti exceeded all my expectations! The pure cotton fabric is extraordinarily soft for Delhi heat, and the intricate blue Chikankari needlework looks so premium.',
       date: 'Verified Buyer • 2 days ago',
       initials: 'AS',
       avatarBg: 'bg-[#7FA79A]/15 text-[#65897D]',
@@ -21,8 +21,8 @@ export const CustomerReviews: React.FC = () => {
       name: 'Priya Ramachandran',
       location: 'Bengaluru',
       rating: 5,
-      productName: 'Amer Turquoise Handblock Set',
-      comment: 'Ordered on Tuesday and received in Bangalore by Friday! The unstitched fabric quality is top-notch with generous length for tailor-stitching, and the block prints are gorgeous.',
+      productName: 'Ocean Teal Chikankari Short Kurti',
+      comment: 'Ordered on Tuesday and received in Bangalore by Friday! The short kurti fitting is perfect with jeans and trousers, and the Chikankari hand embroidery finish is top-notch.',
       date: 'Verified Buyer • 1 week ago',
       initials: 'PR',
       avatarBg: 'bg-[#E88DAE]/15 text-[#E88DAE]',
@@ -32,8 +32,8 @@ export const CustomerReviews: React.FC = () => {
       name: 'Meera Kulkarni',
       location: 'Mumbai',
       rating: 5,
-      productName: 'Rani Pink Royalty 3-Piece Suit',
-      comment: 'Saga Fabrics has become my absolute favorite for unstitched suit sets. The Rani Pink suit dupatta is so airy and elegant. Got it stitched at my boutique and got so many compliments!',
+      productName: 'Sunshine Yellow Chikankari Kurti',
+      comment: 'Saga Fabrics has become my absolute favorite for short kurtis. The yellow threadwork on white cotton is so cheerful and airy. Wore it to work and got so many compliments!',
       date: 'Verified Buyer • 2 weeks ago',
       initials: 'MK',
       avatarBg: 'bg-[#7FA79A]/15 text-[#65897D]',
@@ -41,10 +41,10 @@ export const CustomerReviews: React.FC = () => {
     {
       id: 4,
       name: 'Kavita Mathur',
-      location: 'Jaipur',
+      location: 'Lucknow',
       rating: 5,
-      productName: 'Jaipur Pearl White Tunic',
-      comment: 'Living in Jaipur, I know authentic handblock and Chikankari work. The fabric thread count and print finish are top-tier. Highly recommended for unstitched ethnic wear.',
+      productName: 'Slate Powder Blue Short Kurti',
+      comment: 'Living in Lucknow, I know authentic Chikankari work. The cotton thread count and embroidery finish on these short kurtis are top-tier. Highly recommended!',
       date: 'Verified Buyer • 3 weeks ago',
       initials: 'KM',
       avatarBg: 'bg-[#E88DAE]/15 text-[#E88DAE]',
@@ -136,7 +136,7 @@ export const CustomerReviews: React.FC = () => {
           </div>
           <div>
             <p className="text-xl sm:text-2xl font-serif font-bold text-[#7FA79A]">100%</p>
-            <p className="text-xs text-[#8A8178] font-medium mt-1">Authentic Jaipur Cotton</p>
+            <p className="text-xs text-[#8A8178] font-medium mt-1">Authentic Pure Cotton</p>
           </div>
           <div>
             <p className="text-xl sm:text-2xl font-serif font-bold text-[#2B2723]">7 Days</p>

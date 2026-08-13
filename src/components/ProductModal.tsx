@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Product, Size } from '@/types';
-import { X, Star, Shield, RefreshCw, Truck, Scissors } from 'lucide-react';
+import { X, Star, Shield, RefreshCw, Truck, Sparkles } from 'lucide-react';
 
 interface ProductModalProps {
   product: Product | null;
@@ -13,9 +13,12 @@ interface ProductModalProps {
 
 export const ProductModal: React.FC<ProductModalProps> = ({
   product,
+  initialSize = 'M',
   onClose,
   onProceedToBuy,
 }) => {
+  const [selectedSize, setSelectedSize] = React.useState<Size>(initialSize);
+
   if (!product) return null;
 
   return (
@@ -41,7 +44,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               className="w-full h-full object-cover object-top"
             />
             <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#65897D] text-xs font-bold px-3 py-1 rounded-full border border-[#DCD3C7]">
-              Jaipur Handmade
+              Handcrafted Chikankari
             </span>
           </div>
         </div>
@@ -79,6 +82,26 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </span>
             </div>
 
+            {/* Size Selector */}
+            <div className="space-y-1.5 pt-1">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">Select Kurti Size:</label>
+              <div className="flex items-center gap-2 flex-wrap">
+                {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((sz) => (
+                  <button
+                    key={sz}
+                    onClick={() => setSelectedSize(sz)}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                      selectedSize === sz
+                        ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-sm'
+                        : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
+                    }`}
+                  >
+                    Size {sz}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Description */}
             <p className="text-xs text-[#8A8178] leading-relaxed">
               {product.description}
@@ -96,13 +119,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
             </div>
 
-            {/* Unstitched Fabric Guarantee Box */}
+            {/* Short Kurti Guarantee Box */}
             <div className="p-3.5 bg-[#7A1B38]/5 rounded-2xl border border-[#7A1B38]/20 flex items-start gap-3">
-              <Scissors className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
+              <Sparkles className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
               <div className="text-xs space-y-0.5">
-                <span className="font-bold text-[#7A1B38] block">100% Unstitched Fabric Suit Set</span>
+                <span className="font-bold text-[#7A1B38] block">Handcrafted Chikankari Short Kurti</span>
                 <p className="text-[#8A8178] text-[11px] leading-relaxed">
-                  Contains full unstitched fabric material. Ready to be custom tailored into your preferred fitting (Kurtis, Salwar Suits, Shararas or Pants) by any tailor.
+                  Crafted in 100% breathable pure cotton with delicate Lucknowi thread embroidery. Perfect short tunic silhouette to pair with trousers or denim jeans.
                 </p>
               </div>
             </div>
@@ -125,10 +148,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           {/* Action Button */}
           <div className="pt-4 border-t border-[#DCD3C7]">
             <button
-              onClick={() => onProceedToBuy(product, 'Unstitched')}
+              onClick={() => onProceedToBuy(product, selectedSize)}
               className="w-full py-4 bg-[#2B2723] hover:bg-[#65897D] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer"
             >
-              Direct Buy with Razorpay
+              Direct Buy Size {selectedSize} with Razorpay
             </button>
           </div>
         </div>

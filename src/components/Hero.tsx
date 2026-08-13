@@ -14,10 +14,10 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-[92vh] flex items-end justify-between overflow-hidden border-b border-[#E4D9CC]">
       
-      {/* Amer Turquoise Kurti Background Image - Positioned to show Kurti clearly */}
+      {/* Short Kurti Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-bottom sm:bg-[center_top_25%] bg-no-repeat transition-transform duration-1000 scale-102"
-        style={{ backgroundImage: "url('/images/products/emerald-teal-kurti.jpg')" }}
+        className="absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-transform duration-1000 scale-102"
+        style={{ backgroundImage: "url('/images/products/8.png')" }}
       />
 
       {/* Dark Luxury Gradient Overlay */}
@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF6F1] text-xs font-semibold uppercase tracking-widest">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
-              <span>Jaipur Heritage Handblock 2026</span>
+              <span>Chikankari Short Kurti Collection 2026</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-white">
@@ -42,19 +42,19 @@ export const Hero: React.FC = () => {
                   <Star key={i} className="w-3 h-3 fill-current" />
                 ))}
               </div>
-              <span className="font-bold">4.8</span>
+              <span className="font-bold">4.9</span>
               <span className="text-white/70 text-[11px]">(Top Rated)</span>
             </div>
           </div>
 
-          {/* Shorter, Impactful Headline in Cormorant Garamond */}
+          {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight font-medium">
-            Handcrafted Jaipur Pastels
+            Handcrafted Chikankari Short Kurtis
           </h1>
 
           {/* Description */}
           <p className="text-sm sm:text-base text-[#FAF6F1]/90 max-w-xl leading-relaxed font-normal">
-            Discover <strong>Saga Fabrics’</strong> delicate palette of Chikankari & Jaipur Handblock print Kurtis. Tailored from 100% breathable pure cotton for effortless daily luxury.
+            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Short Kurtis. Tailored from 100% breathable pure cotton for effortless style with jeans or trousers.
           </p>
 
           {/* CTA Buttons */}
@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
                 href="#categories"
                 className="w-full sm:w-auto px-7 py-4 bg-white/15 hover:bg-white hover:text-[#2B2723] text-white border border-white/30 backdrop-blur-md font-medium rounded-full transition-all text-xs tracking-wider uppercase text-center"
               >
-                Explore Crafts
+                Explore Styles
               </a>
             </div>
 
@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
 
         </div>
 
-        {/* Right Column: Floating Product Preview Badge for Amer Turquoise Kurti */}
+        {/* Right Column: Floating Product Preview Badge for Royal Indigo Kurti */}
         <div className="lg:col-span-4 hidden lg:flex flex-col items-end">
           <div className="bg-white/95 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-2xl max-w-xs space-y-3 transform hover:-translate-y-1 transition-transform">
             <div className="flex items-center gap-3">
@@ -94,14 +94,14 @@ export const Hero: React.FC = () => {
                 className="w-12 h-12 object-contain rounded-xl bg-[#FAF6F1] p-1 border border-[#E4D9CC] shrink-0"
               />
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#5C7056]">New Handblock Edit</span>
-                <h4 className="text-sm font-serif font-bold text-[#2B2723]">Amer Turquoise Handblock Set</h4>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#5C7056]">New Chikankari Edit</span>
+                <h4 className="text-sm font-serif font-bold text-[#2B2723]">Royal Indigo Short Kurti</h4>
               </div>
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t border-[#EDE6DC]">
               <div>
-                <p className="text-xs text-[#7A1B38] font-bold text-base">₹1,899 <span className="text-xs text-[#8A8178] line-through font-normal">₹2,799</span></p>
+                <p className="text-xs text-[#7A1B38] font-bold text-base">₹1,399 <span className="text-xs text-[#8A8178] line-through font-normal">₹1,999</span></p>
               </div>
               <button
                 onClick={scrollToProducts}

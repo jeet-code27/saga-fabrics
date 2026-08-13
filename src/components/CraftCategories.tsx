@@ -10,39 +10,39 @@ interface CraftCategoriesProps {
 export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCategory }) => {
   const categories = [
     {
-      id: 'chikankari',
+      id: 'indigo-edits',
       filterKey: 'Chikankari' as const,
-      title: 'Royal Chikankari Edits',
-      subtitle: 'Intricate Lucknowi & Jaipuri hand thread embroidery on soft pastel cottons.',
-      tag: 'Bestselling Craft',
-      image: '/images/products/powder-blue-kurti.jpg',
+      title: 'Royal Indigo Short Kurtis',
+      subtitle: 'Crisp white cotton tunics with vibrant royal blue Chikankari embroidery.',
+      tag: 'Bestselling Style',
+      image: '/images/products/1.jpeg',
       badgeBg: 'bg-[#7A1B38] text-white',
     },
     {
-      id: 'handblock',
+      id: 'yellow-edits',
       filterKey: 'Handblock' as const,
-      title: 'Sanganeri Handblock Prints',
-      subtitle: 'Hand-carved wooden block prints dyed with natural eco-friendly pigments.',
-      tag: 'Artisanal Heritage',
-      image: '/images/products/emerald-teal-kurti.jpg',
+      title: 'Sunshine Yellow Edits',
+      subtitle: 'Joyful marigold yellow hand threadwork on breathable pure cotton tunics.',
+      tag: 'Artisanal Grace',
+      image: '/images/products/4.png',
       badgeBg: 'bg-[#5C7056] text-white',
     },
     {
-      id: '3piece',
+      id: 'pastel-edits',
       filterKey: '3-Piece Set' as const,
-      title: 'Regal 3-Piece Suit Sets',
-      subtitle: 'Complete ensemble featuring Kurti, tailored straight trousers & chiffon dupatta.',
-      tag: 'Festive Luxury',
-      image: '/images/products/rani-pink-kurti.jpg',
+      title: 'Powder Blue Pastels',
+      subtitle: 'Serene slate blue short kurti with delicate pure white Chikankari needlework.',
+      tag: 'Pastel Luxury',
+      image: '/images/products/7.png',
       badgeBg: 'bg-[#B59757] text-white',
     },
     {
-      id: 'everyday',
+      id: 'teal-edits',
       filterKey: 'All' as const,
-      title: 'Everyday Organic Luxe',
-      subtitle: 'Breathable, lightweight 100% pure Chanderi & Mulmul cotton for all-day comfort.',
-      tag: 'Daily Grace',
-      image: '/images/products/ivory-blue-kurti.jpg',
+      title: 'Ocean Teal Short Kurtis',
+      subtitle: 'Striking ocean teal cotton short kurti featuring ornate white threadwork.',
+      tag: 'Daily Luxe',
+      image: '/images/products/8.png',
       badgeBg: 'bg-[#2B2723] text-white',
     },
   ];
@@ -68,7 +68,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
             Explore By Craft & Signature Edits
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
-            Every garment carries the legacy of traditional Jaipur craftspeople. Choose your favorite silhouette or artisan technique below.
+            Every garment carries the legacy of master Chikankari artisans. Choose your favorite silhouette or embroidery style below.
           </p>
         </div>
 

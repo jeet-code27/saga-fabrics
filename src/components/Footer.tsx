@@ -18,10 +18,10 @@ export const Footer: React.FC = () => {
               className="h-16 sm:h-20 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
             />
             <p className="text-xs text-[#8A8178] leading-relaxed max-w-md">
-              Rooted in the royal heritage of Jaipur, <strong>Saga Fabrics</strong> curates handcrafted Chikankari & Handblock printed Kurtis in soft ethnic pastel hues. Every garment represents centuries of Indian textile artistry.
+              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari unstitched suit sets with pure cotton dupattas in soft ethnic pastel hues. Every garment represents centuries of Indian thread embroidery craftsmanship.
             </p>
             <div className="flex items-center gap-3 pt-2">
-              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FAF6F1] hover:bg-[#7FA79A] transition-colors cursor-pointer" title="Jaipur Studio Web">
+              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FAF6F1] hover:bg-[#7FA79A] transition-colors cursor-pointer" title="Saga Fabrics Web">
                 <Globe className="w-4 h-4" />
               </span>
               <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FAF6F1] hover:bg-[#7FA79A] transition-colors cursor-pointer" title="Share Collection">
@@ -35,19 +35,19 @@ export const Footer: React.FC = () => {
             <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Quick Navigation</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Unstitched Suit Fabrics</a></li>
-              <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari & Handblock</a></li>
-              <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Jaipur Craft Process</a></li>
+              <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari Collections</a></li>
+              <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Chikankari Process</a></li>
               <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>
             </ul>
           </div>
 
-          {/* Contact Jaipur Workshop */}
+          {/* Contact Workshop */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#E88DAE] uppercase tracking-wider">Jaipur Studio</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#E88DAE] uppercase tracking-wider">Artisan Studio</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
-                <span>Johari Bazar & C-Scheme, Jaipur, Rajasthan 302001</span>
+                <span>Customer Care & Dispatch Atelier</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8178] gap-4">
-          <p>© {new Date().getFullYear()} Saga Fabrics, Jaipur. All Rights Reserved. (No Returns Policy)</p>
+          <p>© {new Date().getFullYear()} Saga Fabrics. All Rights Reserved. (No Returns Policy)</p>
           <div className="flex items-center gap-4 text-[11px]">
             <a href="/terms-and-conditions" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Terms & Conditions</a>
             <span>•</span>

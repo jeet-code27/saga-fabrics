@@ -59,7 +59,7 @@ export default function TermsAndConditionsPage() {
               Product Description & Fabric Specifications
             </h2>
             <p>
-              Saga Fabrics specializes in handcrafted Jaipuri Chikankari, Handblock printed, Chanderi, and Mulmul unstitched suit fabric sets.
+              Saga Fabrics specializes in handcrafted Lucknowi Chikankari, Chanderi, and Mulmul unstitched suit fabric sets.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
               <li>Each product listing specifies unstitched fabric dimensions (Top: ~2.5m, Bottom: ~2.5m, Dupatta: ~2.25m unless stated otherwise).</li>
@@ -113,7 +113,7 @@ export default function TermsAndConditionsPage() {
               Shipping & Delivery
             </h2>
             <p>
-              Orders are dispatched from our Jaipur studio within 24 to 48 business hours. Delivery timelines range between 2 to 5 business days depending on delivery location in India.
+              Orders are dispatched from our studio within 24 to 48 business hours. Delivery timelines range between 2 to 5 business days depending on delivery location in India.
             </p>
           </section>
 
@@ -124,7 +124,7 @@ export default function TermsAndConditionsPage() {
               Governing Law & Jurisdiction
             </h2>
             <p>
-              These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising in connection with orders shall be subject to the exclusive jurisdiction of the courts in <strong>Jaipur, Rajasthan</strong>.
+              These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising in connection with orders shall be subject to the exclusive jurisdiction of the competent courts in India.
             </p>
           </section>
         </div>

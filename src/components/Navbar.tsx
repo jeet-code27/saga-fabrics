@@ -21,11 +21,11 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
           
           <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Authentic Jaipur Handblock & Chikankari Collection
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Authentic Lucknowi Chikankari Collection
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="inline-flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted in Jaipur, Rajasthan
+              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> 100% Pure Unstitched Cotton Fabrics
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="font-bold text-white tracking-wider">FREE EXPRESS SHIPPING ACROSS INDIA</span>
@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
           <div className="flex sm:hidden items-center justify-center w-full text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Jaipur Handblock & Chikankari • Free Express Delivery</span>
+              <span>Lucknowi Chikankari • Free Express Delivery</span>
             </span>
           </div>
 
@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
             >
-              🌿 The Jaipur Story
+              🌿 Our Craft Story
             </a>
             <a
               href="#faq"

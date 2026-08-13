@@ -31,19 +31,19 @@ export default function HomePage() {
   }>({
     isOpen: false,
     product: null,
-    size: 'Unstitched',
+    size: 'M',
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [activeFilter, setActiveFilter] = useState<'All' | 'Chikankari' | 'Handblock' | '3-Piece Set'>('All');
 
   // Handle Quick View modal trigger
-  const handleOpenProductModal = (product: Product, initialSize: Size = 'Unstitched') => {
+  const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
     setSelectedProductModal({ product, size: initialSize });
   };
 
   // Handle Direct Buy trigger
-  const handleDirectBuy = (product: Product, size: Size = 'Unstitched') => {
+  const handleDirectBuy = (product: Product, size: Size = 'M') => {
     setSelectedProductModal(null);
     setCheckoutState({
       isOpen: true,
@@ -56,8 +56,8 @@ export default function HomePage() {
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
-    if (activeFilter === 'Handblock') return p.craft.includes('Handblock');
-    if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
+    if (activeFilter === 'Handblock') return p.tags.includes('Short Kurti');
+    if (activeFilter === '3-Piece Set') return p.tags.includes('Bestseller') || p.tags.includes('Royal Edit');
     return true;
   });
 
@@ -68,7 +68,7 @@ export default function HomePage() {
         cartCount={checkoutState.isOpen ? 1 : 0}
         onOpenCart={() => {
           if (PRODUCTS.length > 0) {
-            handleDirectBuy(PRODUCTS[0], 'Unstitched');
+            handleDirectBuy(PRODUCTS[0], 'M');
           }
         }}
       />
@@ -92,13 +92,13 @@ export default function HomePage() {
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-[#7A1B38] bg-[#7A1B38]/10 px-4 py-1.5 rounded-full border border-[#7A1B38]/20">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Jaipur Edit
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Chikankari Edit
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Unstitched Ethnic Suit Collection
+              Curated Chikankari Short Kurti Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              100% Premium Unstitched Jaipur Fabrics & Material • Order directly with instant Razorpay checkout.
+              Handcrafted 100% Breathable Pure Cotton Short Kurtis • Order directly with instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}
@@ -152,7 +152,7 @@ export default function HomePage() {
         <CraftStory />
 
         {/* 6. Interactive Style & Occasion Guide */}
-        <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'Unstitched')} />
+        <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'M')} />
 
         {/* 7. Verified Customer Reviews */}
         <CustomerReviews />
@@ -164,10 +164,10 @@ export default function HomePage() {
         <section className="bg-[#7A1B38] text-[#FAF6F1] py-16 px-6">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <h3 className="text-2xl sm:text-4xl font-serif italic leading-relaxed">
-              "Every thread tells a story of Jaipur's rich royal heritage and timeless artisanal craftsmanship."
+              "Every thread tells a story of rich artisanal heritage and timeless Chikankari craftsmanship."
             </h3>
             <p className="text-xs uppercase tracking-widest text-[#B59757] font-bold">
-              Saga Fabrics • Jaipur, Rajasthan
+              Saga Fabrics • Handcrafted Chikankari
             </p>
           </div>
         </section>
@@ -191,7 +191,7 @@ export default function HomePage() {
         isOpen={checkoutState.isOpen}
         product={checkoutState.product}
         size={checkoutState.size}
-        onClose={() => setCheckoutState({ isOpen: false, product: null, size: 'Unstitched' })}
+        onClose={() => setCheckoutState({ isOpen: false, product: null, size: 'M' })}
         onRemoveProduct={() => setCheckoutState((prev) => ({ ...prev, product: null }))}
         onSuccess={(order) => {
           setCompletedOrder(order);
