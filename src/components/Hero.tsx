@@ -17,7 +17,7 @@ export const Hero: React.FC = () => {
       {/* Short Kurti Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-transform duration-1000 scale-102"
-        style={{ backgroundImage: "url('/images/products/8.png')" }}
+        style={{ backgroundImage: "url('/images/products/short-kurti-1.jpg')" }}
       />
 
       {/* Dark Luxury Gradient Overlay */}

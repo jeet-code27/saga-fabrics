@@ -18,8 +18,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   onProceedToBuy,
 }) => {
   const [selectedSize, setSelectedSize] = React.useState<Size>(initialSize);
+  const [selectedImageIndex, setSelectedImageIndex] = React.useState<number>(0);
 
   if (!product) return null;
+
+  const currentImage = product.images[selectedImageIndex] || product.images[0];
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
@@ -36,17 +39,36 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         </button>
 
         {/* Left Image Section */}
-        <div className="md:w-1/2 bg-[#EDE6DC] relative p-4 flex items-center justify-center">
+        <div className="md:w-1/2 bg-[#EDE6DC] relative p-4 flex flex-col items-center justify-center gap-3">
           <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-xs border border-[#DCD3C7]">
             <img
-              src={product.images[0]}
+              src={currentImage}
               alt={product.title}
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover object-top transition-all duration-300"
             />
             <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#65897D] text-xs font-bold px-3 py-1 rounded-full border border-[#DCD3C7]">
               Handcrafted Chikankari
             </span>
           </div>
+
+          {/* Image Thumbnails (if product has multiple images) */}
+          {product.images.length > 1 && (
+            <div className="flex items-center gap-2">
+              {product.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImageIndex(idx)}
+                  className={`w-12 h-14 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                    selectedImageIndex === idx
+                      ? 'border-[#7A1B38] scale-105 shadow-sm'
+                      : 'border-transparent opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover object-top" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Right Details Section */}
