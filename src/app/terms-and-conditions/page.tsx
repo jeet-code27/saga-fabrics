@@ -46,7 +46,7 @@ export default function TermsAndConditionsPage() {
             <h3 className="text-base font-serif font-bold">Store & Service Overview</h3>
           </div>
           <p className="text-xs sm:text-sm text-[#5C554E] leading-relaxed">
-            Welcome to <strong>Saga Fabrics</strong> (sagafabrics.com). By browsing or placing an order on our website, you agree to be bound by the following terms, conditions, and payment guidelines. All transactions are securely processed in Indian Rupees (INR) via PCI-DSS compliant payment gateway <strong>Razorpay</strong>.
+            Welcome to <strong>Saga Fabrics</strong> (sagafabrics.in). By browsing or placing an order on our website, you agree to be bound by the following terms, conditions, and payment guidelines. All transactions are securely processed in Indian Rupees (INR) via PCI-DSS compliant payment gateway <strong>Razorpay</strong>.
           </p>
         </div>
 
