@@ -23,6 +23,9 @@ export const NewsletterBanner: React.FC = () => {
         const data = await res.json();
         if (res.ok && data.success) {
           setSubscribed(true);
+          if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'Lead', { content_name: 'VIP Newsletter Signup' });
+          }
         } else {
           setErrorMsg(data.error || 'Failed to subscribe');
         }

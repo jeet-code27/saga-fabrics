@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, Size, CustomerInfo, Order } from '@/types';
 import { X, Lock, ShieldCheck, CreditCard, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
+import { trackEvent } from '@/lib/metaPixel';
 
 declare global {
   interface Window {
@@ -27,6 +28,17 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   onRemoveProduct,
   onSuccess,
 }) => {
+  useEffect(() => {
+    if (isOpen && product) {
+      trackEvent('AddToCart', {
+        content_name: product.title,
+        content_ids: [product.id],
+        value: product.price,
+        currency: 'INR',
+      });
+    }
+  }, [isOpen, product]);
+
   if (!isOpen) return null;
 
   // Empty Cart View when product is removed
@@ -98,6 +110,15 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     }
 
     setLoading(true);
+
+    // Meta Pixel: Track InitiateCheckout Event
+    trackEvent('InitiateCheckout', {
+      content_name: product.title,
+      content_ids: [product.id],
+      value: totalAmount,
+      currency: 'INR',
+      num_items: quantity,
+    });
 
     try {
       // 1. Create Razorpay order on backend
@@ -173,6 +194,16 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
             setLoading(false);
 
             if (verifyRes.ok && verifyData.success) {
+              // Meta Pixel: Track Purchase Event
+              trackEvent('Purchase', {
+                content_name: product.title,
+                content_ids: [product.id],
+                value: totalAmount,
+                currency: 'INR',
+                num_items: quantity,
+                order_id: verifyData.order?.id || orderData.id,
+              });
+
               onClose();
               onSuccess(verifyData.order);
             } else {

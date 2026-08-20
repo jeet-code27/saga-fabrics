@@ -20,6 +20,18 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const [selectedSize, setSelectedSize] = React.useState<Size>(initialSize);
   const [selectedImageIndex, setSelectedImageIndex] = React.useState<number>(0);
 
+  React.useEffect(() => {
+    if (product && typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'ViewContent', {
+        content_name: product.title,
+        content_category: 'Unstitched Suit Sets',
+        content_ids: [product.id],
+        value: product.price,
+        currency: 'INR',
+      });
+    }
+  }, [product]);
+
   if (!product) return null;
 
   const currentImage = product.images[selectedImageIndex] || product.images[0];
