@@ -87,8 +87,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     setError(null);
 
     // Validation
-    if (!form.name || !form.phone || !form.address || !form.pincode) {
-      setError('Please fill in your Name, Phone Number, Shipping Address, and Pincode.');
+    if (!form.name || !form.phone || !form.email || !form.address || !form.pincode) {
+      setError('Please fill in your Name, Phone Number, Email Address, Shipping Address, and Pincode.');
       return;
     }
 
@@ -120,7 +120,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         productId: product.id,
         productTitle: product.title,
         image: product.images[0],
-        size: size || 'Unstitched',
+        size: 'Free Size (Unstitched)',
         price: product.price,
         quantity: quantity,
       };
@@ -241,7 +241,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
                 <span className="text-[10px] font-bold uppercase text-[#65897D] tracking-wider">Order Item</span>
                 <h4 className="text-sm font-serif font-bold text-[#2B2723] truncate">{product.title}</h4>
                 <div className="flex items-center gap-2 text-xs text-[#8A8178] mt-0.5">
-                  <span>Size: <strong className="text-[#7A1B38] font-bold">Size {size || 'M'}</strong> • <span className="text-[#65897D]">Pure Cotton Short Kurti</span></span>
+                  <span>Spec: <strong className="text-[#9E6962] font-bold">Free Size (100% Unstitched Fabric Set)</strong></span>
                 </div>
                 <div className="text-xs text-[#8A8178] mt-0.5">
                   Unit Price: <strong className="text-[#2B2723]">₹{product.price.toLocaleString('en-IN')}</strong>
@@ -309,6 +309,15 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               Shipping & Delivery Details
             </h4>
 
+            {/* Verification Note Box */}
+            <div className="p-3 bg-[#FAF6F1] border border-[#EDE7E1] rounded-xl flex items-start gap-2.5 text-xs text-[#5C554E]">
+              <ShieldCheck className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" />
+              <div className="leading-relaxed">
+                <strong className="text-[#2D2A26] font-bold block mb-0.5">📌 Important Note for Order Tracking:</strong>
+                Please enter your <strong className="text-[#9E6962]">Correct Mobile Number (WhatsApp) & Email Address</strong> to ensure instant delivery of your order confirmation, digital invoice, and live courier tracking updates.
+              </div>
+            </div>
+
             {error && (
               <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800">
                 {error}
@@ -347,16 +356,18 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               </div>
               <div>
                 <label className="block text-xs font-medium text-[#5C554E] mb-1">
-                  Email Address
+                  Email Address <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="email"
                   name="email"
+                  required
                   value={form.email}
                   onChange={handleChange}
                   placeholder="ananya@example.com"
                   className="w-full px-3.5 py-2.5 bg-[#FDFBF7] border border-[#EDE7E1] rounded-xl text-sm focus:outline-none focus:border-[#9E6962]"
                 />
+                <span className="text-[10px] text-[#9E6962] font-semibold mt-0.5 block">For instant order receipt & tracking updates</span>
               </div>
             </div>
 

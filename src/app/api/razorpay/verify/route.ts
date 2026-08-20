@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { getRazorpayKeySecret } from '@/lib/razorpay';
 import { saveOrder } from '@/lib/db';
 import { OrderItem, CustomerInfo } from '@/types';
+import { sendCustomerOrderConfirmationEmail, sendAdminOrderNotificationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -47,6 +48,14 @@ export async function POST(request: Request) {
       items: items as OrderItem[],
       totalAmount: Number(totalAmount),
       status: 'Processing',
+    });
+
+    // Trigger automated emails asynchronously
+    Promise.allSettled([
+      sendCustomerOrderConfirmationEmail(newOrder),
+      sendAdminOrderNotificationEmail(newOrder),
+    ]).then((results) => {
+      console.log(`[Order Verification] Email dispatch status for ${newOrder.id}:`, results.map(r => r.status));
     });
 
     return NextResponse.json({

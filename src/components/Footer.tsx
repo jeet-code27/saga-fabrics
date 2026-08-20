@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Phone, Mail, Globe, Share2 } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,33 +12,36 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           
           {/* Brand Intro Column */}
-          <div className="space-y-4 md:col-span-2">
+          <div className="space-y-4 md:col-span-1">
             <img
               src="/images/saga-fabrics-logo-new.png"
               alt="Saga Fabrics"
-              className="h-16 sm:h-20 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
+              className="h-14 sm:h-16 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
             />
-            <p className="text-xs text-[#8A8178] leading-relaxed max-w-md">
-              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari unstitched suit sets with pure cotton dupattas in soft ethnic pastel hues. Every garment represents centuries of Indian thread embroidery craftsmanship.
+            <p className="text-xs text-[#8A8178] leading-relaxed">
+              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari unstitched suit sets with pure cotton dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
             </p>
-            <div className="flex items-center gap-3 pt-2">
-              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FAF6F1] hover:bg-[#7FA79A] transition-colors cursor-pointer" title="Saga Fabrics Web">
-                <Globe className="w-4 h-4" />
-              </span>
-              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FAF6F1] hover:bg-[#7FA79A] transition-colors cursor-pointer" title="Share Collection">
-                <Share2 className="w-4 h-4" />
-              </span>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Quick Navigation</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Store Navigation</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Unstitched Suit Fabrics</a></li>
               <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari Collections</a></li>
               <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Chikankari Process</a></li>
               <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>
+            </ul>
+          </div>
+
+          {/* Merchant Policies (Razorpay Mandatory) */}
+          <div className="space-y-3 text-xs">
+            <h4 className="text-sm font-serif font-semibold text-[#F7C687] uppercase tracking-wider">Merchant Policies</h4>
+            <ul className="space-y-2 text-[#8A8178]">
+              <li><Link href="/terms-and-conditions" className="hover:text-[#FAF6F1] transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-[#FAF6F1] transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/refund-policy" className="hover:text-[#FAF6F1] transition-colors">Cancellation & Refund Policy</Link></li>
+              <li><Link href="/shipping-policy" className="hover:text-[#FAF6F1] transition-colors">Shipping & Delivery Policy</Link></li>
             </ul>
           </div>
 
@@ -47,7 +51,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-[#8A8178]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
-                <span>Customer Care & Dispatch Atelier</span>
+                <span>Hazratganj, Lucknow, UP - 226001, India</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />
@@ -57,7 +61,9 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7FA79A] shrink-0" />
-                <span>care@sagafabrics.com</span>
+                <a href="mailto:saga.fabricss@gmail.com" className="hover:text-[#FAF6F1] transition-colors">
+                  saga.fabricss@gmail.com
+                </a>
               </li>
             </ul>
           </div>
@@ -66,13 +72,17 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8178] gap-4">
-          <p>© {new Date().getFullYear()} Saga Fabrics. All Rights Reserved. (No Returns Policy)</p>
-          <div className="flex items-center gap-4 text-[11px]">
-            <a href="/terms-and-conditions" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Terms & Conditions</a>
+          <p>© {new Date().getFullYear()} Saga Fabrics. All Rights Reserved.</p>
+          <div className="flex items-center gap-4 text-[11px] flex-wrap justify-center">
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Terms & Conditions</Link>
             <span>•</span>
-            <a href="/privacy-policy" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Privacy Policy</a>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Privacy Policy</Link>
             <span>•</span>
-            <span>Razorpay Safe</span>
+            <Link href="/refund-policy" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Refund Policy</Link>
+            <span>•</span>
+            <Link href="/shipping-policy" className="hover:text-white transition-colors underline decoration-[#E88DAE]">Shipping Policy</Link>
+            <span>•</span>
+            <span className="inline-flex items-center gap-1 text-[#7FA79A] font-semibold"><Lock className="w-3 h-3" /> Razorpay Secured</span>
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { updateOrderStatus, deleteOrder, getOrderById } from '@/lib/db';
+import { sendOrderStatusUpdateEmail } from '@/lib/email';
 
 export async function GET(
   request: Request,
@@ -33,6 +34,11 @@ export async function PATCH(
     if (!updatedOrder) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
+
+    // Trigger status update email to customer asynchronously
+    sendOrderStatusUpdateEmail(updatedOrder).catch((err) => {
+      console.error(`[Order Status Update] Email failed for ${updatedOrder.id}:`, err);
+    });
 
     return NextResponse.json({ success: true, order: updatedOrder });
   } catch (error: any) {

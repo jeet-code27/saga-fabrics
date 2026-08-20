@@ -104,24 +104,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </span>
             </div>
 
-            {/* Size Selector */}
-            <div className="space-y-1.5 pt-1">
-              <label className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">Select Kurti Size:</label>
-              <div className="flex items-center gap-2 flex-wrap">
-                {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((sz) => (
-                  <button
-                    key={sz}
-                    onClick={() => setSelectedSize(sz)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                      selectedSize === sz
-                        ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-sm'
-                        : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
-                    }`}
-                  >
-                    Size {sz}
-                  </button>
-                ))}
+            {/* Free Size Specification Box */}
+            <div className="p-3 bg-[#FAF6F1] border border-[#EDE7E1] rounded-2xl flex items-center justify-between">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-[#7D8F85] tracking-wider block">Size & Fitting Specification</span>
+                <span className="text-xs font-serif font-bold text-[#9E6962] block mt-0.5">Free Size • 100% Unstitched Fabric Set</span>
               </div>
+              <span className="px-2.5 py-1 bg-[#9E6962] text-white text-[10px] font-bold rounded-lg shrink-0">
+                Customizable to All Sizes
+              </span>
             </div>
 
             {/* Description */}

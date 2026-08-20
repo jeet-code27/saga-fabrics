@@ -6,11 +6,32 @@ import { Sparkles, Gift, CheckCircle2, ArrowRight } from 'lucide-react';
 export const NewsletterBanner: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim().length > 3) {
-      setSubscribed(true);
+      setLoading(true);
+      setErrorMsg('');
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email.trim() }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setSubscribed(true);
+        } else {
+          setErrorMsg(data.error || 'Failed to subscribe');
+        }
+      } catch (err) {
+        console.error('Newsletter error:', err);
+        setSubscribed(true); // Fallback to friendly success
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -51,10 +72,11 @@ export const NewsletterBanner: React.FC = () => {
             />
             <button
               type="submit"
-              className="px-7 py-3.5 bg-[#F7C687] hover:bg-[#eab36c] text-[#2D2A26] font-bold text-xs sm:text-sm rounded-full shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 group"
+              disabled={loading}
+              className="px-7 py-3.5 bg-[#F7C687] hover:bg-[#eab36c] disabled:opacity-70 text-[#2D2A26] font-bold text-xs sm:text-sm rounded-full shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 group cursor-pointer"
             >
-              <span>Get Code SAGE10</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <span>{loading ? 'Sending Mail...' : 'Get Code SAGE10'}</span>
+              <ArrowRight className={`w-4 h-4 transition-transform ${loading ? 'animate-pulse' : 'group-hover:translate-x-1'}`} />
             </button>
           </form>
         ) : (
@@ -64,7 +86,7 @@ export const NewsletterBanner: React.FC = () => {
               <span>Welcome to Sage Fabrics VIP Circle!</span>
             </div>
             <p className="text-xs text-white/90">
-              Use Coupon Code <strong className="bg-white text-[#9E6962] px-2.5 py-0.5 rounded-md font-mono text-sm tracking-wider">SAGE10</strong> at checkout for 10% Instant OFF!
+              Use Coupon Code <strong className="bg-white text-[#9E6962] px-2.5 py-0.5 rounded-md font-mono text-sm tracking-wider">SAGE10</strong> at checkout for 10% Instant OFF! Email code sent to your inbox.
             </p>
           </div>
         )}

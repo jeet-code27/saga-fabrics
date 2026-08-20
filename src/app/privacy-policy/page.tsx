@@ -110,10 +110,10 @@ export default function PrivacyPolicyPage() {
                 <Phone className="w-4 h-4 text-[#7A1B38]" /> WhatsApp Support: <strong>+91 70233 52132</strong>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#7A1B38]" /> Email Support: <strong>support@sagafabrics.com</strong>
+                <Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong>
               </p>
               <p className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#7A1B38] shrink-0 mt-0.5" /> Studio: <strong>Customer Care & Dispatch Atelier</strong>
+                <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Studio: <strong>Saga Fabrics Atelier, Hazratganj, Lucknow, UP - 226001, India</strong>
               </p>
             </div>
           </section>

@@ -20,6 +20,7 @@ import {
   Mail,
   X,
   Printer,
+  Send,
 } from 'lucide-react';
 
 export default function AdminPage() {
@@ -32,6 +33,32 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  
+  const [sendingEmailId, setSendingEmailId] = useState<string | null>(null);
+  const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+  const handleResendEmail = async (orderId: string, type: 'confirmation' | 'status_update' | 'admin_alert' = 'confirmation') => {
+    setSendingEmailId(orderId);
+    setToastMsg(null);
+    try {
+      const res = await fetch('/api/orders/resend-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, type }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setToastMsg({ text: `✉️ Email sent successfully to customer for order ${orderId}!`, type: 'success' });
+      } else {
+        setToastMsg({ text: data.error || 'Failed to send email', type: 'error' });
+      }
+    } catch (err) {
+      setToastMsg({ text: 'Network error resending email', type: 'error' });
+    } finally {
+      setSendingEmailId(null);
+      setTimeout(() => setToastMsg(null), 5000);
+    }
+  };
 
   const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'admin123';
 
@@ -197,6 +224,18 @@ export default function AdminPage() {
       {/* Main Admin Body */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
         
+        {/* Toast Alert Banner */}
+        {toastMsg && (
+          <div className={`p-4 rounded-2xl border text-sm font-semibold flex items-center justify-between shadow-md transition-all ${
+            toastMsg.type === 'success' ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-rose-50 border-rose-300 text-rose-800'
+          }`}>
+            <span>{toastMsg.text}</span>
+            <button onClick={() => setToastMsg(null)} className="p-1 hover:opacity-75">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         {/* KPI Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="bg-white p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-4">
@@ -336,7 +375,7 @@ export default function AdminPage() {
                                   {item.productTitle}
                                 </p>
                                 <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
-                                  {item.size === 'Unstitched' ? 'Unstitched' : `Size: ${item.size}`}
+                                  Free Size (Unstitched)
                                 </span>
                               </div>
                             </div>
@@ -377,15 +416,23 @@ export default function AdminPage() {
 
                         <td className="py-4 px-4 text-right space-x-2">
                           <button
+                            onClick={() => handleResendEmail(order.id, 'confirmation')}
+                            disabled={sendingEmailId === order.id}
+                            className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200 transition-colors disabled:opacity-50 inline-flex items-center"
+                            title="Resend Order Confirmation Mail to Customer"
+                          >
+                            <Send className={`w-4 h-4 ${sendingEmailId === order.id ? 'animate-spin' : ''}`} />
+                          </button>
+                          <button
                             onClick={() => setSelectedOrder(order)}
-                            className="p-1.5 rounded-lg bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] transition-colors"
+                            className="p-1.5 rounded-lg bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] transition-colors inline-flex items-center"
                             title="View Order Details"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteOrder(order.id)}
-                            className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white transition-colors"
+                            className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white transition-colors inline-flex items-center"
                             title="Delete Order"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -448,7 +495,7 @@ export default function AdminPage() {
                 <div className="flex-1">
                   <h4 className="font-serif font-bold text-sm text-[#2D2A26]">{selectedOrder.items[0].productTitle}</h4>
                   <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1">
-                    <span>Item Spec: <strong className="text-[#9E6962]">{selectedOrder.items[0].size === 'Unstitched' ? '100% Unstitched Fabric Set' : selectedOrder.items[0].size || 'Unstitched'}</strong></span>
+                    <span>Item Spec: <strong className="text-[#9E6962]">Free Size (100% Unstitched Fabric Set)</strong></span>
                     <span>•</span>
                     <span>Price: <strong>₹{selectedOrder.items[0].price}</strong></span>
                   </div>
@@ -457,16 +504,24 @@ export default function AdminPage() {
               </div>
             )}
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+              <button
+                onClick={() => handleResendEmail(selectedOrder.id, 'confirmation')}
+                disabled={sendingEmailId === selectedOrder.id}
+                className="w-full sm:w-auto px-4 py-3 bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-800 font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+              >
+                <Send className={`w-4 h-4 text-blue-600 ${sendingEmailId === selectedOrder.id ? 'animate-spin' : ''}`} />
+                {sendingEmailId === selectedOrder.id ? 'Sending...' : 'Resend Order Email'}
+              </button>
               <button
                 onClick={() => window.print()}
-                className="flex-1 py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-4 py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2"
               >
-                <Printer className="w-4 h-4 text-[#9E6962]" /> Print Packing Slip
+                <Printer className="w-4 h-4 text-[#9E6962]" /> Print Slip
               </button>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="flex-1 py-3 bg-[#9E6962] hover:bg-[#885650] text-white font-semibold text-xs rounded-xl"
+                className="w-full sm:flex-1 py-3 bg-[#9E6962] hover:bg-[#885650] text-white font-semibold text-xs rounded-xl"
               >
                 Close View
               </button>
