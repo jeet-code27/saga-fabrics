@@ -1,11 +1,11 @@
 import Razorpay from 'razorpay';
 
 export const getRazorpayKeyId = () => {
-  return process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID || 'rzp_test_TONWjBcoyCwxN0';
+  return process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID || 'rzp_test_TRwu4q6Zyvp0f6';
 };
 
 export const getRazorpayKeySecret = () => {
-  return process.env.RAZORPAY_KEY_SECRET || 'bYAI5kfCX1p8DSZ4Dt7cQHD2';
+  return process.env.RAZORPAY_KEY_SECRET || 'AoCurFJwio1kHOthfaIoMtia';
 };
 
 export function getRazorpayInstance() {
