@@ -2,6 +2,25 @@ import { Product } from '@/types';
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'saga-test-₹1',
+    title: '₹1 Live Payment Test Fabric Sample',
+    subtitle: 'Official ₹1 Razorpay Live Payment Gateway Test Product',
+    price: 1,
+    originalPrice: 99,
+    description: 'Use this ₹1 live testing product to verify real payment processing on https://sagafabrics.in via UPI, GPay, PhonePe, Cards, or NetBanking.',
+    fabric: '100% Breathable Pure Cotton (Test Swatch)',
+    craft: 'Razorpay Live Payment Test',
+    care: 'Testing Item',
+    color: 'Live Gateway Test',
+    colorHex: '#10B981',
+    images: ['/images/products/short-kurti-1.jpg'],
+    sizes: ['Free Size (Unstitched)'],
+    tags: ['Bestseller', 'Live Test', 'Free Size', 'Chikankari'],
+    inStock: true,
+    rating: 5.0,
+    reviewsCount: 99,
+  },
+  {
     id: 'saga-001',
     title: 'Royal Indigo White Chikankari Short Fabric Set',
     subtitle: '100% Pure Cotton Fabric Set with Intricate Royal Blue Neck & Sleeve Threadwork',
