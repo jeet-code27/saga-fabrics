@@ -127,7 +127,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
 
       // 2. Setup Razorpay Modal options
       const options = {
-        key: orderData.key || 'rzp_test_TONWjBcoyCwxN0',
+        key: orderData.key || 'rzp_live_TRxGmPWR0N7rQk',
         amount: orderData.amount,
         currency: 'INR',
         name: 'SAGA FABRICS',
@@ -144,6 +144,12 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         },
         retry: {
           enabled: true,
+        },
+        modal: {
+          confirm_close: false,
+          ondismiss: function () {
+            setLoading(false);
+          },
         },
         handler: async function (response: any) {
           try {
@@ -177,16 +183,18 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
             setError(err.message || 'Payment verification error');
           }
         },
-        modal: {
-          ondismiss: function () {
-            setLoading(false);
-          },
-        },
       };
 
-      // 3. Check if Razorpay script is present
+      // 3. Open Razorpay Modal & reset background loading state
       if (typeof window !== 'undefined' && window.Razorpay) {
         const rzp = new window.Razorpay(options);
+        
+        rzp.on('payment.failed', function (response: any) {
+          setLoading(false);
+          setError(response.error?.description || 'Payment failed or cancelled. Please try another method.');
+        });
+
+        setLoading(false); // Reset background drawer loading state so modal overlay is clean
         rzp.open();
       } else {
         console.warn('Razorpay SDK not loaded, using sandbox simulation handler.');
