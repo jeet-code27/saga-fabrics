@@ -132,7 +132,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         currency: 'INR',
         name: 'SAGA FABRICS',
         description: `${product.title} (${quantity} Set${quantity > 1 ? 's' : ''})`,
-        image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=120&auto=format&fit=crop&q=80',
+        image: 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/saga-fabrics-logo-new_skmnli.png',
         order_id: orderData.id,
         prefill: {
           name: form.name,
@@ -141,6 +141,9 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         },
         theme: {
           color: '#9E6962',
+        },
+        retry: {
+          enabled: true,
         },
         handler: async function (response: any) {
           try {
