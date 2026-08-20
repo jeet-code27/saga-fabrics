@@ -96,7 +96,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
             <Package className="w-5 h-5 text-emerald-700 shrink-0" />
             <div>
               <p className="font-bold">Dispatching in 24 Hours from Workshop</p>
-              <p className="text-[11px] text-emerald-800">You will receive SMS & WhatsApp tracking updates.</p>
+              <p className="text-[11px] text-emerald-800">Order confirmation & live courier tracking updates will be sent to your registered Email address.</p>
             </div>
           </div>
 
