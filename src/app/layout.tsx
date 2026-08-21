@@ -79,9 +79,16 @@ export const metadata: Metadata = {
     description: 'Authentic 100% pure cotton unstitched suit fabric sets with free express shipping across India.',
     images: [LOGO_URL],
   },
+  manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.ico',
-    apple: LOGO_URL,
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
