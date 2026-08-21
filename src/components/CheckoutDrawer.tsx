@@ -28,6 +28,21 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   onRemoveProduct,
   onSuccess,
 }) => {
+  const [quantity, setQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [form, setForm] = useState<CustomerInfo>({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
+    notes: '',
+  });
+
   useEffect(() => {
     if (isOpen && product) {
       trackEvent('AddToCart', {
@@ -71,21 +86,6 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
       </div>
     );
   }
-
-  const [quantity, setQuantity] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [form, setForm] = useState<CustomerInfo>({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    pincode: '',
-    notes: '',
-  });
 
   const totalAmount = product.price * quantity;
 
