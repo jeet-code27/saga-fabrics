@@ -59,7 +59,7 @@ export const CraftStory: React.FC = () => {
             <Sparkles className="w-3.5 h-3.5 text-[#E88DAE]" /> Artisanal Legacy
           </div>
           <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-            The Making of a Sage Fabrics Masterpiece
+            The Making of a Saga Fabrics Masterpiece
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
             Take a glimpse into our artisan studio, where traditional techniques meet contemporary elegance.

@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
     // Trigger newsletter emails
     Promise.allSettled([
-      sendWelcomeNewsletterEmail(email, 'SAGE10'),
+      sendWelcomeNewsletterEmail(email, 'SAGA10'),
       sendAdminNewsletterAlertEmail(email),
     ]).then((results) => {
       console.log(`[Newsletter API] Subscription emails result for ${email}:`, results.map(r => r.status));
@@ -19,8 +19,8 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Subscribed successfully! Check your inbox for code SAGE10.',
-      couponCode: 'SAGE10',
+      message: 'Subscribed successfully! Check your inbox for code SAGA10.',
+      couponCode: 'SAGA10',
     });
   } catch (error: any) {
     console.error('Error processing newsletter subscription:', error);

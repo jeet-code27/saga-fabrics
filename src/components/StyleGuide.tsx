@@ -84,7 +84,7 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
             <Sparkles className="w-3.5 h-3.5 text-[#E88DAE]" /> Lookbook & Styling Guide
           </div>
           <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-            How to Style Sage Fabrics for Every Occasion
+            How to Style Saga Fabrics for Every Occasion
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178]">
             From morning office meetings to evening celebrations, find the perfect Chikankari ensemble and accessories.

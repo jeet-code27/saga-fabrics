@@ -78,7 +78,7 @@ export const NewsletterBanner: React.FC = () => {
               disabled={loading}
               className="px-7 py-3.5 bg-[#F7C687] hover:bg-[#eab36c] disabled:opacity-70 text-[#2D2A26] font-bold text-xs sm:text-sm rounded-full shadow-lg transition-all flex items-center justify-center gap-2 shrink-0 group cursor-pointer"
             >
-              <span>{loading ? 'Sending Mail...' : 'Get Code SAGE10'}</span>
+              <span>{loading ? 'Sending Mail...' : 'Get Code SAGA10'}</span>
               <ArrowRight className={`w-4 h-4 transition-transform ${loading ? 'animate-pulse' : 'group-hover:translate-x-1'}`} />
             </button>
           </form>
@@ -86,10 +86,10 @@ export const NewsletterBanner: React.FC = () => {
           <div className="max-w-md mx-auto p-4 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-center space-y-2 animate-fadeIn">
             <div className="flex items-center justify-center gap-2 text-[#F7C687] font-bold text-sm">
               <CheckCircle2 className="w-5 h-5" />
-              <span>Welcome to Sage Fabrics VIP Circle!</span>
+              <span>Welcome to Saga Fabrics VIP Circle!</span>
             </div>
             <p className="text-xs text-white/90">
-              Use Coupon Code <strong className="bg-white text-[#9E6962] px-2.5 py-0.5 rounded-md font-mono text-sm tracking-wider">SAGE10</strong> at checkout for 10% Instant OFF! Email code sent to your inbox.
+              Use Coupon Code <strong className="bg-white text-[#9E6962] px-2.5 py-0.5 rounded-md font-mono text-sm tracking-wider">SAGA10</strong> at checkout for 10% Instant OFF! Email code sent to your inbox.
             </p>
           </div>
         )}

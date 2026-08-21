@@ -469,7 +469,7 @@ export async function sendOrderStatusUpdateEmail(order: Order): Promise<boolean>
 /**
  * 4. Send Welcome Newsletter Email to Customer
  */
-export async function sendWelcomeNewsletterEmail(email: string, couponCode: string = 'SAGE10'): Promise<boolean> {
+export async function sendWelcomeNewsletterEmail(email: string, couponCode: string = 'SAGA10'): Promise<boolean> {
   const transporter = createTransporter();
 
   const htmlContent = `
@@ -477,7 +477,7 @@ export async function sendWelcomeNewsletterEmail(email: string, couponCode: stri
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Welcome to Sage Fabrics VIP</title>
+      <title>Welcome to Saga Fabrics VIP</title>
     </head>
     <body style="margin: 0; padding: 0; background-color: #F5F2EC; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F5F2EC; padding: 24px 12px;">
@@ -556,7 +556,7 @@ export async function sendAdminNewsletterAlertEmail(subscriberEmail: string): Pr
     <body style="font-family: sans-serif; padding: 20px; background-color: #f4f4f4;">
       <div style="max-width: 500px; background: white; padding: 20px; border-radius: 10px;">
         <h2 style="color: #9E6962; margin-top: 0;">🎉 New VIP Newsletter Subscriber!</h2>
-        <p>A new user has subscribed to the Sage Fabrics newsletter:</p>
+        <p>A new user has subscribed to the Saga Fabrics newsletter:</p>
         <div style="background: #FDFBF7; padding: 12px; font-weight: bold; color: #2D2A26; border-radius: 6px;">
           ${subscriberEmail}
         </div>
