@@ -31,7 +31,7 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
       id: 'work',
       title: 'Office & Daily Chic',
       subtitle: 'Effortless Breathable Comfort All Day Long',
-      productId: 'saga-004', // Pearl White & Indigo
+      productId: 'saga-001', // Royal Indigo White — ideal for office & daily chic
       stylingTips: [
         'Match with crisp white tapered pants or cigarette trousers',
         'Add classic leather slip-ons and a sleek tan tote bag',

@@ -15,42 +15,44 @@ export async function POST(request: Request) {
       customer,
       items,
       totalAmount,
-      isMock,
     } = body;
 
-    // Validate request data
+    // Validate all required order fields
     if (!customer || !items || !items.length || !totalAmount) {
       return NextResponse.json({ error: 'Missing required order details' }, { status: 400 });
     }
 
-    let isValidSignature = true;
-
-    // If not mock and real keys exist, verify HMAC SHA256 signature
-    const keySecret = getRazorpayKeySecret();
-    if (!isMock && razorpay_order_id && razorpay_payment_id && razorpay_signature && !keySecret.includes('DemoSecret')) {
-      const generated_signature = crypto
-        .createHmac('sha256', keySecret)
-        .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-        .digest('hex');
-
-      isValidSignature = generated_signature === razorpay_signature;
+    // Always require all three Razorpay fields — never trust a client-sent mock flag
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return NextResponse.json({ error: 'Missing Razorpay payment credentials' }, { status: 400 });
     }
 
-    if (!isValidSignature) {
-      return NextResponse.json({ error: 'Invalid payment signature verification failed' }, { status: 400 });
+    // Always verify HMAC SHA256 signature server-side — no bypasses
+    const keySecret = getRazorpayKeySecret();
+    const generated_signature = crypto
+      .createHmac('sha256', keySecret)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest('hex');
+
+    if (generated_signature !== razorpay_signature) {
+      console.warn(`[Verify] Signature mismatch for order ${razorpay_order_id}`);
+      return NextResponse.json(
+        { error: 'Payment signature verification failed. Unauthorized.' },
+        { status: 400 }
+      );
     }
 
     // Save order in Database
     const newOrder = await saveOrder({
-      razorpayOrderId: razorpay_order_id || `order_sim_${Date.now()}`,
-      razorpayPaymentId: razorpay_payment_id || `pay_sim_${Date.now()}`,
+      razorpayOrderId: razorpay_order_id,
+      razorpayPaymentId: razorpay_payment_id,
       customer: customer as CustomerInfo,
       items: items as OrderItem[],
       totalAmount: Number(totalAmount),
       status: 'Processing',
     });
 
-    // Trigger automated emails asynchronously
+    // Trigger automated emails asynchronously — non-blocking
     Promise.allSettled([
       sendCustomerOrderConfirmationEmail(newOrder),
       sendAdminOrderNotificationEmail(newOrder),

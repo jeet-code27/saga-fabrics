@@ -26,6 +26,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         content_name: product.title,
         content_category: 'Unstitched Suit Sets',
         content_ids: [product.id],
+        content_type: 'product',
         value: product.price,
         currency: 'INR',
       });

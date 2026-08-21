@@ -3,8 +3,7 @@
 import React, { useEffect } from 'react';
 import { Order } from '@/types';
 import confetti from 'canvas-confetti';
-import { CheckCircle, Package, Truck, Download, Home, ArrowRight, ShieldCheck } from 'lucide-react';
-import Link from 'next/link';
+import { CheckCircle, Package, Truck, Download, Home } from 'lucide-react';
 
 interface OrderSuccessModalProps {
   order: Order | null;
@@ -12,10 +11,9 @@ interface OrderSuccessModalProps {
 }
 
 export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onClose }) => {
-  if (!order) return null;
-
+  // BUG 3 FIX: useEffect MUST be before any early return (React Rules of Hooks)
   useEffect(() => {
-    // Fire celebratory confetti!
+    if (!order) return;
     try {
       confetti({
         particleCount: 80,
@@ -27,6 +25,8 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
       console.log('Confetti trigger fallback');
     }
   }, [order]);
+
+  if (!order) return null;
 
   const handlePrint = () => {
     window.print();
@@ -69,7 +69,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
               <img
                 src={item.image}
                 alt={item.productTitle}
-                className="w-14 h-18 object-cover object-top rounded-xl border border-[#E7E0D6]"
+                className="w-14 h-20 object-cover object-top rounded-xl border border-[#E7E0D6]"
               />
               <div className="flex-1">
                 <h4 className="text-xs font-bold text-[#1C1917] font-serif">{item.productTitle}</h4>

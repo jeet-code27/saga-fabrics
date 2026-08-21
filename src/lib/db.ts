@@ -96,7 +96,7 @@ export async function saveOrder(orderData: Omit<Order, 'id' | 'createdAt'> & { i
   const orders = await getOrders();
   
   const newOrder: Order = {
-    id: orderData.id || `SAGA-ORD-${Math.floor(1000 + Math.random() * 9000)}`,
+    id: orderData.id || `SAGA-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
     razorpayOrderId: orderData.razorpayOrderId,
     razorpayPaymentId: orderData.razorpayPaymentId,
     customer: orderData.customer,

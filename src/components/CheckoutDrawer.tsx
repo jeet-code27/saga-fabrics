@@ -43,15 +43,20 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     notes: '',
   });
 
+  const prevIsOpenRef = React.useRef(false);
+
   useEffect(() => {
-    if (isOpen && product) {
+    // Only fire AddToCart on the open transition (closed → open), not on every re-render
+    if (isOpen && !prevIsOpenRef.current && product) {
       trackEvent('AddToCart', {
         content_name: product.title,
         content_ids: [product.id],
+        content_type: 'product',
         value: product.price,
         currency: 'INR',
       });
     }
+    prevIsOpenRef.current = isOpen;
   }, [isOpen, product]);
 
   if (!isOpen) return null;
@@ -104,8 +109,14 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
       return;
     }
 
-    if (form.phone.replace(/\D/g, '').length < 10) {
-      setError('Please enter a valid 10-digit mobile number.');
+    const digits = form.phone.replace(/\D/g, '');
+    if (digits.length < 10 || !/^[6-9]\d{9}$/.test(digits.slice(-10))) {
+      setError('Please enter a valid 10-digit Indian mobile number (must start with 6, 7, 8, or 9).');
+      return;
+    }
+
+    if (!/^\d{6}$/.test(form.pincode.trim())) {
+      setError('Please enter a valid 6-digit pincode.');
       return;
     }
 
@@ -115,6 +126,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
     trackEvent('InitiateCheckout', {
       content_name: product.title,
       content_ids: [product.id],
+      content_type: 'product',
       value: totalAmount,
       currency: 'INR',
       num_items: quantity,
@@ -141,14 +153,14 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         productId: product.id,
         productTitle: product.title,
         image: product.images[0],
-        size: 'Free Size (Unstitched)',
+        size: size || 'Free Size (Unstitched)',
         price: product.price,
         quantity: quantity,
       };
 
       // 2. Setup Razorpay Modal options
       const options = {
-        key: orderData.key || 'rzp_live_TRxGmPWR0N7rQk',
+        key: orderData.key,
         amount: orderData.amount,
         currency: 'INR',
         name: 'SAGA FABRICS',
@@ -180,13 +192,12 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id || orderData.id,
-                razorpay_payment_id: response.razorpay_payment_id || `pay_sim_${Date.now()}`,
-                razorpay_signature: response.razorpay_signature || 'mock_signature',
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
                 customer: form,
                 items: [orderItem],
                 totalAmount: totalAmount,
-                isMock: orderData.isMock,
               }),
             });
 
@@ -198,6 +209,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               trackEvent('Purchase', {
                 content_name: product.title,
                 content_ids: [product.id],
+                content_type: 'product',
                 value: totalAmount,
                 currency: 'INR',
                 num_items: quantity,
@@ -228,14 +240,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         setLoading(false); // Reset background drawer loading state so modal overlay is clean
         rzp.open();
       } else {
-        console.warn('Razorpay SDK not loaded, using sandbox simulation handler.');
-        setTimeout(async () => {
-          options.handler({
-            razorpay_order_id: orderData.id,
-            razorpay_payment_id: `pay_demo_${Date.now()}`,
-            razorpay_signature: 'demo_sig',
-          });
-        }, 1000);
+        setLoading(false);
+        setError('Payment gateway is still loading. Please wait a moment and try again.');
       }
     } catch (err: any) {
       setLoading(false);

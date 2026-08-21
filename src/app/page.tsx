@@ -15,6 +15,7 @@ import { CraftStory } from '@/components/CraftStory';
 import { StyleGuide } from '@/components/StyleGuide';
 import { CustomerReviews } from '@/components/CustomerReviews';
 import { FaqSection } from '@/components/FaqSection';
+import { NewsletterBanner } from '@/components/NewsletterBanner';
 import { Footer } from '@/components/Footer';
 import { Sparkles } from 'lucide-react';
 
@@ -56,8 +57,8 @@ export default function HomePage() {
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
-    if (activeFilter === 'Handblock') return p.tags.includes('Short Kurti');
-    if (activeFilter === '3-Piece Set') return p.tags.includes('Bestseller') || p.tags.includes('Royal Edit');
+    if (activeFilter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block');
+    if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
     return true;
   });
 
@@ -157,7 +158,10 @@ export default function HomePage() {
         {/* 7. Verified Customer Reviews */}
         <CustomerReviews />
 
-        {/* 8. Frequently Asked Questions */}
+        {/* 8. Newsletter VIP Signup — SAGA10 Coupon */}
+        <NewsletterBanner />
+
+        {/* 9. Frequently Asked Questions */}
         <FaqSection />
 
         {/* Brand Banner Quote in Royal Burgundy */}

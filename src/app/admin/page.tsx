@@ -60,15 +60,15 @@ export default function AdminPage() {
     }
   };
 
-  const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'admin123';
+  const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'Knowledgepark@2026';
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcode === CORRECT_PASS || passcode === 'admin' || passcode === '1234') {
+    if (passcode === CORRECT_PASS) {
       setIsAuthenticated(true);
       fetchOrders();
     } else {
-      setPassError('Incorrect Admin Passcode. Try: admin123');
+      setPassError('Incorrect Admin Passcode. Please try again.');
     }
   };
 
@@ -161,7 +161,7 @@ export default function AdminPage() {
             )}
             <input
               type="password"
-              placeholder="Enter Passcode (admin123)"
+              placeholder="Enter Admin Passcode"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
               className="w-full px-4 py-3 bg-[#FDFBF7] border border-[#EDE7E1] rounded-xl text-sm focus:outline-none focus:border-[#9E6962] text-center font-mono"

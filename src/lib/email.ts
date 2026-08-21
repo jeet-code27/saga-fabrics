@@ -6,8 +6,12 @@ import { Order } from '@/types';
 const createTransporter = () => {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
-  const user = process.env.SMTP_USER || 'saga.fabricss@gmail.com';
-  const pass = process.env.SMTP_PASS || 'uzzbhytnoygwvlvw';
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  if (!user || !pass) {
+    throw new Error('SMTP_USER and SMTP_PASS environment variables are required');
+  }
 
   return nodemailer.createTransport({
     host,
@@ -114,7 +118,7 @@ export async function sendCustomerOrderConfirmationEmail(order: Order): Promise<
                 <td style="padding: 28px 24px;">
                   
                   <!-- Order Number Box -->
-                  <div style="background-color: #FAF6F0; border: 1px border-[#EDE7E1]; border-left: 4px solid #9E6962; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+                  <div style="background-color: #FAF6F0; border: 1px solid #EDE7E1; border-left: 4px solid #9E6962; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tr>
                         <td>
@@ -180,7 +184,7 @@ export async function sendCustomerOrderConfirmationEmail(order: Order): Promise<
                   </div>
 
                   <!-- Payment Reference -->
-                  <p style="color: #78716C; font-size: 11px; margin-top: 20px; font-mono;">
+                  <p style="color: #78716C; font-size: 11px; margin-top: 20px; font-family: monospace;">
                     Razorpay Payment Ref: ${order.razorpayPaymentId || 'pay_simulated'} | Order ID: ${order.razorpayOrderId || 'order_simulated'}
                   </p>
 

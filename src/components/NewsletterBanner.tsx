@@ -70,7 +70,7 @@ export const NewsletterBanner: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email or phone number..."
+              placeholder="Enter your email address..."
               className="flex-1 px-5 py-3.5 rounded-full bg-white/95 text-[#2D2A26] placeholder-[#A8A29E] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#F7C687] shadow-inner"
             />
             <button
