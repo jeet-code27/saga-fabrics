@@ -93,21 +93,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Short Kurti Specification Badge */}
+        {/* Unstitched Suit Specification Badge */}
         <div className="pt-2 border-t border-[#F3ECE2]">
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
             <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
-            <span>100% Pure Cotton Short Kurti</span>
+            <span>100% Pure Cotton Unstitched Suit Set</span>
           </div>
         </div>
 
         {/* Action Button */}
         <button
-          onClick={() => onDirectBuy(product, 'M')}
+          onClick={() => onDirectBuy(product, 'Free Size (Unstitched)')}
           className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
         >
           <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-          <span>Buy Now</span>
+          <span>Buy Now (Free Size Unstitched)</span>
         </button>
 
       </div>

@@ -95,10 +95,10 @@ export default function HomePage() {
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Chikankari Edit
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Chikankari Short Kurti Collection
+              Curated Chikankari Unstitched Suit Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              Handcrafted 100% Breathable Pure Cotton Short Kurtis • Order directly with instant Razorpay checkout.
+              Handcrafted 100% Breathable Pure Cotton Unstitched Suit Sets • Order directly with instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}

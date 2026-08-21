@@ -33,7 +33,7 @@ export const Hero: React.FC = () => {
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF6F1] text-xs font-semibold uppercase tracking-widest">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
-              <span>Chikankari Short Kurti Collection 2026</span>
+              <span>Chikankari Unstitched Suit Collection 2026</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-white">
@@ -49,12 +49,12 @@ export const Hero: React.FC = () => {
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight font-medium">
-            Handcrafted Chikankari Short Kurtis
+            Handcrafted Chikankari Unstitched Suits
           </h1>
 
           {/* Description */}
           <p className="text-sm sm:text-base text-[#FAF6F1]/90 max-w-xl leading-relaxed font-normal">
-            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Short Kurtis. Tailored from 100% breathable pure cotton for effortless style with jeans or trousers.
+            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Unstitched Suit Sets with pure cotton dupattas. 100% breathable pure cotton material ready to tailor to your custom fit.
           </p>
 
           {/* CTA Buttons */}

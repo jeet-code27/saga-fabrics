@@ -144,13 +144,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
             </div>
 
-            {/* Short Kurti Guarantee Box */}
+            {/* Unstitched Suit Specification Box */}
             <div className="p-3.5 bg-[#7A1B38]/5 rounded-2xl border border-[#7A1B38]/20 flex items-start gap-3">
               <Sparkles className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
               <div className="text-xs space-y-0.5">
-                <span className="font-bold text-[#7A1B38] block">Handcrafted Chikankari Short Kurti</span>
+                <span className="font-bold text-[#7A1B38] block">Handcrafted Chikankari Unstitched Suit Set</span>
                 <p className="text-[#8A8178] text-[11px] leading-relaxed">
-                  Crafted in 100% breathable pure cotton with delicate Lucknowi thread embroidery. Perfect short tunic silhouette to pair with trousers or denim jeans.
+                  Crafted in 100% breathable pure cotton with delicate Lucknowi thread embroidery. Free size unstitched fabric length ready for custom tailoring to any fit & style.
                 </p>
               </div>
             </div>
@@ -173,10 +173,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           {/* Action Button */}
           <div className="pt-4 border-t border-[#DCD3C7]">
             <button
-              onClick={() => onProceedToBuy(product, selectedSize)}
-              className="w-full py-4 bg-[#2B2723] hover:bg-[#65897D] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer"
+              onClick={() => onProceedToBuy(product, 'Free Size (Unstitched)')}
+              className="w-full py-4 bg-[#2B2723] hover:bg-[#65897D] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer flex items-center justify-center gap-2"
             >
-              Direct Buy Size {selectedSize} with Razorpay
+              <span>Direct Buy (Free Size - Unstitched) with Razorpay</span>
             </button>
           </div>
         </div>
