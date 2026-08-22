@@ -15,7 +15,6 @@ import { CraftStory } from '@/components/CraftStory';
 import { StyleGuide } from '@/components/StyleGuide';
 import { CustomerReviews } from '@/components/CustomerReviews';
 import { FaqSection } from '@/components/FaqSection';
-import { NewsletterBanner } from '@/components/NewsletterBanner';
 import { Footer } from '@/components/Footer';
 import { Sparkles } from 'lucide-react';
 
@@ -158,10 +157,7 @@ export default function HomePage() {
         {/* 7. Verified Customer Reviews */}
         <CustomerReviews />
 
-        {/* 8. Newsletter VIP Signup — SAGA10 Coupon */}
-        <NewsletterBanner />
-
-        {/* 9. Frequently Asked Questions */}
+        {/* 8. Frequently Asked Questions */}
         <FaqSection />
 
         {/* Brand Banner Quote in Royal Burgundy */}
