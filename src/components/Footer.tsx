@@ -45,13 +45,13 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Contact Workshop */}
+          {/* Contact Details */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#E88DAE] uppercase tracking-wider">Artisan Studio</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#E88DAE] uppercase tracking-wider">Contact Us</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
-                <span>Hazratganj, Lucknow, UP - 226001, India</span>
+                <span>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />

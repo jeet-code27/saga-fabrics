@@ -12,10 +12,10 @@ export const JsonLdSchema: React.FC = () => {
     telephone: '+91-7023352132',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Hazratganj',
-      addressLocality: 'Lucknow',
-      addressRegion: 'Uttar Pradesh',
-      postalCode: '226001',
+      streetAddress: 'A305, Ashadeep Green Avenue Apartment, Jagatpura',
+      addressLocality: 'Jaipur',
+      addressRegion: 'Rajasthan',
+      postalCode: '302017',
       addressCountry: 'IN',
     },
     sameAs: [

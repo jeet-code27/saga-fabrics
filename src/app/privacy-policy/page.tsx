@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E4D9CC] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723]">5. Customer Support Contact</h2>
             <p>
-              If you have any questions regarding your order status or privacy policy, please contact our customer support atelier:
+              If you have any questions regarding your order status or privacy policy, please contact our customer support team:
             </p>
             <div className="space-y-2 pt-2 text-xs text-[#2B2723]">
               <p className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export default function PrivacyPolicyPage() {
                 <Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong>
               </p>
               <p className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Studio: <strong>Saga Fabrics Atelier, Hazratganj, Lucknow, UP - 226001, India</strong>
+                <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong>
               </p>
             </div>
           </section>

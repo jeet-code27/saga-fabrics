@@ -69,7 +69,7 @@ export default function ShippingPolicyPage() {
               <CheckCircle2 className="w-5 h-5 text-[#9E6962]" /> 1. Order Processing & Packaging
             </h2>
             <p>
-              Once your payment is verified via Razorpay, our fulfillment team in Lucknow carefully inspects, folds, and packages your unstitched suit fabric sets in protective tamper-evident polybags.
+              Once your payment is verified via Razorpay, our fulfillment team in Jaipur carefully inspects, folds, and packages your unstitched suit fabric sets in protective tamper-evident polybags.
             </p>
           </section>
 
@@ -93,7 +93,7 @@ export default function ShippingPolicyPage() {
               <MapPin className="w-5 h-5 text-[#9E6962]" /> 3. Address Accuracy & Re-Delivery
             </h2>
             <p>
-              Please ensure your shipping address, pincode, and WhatsApp phone number are correctly filled at checkout. In case of non-delivery due to incorrect address, 3 delivery attempts will be made by our courier partner before returning the package to our atelier.
+              Please ensure your shipping address, pincode, and WhatsApp phone number are correctly filled at checkout. In case of non-delivery due to incorrect address, 3 delivery attempts will be made by our courier partner before returning the package to us.
             </p>
           </section>
 
