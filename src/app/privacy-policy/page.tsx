@@ -115,6 +115,20 @@ export default function PrivacyPolicyPage() {
               <p className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong>
               </p>
+              <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#E4D9CC] flex-wrap">
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#9E6962] shrink-0" />
+                  <span>MSME Udyam Registration No.: <strong className="font-mono">UDYAM-RJ-17-0677985</strong></span>
+                </span>
+                <a
+                  href="/msme-certificate.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[#9E6962] hover:underline font-semibold bg-[#FAF6F1] px-2.5 py-1 rounded-md border border-[#E4D9CC] inline-flex items-center gap-1"
+                >
+                  View Certificate ↗
+                </a>
+              </p>
             </div>
           </section>
         </div>

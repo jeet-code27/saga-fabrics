@@ -113,6 +113,20 @@ export default function RefundPolicyPage() {
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong></p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#9E6962]" /> WhatsApp / Phone: <strong>+91 70233 52132</strong></p>
               <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
+              <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#EDE7E1] flex-wrap">
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#9E6962] shrink-0" />
+                  <span>MSME Udyam Registration No.: <strong className="font-mono">UDYAM-RJ-17-0677985</strong></span>
+                </span>
+                <a
+                  href="/msme-certificate.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[#9E6962] hover:underline font-semibold bg-[#FAF6F1] px-2.5 py-1 rounded-md border border-[#EDE7E1] inline-flex items-center gap-1"
+                >
+                  View Certificate ↗
+                </a>
+              </p>
             </div>
           </section>
 

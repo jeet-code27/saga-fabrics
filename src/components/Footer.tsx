@@ -65,6 +65,20 @@ export const Footer: React.FC = () => {
                   saga.fabricss@gmail.com
                 </a>
               </li>
+              <li className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-[#FAF6F1]/90 flex-wrap gap-1">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#7FA79A] shrink-0" />
+                  <span>MSME: <strong className="font-mono text-[#F7C687]">UDYAM-RJ-17-0677985</strong></span>
+                </div>
+                <a
+                  href="/msme-certificate.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] text-[#E88DAE] hover:text-white underline decoration-[#E88DAE] transition-colors"
+                >
+                  View Certificate ↗
+                </a>
+              </li>
             </ul>
           </div>
 
