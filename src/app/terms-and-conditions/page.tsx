@@ -1,12 +1,24 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { ArrowLeft, ShieldAlert, FileText, CheckCircle2, Lock, RefreshCw, Truck, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowLeft, ShieldAlert, FileText, Lock, Mail, Phone, MapPin } from 'lucide-react';
 
-export const metadata = {
-  title: 'Terms & Conditions — Saga Fabrics',
-  description: 'Terms and Conditions for Saga Fabrics. Read our terms of service, payment processing terms via Razorpay, cancellation, and delivery policies.',
+export const metadata: Metadata = {
+  title: 'Terms & Conditions | Saga Fabrics',
+  description: "Read Saga Fabrics' terms of service order cancellation, damaged product replacement, shipping timelines & secure Razorpay payment terms.",
+  alternates: {
+    canonical: 'https://sagafabrics.in/terms-and-conditions',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://sagafabrics.in/terms-and-conditions',
+    siteName: 'Saga Fabrics',
+    title: 'Terms & Conditions | Saga Fabrics',
+    description: "Read Saga Fabrics' terms of service order cancellation, damaged product replacement, shipping timelines & secure Razorpay payment terms.",
+  },
 };
 
 export default function TermsAndConditionsPage() {

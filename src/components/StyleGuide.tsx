@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Sparkles, ArrowRight, Star } from 'lucide-react';
 import { PRODUCTS } from '@/lib/products';
 import { Product, Size } from '@/types';
@@ -113,12 +114,14 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
           
           {/* Left Product Image */}
           <div className="lg:col-span-5 relative h-80 lg:h-auto bg-[#EDE6DC]">
-            <img
+            <Image
               src={matchedProduct.images[0]}
               alt={matchedProduct.title}
-              className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-top hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute top-4 left-4">
+            <div className="absolute top-4 left-4 z-10">
               <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border bg-white/95 backdrop-blur-md ${currentOccasion.accentColor}`}>
                 {currentOccasion.tag}
               </span>

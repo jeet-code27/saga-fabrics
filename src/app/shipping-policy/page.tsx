@@ -1,12 +1,24 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { ArrowLeft, Truck, Package, MapPin, Clock, CheckCircle2, Mail, Phone } from 'lucide-react';
+import { ArrowLeft, Truck, Package, MapPin, Clock, CheckCircle2, Mail, Phone, ShieldCheck, FileText } from 'lucide-react';
 
-export const metadata = {
-  title: 'Shipping & Delivery Policy — Saga Fabrics',
-  description: 'Shipping and Delivery Policy for Saga Fabrics. Read about our dispatch timelines, nationwide courier delivery across India, and free shipping benefits.',
+export const metadata: Metadata = {
+  title: 'Shipping & Delivery Policy | Saga Fabrics',
+  description: 'Saga Fabrics ships free across 26,000+ India PIN codes. 24-48hr dispatch, 3-7 day delivery via BlueDart, Delhivery & DTDC. Track your order.',
+  alternates: {
+    canonical: 'https://sagafabrics.in/shipping-policy',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://sagafabrics.in/shipping-policy',
+    siteName: 'Saga Fabrics',
+    title: 'Shipping & Delivery Policy | Saga Fabrics',
+    description: 'Saga Fabrics ships free across 26,000+ India PIN codes. 24-48hr dispatch, 3-7 day delivery via BlueDart, Delhivery & DTDC. Track your order.',
+  },
 };
 
 export default function ShippingPolicyPage() {
@@ -99,10 +111,25 @@ export default function ShippingPolicyPage() {
 
           {/* Contact Box */}
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
-            <h2 className="text-lg font-serif font-bold text-[#2B2723]">Shipping Support & Tracking Inquiries</h2>
+            <h2 className="text-lg font-serif font-bold text-[#2B2723]">Shipping Support & Merchant Contact</h2>
             <div className="space-y-1.5 text-xs text-[#2B2723]">
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong></p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#9E6962]" /> WhatsApp / Phone: <strong>+91 70233 52132</strong></p>
+              <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
+              <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#EDE7E1] flex-wrap">
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#9E6962] shrink-0" />
+                  <span>MSME Udyam Registration No.: <strong className="font-mono">UDYAM-RJ-17-0677985</strong></span>
+                </span>
+                <a
+                  href="/msme-certificate.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[#9E6962] hover:underline font-semibold bg-[#FAF6F1] px-2.5 py-1 rounded-md border border-[#EDE7E1] inline-flex items-center gap-1"
+                >
+                  View Certificate ↗
+                </a>
+              </p>
             </div>
           </section>
 

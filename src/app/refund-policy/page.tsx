@@ -1,12 +1,24 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ArrowLeft, RefreshCw, CheckCircle2, AlertCircle, Clock, ShieldCheck, Mail, Phone, MapPin } from 'lucide-react';
 
-export const metadata = {
-  title: 'Cancellation & Refund Policy — Saga Fabrics',
-  description: 'Cancellation and Refund Policy for Saga Fabrics. Read about order cancellation timelines, refund processing via Razorpay, and damaged item replacements.',
+export const metadata: Metadata = {
+  title: 'Cancellation & Refund Policy | Saga Fabrics',
+  description: 'Order cancellation, Razorpay refund timelines & damaged item replacement policy at Saga Fabrics. 12-hour cancellation window, 5-7 day refunds.',
+  alternates: {
+    canonical: 'https://sagafabrics.in/refund-policy',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://sagafabrics.in/refund-policy',
+    siteName: 'Saga Fabrics',
+    title: 'Cancellation & Refund Policy | Saga Fabrics',
+    description: 'Order cancellation, Razorpay refund timelines & damaged item replacement policy at Saga Fabrics. 12-hour cancellation window, 5-7 day refunds.',
+  },
 };
 
 export default function RefundPolicyPage() {

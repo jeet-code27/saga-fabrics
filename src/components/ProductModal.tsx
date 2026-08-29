@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Product, Size } from '@/types';
 import { X, Star, Shield, RefreshCw, Truck, Sparkles } from 'lucide-react';
 
@@ -54,12 +55,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
         {/* Left Image Section */}
         <div className="md:w-1/2 bg-[#EDE6DC] relative p-4 flex flex-col items-center justify-center gap-3">
           <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-xs border border-[#DCD3C7]">
-            <img
+            <Image
               src={currentImage}
               alt={product.title}
-              className="w-full h-full object-cover object-top transition-all duration-300"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-top transition-all duration-300"
             />
-            <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#65897D] text-xs font-bold px-3 py-1 rounded-full border border-[#DCD3C7]">
+            <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#65897D] text-xs font-bold px-3 py-1 rounded-full border border-[#DCD3C7] z-10">
               Handcrafted Chikankari
             </span>
           </div>
@@ -71,13 +74,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <button
                   key={idx}
                   onClick={() => setSelectedImageIndex(idx)}
-                  className={`w-12 h-14 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                  className={`w-12 h-14 relative rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                     selectedImageIndex === idx
                       ? 'border-[#7A1B38] scale-105 shadow-sm'
                       : 'border-transparent opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover object-top" />
+                  <Image src={img} alt="" fill sizes="48px" className="object-cover object-top" />
                 </button>
               ))}
             </div>

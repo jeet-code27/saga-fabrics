@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Palette, Scissors, Sparkles, CheckCircle, ShieldCheck } from 'lucide-react';
 
 export const CraftStory: React.FC = () => {
@@ -128,13 +129,15 @@ export const CraftStory: React.FC = () => {
 
           {/* Right Image Visual */}
           <div className="lg:col-span-5 relative h-72 lg:h-auto overflow-hidden bg-[#FAF6F1]">
-            <img
+            <Image
               src={steps[activeStep].image}
               alt={steps[activeStep].title}
-              className="w-full h-full object-cover object-center transition-all duration-700 hover:scale-105"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-center transition-all duration-700 hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
+            <div className="absolute bottom-4 left-4 right-4 text-white z-10">
               <p className="text-xs uppercase tracking-widest text-[#E88DAE] font-bold">Chikankari Craft Studio</p>
               <p className="text-sm font-serif font-bold">Crafted with Love & Precision</p>
             </div>

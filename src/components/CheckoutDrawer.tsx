@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Product, Size, CustomerInfo, Order } from '@/types';
 import { X, Lock, ShieldCheck, CreditCard, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 import { trackEvent } from '@/lib/metaPixel';
@@ -280,9 +281,11 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
           {/* Order Summary Card with Quantity Controls & Remove Option */}
           <div className="p-4 bg-[#FAF6F1] rounded-2xl border border-[#DCD3C7] space-y-3">
             <div className="flex items-start gap-4 relative">
-              <img
+              <Image
                 src={product.images[0]}
                 alt={product.title}
+                width={64}
+                height={80}
                 className="w-16 h-20 object-cover object-top rounded-xl border border-[#DCD3C7]"
               />
               <div className="flex-1 min-w-0 pr-8">

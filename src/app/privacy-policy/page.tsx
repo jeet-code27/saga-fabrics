@@ -1,12 +1,24 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ArrowLeft, ShieldCheck, Lock, Eye, Mail, Phone, MapPin, AlertCircle } from 'lucide-react';
 
-export const metadata = {
-  title: 'Privacy Policy — Saga Fabrics',
-  description: 'Privacy policy for Saga Fabrics. Learn how we handle your personal data, secure Razorpay checkout, and enforce our strict no-return policy.',
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Saga Fabrics',
+  description: 'Saga Fabrics privacy policy how we collect, use & protect your data, plus secure Razorpay payment handling and no-return policy details.',
+  alternates: {
+    canonical: 'https://sagafabrics.in/privacy-policy',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://sagafabrics.in/privacy-policy',
+    siteName: 'Saga Fabrics',
+    title: 'Privacy Policy | Saga Fabrics',
+    description: 'Saga Fabrics privacy policy how we collect, use & protect your data, plus secure Razorpay payment handling and no-return policy details.',
+  },
 };
 
 export default function PrivacyPolicyPage() {

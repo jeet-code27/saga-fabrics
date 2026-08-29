@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { Order } from '@/types';
 import confetti from 'canvas-confetti';
 import { CheckCircle, Package, Truck, Download, Home } from 'lucide-react';
@@ -66,9 +67,11 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
           {/* Product Bought Summary */}
           {item && (
             <div className="p-3.5 bg-white rounded-2xl border border-[#E7E0D6] flex items-center gap-3">
-              <img
+              <Image
                 src={item.image}
                 alt={item.productTitle}
+                width={56}
+                height={80}
                 className="w-14 h-20 object-cover object-top rounded-xl border border-[#E7E0D6]"
               />
               <div className="flex-1">

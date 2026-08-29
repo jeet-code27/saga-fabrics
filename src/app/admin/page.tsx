@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Order, OrderStatus } from '@/types';
 import Link from 'next/link';
 import {
@@ -194,7 +195,7 @@ export default function AdminPage() {
               <Link href="/" className="p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <img src="/images/saga-fabrics-logo-new.png" alt="Saga Fabrics" className="h-10 w-auto object-contain" />
+              <Image src="/images/saga-fabrics-logo-new.png" alt="Saga Fabrics" width={120} height={40} className="h-10 w-auto object-contain" />
               <div>
                 <h1 className="text-xl font-bold font-serif text-[#9E6962]">SAGA FABRICS Admin</h1>
                 <p className="text-[11px] text-[#78716C] font-medium">Order Fulfillment & Razorpay Payments</p>
@@ -365,9 +366,11 @@ export default function AdminPage() {
                         <td className="py-4 px-4">
                           {item ? (
                             <div className="flex items-center gap-2">
-                              <img
+                              <Image
                                 src={item.image}
                                 alt={item.productTitle}
+                                width={36}
+                                height={44}
                                 className="w-9 h-11 object-cover object-top rounded-lg border border-[#EDE7E1]"
                               />
                               <div>
@@ -487,9 +490,11 @@ export default function AdminPage() {
 
             {selectedOrder.items[0] && (
               <div className="p-4 bg-white rounded-2xl border border-[#EDE7E1] flex items-center gap-4">
-                <img
+                <Image
                   src={selectedOrder.items[0].image}
                   alt={selectedOrder.items[0].productTitle}
+                  width={64}
+                  height={80}
                   className="w-16 h-20 object-cover object-top rounded-xl border"
                 />
                 <div className="flex-1">

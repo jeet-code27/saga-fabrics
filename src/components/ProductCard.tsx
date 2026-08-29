@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Product, Size } from '@/types';
 import { Eye, ShoppingCart, Star, Sparkles } from 'lucide-react';
 
@@ -20,10 +21,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       
       {/* Image Container */}
       <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, 'M')}>
-        <img
+        <Image
           src={product.images[0]}
           alt={product.title}
-          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
         
         {/* Badges */}

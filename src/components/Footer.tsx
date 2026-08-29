@@ -3,6 +3,7 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const Footer: React.FC = () => {
   return (
@@ -13,9 +14,11 @@ export const Footer: React.FC = () => {
           
           {/* Brand Intro Column */}
           <div className="space-y-4 md:col-span-1">
-            <img
+            <Image
               src="/images/saga-fabrics-logo-new.png"
               alt="Saga Fabrics"
+              width={180}
+              height={64}
               className="h-14 sm:h-16 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
             />
             <p className="text-xs text-[#8A8178] leading-relaxed">

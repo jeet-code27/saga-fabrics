@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin } from 'lucide-react';
 
 interface NavbarProps {
@@ -68,9 +69,12 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
           {/* Center Column: Perfectly Centered Brand Logo */}
           <div className="flex items-center justify-center">
             <Link href="/" className="group inline-block">
-              <img
+              <Image
                 src="/images/saga-fabrics-logo-new.png"
                 alt="Saga Fabrics"
+                width={200}
+                height={80}
+                priority
                 className="h-14 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </Link>

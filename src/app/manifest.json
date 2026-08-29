@@ -1,6 +1,8 @@
 {
-  "name": "Saga Fabrics",
-  "short_name": "Saga",
+  "name": "Saga Fabrics – Authentic Lucknowi Chikankari Suits Online",
+  "short_name": "Saga Fabrics",
+  "description": "Shop 100% pure cotton Lucknowi Chikankari & Handblock unstitched suit sets. Handcrafted artisanal embroidery, free express shipping across India.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

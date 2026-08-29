@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Sparkles, ArrowDown, CheckCircle2, Star } from 'lucide-react';
 
 export const Hero: React.FC = () => {
@@ -88,9 +89,11 @@ export const Hero: React.FC = () => {
         <div className="lg:col-span-4 hidden lg:flex flex-col items-end">
           <div className="bg-white/95 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-2xl max-w-xs space-y-3 transform hover:-translate-y-1 transition-transform">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/saga-fabrics-logo-new.png"
                 alt="Saga Fabrics"
+                width={48}
+                height={48}
                 className="w-12 h-12 object-contain rounded-xl bg-[#FAF6F1] p-1 border border-[#E4D9CC] shrink-0"
               />
               <div>
