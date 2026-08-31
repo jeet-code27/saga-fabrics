@@ -53,13 +53,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Quick Preview Hover Overlay */}
-        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onSelectProduct(product, 'M');
             }}
-            className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5"
+            className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
           >
             <Eye className="w-4 h-4" /> Quick View
           </button>

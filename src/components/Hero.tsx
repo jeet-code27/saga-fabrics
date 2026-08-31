@@ -17,12 +17,12 @@ export const Hero: React.FC = () => {
       
       {/* Short Kurti Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-transform duration-1000 scale-102"
+        className="absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-transform duration-1000 scale-102 pointer-events-none"
         style={{ backgroundImage: "url('/images/products/short-kurti-1.jpg')" }}
       />
 
       {/* Dark Luxury Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#2B2723]/95 via-[#2B2723]/40 to-[#2B2723]/15" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#2B2723]/95 via-[#2B2723]/40 to-[#2B2723]/15 pointer-events-none" />
 
       {/* Hero Content Overlay */}
       <div className="max-w-7xl w-full mx-auto px-6 lg:px-12 py-16 lg:py-24 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
