@@ -15,18 +15,18 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
 
   return (
     <header className="sticky top-0 z-40 bg-[#FAF6F1]/90 backdrop-blur-md border-b border-[#E4D9CC] transition-all">
-      
+
       {/* Announcement Top Bar in Royal Burgundy */}
       <div className="bg-[#7A1B38] text-[#FAF6F1] text-xs py-2 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between font-medium tracking-wide">
-          
+
           <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Authentic Lucknowi Chikankari Collection
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Authentic Lucknowi Chikankari Suits & Kurtis Collection
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="inline-flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> 100% Pure Unstitched Cotton Fabrics
+              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> 100% Pure Cotton Suits, Kurtis & Fabrics
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="font-bold text-white tracking-wider">FREE EXPRESS SHIPPING ACROSS INDIA</span>
@@ -35,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
           <div className="flex sm:hidden items-center justify-center w-full text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Lucknowi Chikankari • Free Express Delivery</span>
+              <span>Chikankari Suits & Kurtis • Free Express Delivery</span>
             </span>
           </div>
 
@@ -45,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
       {/* Main Balanced Navbar Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-3 items-center h-20">
-          
+
           {/* Left Column: Menu Links (Desktop) & Mobile Toggle */}
           <div className="flex items-center justify-start gap-4">
             <button
@@ -68,14 +68,15 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
 
           {/* Center Column: Perfectly Centered Brand Logo */}
           <div className="flex items-center justify-center">
-            <Link href="/" className="group inline-block">
+            <Link href="/" className="group flex items-center justify-center py-1">
               <Image
-                src="/images/saga-fabrics-logo-new.png"
+                src="/images/saga-fabrics-new.png"
                 alt="Saga Fabrics"
-                width={200}
-                height={80}
+                width={180}
+                height={64}
                 priority
-                className="h-14 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
+                className="max-h-16 w-auto object-contain transition-transform group-hover:scale-105"
+                style={{ height: '64px', width: 'auto' }}
               />
             </Link>
           </div>
@@ -117,8 +118,8 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#7A1B38] font-bold flex items-center justify-between"
             >
-              <span>🌸 Kurti Collection</span>
-              <span className="text-xs bg-[#7A1B38]/10 px-2.5 py-0.5 rounded-full text-[#7A1B38]">4 Products</span>
+              <span>🌸 Suits & Kurtis Collection</span>
+              <span className="text-xs bg-[#7A1B38]/10 px-2.5 py-0.5 rounded-full text-[#7A1B38]">Featured</span>
             </a>
             <a
               href="#categories"

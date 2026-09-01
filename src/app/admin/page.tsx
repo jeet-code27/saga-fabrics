@@ -34,7 +34,7 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  
+
   const [sendingEmailId, setSendingEmailId] = useState<string | null>(null);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
@@ -195,7 +195,7 @@ export default function AdminPage() {
               <Link href="/" className="p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <Image src="/images/saga-fabrics-logo-new.png" alt="Saga Fabrics" width={120} height={40} className="h-10 w-auto object-contain" />
+              <Image src="/images/saga-fabrics-new.png" alt="Saga Fabrics" width={120} height={40} className="h-10 w-auto object-contain" style={{ width: 'auto', height: 'auto' }} />
               <div>
                 <h1 className="text-xl font-bold font-serif text-[#9E6962]">SAGA FABRICS Admin</h1>
                 <p className="text-[11px] text-[#78716C] font-medium">Order Fulfillment & Razorpay Payments</p>
@@ -224,12 +224,11 @@ export default function AdminPage() {
 
       {/* Main Admin Body */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
-        
+
         {/* Toast Alert Banner */}
         {toastMsg && (
-          <div className={`p-4 rounded-2xl border text-sm font-semibold flex items-center justify-between shadow-md transition-all ${
-            toastMsg.type === 'success' ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-rose-50 border-rose-300 text-rose-800'
-          }`}>
+          <div className={`p-4 rounded-2xl border text-sm font-semibold flex items-center justify-between shadow-md transition-all ${toastMsg.type === 'success' ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-rose-50 border-rose-300 text-rose-800'
+            }`}>
             <span>{toastMsg.text}</span>
             <button onClick={() => setToastMsg(null)} className="p-1 hover:opacity-75">
               <X className="w-4 h-4" />
@@ -282,7 +281,7 @@ export default function AdminPage() {
 
         {/* Filter & Search Bar */}
         <div className="bg-white p-4 rounded-2xl border border-[#EDE7E1] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
-          
+
           <div className="relative w-full sm:w-80">
             <Search className="w-4 h-4 text-[#78716C] absolute left-3.5 top-3" />
             <input
@@ -299,11 +298,10 @@ export default function AdminPage() {
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${
-                  statusFilter === status
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${statusFilter === status
                     ? 'bg-[#9E6962] text-white'
                     : 'bg-[#FDFBF7] text-[#5C554E] hover:bg-[#EDE7E1]'
-                }`}
+                  }`}
               >
                 {status}
               </button>
@@ -341,7 +339,7 @@ export default function AdminPage() {
                     const item = order.items[0];
                     return (
                       <tr key={order.id} className="hover:bg-[#FDFBF7]/50 transition-colors">
-                        
+
                         <td className="py-4 px-4 font-mono font-bold text-[#9E6962]">
                           <div>{order.id}</div>
                           <div className="text-[10px] text-[#78716C] font-sans font-normal mt-0.5">
@@ -399,15 +397,14 @@ export default function AdminPage() {
                           <select
                             value={order.status}
                             onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
-                            className={`px-2.5 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer focus:outline-none ${
-                              order.status === 'Delivered'
+                            className={`px-2.5 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer focus:outline-none ${order.status === 'Delivered'
                                 ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
                                 : order.status === 'Dispatched'
-                                ? 'bg-blue-100 text-blue-800 border-blue-300'
-                                : order.status === 'Processing'
-                                ? 'bg-amber-100 text-amber-800 border-amber-300'
-                                : 'bg-gray-100 text-gray-800 border-gray-300'
-                            }`}
+                                  ? 'bg-blue-100 text-blue-800 border-blue-300'
+                                  : order.status === 'Processing'
+                                    ? 'bg-amber-100 text-amber-800 border-amber-300'
+                                    : 'bg-gray-100 text-gray-800 border-gray-300'
+                              }`}
                           >
                             <option value="Pending">Pending</option>
                             <option value="Processing">Processing</option>

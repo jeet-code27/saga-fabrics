@@ -9,20 +9,21 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-[#2B2723] text-[#FAF6F1] pt-16 pb-8 border-t border-[#DCD3C7]/20">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          
+
           {/* Brand Intro Column */}
           <div className="space-y-4 md:col-span-1">
             <Image
-              src="/images/saga-fabrics-logo-new.png"
+              src="/images/saga-fabrics-new.png"
               alt="Saga Fabrics"
               width={180}
               height={64}
-              className="h-14 sm:h-16 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
+              className="max-h-14 w-auto object-contain bg-[#FAF6F1] px-4 py-2 rounded-2xl shadow-sm border border-[#E4D9CC]"
+              style={{ height: '56px', width: 'auto' }}
             />
             <p className="text-xs text-[#8A8178] leading-relaxed">
-              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari unstitched suit sets with pure cotton dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
+              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari suits, kurtis & unstitched fabric sets with pure cotton dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
             </p>
           </div>
 
@@ -30,7 +31,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-3 text-xs">
             <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Store Navigation</h4>
             <ul className="space-y-2 text-[#8A8178]">
-              <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Unstitched Suit Fabrics</a></li>
+              <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Suits & Kurtis Collection</a></li>
               <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari Collections</a></li>
               <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Chikankari Process</a></li>
               <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>

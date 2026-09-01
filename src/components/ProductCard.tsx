@@ -16,6 +16,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onSelectProduct,
   onDirectBuy,
 }) => {
+  const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
+
   return (
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       
@@ -39,6 +41,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   ? 'bg-[#7A1B38]'
                   : tag === 'Royal Edition' || tag === 'Royal Edit'
                   ? 'bg-[#B59757]'
+                  : tag === 'Short Kurti'
+                  ? 'bg-[#65897D]'
                   : 'bg-[#5C7056]'
               }`}
             >
@@ -76,7 +80,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="font-bold text-[#2B2723]">{product.rating}</span>
               <span className="text-[#8A8178]">({product.reviewsCount})</span>
             </div>
-            <span className="font-medium text-[#5C7056]">Pure Cotton Tunic</span>
+            <span className="font-medium text-[#5C7056]">
+              {isKurti ? 'Stitched Pure Cotton' : 'Pure Cotton Unstitched'}
+            </span>
           </div>
 
           {/* Title */}
@@ -96,22 +102,34 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Unstitched Suit Specification Badge */}
+        {/* Specification Badge */}
         <div className="pt-2 border-t border-[#F3ECE2]">
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
             <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
-            <span>100% Pure Cotton Unstitched Suit Set</span>
+            <span>
+              {isKurti ? 'Ready to Wear • Sizes S, M, L, XL, XXL' : '100% Pure Cotton Unstitched Suit Set'}
+            </span>
           </div>
         </div>
 
         {/* Action Button */}
-        <button
-          onClick={() => onDirectBuy(product, 'Free Size (Unstitched)')}
-          className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
-        >
-          <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-          <span>Buy Now (Free Size Unstitched)</span>
-        </button>
+        {isKurti ? (
+          <button
+            onClick={() => onSelectProduct(product, 'M')}
+            className="w-full py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
+          >
+            <ShoppingCart className="w-4 h-4 text-[#B59757]" />
+            <span>Select Size & Buy (S - XXL)</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => onDirectBuy(product, 'Free Size (Unstitched)')}
+            className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
+          >
+            <ShoppingCart className="w-4 h-4 text-[#B59757]" />
+            <span>Buy Now (Free Size Unstitched)</span>
+          </button>
+        )}
 
       </div>
     </div>

@@ -58,10 +58,10 @@ function ensureDbExists(): void {
         items: [
           {
             productId: 'saga-006',
-            productTitle: 'Mustard & Magenta Handblock 3-Piece Long Kurti Set',
+            productTitle: 'Mustard & Red Handblock 3-Piece Unstitched Suit Set',
             image: '/images/products/long-kurti-1.jpg',
-            size: 'L',
-            price: 2499,
+            size: 'Free Size (Unstitched)',
+            price: 1399,
             quantity: 1,
           },
         ],

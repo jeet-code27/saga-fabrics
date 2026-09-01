@@ -165,7 +165,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
         amount: orderData.amount,
         currency: 'INR',
         name: 'SAGA FABRICS',
-        description: `${product.title} (${quantity} Set${quantity > 1 ? 's' : ''})`,
+        description: `${product.title} (${size || 'Free Size'}) - ${quantity} Item${quantity > 1 ? 's' : ''}`,
         image: 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/saga-fabrics-logo-new_skmnli.png',
         order_id: orderData.id,
         prefill: {
@@ -292,7 +292,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
                 <span className="text-[10px] font-bold uppercase text-[#65897D] tracking-wider">Order Item</span>
                 <h4 className="text-sm font-serif font-bold text-[#2B2723] truncate">{product.title}</h4>
                 <div className="flex items-center gap-2 text-xs text-[#8A8178] mt-0.5">
-                  <span>Spec: <strong className="text-[#9E6962] font-bold">Free Size (100% Unstitched Fabric Set)</strong></span>
+                  <span>Spec: <strong className="text-[#7A1B38] font-bold">{size && size !== 'Free Size (Unstitched)' ? `Size: ${size} (Stitched Kurti)` : 'Free Size (100% Unstitched Fabric Set)'}</strong></span>
                 </div>
                 <div className="text-xs text-[#8A8178] mt-0.5">
                   Unit Price: <strong className="text-[#2B2723]">₹{product.price.toLocaleString('en-IN')}</strong>

@@ -31,8 +31,8 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     {
       id: 'mustard-edits',
       filterKey: '3-Piece Set' as const,
-      title: 'Mustard & Magenta Sets',
-      subtitle: 'Vibrant mustard yellow long kurti set with magenta trousers and sheer dupatta.',
+      title: 'Mustard & Red Sets',
+      subtitle: 'Vibrant mustard yellow kurti suit set with red trousers and sheer dupatta.',
       tag: '3-Piece Luxe',
       image: '/images/products/long-kurti-1.jpg',
       badgeBg: 'bg-[#B59757] text-white',
@@ -69,7 +69,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
             Explore By Craft & Signature Edits
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
-            Every garment carries the legacy of master Chikankari artisans. Choose your favorite silhouette or embroidery style below.
+            Every garment carries the legacy of master Chikankari artisans. Choose your favorite suits, kurtis, or embroidery style below.
           </p>
         </div>
 

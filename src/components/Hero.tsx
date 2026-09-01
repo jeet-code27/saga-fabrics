@@ -14,9 +14,9 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative min-h-[85vh] lg:min-h-[92vh] flex items-end justify-between overflow-hidden border-b border-[#E4D9CC]">
-      
+
       {/* Short Kurti Background Image */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-transform duration-1000 scale-102 pointer-events-none"
         style={{ backgroundImage: "url('/images/products/short-kurti-1.jpg')" }}
       />
@@ -26,15 +26,15 @@ export const Hero: React.FC = () => {
 
       {/* Hero Content Overlay */}
       <div className="max-w-7xl w-full mx-auto px-6 lg:px-12 py-16 lg:py-24 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-        
+
         {/* Left Column: Short Headline, Subtitle & Buttons */}
         <div className="lg:col-span-8 text-left space-y-6">
-          
+
           {/* Tag Badges */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF6F1] text-xs font-semibold uppercase tracking-widest">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
-              <span>Chikankari Unstitched Suit Collection 2026</span>
+              <span>Chikankari Suits & Kurtis Collection 2026</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-white">
@@ -50,12 +50,12 @@ export const Hero: React.FC = () => {
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight font-medium">
-            Handcrafted Chikankari Unstitched Suits
+            Handcrafted Chikankari Suits & Kurtis
           </h1>
 
           {/* Description */}
           <p className="text-sm sm:text-base text-[#FAF6F1]/90 max-w-xl leading-relaxed font-normal">
-            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Unstitched Suit Sets with pure cotton dupattas. 100% breathable pure cotton material ready to tailor to your custom fit.
+            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Suits, Kurtis & Unstitched Fabric Sets with pure cotton dupattas. 100% breathable pure cotton crafted for timeless comfort and style.
           </p>
 
           {/* CTA Buttons */}
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
                 <span>Shop Collection</span>
                 <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
               </button>
-              
+
               <a
                 href="#categories"
                 className="w-full sm:w-auto px-7 py-4 bg-white/15 hover:bg-white hover:text-[#2B2723] text-white border border-white/30 backdrop-blur-md font-medium rounded-full transition-all text-xs tracking-wider uppercase text-center"
@@ -90,7 +90,7 @@ export const Hero: React.FC = () => {
           <div className="bg-white/95 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-2xl max-w-xs space-y-3 transform hover:-translate-y-1 transition-transform">
             <div className="flex items-center gap-3">
               <Image
-                src="/images/saga-fabrics-logo-new.png"
+                src="/images/saga-fabrics-new.png"
                 alt="Saga Fabrics"
                 width={48}
                 height={48}

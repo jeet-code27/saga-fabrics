@@ -15,7 +15,7 @@ export const CraftStory: React.FC = () => {
       description: 'Master artisans outline delicate paisley and floral Chikankari motifs onto pure cotton fabric before hand embroidery begins.',
       icon: Scissors,
       tag: '100% Hand Designed',
-      image: '/images/craft/step-1-block-carving.png',
+      image: '/images/craft/step-1-motif-design.jpg',
     },
     {
       num: '02',
@@ -39,7 +39,7 @@ export const CraftStory: React.FC = () => {
       num: '04',
       title: 'Pre-Shrunk Comfort',
       subtitle: 'Cloud-Soft Hand Feel',
-      description: 'Every completed Kurti is pre-washed with bio-softeners to guarantee zero shrinkage, color fastness, and effortless breathability.',
+      description: 'Every completed Suit set & Kurti is pre-washed with bio-softeners to guarantee zero shrinkage, color fastness, and effortless breathability.',
       icon: ShieldCheck,
       tag: 'Zero Shrinkage',
       image: '/images/craft/step-4-preshrunk-comfort.png',
@@ -60,7 +60,7 @@ export const CraftStory: React.FC = () => {
             <Sparkles className="w-3.5 h-3.5 text-[#E88DAE]" /> Artisanal Legacy
           </div>
           <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-            The Making of a Saga Fabrics Masterpiece
+            The Making of Saga Fabrics Suits & Kurtis
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
             Take a glimpse into our artisan studio, where traditional techniques meet contemporary elegance.

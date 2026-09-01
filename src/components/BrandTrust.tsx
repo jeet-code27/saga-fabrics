@@ -14,7 +14,7 @@ export const BrandTrust: React.FC = () => {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Chikankari Artisanal</h4>
+              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Chikankari Suits & Kurtis</h4>
               <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Handcrafted by traditional master Chikankari artisans in India.</p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export const BrandTrust: React.FC = () => {
             </div>
             <div>
               <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Quality Inspected</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Every unstitched fabric length undergoes strict quality check. (No Returns Policy)</p>
+              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Every suit, kurti & fabric length undergoes strict quality check. (No Returns Policy)</p>
             </div>
           </div>
 

@@ -95,10 +95,10 @@ export default function HomePage() {
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Chikankari Edit
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Chikankari Unstitched Suit Collection
+              Curated Chikankari Suits & Kurtis Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              Handcrafted 100% Breathable Pure Cotton Unstitched Suit Sets • Order directly with instant Razorpay checkout.
+              Handcrafted 100% Breathable Pure Cotton Suits, Kurtis & Unstitched Sets • Order directly with instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}
@@ -167,7 +167,7 @@ export default function HomePage() {
               "Every thread tells a story of rich artisanal heritage and timeless Chikankari craftsmanship."
             </h3>
             <p className="text-xs uppercase tracking-widest text-[#B59757] font-bold">
-              Saga Fabrics • Handcrafted Chikankari
+              Saga Fabrics • Handcrafted Chikankari Suits & Kurtis
             </p>
           </div>
         </section>
