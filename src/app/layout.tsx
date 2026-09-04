@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     default: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
     template: '%s',
   },
-  description: 'Shop 100% pure cotton Lucknowi Chikankari & Handblock suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+  description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
   keywords: [
     'Saga Fabrics',
     'Lucknowi Chikankari Suits Online',
     'Chikankari Kurtis Online',
     'Suits and Kurtis Shop',
     'Chikankari Unstitched Suit Sets',
-    'Handblock Suits and Kurtis',
+    'Chikankari Stitched Suits',
     'Pure Cotton Suits India',
     'Cotton Kurtis India',
     'Artisanal Chikankari Embroidery',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/`,
     siteName: 'Saga Fabrics',
     title: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
-    description: 'Shop 100% pure cotton Lucknowi Chikankari & Handblock suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+    description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
     images: [
       {
         url: LOGO_URL,
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
-    description: 'Shop 100% pure cotton Lucknowi Chikankari & Handblock suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+    description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
     images: [LOGO_URL],
   },
   manifest: '/manifest.json',

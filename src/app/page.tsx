@@ -35,7 +35,7 @@ export default function HomePage() {
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
-  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched Suits' | '3-Piece Set' | 'Chikankari' | 'Handblock'>('All');
+  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched Suits' | '3-Piece Set' | 'Chikankari'>('All');
 
   // Handle Quick View modal trigger
   const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
@@ -58,7 +58,6 @@ export default function HomePage() {
     if (activeFilter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
     if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
     if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
-    if (activeFilter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block') || p.tags.includes('Handblock') || p.craft.toLowerCase().includes('ajrakh');
     return true;
   });
 
@@ -104,13 +103,12 @@ export default function HomePage() {
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'Stitched Suits', '3-Piece Set', 'Chikankari', 'Handblock'] as const).map((filter) => {
+              {(['All', 'Stitched Suits', '3-Piece Set', 'Chikankari'] as const).map((filter) => {
                 const count = PRODUCTS.filter((p) => {
                   if (filter === 'All') return true;
                   if (filter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
                   if (filter === '3-Piece Set') return p.tags.includes('3-Piece Set');
                   if (filter === 'Chikankari') return p.tags.includes('Chikankari');
-                  if (filter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block') || p.tags.includes('Handblock') || p.craft.toLowerCase().includes('ajrakh');
                   return true;
                 }).length;
 

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
 interface CraftCategoriesProps {
-  onSelectCategory: (category: 'All' | 'Stitched Suits' | 'Chikankari' | 'Handblock' | '3-Piece Set') => void;
+  onSelectCategory: (category: 'All' | 'Stitched Suits' | 'Chikankari' | '3-Piece Set') => void;
 }
 
 export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCategory }) => {
@@ -21,10 +21,10 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
     {
       id: 'ajrakh-edits',
-      filterKey: 'Handblock' as const,
-      title: 'Ajrakh & Handblock Sets',
-      subtitle: 'Rich artisanal block prints, contrasting dupattas and intricate neckline embroidery.',
-      tag: 'Ajrakh Craft',
+      filterKey: 'Chikankari' as const,
+      title: 'Heritage Chikankari Sets',
+      subtitle: 'Rich artisanal Chikankari embroidery, contrasting dupattas and intricate neckline needlework.',
+      tag: 'Chikankari Craft',
       image: '/images/products/stitched-suit-navy-maroon.jpeg',
       badgeBg: 'bg-[#7A1B38] text-white',
     },
@@ -48,7 +48,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
   ];
 
-  const handleCategoryClick = (filterKey: 'All' | 'Stitched Suits' | 'Chikankari' | 'Handblock' | '3-Piece Set') => {
+  const handleCategoryClick = (filterKey: 'All' | 'Stitched Suits' | 'Chikankari' | '3-Piece Set') => {
     onSelectCategory(filterKey);
     const collectionEl = document.getElementById('collection');
     if (collectionEl) {
