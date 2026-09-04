@@ -129,7 +129,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   <div className="p-3.5 bg-[#FAF6F1] border border-[#E4D9CC] rounded-2xl space-y-2.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">
-                        Select Stitched Kurti Size: <strong className="text-[#7A1B38] font-bold text-sm ml-1">{selectedSize}</strong>
+                        Select Stitched Size: <strong className="text-[#7A1B38] font-bold text-sm ml-1">{selectedSize}</strong>
                       </span>
                       <span className="text-[11px] text-[#5C7056] font-semibold bg-[#5C7056]/10 px-2 py-0.5 rounded">Regular Fit</span>
                     </div>

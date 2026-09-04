@@ -5,50 +5,50 @@ import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
 interface CraftCategoriesProps {
-  onSelectCategory: (category: 'All' | 'Chikankari' | 'Handblock' | '3-Piece Set') => void;
+  onSelectCategory: (category: 'All' | 'Stitched Suits' | 'Chikankari' | 'Handblock' | '3-Piece Set') => void;
 }
 
 export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCategory }) => {
   const categories = [
     {
-      id: 'indigo-edits',
-      filterKey: 'Chikankari' as const,
-      title: 'Royal Indigo Short Kurtis',
-      subtitle: 'Crisp white cotton tunics with vibrant royal blue Chikankari embroidery.',
-      tag: 'Bestselling Style',
-      image: '/images/products/short-kurti-1.jpg',
+      id: 'stitched-suits',
+      filterKey: 'Stitched Suits' as const,
+      title: 'Ready-to-Wear Stitched Suits',
+      subtitle: 'Complete 3-piece cotton suit sets with matching dupatta & trousers (Sizes S-XXL).',
+      tag: 'New Stitched Suits',
+      image: '/images/products/stitched-suit-emerald-green.jpeg',
+      badgeBg: 'bg-[#1B4D3E] text-white',
+    },
+    {
+      id: 'ajrakh-edits',
+      filterKey: 'Handblock' as const,
+      title: 'Ajrakh & Handblock Sets',
+      subtitle: 'Rich artisanal block prints, contrasting dupattas and intricate neckline embroidery.',
+      tag: 'Ajrakh Craft',
+      image: '/images/products/stitched-suit-navy-maroon.jpeg',
       badgeBg: 'bg-[#7A1B38] text-white',
     },
     {
-      id: 'emerald-edits',
+      id: 'indigo-edits',
       filterKey: 'Chikankari' as const,
-      title: 'Mint Emerald Edits',
-      subtitle: 'Refreshing emerald green hand threadwork on breathable pure cotton short tunics.',
-      tag: 'Artisanal Grace',
-      image: '/images/products/short-kurti-3.jpg',
-      badgeBg: 'bg-[#5C7056] text-white',
-    },
-    {
-      id: 'mustard-edits',
-      filterKey: '3-Piece Set' as const,
-      title: 'Mustard & Red Sets',
-      subtitle: 'Vibrant mustard yellow kurti suit set with red trousers and sheer dupatta.',
-      tag: '3-Piece Luxe',
-      image: '/images/products/long-kurti-1.jpg',
-      badgeBg: 'bg-[#B59757] text-white',
+      title: 'Royal Indigo Chikankari',
+      subtitle: 'Crisp breathable cotton tunics with vibrant royal blue Chikankari embroidery.',
+      tag: 'Bestselling Style',
+      image: '/images/products/short-kurti-1.jpg',
+      badgeBg: 'bg-[#65897D] text-white',
     },
     {
       id: 'rose-edits',
       filterKey: '3-Piece Set' as const,
-      title: 'Dusty Rose & Sky Blue',
-      subtitle: 'Sleeveless dusty rose long kurti set with sky blue trousers and dupatta.',
-      tag: 'Pastel Elegance',
-      image: '/images/products/long-kurti-2.jpg',
-      badgeBg: 'bg-[#2B2723] text-white',
+      title: 'Blush Rose & Pastel Sets',
+      subtitle: 'Graceful feminine shades with lightweight sheer dupattas for festive & daily wear.',
+      tag: 'Pastel Luxe',
+      image: '/images/products/stitched-suit-rose-pink.jpeg',
+      badgeBg: 'bg-[#B59757] text-white',
     },
   ];
 
-  const handleCategoryClick = (filterKey: 'All' | 'Chikankari' | 'Handblock' | '3-Piece Set') => {
+  const handleCategoryClick = (filterKey: 'All' | 'Stitched Suits' | 'Chikankari' | 'Handblock' | '3-Piece Set') => {
     onSelectCategory(filterKey);
     const collectionEl = document.getElementById('collection');
     if (collectionEl) {

@@ -35,7 +35,7 @@ export default function HomePage() {
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
-  const [activeFilter, setActiveFilter] = useState<'All' | 'Chikankari' | 'Handblock' | '3-Piece Set'>('All');
+  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched Suits' | '3-Piece Set' | 'Chikankari' | 'Handblock'>('All');
 
   // Handle Quick View modal trigger
   const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
@@ -55,9 +55,10 @@ export default function HomePage() {
   // Filter products based on tab
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
-    if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
-    if (activeFilter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block');
+    if (activeFilter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
     if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
+    if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
+    if (activeFilter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block') || p.tags.includes('Handblock') || p.craft.toLowerCase().includes('ajrakh');
     return true;
   });
 
@@ -103,12 +104,13 @@ export default function HomePage() {
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'Chikankari', 'Handblock', '3-Piece Set'] as const).map((filter) => {
+              {(['All', 'Stitched Suits', '3-Piece Set', 'Chikankari', 'Handblock'] as const).map((filter) => {
                 const count = PRODUCTS.filter((p) => {
                   if (filter === 'All') return true;
-                  if (filter === 'Chikankari') return p.tags.includes('Chikankari');
-                  if (filter === 'Handblock') return p.craft.includes('Handblock');
+                  if (filter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
                   if (filter === '3-Piece Set') return p.tags.includes('3-Piece Set');
+                  if (filter === 'Chikankari') return p.tags.includes('Chikankari');
+                  if (filter === 'Handblock') return p.craft.toLowerCase().includes('handblock') || p.craft.toLowerCase().includes('hand block') || p.tags.includes('Handblock') || p.craft.toLowerCase().includes('ajrakh');
                   return true;
                 }).length;
 
@@ -122,7 +124,7 @@ export default function HomePage() {
                         : 'bg-white text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38] shadow-2xs'
                     }`}
                   >
-                    <span>{filter} Collection</span>
+                    <span>{filter === 'All' ? 'All Collection' : filter === 'Stitched Suits' ? 'Stitched Suits' : `${filter} Collection`}</span>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
                       activeFilter === filter ? 'bg-white/20 text-white' : 'bg-[#F3ECE2] text-[#7A1B38]'
                     }`}>
