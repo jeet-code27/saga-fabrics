@@ -2,25 +2,6 @@ import { Product } from '@/types';
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'saga-test-001',
-    title: 'Live Pixel & Gateway Test Fabric Sample (₹1 Test Order)',
-    subtitle: 'System Verification Order - 100% Refundable / Live Gateway Test',
-    price: 1,
-    originalPrice: 99,
-    description: 'This is an official ₹1 verification product to test live Razorpay payment processing and Meta Pixel Purchase event attribution.',
-    fabric: '100% Pure Cotton Sample Swatch',
-    craft: 'Chikankari Handwork Sample',
-    care: 'Hand Wash',
-    color: 'Test Sample',
-    colorHex: '#9E6962',
-    images: ['/images/products/short-kurti-1.jpg'],
-    sizes: ['Free Size (Unstitched)'],
-    tags: ['Live Test', '₹1 Verification'],
-    inStock: true,
-    rating: 5.0,
-    reviewsCount: 1,
-  },
-  {
     id: 'saga-017',
     title: 'Emerald Bottle Green Stitched Suit Set',
     subtitle: 'Pure Cotton Long Kurti with Geometric Chikankari Printed Dupatta & Trousers (Ready to Wear)',
