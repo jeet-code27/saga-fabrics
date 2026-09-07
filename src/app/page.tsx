@@ -35,7 +35,7 @@ export default function HomePage() {
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
-  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched Suits' | '3-Piece Set' | 'Chikankari'>('All');
+  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched' | 'Unstitched' | '3-Piece Set'>('All');
 
   // Handle Quick View modal trigger
   const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
@@ -55,9 +55,9 @@ export default function HomePage() {
   // Filter products based on tab
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
-    if (activeFilter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+    if (activeFilter === 'Stitched') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+    if (activeFilter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
     if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
-    if (activeFilter === 'Chikankari') return p.tags.includes('Chikankari');
     return true;
   });
 
@@ -92,25 +92,33 @@ export default function HomePage() {
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-[#7A1B38] bg-[#7A1B38]/10 px-4 py-1.5 rounded-full border border-[#7A1B38]/20">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Chikankari Edit
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Artisanal Edit
             </div>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Chikankari Suits & Kurtis Collection
+              Curated Suits & Kurtis Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              Handcrafted 100% Breathable Pure Cotton Suits, Kurtis & Unstitched Sets • Order directly with instant Razorpay checkout.
+              Handcrafted Premium Suits, Kurtis & Unstitched Sets • Order directly with instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'Stitched Suits', '3-Piece Set', 'Chikankari'] as const).map((filter) => {
+              {(['All', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
                 const count = PRODUCTS.filter((p) => {
                   if (filter === 'All') return true;
-                  if (filter === 'Stitched Suits') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+                  if (filter === 'Stitched') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+                  if (filter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
                   if (filter === '3-Piece Set') return p.tags.includes('3-Piece Set');
-                  if (filter === 'Chikankari') return p.tags.includes('Chikankari');
                   return true;
                 }).length;
+
+                const label = filter === 'All'
+                  ? 'All Collection'
+                  : filter === 'Stitched'
+                  ? 'Stitched Suits'
+                  : filter === 'Unstitched'
+                  ? 'Unstitched Suits'
+                  : '3-Piece Sets';
 
                 return (
                   <button
@@ -122,7 +130,7 @@ export default function HomePage() {
                         : 'bg-white text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38] shadow-2xs'
                     }`}
                   >
-                    <span>{filter === 'All' ? 'All Collection' : filter === 'Stitched Suits' ? 'Stitched Suits' : `${filter} Collection`}</span>
+                    <span>{label}</span>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
                       activeFilter === filter ? 'bg-white/20 text-white' : 'bg-[#F3ECE2] text-[#7A1B38]'
                     }`}>
@@ -164,10 +172,10 @@ export default function HomePage() {
         <section className="bg-[#7A1B38] text-[#FAF6F1] py-16 px-6">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <h3 className="text-2xl sm:text-4xl font-serif italic leading-relaxed">
-              "Every thread tells a story of rich artisanal heritage and timeless Chikankari craftsmanship."
+              "Every thread tells a story of rich artisanal heritage and timeless Indian craftsmanship."
             </h3>
             <p className="text-xs uppercase tracking-widest text-[#B59757] font-bold">
-              Saga Fabrics • Handcrafted Chikankari Suits & Kurtis
+              Saga Fabrics • Handcrafted Suits & Kurtis
             </p>
           </div>
         </section>

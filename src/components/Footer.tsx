@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
               style={{ height: '56px', width: 'auto' }}
             />
             <p className="text-xs text-[#8A8178] leading-relaxed">
-              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted Chikankari suits, kurtis & unstitched fabric sets with pure cotton dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
+              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted suits, kurtis & unstitched fabric sets with pure dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
             </p>
           </div>
 
@@ -32,8 +32,8 @@ export const Footer: React.FC = () => {
             <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Store Navigation</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Suits & Kurtis Collection</a></li>
-              <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Chikankari Collections</a></li>
-              <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Chikankari Process</a></li>
+              <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Artisanal Collections</a></li>
+              <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Artisanal Craft</a></li>
               <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>
             </ul>
           </div>

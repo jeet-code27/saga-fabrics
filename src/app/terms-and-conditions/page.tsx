@@ -72,11 +72,11 @@ export default function TermsAndConditionsPage() {
               Product Descriptions & Unstitched Fabric Specs
             </h2>
             <p>
-              Saga Fabrics specializes in 100% premium unstitched suit fabrics, unstitched Chikankari dress materials, and handcrafted Chikankari suit sets.
+              Saga Fabrics specializes in premium unstitched suit fabrics, handcrafted dress materials, and artisanal suit sets.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
-              <li>All products sold are <strong>100% Unstitched Fabric Sets (Free Size)</strong> customizable by your tailor to any size.</li>
-              <li>Since our fabrics feature handcrafted Chikankari embroidery, slight variations in color tone or thread weave are natural artisanal characteristics.</li>
+              <li>All products sold are <strong>100% Unstitched Fabric Sets</strong> customizable by your tailor to any size.</li>
+              <li>Since our fabrics feature handcrafted artisanal embroidery, slight variations in color tone or thread weave are natural artisanal characteristics.</li>
             </ul>
           </section>
 

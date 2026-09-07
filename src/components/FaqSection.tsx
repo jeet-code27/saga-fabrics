@@ -13,7 +13,7 @@ export const FaqSection: React.FC = () => {
     },
     {
       question: 'Are these suits and kurtis stitched or unstitched?',
-      answer: 'We offer authentic unstitched Chikankari suit sets (Top material: ~2.5m, Bottom material: ~2.5m, Pure Cotton Dupatta: ~2.25m) as well as crafted short kurtis. Our suit sets are designed for custom boutique stitching so you can get them tailored to your perfect fit and style.',
+      answer: 'We offer authentic unstitched suit sets (Top material: ~2.5m, Bottom material: ~2.5m, Pure Dupatta: ~2.25m) as well as crafted ready-to-wear stitched suit sets and short kurtis. Our unstitched sets are designed for custom boutique tailoring to your perfect fit and style.',
     },
     {
       question: 'How long does express shipping take across India?',
@@ -24,7 +24,7 @@ export const FaqSection: React.FC = () => {
       answer: 'Yes! We integrate with Razorpay using 256-bit bank-grade SSL encryption. You can complete payment instantly via Google Pay, PhonePe, Paytm, Credit/Debit cards, or NetBanking.',
     },
     {
-      question: 'How should I wash and care for Chikankari suits and kurtis?',
+      question: 'How should I wash and care for these suits and kurtis?',
       answer: 'We recommend gentle hand washing in cold water with a mild detergent for the first few washes. Avoid harsh bleaching. Line dry in shade to preserve natural thread embroidery.',
     },
   ];
@@ -46,7 +46,7 @@ export const FaqSection: React.FC = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-sm text-[#8A8178]">
-            Everything you need to know about our handcrafted Chikankari suits, kurtis, fabrics, sizing, shipping & payments.
+            Everything you need to know about our handcrafted suits, kurtis, fabrics, sizing, shipping & payments.
           </p>
         </div>
 

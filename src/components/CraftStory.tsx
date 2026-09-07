@@ -12,7 +12,7 @@ export const CraftStory: React.FC = () => {
       num: '01',
       title: 'Artisanal Motif Design',
       subtitle: 'Precision Motif Sketching',
-      description: 'Master artisans outline delicate paisley and floral Chikankari motifs onto pure cotton fabric before hand embroidery begins.',
+      description: 'Master artisans outline delicate paisley and floral motifs onto pure fabrics before hand embroidery begins.',
       icon: Scissors,
       tag: '100% Hand Designed',
       image: '/images/craft/step-1-motif-design.jpg',
@@ -28,9 +28,9 @@ export const CraftStory: React.FC = () => {
     },
     {
       num: '03',
-      title: 'Chikankari Threadwork',
+      title: 'Hand Embroidery & Needlework',
       subtitle: '18+ Hours Per Garment',
-      description: 'Talented female artisans meticulously hand-embroider delicate Bakhiya and Phanda stitches along necklines and sleeve borders.',
+      description: 'Talented female artisans meticulously hand-embroider delicate traditional stitches along necklines and sleeve borders.',
       icon: Sparkles,
       tag: 'Artisan Empowered',
       image: '/images/craft/step-3-chikankari-threadwork.png',
@@ -138,7 +138,7 @@ export const CraftStory: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
             <div className="absolute bottom-4 left-4 right-4 text-white z-10">
-              <p className="text-xs uppercase tracking-widest text-[#E88DAE] font-bold">Chikankari Craft Studio</p>
+              <p className="text-xs uppercase tracking-widest text-[#E88DAE] font-bold">Artisanal Craft Studio</p>
               <p className="text-sm font-serif font-bold">Crafted with Love & Precision</p>
             </div>
           </div>

@@ -376,7 +376,7 @@ export default function AdminPage() {
                                   {item.productTitle}
                                 </p>
                                 <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
-                                  Free Size (Unstitched)
+                                  Unstitched
                                 </span>
                               </div>
                             </div>
@@ -497,7 +497,7 @@ export default function AdminPage() {
                 <div className="flex-1">
                   <h4 className="font-serif font-bold text-sm text-[#2D2A26]">{selectedOrder.items[0].productTitle}</h4>
                   <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1">
-                    <span>Item Spec: <strong className="text-[#9E6962]">Free Size (100% Unstitched Fabric Set)</strong></span>
+                    <span>Item Spec: <strong className="text-[#9E6962]">100% Unstitched Fabric Set</strong></span>
                     <span>•</span>
                     <span>Price: <strong>₹{selectedOrder.items[0].price}</strong></span>
                   </div>

@@ -82,7 +82,7 @@ export async function sendCustomerOrderConfirmationEmail(order: Order): Promise<
         <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1;">
           <strong style="color: #2D2A26; font-size: 14px; display: block; font-family: 'Georgia', serif;">${item.productTitle}</strong>
           <span style="color: #78716C; font-size: 12px; display: inline-block; margin-top: 4px;">
-            Spec: <strong style="color: #9E6962;">Free Size (100% Unstitched Fabric Set)</strong> | Qty: ${item.quantity}
+            Spec: <strong style="color: #9E6962;">100% Unstitched Fabric Set</strong> | Qty: ${item.quantity}
           </span>
         </td>
         <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; text-align: right; font-weight: bold; color: #2D2A26; font-size: 14px;">
@@ -233,7 +233,7 @@ export async function sendAdminOrderNotificationEmail(order: Order): Promise<boo
       <tr>
         <td style="padding: 10px; border-bottom: 1px solid #EDE7E1; font-size: 13px;">
           <strong>${item.productTitle}</strong><br/>
-          Spec: <span style="color: #9E6962; font-weight: bold;">Free Size (100% Unstitched Fabric Set)</span> | Qty: ${item.quantity}
+          Spec: <span style="color: #9E6962; font-weight: bold;">100% Unstitched Fabric Set</span> | Qty: ${item.quantity}
         </td>
         <td style="padding: 10px; border-bottom: 1px solid #EDE7E1; text-align: right; font-weight: bold; font-size: 13px;">
           ₹${(item.price * item.quantity).toLocaleString('en-IN')}

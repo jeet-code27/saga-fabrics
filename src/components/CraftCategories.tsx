@@ -5,14 +5,14 @@ import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
 interface CraftCategoriesProps {
-  onSelectCategory: (category: 'All' | 'Stitched Suits' | 'Chikankari' | '3-Piece Set') => void;
+  onSelectCategory: (category: 'All' | 'Stitched' | 'Unstitched' | '3-Piece Set') => void;
 }
 
 export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCategory }) => {
   const categories = [
     {
       id: 'stitched-suits',
-      filterKey: 'Stitched Suits' as const,
+      filterKey: 'Stitched' as const,
       title: 'Ready-to-Wear Stitched Suits',
       subtitle: 'Complete 3-piece cotton suit sets with matching dupatta & trousers (Sizes S-XXL).',
       tag: 'New Stitched Suits',
@@ -21,16 +21,16 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
     {
       id: 'ajrakh-edits',
-      filterKey: 'Chikankari' as const,
-      title: 'Heritage Chikankari Sets',
-      subtitle: 'Rich artisanal Chikankari embroidery, contrasting dupattas and intricate neckline needlework.',
-      tag: 'Chikankari Craft',
+      filterKey: 'Unstitched' as const,
+      title: 'Heritage Embroidered Sets',
+      subtitle: 'Rich artisanal embroidery, contrasting dupattas and intricate neckline needlework.',
+      tag: 'Artisanal Craft',
       image: '/images/products/stitched-suit-navy-maroon.jpeg',
       badgeBg: 'bg-[#7A1B38] text-white',
     },
     {
       id: 'indigo-edits',
-      filterKey: 'Chikankari' as const,
+      filterKey: 'Stitched' as const,
       title: 'Royal Indigo Chikankari',
       subtitle: 'Crisp breathable cotton tunics with vibrant royal blue Chikankari embroidery.',
       tag: 'Bestselling Style',
@@ -48,7 +48,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
   ];
 
-  const handleCategoryClick = (filterKey: 'All' | 'Stitched Suits' | 'Chikankari' | '3-Piece Set') => {
+  const handleCategoryClick = (filterKey: 'All' | 'Stitched' | 'Unstitched' | '3-Piece Set') => {
     onSelectCategory(filterKey);
     const collectionEl = document.getElementById('collection');
     if (collectionEl) {
@@ -69,7 +69,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
             Explore By Craft & Signature Edits
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178] leading-relaxed">
-            Every garment carries the legacy of master Chikankari artisans. Choose your favorite suits, kurtis, or embroidery style below.
+            Every garment carries the legacy of master Indian artisans. Choose your favorite suits, kurtis, or embroidery style below.
           </p>
         </div>
 

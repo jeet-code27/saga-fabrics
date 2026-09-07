@@ -127,11 +127,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </button>
         ) : (
           <button
-            onClick={() => onDirectBuy(product, 'Free Size (Unstitched)')}
+            onClick={() => onDirectBuy(product, 'Unstitched')}
             className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
           >
             <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-            <span>Buy Now (Free Size Unstitched)</span>
+            <span>Buy Now (Unstitched)</span>
           </button>
         )}
 

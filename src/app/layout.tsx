@@ -26,10 +26,10 @@ const LOGO_URL = 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
+    default: 'Saga Fabrics – Handcrafted Ethnic Suits & Kurtis Online',
     template: '%s',
   },
-  description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+  description: 'Shop handcrafted artisanal suits, kurtis & unstitched sets. Authentic Indian embroidery, free express shipping across India.',
   keywords: [
     'Saga Fabrics',
     'Lucknowi Chikankari Suits Online',
@@ -66,21 +66,21 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: `${SITE_URL}/`,
     siteName: 'Saga Fabrics',
-    title: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
-    description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+    title: 'Saga Fabrics – Handcrafted Ethnic Suits & Kurtis Online',
+    description: 'Shop handcrafted artisanal suits, kurtis & unstitched sets. Authentic Indian embroidery, free express shipping across India.',
     images: [
       {
         url: LOGO_URL,
         width: 1200,
         height: 630,
-        alt: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
+        alt: 'Saga Fabrics – Handcrafted Ethnic Suits & Kurtis Online',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Saga Fabrics – Authentic Lucknowi Chikankari Suits & Kurtis Online',
-    description: 'Shop 100% pure cotton Lucknowi Chikankari suits, kurtis & unstitched sets. Handcrafted artisanal embroidery, free express shipping across India.',
+    title: 'Saga Fabrics – Handcrafted Ethnic Suits & Kurtis Online',
+    description: 'Shop handcrafted artisanal suits, kurtis & unstitched sets. Authentic Indian embroidery, free express shipping across India.',
     images: [LOGO_URL],
   },
   manifest: '/manifest.json',

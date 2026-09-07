@@ -58,9 +58,9 @@ function ensureDbExists(): void {
         items: [
           {
             productId: 'saga-006',
-            productTitle: 'Mustard & Red Chikankari 3-Piece Unstitched Suit Set',
+            productTitle: 'Mustard & Red 3-Piece Unstitched Suit Set',
             image: '/images/products/long-kurti-1.jpg',
-            size: 'Free Size (Unstitched)',
+            size: 'Unstitched',
             price: 1399,
             quantity: 1,
           },

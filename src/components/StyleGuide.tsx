@@ -90,7 +90,7 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
             How to Style Saga Fabrics Suits & Kurtis
           </h2>
           <p className="text-sm sm:text-base text-[#8A8178]">
-            From morning office meetings to festive celebrations, find the perfect Chikankari suit or kurti ensemble and accessories.
+            From morning office meetings to festive celebrations, find the perfect handcrafted suit or kurti ensemble and accessories.
           </p>
         </div>
 
@@ -211,11 +211,11 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
                 Material: <span className="font-bold text-[#7A1B38]">100% Breathable Pure Cotton</span>
               </div>
               <button
-                onClick={() => onSelectProduct(matchedProduct, isKurti ? selectedSize : 'Free Size (Unstitched)')}
+                onClick={() => onSelectProduct(matchedProduct, isKurti ? selectedSize : 'Unstitched')}
                 className="w-full sm:w-auto px-6 py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white text-xs font-medium rounded-full shadow-md transition-all flex items-center justify-center gap-2 group tracking-wide cursor-pointer"
               >
                 <span>
-                  {isKurti ? `Buy Now (Size: ${selectedSize})` : 'Quick Buy Ensemble (Free Size)'}
+                  {isKurti ? `Buy Now (Size: ${selectedSize})` : 'Quick Buy Ensemble (Unstitched)'}
                 </span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>

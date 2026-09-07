@@ -22,11 +22,11 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
 
           <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Authentic Lucknowi Chikankari Suits & Kurtis Collection
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Ethnic Suits & Kurtis Collection
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="inline-flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> 100% Pure Cotton Suits, Kurtis & Fabrics
+              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> Premium Artisanal Suits, Kurtis & Fabrics
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="font-bold text-white tracking-wider">FREE EXPRESS SHIPPING ACROSS INDIA</span>
@@ -35,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
           <div className="flex sm:hidden items-center justify-center w-full text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Chikankari Suits & Kurtis • Free Express Delivery</span>
+              <span>Handcrafted Suits & Kurtis • Free Express Delivery</span>
             </span>
           </div>
 

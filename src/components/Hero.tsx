@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF6F1] text-xs font-semibold uppercase tracking-widest">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
-              <span>Chikankari Suits & Kurtis Collection 2026</span>
+              <span>Handcrafted Suits & Kurtis Collection 2026</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-white">
@@ -50,12 +50,12 @@ export const Hero: React.FC = () => {
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight font-medium">
-            Handcrafted Chikankari Suits & Kurtis
+            Handcrafted Artisanal Suits & Kurtis
           </h1>
 
           {/* Description */}
           <p className="text-sm sm:text-base text-[#FAF6F1]/90 max-w-xl leading-relaxed font-normal">
-            Discover <strong>Saga Fabrics’</strong> signature collection of Lucknowi Chikankari Suits, Kurtis & Unstitched Fabric Sets with pure cotton dupattas. 100% breathable pure cotton crafted for timeless comfort and style.
+            Discover <strong>Saga Fabrics’</strong> signature collection of handcrafted suits, kurtis & unstitched fabric sets with pure dupattas. Tailored and unstitched artisanal edits crafted for timeless comfort and style.
           </p>
 
           {/* CTA Buttons */}
@@ -97,14 +97,14 @@ export const Hero: React.FC = () => {
                 className="w-12 h-12 object-contain rounded-xl bg-[#FAF6F1] p-1 border border-[#E4D9CC] shrink-0"
               />
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#5C7056]">New Chikankari Edit</span>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#5C7056]">New Artisanal Edit</span>
                 <h4 className="text-sm font-serif font-bold text-[#2B2723]">Royal Indigo Short Kurti</h4>
               </div>
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t border-[#EDE6DC]">
               <div>
-                <p className="text-xs text-[#7A1B38] font-bold text-base">₹1,399 <span className="text-xs text-[#8A8178] line-through font-normal">₹1,999</span></p>
+                <p className="text-xs text-[#7A1B38] font-bold text-base">₹1,400 <span className="text-xs text-[#8A8178] line-through font-normal">₹1,999</span></p>
               </div>
               <button
                 onClick={scrollToProducts}

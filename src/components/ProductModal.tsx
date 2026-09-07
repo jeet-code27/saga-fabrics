@@ -63,7 +63,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               className="object-cover object-top transition-all duration-300"
             />
             <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#65897D] text-xs font-bold px-3 py-1 rounded-full border border-[#DCD3C7] z-10">
-              Handcrafted Chikankari
+              Handcrafted Artisanal
             </span>
           </div>
 
@@ -158,7 +158,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <div className="p-3 bg-[#FAF6F1] border border-[#EDE7E1] rounded-2xl flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase font-bold text-[#7D8F85] tracking-wider block">Size & Fitting Specification</span>
-                    <span className="text-xs font-serif font-bold text-[#9E6962] block mt-0.5">Free Size • 100% Unstitched Fabric Set</span>
+                    <span className="text-xs font-serif font-bold text-[#9E6962] block mt-0.5">100% Unstitched Fabric Set</span>
                   </div>
                   <span className="px-2.5 py-1 bg-[#9E6962] text-white text-[10px] font-bold rounded-lg shrink-0">
                     Customizable to All Sizes
@@ -190,13 +190,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               <div className="text-xs space-y-0.5">
                 <span className="font-bold text-[#7A1B38] block">
                   {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
-                    ? 'Handcrafted Chikankari Stitched Kurti'
-                    : 'Handcrafted Chikankari Unstitched Suit Set'}
+                    ? 'Handcrafted Stitched Kurti'
+                    : 'Handcrafted Unstitched Suit Set'}
                 </span>
                 <p className="text-[#8A8178] text-[11px] leading-relaxed">
                   {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
-                    ? 'Crafted in 100% breathable pure cotton with delicate Lucknowi thread embroidery. Stitched and ready-to-wear in standard sizes.'
-                    : 'Crafted in 100% breathable pure cotton with delicate Lucknowi thread embroidery. Free size unstitched fabric length ready for custom tailoring to any fit & style.'}
+                    ? 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Stitched and ready-to-wear in standard sizes.'
+                    : 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Unstitched fabric length ready for custom tailoring to any fit & style.'}
                 </p>
               </div>
             </div>
@@ -222,13 +222,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
               return (
                 <button
-                  onClick={() => onProceedToBuy(product, isKurti ? selectedSize : 'Free Size (Unstitched)')}
+                  onClick={() => onProceedToBuy(product, isKurti ? selectedSize : 'Unstitched')}
                   className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span>
                     {isKurti
                       ? `Proceed to Buy (Size: ${selectedSize}) with Razorpay`
-                      : 'Direct Buy (Free Size - Unstitched) with Razorpay'}
+                      : 'Direct Buy (Unstitched) with Razorpay'}
                   </span>
                 </button>
               );
