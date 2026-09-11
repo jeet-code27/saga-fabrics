@@ -32,10 +32,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     ? product.images[0]
     : `https://sagafabrics.in${product.images[0]}`;
 
-  const cleanDescription = `${product.subtitle} - ${product.description.slice(0, 140)}... Handcrafted in pure breathable cotton. Free express delivery across India.`;
+  const descText = `${product.subtitle}. Handcrafted pure cotton. Free express delivery in India.`;
+  const cleanDescription = descText.length > 160 ? descText.slice(0, 157) + '...' : descText;
 
   return {
-    title: `${product.title} | Saga Fabrics - Pure Cotton Ethnic Wear`,
+    title: `${product.title} | Saga Fabrics`,
     description: cleanDescription,
     keywords: [
       product.title,
