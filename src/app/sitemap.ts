@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
+import { PRODUCTS } from '@/lib/products';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://sagafabrics.in';
   const currentDate = new Date();
 
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
       lastModified: currentDate,
@@ -36,4 +37,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
   ];
+
+  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
+    url: `${baseUrl}/products/${product.id}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
+
+  return [...staticRoutes, ...productRoutes];
 }

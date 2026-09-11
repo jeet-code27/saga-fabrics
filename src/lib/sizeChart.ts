@@ -30,7 +30,6 @@ export const WOMENS_SIZES_INCH: SizeMeasurement[] = [
 
 export interface MeasuringGuideStep {
   title: string;
-  hindiTitle?: string;
   description: string;
   tip: string;
 }
@@ -38,25 +37,21 @@ export interface MeasuringGuideStep {
 export const MEASURING_GUIDE: MeasuringGuideStep[] = [
   {
     title: 'Bust / Chest',
-    hindiTitle: 'सीना',
     description: 'Measure around the fullest part of your bust, keeping the measuring tape comfortably snug and horizontal under your arms.',
     tip: 'Wear the bra style you plan to wear with this kurti or suit.',
   },
   {
     title: 'Waist',
-    hindiTitle: 'कमर',
     description: 'Measure around your natural waistline, typically the narrowest point above your navel and below the rib cage.',
     tip: 'Keep one finger between the tape and your body for ease of movement.',
   },
   {
     title: 'Hips',
-    hindiTitle: 'कूल्हे',
     description: 'Stand naturally with your feet together and wrap the tape around the fullest, widest part of your hips and seat.',
     tip: 'Ensure the tape stays parallel to the floor all the way around.',
   },
   {
     title: 'Front Length',
-    hindiTitle: 'कुर्ती की लंबाई',
     description: 'Measured straight down along the front from the highest point of your shoulder seam near the collar down to the hemline.',
     tip: 'Standard stitched kurti length is ~46 inches (115–117 cm), providing elegant knee/calf coverage.',
   },

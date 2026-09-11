@@ -2,27 +2,29 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Product, Size } from '@/types';
-import { Eye, ShoppingCart, Star, Sparkles } from 'lucide-react';
+import { ShoppingCart, Star, Sparkles, ArrowRight } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
-  onSelectProduct: (product: Product, initialSize?: Size) => void;
-  onDirectBuy: (product: Product, size: Size) => void;
+  onSelectProduct?: (product: Product, initialSize?: Size) => void;
+  onDirectBuy?: (product: Product, size: Size) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
-  onSelectProduct,
-  onDirectBuy,
 }) => {
   const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
 
   return (
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       
-      {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] cursor-pointer" onClick={() => onSelectProduct(product, 'M')}>
+      {/* Image Container with Link to Product Page */}
+      <Link
+        href={`/products/${product.id}`}
+        className="relative aspect-[3/4] overflow-hidden bg-[#F3ECE2] block cursor-pointer"
+      >
         <Image
           src={product.images[0]}
           alt={product.title}
@@ -60,19 +62,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
         </div>
 
-        {/* Quick Preview Hover Overlay */}
-        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelectProduct(product, 'M');
-            }}
-            className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5 cursor-pointer"
-          >
-            <Eye className="w-4 h-4" /> Quick View
-          </button>
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span className="bg-white/95 text-[#2B2723] hover:bg-[#7A1B38] hover:text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors shadow-md flex items-center gap-1.5">
+            <span>View Details & Sizing</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
         </div>
-      </div>
+      </Link>
 
       {/* Product Details */}
       <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
@@ -90,12 +87,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
 
           {/* Title */}
-          <h3
-            onClick={() => onSelectProduct(product, 'M')}
-            className="text-base font-serif font-semibold text-[#2B2723] group-hover:text-[#7A1B38] transition-colors cursor-pointer line-clamp-1"
+          <Link
+            href={`/products/${product.id}`}
+            className="text-base font-serif font-semibold text-[#2B2723] group-hover:text-[#7A1B38] transition-colors cursor-pointer line-clamp-1 block"
           >
             {product.title}
-          </h3>
+          </Link>
           <p className="text-xs text-[#8A8178] line-clamp-1 mt-0.5">{product.subtitle}</p>
 
           {/* Pricing */}
@@ -111,29 +108,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
             <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
             <span>
-              {isKurti ? 'Ready to Wear • Sizes S, M, L, XL, XXL' : '100% Pure Cotton Unstitched Suit Set'}
+              {isKurti ? 'Ready to Wear • Sizes XS, S, M, L, XL, XXL' : '100% Pure Cotton Unstitched Suit Set'}
             </span>
           </div>
         </div>
 
-        {/* Action Button */}
-        {isKurti ? (
-          <button
-            onClick={() => onSelectProduct(product, 'M')}
-            className="w-full py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
-          >
-            <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-            <span>Select Size & Buy (S - XXL)</span>
-          </button>
-        ) : (
-          <button
-            onClick={() => onDirectBuy(product, 'Unstitched')}
-            className="w-full py-3 bg-[#2B2723] hover:bg-[#7A1B38] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm cursor-pointer"
-          >
-            <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-            <span>Buy Now (Unstitched)</span>
-          </button>
-        )}
+        {/* Action Link to Product Page */}
+        <Link
+          href={`/products/${product.id}`}
+          className="w-full py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm"
+        >
+          <ShoppingCart className="w-4 h-4 text-[#B59757]" />
+          <span>{isKurti ? 'Select Size & Buy' : 'View Details & Buy'}</span>
+        </Link>
 
       </div>
     </div>

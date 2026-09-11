@@ -8,7 +8,6 @@ import { Hero } from '@/components/Hero';
 import { BrandTrust } from '@/components/BrandTrust';
 import { CraftCategories } from '@/components/CraftCategories';
 import { ProductCard } from '@/components/ProductCard';
-import { ProductModal } from '@/components/ProductModal';
 import { CheckoutDrawer } from '@/components/CheckoutDrawer';
 import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { CraftStory } from '@/components/CraftStory';
@@ -20,11 +19,6 @@ import { SizeChartModal } from '@/components/SizeChartModal';
 import { Sparkles } from 'lucide-react';
 
 export default function HomePage() {
-  const [selectedProductModal, setSelectedProductModal] = useState<{
-    product: Product;
-    size: Size;
-  } | null>(null);
-
   const [checkoutState, setCheckoutState] = useState<{
     isOpen: boolean;
     product: Product | null;
@@ -39,14 +33,8 @@ export default function HomePage() {
   const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched' | 'Unstitched' | '3-Piece Set'>('All');
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
-  // Handle Quick View modal trigger
-  const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
-    setSelectedProductModal({ product, size: initialSize });
-  };
-
   // Handle Direct Buy trigger
   const handleDirectBuy = (product: Product, size: Size = 'M') => {
-    setSelectedProductModal(null);
     setCheckoutState({
       isOpen: true,
       product,
@@ -151,8 +139,6 @@ export default function HomePage() {
               <ProductCard
                 key={product.id}
                 product={product}
-                onSelectProduct={handleOpenProductModal}
-                onDirectBuy={handleDirectBuy}
               />
             ))}
           </div>
@@ -186,16 +172,6 @@ export default function HomePage() {
 
       {/* Footer */}
       <Footer onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
-
-      {/* Product Detail Modal */}
-      {selectedProductModal && (
-        <ProductModal
-          product={selectedProductModal.product}
-          initialSize={selectedProductModal.size}
-          onClose={() => setSelectedProductModal(null)}
-          onProceedToBuy={handleDirectBuy}
-        />
-      )}
 
       {/* Checkout Slide-over Drawer */}
       <CheckoutDrawer

@@ -425,11 +425,6 @@ export const SizeChartModal: React.FC<SizeChartModalProps> = ({
                         </div>
                         <h4 className="font-serif font-bold text-sm text-[#2B2723]">
                           {step.title}
-                          {step.hindiTitle && (
-                            <span className="text-xs font-sans font-normal text-[#8A8178] ml-1.5">
-                              ({step.hindiTitle})
-                            </span>
-                          )}
                         </h4>
                       </div>
                     </div>
