@@ -8,6 +8,7 @@ import { ProductSizeChart } from '@/components/ProductSizeChart';
 import { CheckoutDrawer } from '@/components/CheckoutDrawer';
 import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { ProductCard } from '@/components/ProductCard';
+import { trackEvent } from '@/lib/metaPixel';
 import {
   Star,
   Shield,
@@ -49,17 +50,33 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
   // Meta Pixel ViewContent event
   React.useEffect(() => {
-    if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', 'ViewContent', {
-        content_name: product.title,
-        content_category: 'Suits & Kurtis Collection',
-        content_ids: [product.id],
-        content_type: 'product',
-        value: product.price,
-        currency: 'INR',
-      });
-    }
+    trackEvent('ViewContent', {
+      content_name: product.title,
+      content_category: 'Suits & Kurtis Collection',
+      content_ids: [product.id],
+      content_type: 'product',
+      value: product.price,
+      currency: 'INR',
+    });
   }, [product]);
+
+  const handleInitiateBuy = () => {
+    trackEvent('AddToCart', {
+      content_name: product.title,
+      content_ids: [product.id],
+      content_type: 'product',
+      value: product.price,
+      currency: 'INR',
+    });
+    trackEvent('InitiateCheckout', {
+      content_name: product.title,
+      content_ids: [product.id],
+      content_type: 'product',
+      value: product.price,
+      currency: 'INR',
+    });
+    setCheckoutOpen(true);
+  };
 
   const handleShare = () => {
     if (typeof window !== 'undefined') {
@@ -238,19 +255,23 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">
                   Select Stitched Size: <strong className="text-[#7A1B38] font-bold text-base ml-1">{selectedSize}</strong>
                 </span>
-                <span className="text-xs text-[#5C7056] font-semibold bg-[#5C7056]/10 px-2.5 py-0.5 rounded-full">
-                  Regular Fit
-                </span>
+                <a
+                  href="#size-chart-section"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A1B38] hover:text-[#5C142A] bg-[#FAF6F1] hover:bg-[#F3ECE2] px-2.5 py-1 rounded-xl border border-[#DCD3C7] transition-colors"
+                >
+                  <Ruler className="w-3.5 h-3.5 text-[#7A1B38]" />
+                  <span>Size Chart</span>
+                </a>
               </div>
 
               {/* Size Buttons */}
-              <div className="grid grid-cols-6 gap-2">
+              <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
                 {product.sizes.map((sz) => (
                   <button
                     key={sz}
                     type="button"
                     onClick={() => setSelectedSize(sz)}
-                    className={`py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer border flex flex-col items-center justify-center ${
+                    className={`py-2 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer border flex items-center justify-center ${
                       selectedSize === sz
                         ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-md scale-102'
                         : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
@@ -283,26 +304,22 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </div>
           )}
 
-          {/* Embedded Mobile-Responsive Size Chart */}
-          <div id="size-chart-section">
-            <ProductSizeChart
-              selectedSize={selectedSize}
-              onSelectSize={(sz) => setSelectedSize(sz)}
-            />
-          </div>
-
-          {/* Primary Action Buttons */}
-          <div className="space-y-3 pt-2">
+          {/* Primary Action Buttons - Placed directly below size selector */}
+          <div className="space-y-3 pt-1 w-full">
             <button
-              onClick={() => setCheckoutOpen(true)}
-              className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-all duration-300 text-sm sm:text-base shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-2 group tracking-wide"
+              type="button"
+              onClick={handleInitiateBuy}
+              className="w-full py-3.5 px-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-3 text-center group"
             >
-              <ShoppingBag className="w-5 h-5 text-[#B59757] transition-transform group-hover:scale-110" />
-              <span>
-                {isStitched
-                  ? `Proceed to Buy (Size: ${selectedSize}) with Razorpay`
-                  : 'Direct Buy (Unstitched) with Razorpay'}
-              </span>
+              <ShoppingBag className="w-5 h-5 text-[#B59757] shrink-0 transition-transform group-hover:scale-110" />
+              <div className="flex flex-col items-center justify-center text-center">
+                <span className="font-bold text-sm sm:text-base tracking-wide text-white">
+                  {isStitched ? `Proceed to Buy (Size: ${selectedSize})` : 'Direct Buy (Unstitched Set)'}
+                </span>
+                <span className="text-[11px] text-white/80 font-medium">
+                  Instant Razorpay Checkout • Free Express Shipping
+                </span>
+              </div>
             </button>
 
             {/* WhatsApp Styling Assistant Button */}
@@ -310,11 +327,19 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               href={`https://wa.me/917023352132?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 bg-white hover:bg-[#F3ECE2] text-[#25D366] font-semibold rounded-2xl transition-colors text-xs sm:text-sm border border-[#DCD3C7] flex items-center justify-center gap-2 shadow-xs"
+              className="w-full py-3 px-4 bg-white hover:bg-[#F3ECE2] text-[#25D366] font-semibold rounded-2xl transition-colors text-xs sm:text-sm border border-[#DCD3C7] flex items-center justify-center gap-2.5 shadow-2xs text-center"
             >
-              <MessageCircle className="w-4 h-4 text-[#25D366]" />
-              <span>Order or Inquire via WhatsApp (+91 70233 52132)</span>
+              <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
+              <span>Order or Chat on WhatsApp (+91 70233 52132)</span>
             </a>
+          </div>
+
+          {/* Embedded Mobile-Responsive Size Chart */}
+          <div id="size-chart-section">
+            <ProductSizeChart
+              selectedSize={selectedSize}
+              onSelectSize={(sz) => setSelectedSize(sz)}
+            />
           </div>
 
           {/* Fabric & Craft Description */}
@@ -405,6 +430,32 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           onClose={() => setCompletedOrder(null)}
         />
       )}
+
+      {/* Sticky Bottom Buy Bar on Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DCD3C7] px-4 py-2.5 sm:hidden shadow-2xl flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-base font-serif font-bold text-[#7A1B38]">
+              ₹{product.price.toLocaleString('en-IN')}
+            </span>
+            <span className="text-[11px] text-[#8A8178] line-through">
+              ₹{product.originalPrice.toLocaleString('en-IN')}
+            </span>
+          </div>
+          <span className="text-[10px] text-[#5C7056] font-semibold block truncate">
+            {isStitched ? `Selected Size: ${selectedSize}` : '100% Unstitched Set'}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleInitiateBuy}
+          className="py-2.5 px-5 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+        >
+          <ShoppingBag className="w-3.5 h-3.5 text-[#B59757]" />
+          <span>{isStitched ? `Buy (${selectedSize})` : 'Buy Now'}</span>
+        </button>
+      </div>
     </div>
   );
 };
