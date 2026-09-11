@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, Star } from 'lucide-react';
+import { Sparkles, ArrowRight, Star, Ruler } from 'lucide-react';
+import { SizeChartModal } from './SizeChartModal';
 import { PRODUCTS } from '@/lib/products';
 import { Product, Size } from '@/types';
 
@@ -13,6 +14,7 @@ interface StyleGuideProps {
 export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
   const [activeOccasion, setActiveOccasion] = useState<number>(0);
   const [selectedSize, setSelectedSize] = useState<Size>('M');
+  const [showSizeChart, setShowSizeChart] = useState<boolean>(false);
 
   const occasions = [
     {
@@ -170,7 +172,14 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
                     <span className="font-bold text-[#2B2723] uppercase tracking-wider">
                       Select Kurti Size: <strong className="text-[#7A1B38] font-bold text-sm ml-1">{selectedSize}</strong>
                     </span>
-                    <span className="text-[11px] text-[#5C7056] font-semibold bg-[#5C7056]/10 px-2 py-0.5 rounded">Regular Fit</span>
+                    <button
+                      type="button"
+                      onClick={() => setShowSizeChart(true)}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A1B38] hover:text-[#5C142A] bg-white hover:bg-[#F3ECE2] px-2.5 py-1 rounded-xl border border-[#DCD3C7] shadow-2xs transition-all cursor-pointer group"
+                    >
+                      <Ruler className="w-3.5 h-3.5 text-[#7A1B38] group-hover:rotate-12 transition-transform" />
+                      <span>Size Guide</span>
+                    </button>
                   </div>
                   <div className="flex items-center gap-2 flex-wrap">
                     {matchedProduct.sizes.map((sz) => (
@@ -225,6 +234,14 @@ export const StyleGuide: React.FC<StyleGuideProps> = ({ onSelectProduct }) => {
         </div>
 
       </div>
+
+      {/* Size Chart Modal */}
+      <SizeChartModal
+        isOpen={showSizeChart}
+        onClose={() => setShowSizeChart(false)}
+        selectedSize={selectedSize}
+        onSelectSize={(sz) => setSelectedSize(sz)}
+      />
     </section>
   );
 };

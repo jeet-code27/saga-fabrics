@@ -1,9 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle, Ruler } from 'lucide-react';
 
-export const FaqSection: React.FC = () => {
+interface FaqSectionProps {
+  onOpenSizeChart?: () => void;
+}
+
+export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSizeChart }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -14,6 +18,11 @@ export const FaqSection: React.FC = () => {
     {
       question: 'Are these suits and kurtis stitched or unstitched?',
       answer: 'We offer authentic unstitched suit sets (Top material: ~2.5m, Bottom material: ~2.5m, Pure Dupatta: ~2.25m) as well as crafted ready-to-wear stitched suit sets and short kurtis. Our unstitched sets are designed for custom boutique tailoring to your perfect fit and style.',
+    },
+    {
+      question: 'How do I choose the right size? Do you have a Women’s Size Chart?',
+      answer: 'Yes! We follow standard Indian and international sizing for stitched kurtis and suits (XS, S, M, L, XL, XXL) with measurements available in both Inches and Centimetres. For unstitched suit sets, each package includes generous fabric lengths (~2.5m Kurti top, ~2.5m Bottom pants, ~2.25m Dupatta) that your tailor can customize to ANY size from XS up to 5XL.',
+      hasSizeChartButton: true,
     },
     {
       question: 'How long does express shipping take across India?',
@@ -79,6 +88,18 @@ export const FaqSection: React.FC = () => {
                 {isOpen && (
                   <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-sm text-[#8A8178] leading-relaxed border-t border-[#EDE6DC]">
                     <p className="pt-4">{faq.answer}</p>
+                    {faq.hasSizeChartButton && onOpenSizeChart && (
+                      <div className="pt-4">
+                        <button
+                          type="button"
+                          onClick={onOpenSizeChart}
+                          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#7A1B38] hover:bg-[#5C142A] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+                        >
+                          <Ruler className="w-4 h-4" />
+                          <span>View Official Women's Size Chart (CM & INCH)</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

@@ -1,11 +1,15 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock, Ruler } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenSizeChart?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
   return (
     <footer className="bg-[#2B2723] text-[#FAF6F1] pt-16 pb-8 border-t border-[#DCD3C7]/20">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
@@ -33,6 +37,16 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-[#8A8178]">
               <li><a href="#collection" className="hover:text-[#FAF6F1] transition-colors">Suits & Kurtis Collection</a></li>
               <li><a href="#categories" className="hover:text-[#FAF6F1] transition-colors">Artisanal Collections</a></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenSizeChart}
+                  className="hover:text-[#FAF6F1] transition-colors text-left flex items-center gap-1.5 cursor-pointer text-[#FAF6F1]/90"
+                >
+                  <Ruler className="w-3.5 h-3.5 text-[#F7C687]" />
+                  <span>Women's Size Guide (Chart)</span>
+                </button>
+              </li>
               <li><a href="#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Artisanal Craft</a></li>
               <li><a href="#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</a></li>
             </ul>

@@ -3,7 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Product, Size } from '@/types';
-import { X, Star, Shield, RefreshCw, Truck, Sparkles } from 'lucide-react';
+import { X, Star, Shield, RefreshCw, Truck, Sparkles, Ruler } from 'lucide-react';
+import { SizeChartModal } from './SizeChartModal';
 
 interface ProductModalProps {
   product: Product | null;
@@ -20,6 +21,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 }) => {
   const [selectedSize, setSelectedSize] = React.useState<Size>(initialSize);
   const [selectedImageIndex, setSelectedImageIndex] = React.useState<number>(0);
+  const [showSizeChart, setShowSizeChart] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (product && typeof window !== 'undefined' && window.fbq) {
@@ -131,7 +133,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                       <span className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">
                         Select Stitched Size: <strong className="text-[#7A1B38] font-bold text-sm ml-1">{selectedSize}</strong>
                       </span>
-                      <span className="text-[11px] text-[#5C7056] font-semibold bg-[#5C7056]/10 px-2 py-0.5 rounded">Regular Fit</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowSizeChart(true)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A1B38] hover:text-[#5C142A] bg-white hover:bg-[#F3ECE2] px-2.5 py-1 rounded-xl border border-[#DCD3C7] shadow-2xs transition-all cursor-pointer group"
+                      >
+                        <Ruler className="w-3.5 h-3.5 text-[#7A1B38] group-hover:rotate-12 transition-transform" />
+                        <span>Size Guide & Chart</span>
+                      </button>
                     </div>
 
                     <div className="flex items-center gap-2 flex-wrap">
@@ -160,9 +169,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     <span className="text-[10px] uppercase font-bold text-[#7D8F85] tracking-wider block">Size & Fitting Specification</span>
                     <span className="text-xs font-serif font-bold text-[#9E6962] block mt-0.5">100% Unstitched Fabric Set</span>
                   </div>
-                  <span className="px-2.5 py-1 bg-[#9E6962] text-white text-[10px] font-bold rounded-lg shrink-0">
-                    Customizable to All Sizes
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowSizeChart(true)}
+                    className="px-2.5 py-1.5 bg-[#9E6962] hover:bg-[#865750] text-white text-[10px] font-bold rounded-lg shrink-0 inline-flex items-center gap-1.5 cursor-pointer shadow-2xs transition-colors"
+                  >
+                    <Ruler className="w-3 h-3" />
+                    <span>Customizable • View Guide</span>
+                  </button>
                 </div>
               );
             })()}
@@ -236,6 +250,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Size Chart & Fitting Guide Modal */}
+      <SizeChartModal
+        isOpen={showSizeChart}
+        onClose={() => setShowSizeChart(false)}
+        selectedSize={selectedSize}
+        onSelectSize={(sz) => setSelectedSize(sz)}
+      />
     </div>
   );
 };

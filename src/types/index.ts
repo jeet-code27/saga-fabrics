@@ -1,4 +1,4 @@
-export type Size = 'Unstitched' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | string;
+export type Size = 'Unstitched' | 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | string;
 
 export interface Product {
   id: string;

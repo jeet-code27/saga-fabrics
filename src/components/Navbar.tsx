@@ -3,14 +3,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin } from 'lucide-react';
+import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin, Ruler } from 'lucide-react';
 
 interface NavbarProps {
   cartCount?: number;
   onOpenCart?: () => void;
+  onOpenSizeChart?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => {
+export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpenSizeChart }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -87,6 +88,14 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
               <a href="#craft-story" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 Our Story
               </a>
+              <button
+                type="button"
+                onClick={onOpenSizeChart}
+                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs"
+              >
+                <Ruler className="w-3.5 h-3.5" />
+                <span>Size Guide</span>
+              </button>
               <a href="#faq" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 FAQs
               </a>
@@ -135,6 +144,20 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart }) => 
             >
               🌿 Our Craft Story
             </a>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (onOpenSizeChart) onOpenSizeChart();
+              }}
+              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between w-full text-left cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                <Ruler className="w-4 h-4 text-[#7A1B38]" />
+                <span>Women's Size Guide (Chart)</span>
+              </span>
+              <span className="text-[10px] bg-[#65897D]/15 text-[#65897D] font-bold px-2 py-0.5 rounded-full">CM & INCH</span>
+            </button>
             <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}

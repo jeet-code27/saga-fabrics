@@ -16,6 +16,7 @@ import { StyleGuide } from '@/components/StyleGuide';
 import { CustomerReviews } from '@/components/CustomerReviews';
 import { FaqSection } from '@/components/FaqSection';
 import { Footer } from '@/components/Footer';
+import { SizeChartModal } from '@/components/SizeChartModal';
 import { Sparkles } from 'lucide-react';
 
 export default function HomePage() {
@@ -36,6 +37,7 @@ export default function HomePage() {
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched' | 'Unstitched' | '3-Piece Set'>('All');
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
   // Handle Quick View modal trigger
   const handleOpenProductModal = (product: Product, initialSize: Size = 'M') => {
@@ -71,6 +73,7 @@ export default function HomePage() {
             handleDirectBuy(PRODUCTS[0], 'M');
           }
         }}
+        onOpenSizeChart={() => setIsSizeGuideOpen(true)}
       />
 
       {/* Main Content Body */}
@@ -166,7 +169,7 @@ export default function HomePage() {
         <CustomerReviews />
 
         {/* 8. Frequently Asked Questions */}
-        <FaqSection />
+        <FaqSection onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
         {/* Brand Banner Quote in Royal Burgundy */}
         <section className="bg-[#7A1B38] text-[#FAF6F1] py-16 px-6">
@@ -182,7 +185,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
       {/* Product Detail Modal */}
       {selectedProductModal && (
@@ -213,6 +216,12 @@ export default function HomePage() {
           onClose={() => setCompletedOrder(null)}
         />
       )}
+
+      {/* Global Women's Size Guide & Chart Modal */}
+      <SizeChartModal
+        isOpen={isSizeGuideOpen}
+        onClose={() => setIsSizeGuideOpen(false)}
+      />
     </div>
   );
 }
