@@ -3,8 +3,6 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PRODUCTS } from '@/lib/products';
 import { Product } from '@/types';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
 
 interface ProductPageProps {
@@ -140,26 +138,17 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
+    <>
       {/* Product JSON-LD Rich Snippet for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
-      {/* Header Navbar */}
-      <Navbar />
-
-      {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12 w-full">
-        <ProductDetailClient
-          product={product}
-          relatedProducts={relatedProducts}
-        />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+      <ProductDetailClient
+        product={product}
+        relatedProducts={relatedProducts}
+      />
+    </>
   );
 }

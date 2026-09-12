@@ -14,6 +14,21 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpenSizeChart }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleSizeGuideClick = () => {
+    if (onOpenSizeChart) {
+      onOpenSizeChart();
+      return;
+    }
+    const el = typeof document !== 'undefined' ? document.getElementById('size-chart-section') : null;
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (typeof window !== 'undefined') {
+      window.location.href = '/#faq';
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-[#FAF6F1]/90 backdrop-blur-md border-b border-[#E4D9CC] transition-all">
 
@@ -58,12 +73,12 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
             </button>
 
             <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-semibold text-[#2B2723]">
-              <a href="#collection" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
+              <Link href="/#collection" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 Collection
-              </a>
-              <a href="#categories" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
+              </Link>
+              <Link href="/#categories" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 Crafts
-              </a>
+              </Link>
             </nav>
           </div>
 
@@ -85,20 +100,20 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
           {/* Right Column: Menu Links (Desktop) & Cart */}
           <div className="flex items-center justify-end gap-6">
             <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-semibold text-[#2B2723]">
-              <a href="#craft-story" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
+              <Link href="/#craft-story" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 Our Story
-              </a>
+              </Link>
               <button
                 type="button"
-                onClick={onOpenSizeChart}
+                onClick={handleSizeGuideClick}
                 className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs"
               >
                 <Ruler className="w-3.5 h-3.5" />
                 <span>Size Guide</span>
               </button>
-              <a href="#faq" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
+              <Link href="/#faq" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 FAQs
-              </a>
+              </Link>
             </nav>
 
             <button
@@ -122,33 +137,33 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#FAF6F1] border-b border-[#E4D9CC] px-6 pt-2 pb-6 space-y-4 animate-fadeIn">
           <nav className="flex flex-col space-y-3 text-sm font-medium text-[#2B2723]">
-            <a
-              href="#collection"
+            <Link
+              href="/#collection"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#7A1B38] font-bold flex items-center justify-between"
             >
               <span>🌸 Suits & Kurtis Collection</span>
               <span className="text-xs bg-[#7A1B38]/10 px-2.5 py-0.5 rounded-full text-[#7A1B38]">Featured</span>
-            </a>
-            <a
-              href="#categories"
+            </Link>
+            <Link
+              href="/#categories"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
             >
               ✨ Artisanal Crafts
-            </a>
-            <a
-              href="#craft-story"
+            </Link>
+            <Link
+              href="/#craft-story"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
             >
               🌿 Our Craft Story
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                if (onOpenSizeChart) onOpenSizeChart();
+                handleSizeGuideClick();
               }}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between w-full text-left cursor-pointer"
             >
@@ -158,13 +173,13 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
               </span>
               <span className="text-[10px] bg-[#65897D]/15 text-[#65897D] font-bold px-2 py-0.5 rounded-full">CM & INCH</span>
             </button>
-            <a
-              href="#faq"
+            <Link
+              href="/#faq"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
             >
               ❓ Fabric Care & FAQs
-            </a>
+            </Link>
             <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#7A1B38]" />
               <a href="https://wa.me/917023352132" target="_blank" rel="noopener noreferrer" className="hover:underline">

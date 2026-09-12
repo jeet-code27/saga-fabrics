@@ -8,6 +8,8 @@ import { ProductSizeChart } from '@/components/ProductSizeChart';
 import { CheckoutDrawer } from '@/components/CheckoutDrawer';
 import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { ProductCard } from '@/components/ProductCard';
+import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
 import { trackEvent } from '@/lib/metaPixel';
 import {
   Star,
@@ -103,10 +105,22 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   );
 
   return (
-    <div className="space-y-12 sm:space-y-16">
-      
-      {/* Breadcrumb Bar */}
-      <div className="flex items-center justify-between text-xs text-[#8A8178] border-b border-[#E4D9CC] pb-4">
+    <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
+      {/* Header Navbar with full interactivity */}
+      <Navbar
+        cartCount={checkoutOpen ? 1 : 0}
+        onOpenCart={() => setCheckoutOpen(true)}
+        onOpenSizeChart={() => {
+          const el = document.getElementById('size-chart-section');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
+
+      {/* Main Product Content */}
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12 w-full space-y-12 sm:space-y-16">
+        
+        {/* Breadcrumb Bar */}
+        <div className="flex items-center justify-between text-xs text-[#8A8178] border-b border-[#E4D9CC] pb-4">
         <nav className="flex items-center gap-1.5 flex-wrap">
           <Link href="/" className="hover:text-[#7A1B38] transition-colors">
             Home
@@ -410,6 +424,16 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           </div>
         </section>
       )}
+
+      </main>
+
+      {/* Footer with smooth Size Guide navigation */}
+      <Footer
+        onOpenSizeChart={() => {
+          const el = document.getElementById('size-chart-section');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
 
       {/* Checkout Slide-over Drawer */}
       <CheckoutDrawer
