@@ -4,8 +4,10 @@ import React from 'react';
 import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
+export type CraftFilter = 'All' | 'Short cotton kurti @₹650 seasons end sale' | 'Stitched' | 'Unstitched' | '3-Piece Set';
+
 interface CraftCategoriesProps {
-  onSelectCategory: (category: 'All' | 'Stitched' | 'Unstitched' | '3-Piece Set') => void;
+  onSelectCategory: (category: CraftFilter) => void;
 }
 
 export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCategory }) => {
@@ -20,6 +22,15 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
       badgeBg: 'bg-[#1B4D3E] text-white',
     },
     {
+      id: 'short-kurti-sale',
+      filterKey: 'Short cotton kurti @₹650 seasons end sale' as const,
+      title: 'Short Cotton Kurtis @₹650',
+      subtitle: 'Season End Sale: Handcrafted pure cotton short kurtis with artisanal embroidery.',
+      tag: 'Sale @ ₹650',
+      image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
+      badgeBg: 'bg-[#E11D48] text-white',
+    },
+    {
       id: 'ajrakh-edits',
       filterKey: 'Unstitched' as const,
       title: 'Heritage Embroidered Sets',
@@ -27,15 +38,6 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
       tag: 'Artisanal Craft',
       image: '/images/products/stitched-suit-navy-maroon.jpeg',
       badgeBg: 'bg-[#7A1B38] text-white',
-    },
-    {
-      id: 'indigo-edits',
-      filterKey: 'Stitched' as const,
-      title: 'Royal Indigo Chikankari',
-      subtitle: 'Crisp breathable cotton tunics with vibrant royal blue Chikankari embroidery.',
-      tag: 'Bestselling Style',
-      image: '/images/products/short-kurti-1.jpg',
-      badgeBg: 'bg-[#65897D] text-white',
     },
     {
       id: 'rose-edits',
@@ -48,7 +50,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
   ];
 
-  const handleCategoryClick = (filterKey: 'All' | 'Stitched' | 'Unstitched' | '3-Piece Set') => {
+  const handleCategoryClick = (filterKey: CraftFilter) => {
     onSelectCategory(filterKey);
     const collectionEl = document.getElementById('collection');
     if (collectionEl) {

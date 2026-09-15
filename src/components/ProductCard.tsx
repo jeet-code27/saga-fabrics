@@ -15,7 +15,11 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
 }) => {
-  const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
+  const isKurti =
+    product.tags.includes('Short Kurti') ||
+    product.tags.includes('Long Kurti') ||
+    product.tags.includes('Cotton Kurti') ||
+    (product.sizes && !product.sizes.includes('Unstitched'));
 
   return (
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
@@ -35,11 +39,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {product.tags.map((tag, idx) => (
+          {product.tags.slice(0, 2).map((tag, idx) => (
             <span
               key={idx}
               className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white shadow-xs ${
-                tag === 'Bestseller'
+                tag === 'Season End Sale' || tag.includes('650')
+                  ? 'bg-[#E11D48]'
+                  : tag === 'Bestseller'
                   ? 'bg-[#7A1B38]'
                   : tag === 'Royal Edition' || tag === 'Royal Edit'
                   ? 'bg-[#B59757]'
@@ -52,7 +58,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   : 'bg-[#5C7056]'
               }`}
             >
-              {tag}
+              {tag === 'Short cotton kurti @₹650 seasons end sale' ? 'Sale @ ₹650' : tag}
             </span>
           ))}
         </div>
@@ -108,7 +114,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
             <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
             <span>
-              {isKurti ? 'Ready to Wear • Sizes XS, S, M, L, XL, XXL' : '100% Pure Cotton Unstitched Suit Set'}
+              {isKurti 
+                ? (product.sizes && product.sizes.length === 1 
+                    ? `Ready to Wear • Size ${product.sizes[0]} Available` 
+                    : 'Ready to Wear • Sizes XS, S, M, L, XL, XXL')
+                : '100% Pure Cotton Unstitched Suit Set'}
             </span>
           </div>
         </div>
@@ -119,7 +129,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className="w-full py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm shadow-sm"
         >
           <ShoppingCart className="w-4 h-4 text-[#B59757]" />
-          <span>{isKurti ? 'Select Size & Buy' : 'View Details & Buy'}</span>
+          <span>{isKurti ? (product.sizes && product.sizes.length === 1 ? `Buy Size ${product.sizes[0]}` : 'Select Size & Buy') : 'View Details & Buy'}</span>
         </Link>
 
       </div>

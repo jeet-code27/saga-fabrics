@@ -30,7 +30,9 @@ export default function HomePage() {
   });
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
-  const [activeFilter, setActiveFilter] = useState<'All' | 'Stitched' | 'Unstitched' | '3-Piece Set'>('All');
+  const [activeFilter, setActiveFilter] = useState<
+    'All' | 'Short cotton kurti @₹650 seasons end sale' | 'Stitched' | 'Unstitched' | '3-Piece Set'
+  >('All');
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
   // Handle Direct Buy trigger
@@ -45,7 +47,21 @@ export default function HomePage() {
   // Filter products based on tab
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
-    if (activeFilter === 'Stitched') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+    if (activeFilter === 'Short cotton kurti @₹650 seasons end sale') {
+      return (
+        p.tags.includes('Short cotton kurti @₹650 seasons end sale') ||
+        p.tags.includes('Season End Sale') ||
+        p.price === 650
+      );
+    }
+    if (activeFilter === 'Stitched') {
+      return (
+        p.tags.includes('Stitched Suit') ||
+        p.tags.includes('Short Kurti') ||
+        p.tags.includes('Long Kurti') ||
+        p.tags.includes('Cotton Kurti')
+      );
+    }
     if (activeFilter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
     if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
     return true;
@@ -94,10 +110,24 @@ export default function HomePage() {
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
+              {(['All', 'Short cotton kurti @₹650 seasons end sale', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
                 const count = PRODUCTS.filter((p) => {
                   if (filter === 'All') return true;
-                  if (filter === 'Stitched') return p.tags.includes('Stitched Suit') || p.tags.includes('Short Kurti');
+                  if (filter === 'Short cotton kurti @₹650 seasons end sale') {
+                    return (
+                      p.tags.includes('Short cotton kurti @₹650 seasons end sale') ||
+                      p.tags.includes('Season End Sale') ||
+                      p.price === 650
+                    );
+                  }
+                  if (filter === 'Stitched') {
+                    return (
+                      p.tags.includes('Stitched Suit') ||
+                      p.tags.includes('Short Kurti') ||
+                      p.tags.includes('Long Kurti') ||
+                      p.tags.includes('Cotton Kurti')
+                    );
+                  }
                   if (filter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
                   if (filter === '3-Piece Set') return p.tags.includes('3-Piece Set');
                   return true;
@@ -105,25 +135,37 @@ export default function HomePage() {
 
                 const label = filter === 'All'
                   ? 'All Collection'
+                  : filter === 'Short cotton kurti @₹650 seasons end sale'
+                  ? 'Season End Sale'
                   : filter === 'Stitched'
                   ? 'Stitched Suits'
                   : filter === 'Unstitched'
                   ? 'Unstitched Suits'
                   : '3-Piece Sets';
 
+                const isSale = filter === 'Short cotton kurti @₹650 seasons end sale';
+
                 return (
                   <button
                     key={filter}
                     onClick={() => setActiveFilter(filter)}
-                    className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border ${
+                    className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
                       activeFilter === filter
-                        ? 'bg-[#7A1B38] text-white shadow-md border-[#7A1B38]'
+                        ? isSale
+                          ? 'bg-[#E11D48] text-white shadow-lg border-[#E11D48] ring-2 ring-[#E11D48]/30'
+                          : 'bg-[#7A1B38] text-white shadow-md border-[#7A1B38]'
+                        : isSale
+                        ? 'bg-rose-50 text-[#E11D48] border-[#E11D48]/40 hover:bg-rose-100/70 shadow-2xs'
                         : 'bg-white text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38] shadow-2xs'
                     }`}
                   >
                     <span>{label}</span>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                      activeFilter === filter ? 'bg-white/20 text-white' : 'bg-[#F3ECE2] text-[#7A1B38]'
+                      activeFilter === filter
+                        ? 'bg-white/20 text-white'
+                        : isSale
+                        ? 'bg-[#E11D48]/15 text-[#E11D48]'
+                        : 'bg-[#F3ECE2] text-[#7A1B38]'
                     }`}>
                       {count}
                     </span>

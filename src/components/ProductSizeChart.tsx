@@ -13,6 +13,7 @@ import {
 
 interface ProductSizeChartProps {
   selectedSize?: Size;
+  availableSizes?: Size[];
   onSelectSize?: (size: Size) => void;
   className?: string;
   defaultExpanded?: boolean;
@@ -20,6 +21,7 @@ interface ProductSizeChartProps {
 
 export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
   selectedSize = 'M',
+  availableSizes,
   onSelectSize,
   className = '',
   defaultExpanded = true,
@@ -31,12 +33,23 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
   const [showFullTableMobile, setShowFullTableMobile] = useState<boolean>(false);
   const [showMeasuringGuide, setShowMeasuringGuide] = useState<boolean>(false);
 
+  React.useEffect(() => {
+    if (selectedSize && selectedSize !== 'Unstitched') {
+      setMobileActiveSize(selectedSize);
+    }
+  }, [selectedSize]);
+
   const currentSizes = unit === 'inch' ? WOMENS_SIZES_INCH : WOMENS_SIZES_CM;
   const activeMeasure: SizeMeasurement =
     currentSizes.find((s) => s.size === mobileActiveSize) || currentSizes[2];
 
   const handleSizeClick = (sz: Size) => {
     setMobileActiveSize(sz);
+    // If availableSizes is specified and this size is NOT available,
+    // only update the chart preview, do NOT select it for purchase!
+    if (availableSizes && availableSizes.length > 0 && !availableSizes.includes(sz)) {
+      return;
+    }
     if (onSelectSize) {
       onSelectSize(sz);
     }
@@ -112,18 +125,27 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
             <div className="grid grid-cols-6 gap-1.5">
               {currentSizes.map((item) => {
                 const isActive = mobileActiveSize === item.size;
+                const isSelected = selectedSize === item.size;
+                const isAvailable = !availableSizes || availableSizes.length === 0 || availableSizes.includes(item.size);
                 return (
                   <button
                     key={item.size}
                     type="button"
                     onClick={() => handleSizeClick(item.size)}
                     className={`py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border flex flex-col items-center justify-center ${
-                      isActive
+                      isSelected
                         ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-md scale-105'
-                        : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
+                        : isActive
+                        ? 'bg-[#7A1B38]/15 text-[#7A1B38] border-[#7A1B38]/30'
+                        : isAvailable
+                        ? 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
+                        : 'bg-stone-100 text-stone-400 border-stone-200'
                     }`}
                   >
-                    <span>{item.size}</span>
+                    <span className={!isAvailable && !isSelected ? 'line-through opacity-60' : ''}>{item.size}</span>
+                    {!isAvailable && (
+                      <span className="text-[8px] text-stone-400 font-normal">Out</span>
+                    )}
                   </button>
                 );
               })}
@@ -211,22 +233,38 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
                     Metric
                   </th>
                   {currentSizes.map((item) => {
-                    const isSelected = selectedSize === item.size || mobileActiveSize === item.size;
+                    const isSelected = selectedSize === item.size;
+                    const isInspecting = mobileActiveSize === item.size && !isSelected;
+                    const isAvailable = !availableSizes || availableSizes.length === 0 || availableSizes.includes(item.size);
                     return (
                       <th
                         key={item.size}
                         onClick={() => handleSizeClick(item.size)}
                         className={`p-3 sm:p-3.5 font-serif font-bold text-center transition-colors cursor-pointer ${
                           isSelected
-                            ? 'bg-[#7A1B38] text-white'
-                            : 'hover:bg-[#EDE6DC] text-[#2B2723]'
+                            ? 'bg-[#7A1B38] text-white shadow-xs'
+                            : isInspecting
+                            ? 'bg-[#7A1B38]/15 text-[#7A1B38]'
+                            : isAvailable
+                            ? 'hover:bg-[#EDE6DC] text-[#2B2723]'
+                            : 'bg-stone-100/70 text-[#8A8178]'
                         }`}
                       >
                         <div className="flex flex-col items-center">
-                          <span className="text-sm sm:text-base font-bold">{item.size}</span>
-                          {isSelected && (
-                            <span className="text-[9px] uppercase tracking-wide bg-white/20 text-white px-1.5 py-0.2 rounded mt-0.5">
-                              Active
+                          <span className={`text-sm sm:text-base font-bold ${!isAvailable && !isSelected ? 'line-through opacity-60' : ''}`}>
+                            {item.size}
+                          </span>
+                          {isSelected ? (
+                            <span className="text-[9px] uppercase tracking-wide bg-white/25 text-white px-2 py-0.5 rounded-full mt-1 font-sans font-bold">
+                              Selected
+                            </span>
+                          ) : isAvailable ? (
+                            <span className="text-[9px] uppercase tracking-wide text-[#65897D] font-bold mt-1 font-sans">
+                              In Stock
+                            </span>
+                          ) : (
+                            <span className="text-[9px] uppercase tracking-wide text-rose-500 font-medium mt-1 font-sans">
+                              Out of Stock
                             </span>
                           )}
                         </div>
@@ -246,8 +284,10 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
                       key={item.size}
                       onClick={() => handleSizeClick(item.size)}
                       className={`p-3 sm:p-3.5 text-center font-medium transition-colors cursor-pointer ${
-                        selectedSize === item.size || mobileActiveSize === item.size
-                          ? 'bg-[#7A1B38]/5 font-bold text-[#7A1B38]'
+                        selectedSize === item.size
+                          ? 'bg-[#7A1B38]/10 font-bold text-[#7A1B38]'
+                          : mobileActiveSize === item.size
+                          ? 'bg-[#B59757]/10 font-semibold text-[#2B2723]'
                           : ''
                       }`}
                     >
@@ -267,8 +307,10 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
                       key={item.size}
                       onClick={() => handleSizeClick(item.size)}
                       className={`p-3 sm:p-3.5 text-center font-medium transition-colors cursor-pointer ${
-                        selectedSize === item.size || mobileActiveSize === item.size
-                          ? 'bg-[#7A1B38]/5 font-bold text-[#7A1B38]'
+                        selectedSize === item.size
+                          ? 'bg-[#7A1B38]/10 font-bold text-[#7A1B38]'
+                          : mobileActiveSize === item.size
+                          ? 'bg-[#B59757]/10 font-semibold text-[#2B2723]'
                           : ''
                       }`}
                     >
@@ -288,8 +330,10 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
                       key={item.size}
                       onClick={() => handleSizeClick(item.size)}
                       className={`p-3 sm:p-3.5 text-center font-medium transition-colors cursor-pointer ${
-                        selectedSize === item.size || mobileActiveSize === item.size
-                          ? 'bg-[#7A1B38]/5 font-bold text-[#7A1B38]'
+                        selectedSize === item.size
+                          ? 'bg-[#7A1B38]/10 font-bold text-[#7A1B38]'
+                          : mobileActiveSize === item.size
+                          ? 'bg-[#B59757]/10 font-semibold text-[#2B2723]'
                           : ''
                       }`}
                     >
@@ -309,8 +353,10 @@ export const ProductSizeChart: React.FC<ProductSizeChartProps> = ({
                       key={item.size}
                       onClick={() => handleSizeClick(item.size)}
                       className={`p-3 sm:p-3.5 text-center font-medium transition-colors cursor-pointer ${
-                        selectedSize === item.size || mobileActiveSize === item.size
-                          ? 'bg-[#7A1B38]/5 font-bold text-[#7A1B38]'
+                        selectedSize === item.size
+                          ? 'bg-[#7A1B38]/10 font-bold text-[#7A1B38]'
+                          : mobileActiveSize === item.size
+                          ? 'bg-[#B59757]/10 font-semibold text-[#2B2723]'
                           : ''
                       }`}
                     >

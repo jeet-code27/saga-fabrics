@@ -34,12 +34,25 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   product,
   relatedProducts,
 }) => {
-  const isStitched = product.tags.includes('Stitched Suit') || product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
-  const defaultSize: Size = isStitched ? 'M' : 'Unstitched';
+  const isStitched =
+    product.tags.includes('Stitched Suit') ||
+    product.tags.includes('Short Kurti') ||
+    product.tags.includes('Long Kurti') ||
+    product.tags.includes('Cotton Kurti') ||
+    (product.sizes && !product.sizes.includes('Unstitched'));
+  const defaultSize: Size =
+    product.sizes && product.sizes.length > 0 ? product.sizes[0] : isStitched ? 'M' : 'Unstitched';
 
   const [selectedSize, setSelectedSize] = useState<Size>(defaultSize);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
+
+  // Safeguard: Ensure selectedSize is always valid and available for this product
+  React.useEffect(() => {
+    if (product.sizes && product.sizes.length > 0 && !product.sizes.includes(selectedSize)) {
+      setSelectedSize(product.sizes[0]);
+    }
+  }, [product.sizes, selectedSize]);
 
   // Checkout Drawer state
   const [checkoutOpen, setCheckoutOpen] = useState<boolean>(false);
@@ -263,11 +276,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           </div>
 
           {/* Size Selection Section */}
-          {isStitched && product.sizes && product.sizes.length > 1 ? (
+          {isStitched && product.sizes && product.sizes.length > 0 ? (
             <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">
-                  Select Stitched Size: <strong className="text-[#7A1B38] font-bold text-base ml-1">{selectedSize}</strong>
+                  {product.sizes.length === 1 ? 'Available Stitched Size:' : 'Select Stitched Size:'}{' '}
+                  <strong className="text-[#7A1B38] font-bold text-base ml-1">{selectedSize}</strong>
                 </span>
                 <a
                   href="#size-chart-section"
@@ -279,25 +293,37 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               </div>
 
               {/* Size Buttons */}
-              <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
+              <div className={`flex flex-wrap gap-2 ${product.sizes.length > 4 ? 'sm:grid sm:grid-cols-6' : ''}`}>
                 {product.sizes.map((sz) => (
                   <button
                     key={sz}
                     type="button"
                     onClick={() => setSelectedSize(sz)}
-                    className={`py-2 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer border flex items-center justify-center ${
+                    className={`py-2 px-5 sm:py-2.5 sm:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all cursor-pointer border flex items-center justify-center gap-2 ${
                       selectedSize === sz
                         ? 'bg-[#7A1B38] text-white border-[#7A1B38] shadow-md scale-102'
                         : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
                     }`}
                   >
-                    <span>{sz}</span>
+                    <span>{product.sizes && product.sizes.length === 1 ? `Size ${sz}` : sz}</span>
+                    {product.sizes && product.sizes.length === 1 && (
+                      <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
+                        In Stock
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
-              <p className="text-[11px] text-[#8A8178]">
-                Stitched and ready to wear. Check the detailed measurements chart below.
-              </p>
+              {product.sizes.length === 1 ? (
+                <p className="text-[11px] text-[#7A1B38] font-medium flex items-center gap-1.5 pt-1">
+                  <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
+                  <span>Season's End Clearance: Only Size <strong>{product.sizes[0]}</strong> is available in this piece.</span>
+                </p>
+              ) : (
+                <p className="text-[11px] text-[#8A8178]">
+                  Stitched and ready to wear. Check the detailed measurements chart below.
+                </p>
+              )}
             </div>
           ) : (
             <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs flex items-center justify-between">
@@ -352,7 +378,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           <div id="size-chart-section">
             <ProductSizeChart
               selectedSize={selectedSize}
-              onSelectSize={(sz) => setSelectedSize(sz)}
+              availableSizes={product.sizes}
+              onSelectSize={(sz) => {
+                if (!product.sizes || product.sizes.length === 0 || product.sizes.includes(sz)) {
+                  setSelectedSize(sz);
+                }
+              }}
             />
           </div>
 
