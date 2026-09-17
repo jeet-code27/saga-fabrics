@@ -4,6 +4,7 @@ import React from 'react';
 import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock, Ruler } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { trackContact } from '@/lib/metaPixel';
 
 interface FooterProps {
   onOpenSizeChart?: () => void;
@@ -88,7 +89,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />
-                <a href="https://wa.me/917023352132" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAF6F1] transition-colors">
+                <a
+                  href="https://wa.me/917023352132"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackContact('WhatsApp Support', 'Footer Support Link')}
+                  className="hover:text-[#FAF6F1] transition-colors"
+                >
                   +91 70233 52132 / WhatsApp Support
                 </a>
               </li>

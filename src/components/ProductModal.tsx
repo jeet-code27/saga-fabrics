@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Product, Size } from '@/types';
 import { X, Star, Shield, RefreshCw, Truck, Sparkles, Ruler } from 'lucide-react';
 import { SizeChartModal } from './SizeChartModal';
+import { trackViewContent, trackAddToCart } from '@/lib/metaPixel';
 
 interface ProductModalProps {
   product: Product | null;
@@ -24,15 +25,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const [showSizeChart, setShowSizeChart] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (product && typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', 'ViewContent', {
-        content_name: product.title,
-        content_category: 'Suits & Kurtis Collection',
-        content_ids: [product.id],
-        content_type: 'product',
-        value: product.price,
-        currency: 'INR',
-      });
+    if (product) {
+      trackViewContent(product);
     }
   }, [product]);
 
@@ -236,7 +230,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
               return (
                 <button
-                  onClick={() => onProceedToBuy(product, isKurti ? selectedSize : 'Unstitched')}
+                  onClick={() => {
+                    trackAddToCart(product, 1);
+                    onProceedToBuy(product, isKurti ? selectedSize : 'Unstitched');
+                  }}
                   className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span>

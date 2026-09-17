@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { trackSearch } from '@/lib/metaPixel';
 
 export type CraftFilter = 'All' | 'Short cotton kurti @₹650 seasons end sale' | 'Stitched' | 'Unstitched' | '3-Piece Set';
 
@@ -51,6 +52,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
   ];
 
   const handleCategoryClick = (filterKey: CraftFilter) => {
+    trackSearch(filterKey);
     onSelectCategory(filterKey);
     const collectionEl = document.getElementById('collection');
     if (collectionEl) {

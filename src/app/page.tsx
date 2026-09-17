@@ -17,6 +17,7 @@ import { FaqSection } from '@/components/FaqSection';
 import { Footer } from '@/components/Footer';
 import { SizeChartModal } from '@/components/SizeChartModal';
 import { Sparkles } from 'lucide-react';
+import { trackAddToCart, trackSearch } from '@/lib/metaPixel';
 
 export default function HomePage() {
   const [checkoutState, setCheckoutState] = useState<{
@@ -37,11 +38,19 @@ export default function HomePage() {
 
   // Handle Direct Buy trigger
   const handleDirectBuy = (product: Product, size: Size = 'M') => {
+    trackAddToCart(product, 1);
     setCheckoutState({
       isOpen: true,
       product,
       size,
     });
+  };
+
+  const handleFilterChange = (filter: typeof activeFilter) => {
+    setActiveFilter(filter);
+    if (filter !== 'All') {
+      trackSearch(filter);
+    }
   };
 
   // Filter products based on tab
@@ -148,7 +157,7 @@ export default function HomePage() {
                 return (
                   <button
                     key={filter}
-                    onClick={() => setActiveFilter(filter)}
+                    onClick={() => handleFilterChange(filter)}
                     className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
                       activeFilter === filter
                         ? isSale

@@ -10,7 +10,7 @@ import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { ProductCard } from '@/components/ProductCard';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { trackEvent } from '@/lib/metaPixel';
+import { trackViewContent, trackAddToCart, trackContact } from '@/lib/metaPixel';
 import {
   Star,
   Shield,
@@ -65,31 +65,11 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
   // Meta Pixel ViewContent event
   React.useEffect(() => {
-    trackEvent('ViewContent', {
-      content_name: product.title,
-      content_category: 'Suits & Kurtis Collection',
-      content_ids: [product.id],
-      content_type: 'product',
-      value: product.price,
-      currency: 'INR',
-    });
+    trackViewContent(product);
   }, [product]);
 
   const handleInitiateBuy = () => {
-    trackEvent('AddToCart', {
-      content_name: product.title,
-      content_ids: [product.id],
-      content_type: 'product',
-      value: product.price,
-      currency: 'INR',
-    });
-    trackEvent('InitiateCheckout', {
-      content_name: product.title,
-      content_ids: [product.id],
-      content_type: 'product',
-      value: product.price,
-      currency: 'INR',
-    });
+    trackAddToCart(product, 1);
     setCheckoutOpen(true);
   };
 
@@ -367,6 +347,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               href={`https://wa.me/917023352132?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContact('WhatsApp Support', product.title)}
               className="w-full py-3 px-4 bg-white hover:bg-[#F3ECE2] text-[#25D366] font-semibold rounded-2xl transition-colors text-xs sm:text-sm border border-[#DCD3C7] flex items-center justify-center gap-2.5 shadow-2xs text-center"
             >
               <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />

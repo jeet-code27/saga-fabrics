@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin, Ruler } from 'lucide-react';
+import { trackContact } from '@/lib/metaPixel';
 
 interface NavbarProps {
   cartCount?: number;
@@ -182,7 +183,13 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
             </Link>
             <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#7A1B38]" />
-              <a href="https://wa.me/917023352132" target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a
+                href="https://wa.me/917023352132"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackContact('WhatsApp Support', 'Navbar Menu')}
+                className="hover:underline"
+              >
                 WhatsApp Support: +91 70233 52132
               </a>
             </div>

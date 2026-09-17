@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Product, Size, CustomerInfo, Order } from '@/types';
 import { X, Lock, ShieldCheck, CreditCard, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
-import { trackEvent } from '@/lib/metaPixel';
+import { trackInitiateCheckout, trackAddPaymentInfo, trackPurchase, setUserData } from '@/lib/metaPixel';
 
 declare global {
   interface Window {
@@ -47,18 +47,12 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   const prevIsOpenRef = React.useRef(false);
 
   useEffect(() => {
-    // Only fire AddToCart on the open transition (closed → open), not on every re-render
+    // Fire InitiateCheckout on drawer open transition (closed → open)
     if (isOpen && !prevIsOpenRef.current && product) {
-      trackEvent('AddToCart', {
-        content_name: product.title,
-        content_ids: [product.id],
-        content_type: 'product',
-        value: product.price,
-        currency: 'INR',
-      });
+      trackInitiateCheckout(product, quantity, product.price * quantity);
     }
     prevIsOpenRef.current = isOpen;
-  }, [isOpen, product]);
+  }, [isOpen, product, quantity]);
 
   if (!isOpen) return null;
 
@@ -123,15 +117,11 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
 
     setLoading(true);
 
-    // Meta Pixel: Track InitiateCheckout Event
-    trackEvent('InitiateCheckout', {
-      content_name: product.title,
-      content_ids: [product.id],
-      content_type: 'product',
-      value: totalAmount,
-      currency: 'INR',
-      num_items: quantity,
-    });
+    // Meta Pixel: Advanced Matching with customer form details
+    setUserData(form);
+
+    // Meta Pixel: Track AddPaymentInfo Event
+    trackAddPaymentInfo(product, totalAmount, quantity);
 
     try {
       // 1. Create Razorpay order on backend
@@ -207,14 +197,11 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
 
             if (verifyRes.ok && verifyData.success) {
               // Meta Pixel: Track Purchase Event
-              trackEvent('Purchase', {
-                content_name: product.title,
-                content_ids: [product.id],
-                content_type: 'product',
-                value: totalAmount,
-                currency: 'INR',
-                num_items: quantity,
-                order_id: verifyData.order?.id || orderData.id,
+              trackPurchase({
+                orderId: verifyData.order?.id || orderData.id,
+                product,
+                totalAmount,
+                quantity,
               });
 
               onClose();
