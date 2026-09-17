@@ -2,6 +2,25 @@ import { Product } from '@/types';
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'saga-test-001',
+    title: 'Live Payment & Pixel Test Product (₹1)',
+    subtitle: 'Testing Product @ ₹1 • Instant Live Razorpay & Meta Pixel Verification',
+    price: 1,
+    originalPrice: 100,
+    description: 'Test product for testing real Razorpay live payment processing, order generation, email confirmations, and Meta Pixel event tracking (AddToCart, InitiateCheckout, AddPaymentInfo, Purchase).',
+    fabric: 'Sample Cotton Fabric (Test Item)',
+    craft: 'Artisanal Test Sample',
+    care: 'For Testing Purposes Only',
+    color: 'Rose Pink',
+    colorHex: '#7A1B38',
+    images: ['/images/products/stitched-suit-rose-pink.jpeg'],
+    sizes: ['Unstitched'],
+    tags: ['Test Product', 'Live Test @ ₹1'],
+    inStock: true,
+    rating: 5.0,
+    reviewsCount: 1,
+  },
+  {
     id: 'saga-024',
     title: 'Turquoise Teal Embroidered Short Cotton Kurti',
     subtitle: 'Short Cotton Kurti @₹650 Season\'s End Sale • Pure Cotton Stitched Kurti (Size M)',
