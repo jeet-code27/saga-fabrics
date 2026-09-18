@@ -21,6 +21,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     product.tags.includes('Cotton Kurti') ||
     (product.sizes && !product.sizes.includes('Unstitched'));
 
+  const isSale =
+    product.tags.includes('End of Season Sale') ||
+    product.tags.includes('Season End Sale');
+
+  const discountPercent = Math.round(
+    ((product.originalPrice - product.price) / product.originalPrice) * 100
+  );
+
   return (
     <div className="group bg-white rounded-3xl overflow-hidden border border-[#E4D9CC] shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       
@@ -37,36 +45,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
         
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {product.tags.slice(0, 2).map((tag, idx) => (
-            <span
-              key={idx}
-              className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white shadow-xs ${
-                tag === 'Season End Sale' || tag.includes('650')
-                  ? 'bg-[#E11D48]'
-                  : tag === 'Bestseller'
-                  ? 'bg-[#7A1B38]'
-                  : tag === 'Royal Edition' || tag === 'Royal Edit'
-                  ? 'bg-[#B59757]'
-                  : tag === 'New Arrival'
-                  ? 'bg-[#A85A32]'
-                  : tag === 'Stitched Suit'
-                  ? 'bg-[#2E5A44]'
-                  : tag === 'Short Kurti'
-                  ? 'bg-[#65897D]'
-                  : 'bg-[#5C7056]'
-              }`}
-            >
-              {tag === 'Short cotton kurti @₹650 seasons end sale' ? 'Sale @ ₹650' : tag}
+        {/* ONLY End of Season Sale over image with continuous blink */}
+        {isSale && (
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] shadow-md ring-1 ring-white/50 animate-pulse">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              </span>
+              <span className="whitespace-nowrap">End of Season Sale</span>
             </span>
-          ))}
-        </div>
-
-        {/* Discount Badge */}
-        <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#E4D9CC] text-xs font-bold text-[#7A1B38] shadow-xs">
-          {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-        </div>
+          </div>
+        )}
 
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -101,11 +91,39 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </Link>
           <p className="text-xs text-[#8A8178] line-clamp-1 mt-0.5">{product.subtitle}</p>
 
-          {/* Pricing */}
-          <div className="flex items-baseline gap-2 mt-3">
-            <span className="text-xl font-serif font-bold text-[#7A1B38]">₹{product.price.toLocaleString('en-IN')}</span>
-            <span className="text-xs text-[#8A8178] line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span>
-            <span className="text-[11px] font-semibold text-[#5C7056] bg-[#5C7056]/10 px-2 py-0.5 rounded">Taxes Incl.</span>
+          {/* Large Prominent Pricing Section */}
+          <div className="pt-3 mt-2 border-t border-[#F3ECE2] space-y-1.5">
+            {isSale && (
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#E11D48] flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
+                  </span>
+                  Special Sale Price
+                </span>
+                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+                  Save ₹{(product.originalPrice - product.price).toLocaleString('en-IN')}
+                </span>
+              </div>
+            )}
+
+            <div className="flex items-baseline gap-2.5 flex-wrap">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-[#7A1B38] tracking-tight">
+                ₹{product.price.toLocaleString('en-IN')}
+              </span>
+              <span className="text-sm sm:text-base text-[#8A8178] line-through font-medium">
+                ₹{product.originalPrice.toLocaleString('en-IN')}
+              </span>
+              <span className="text-xs font-extrabold text-[#E11D48] bg-rose-50 border border-rose-200/80 px-2 py-0.5 rounded-md">
+                {discountPercent}% OFF
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-[#5C7056] font-medium pt-0.5">
+              <span>Free Shipping Included</span>
+              <span className="bg-[#5C7056]/10 px-2 py-0.5 rounded font-semibold text-[10px]">Taxes Incl.</span>
+            </div>
           </div>
         </div>
 

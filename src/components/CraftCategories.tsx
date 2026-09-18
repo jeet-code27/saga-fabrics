@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { trackSearch } from '@/lib/metaPixel';
 
-export type CraftFilter = 'All' | 'Short cotton kurti @₹650 seasons end sale' | 'Stitched' | 'Unstitched' | '3-Piece Set';
+export type CraftFilter = 'All' | 'End of Season Sale' | 'Stitched' | 'Unstitched' | '3-Piece Set';
 
 interface CraftCategoriesProps {
   onSelectCategory: (category: CraftFilter) => void;
@@ -24,10 +24,10 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
     },
     {
       id: 'short-kurti-sale',
-      filterKey: 'Short cotton kurti @₹650 seasons end sale' as const,
-      title: 'Short Cotton Kurtis @₹650',
-      subtitle: 'Season End Sale: Handcrafted pure cotton short kurtis with artisanal embroidery.',
-      tag: 'Sale @ ₹650',
+      filterKey: 'End of Season Sale' as const,
+      title: 'End of Season Sale',
+      subtitle: 'End of Season Sale: Handcrafted pure cotton suits and kurtis with artisanal embroidery.',
+      tag: 'End of Season Sale',
       image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
       badgeBg: 'bg-[#E11D48] text-white',
     },
@@ -98,8 +98,14 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({ onSelectCatego
                 
                 {/* Floating Tag */}
                 <div className="absolute top-4 left-4 z-20">
-                  <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs ${cat.badgeBg}`}>
-                    {cat.tag}
+                  <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs inline-flex items-center gap-1.5 ${cat.badgeBg} ${cat.filterKey === 'End of Season Sale' ? 'animate-pulse' : ''}`}>
+                    {cat.filterKey === 'End of Season Sale' && (
+                      <span className="relative flex h-2 w-2 shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                      </span>
+                    )}
+                    <span>{cat.tag}</span>
                   </span>
                 </div>
 

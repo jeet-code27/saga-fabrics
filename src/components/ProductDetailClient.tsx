@@ -63,6 +63,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     ((product.originalPrice - product.price) / product.originalPrice) * 100
   );
 
+  const isSale =
+    product.tags.includes('End of Season Sale') ||
+    product.tags.includes('Season End Sale');
+
   // Meta Pixel ViewContent event
   React.useEffect(() => {
     trackViewContent(product);
@@ -154,22 +158,18 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
 
-            {/* Artisanal Badge */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-              <span className="bg-[#7A1B38] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
-                Handcrafted Artisanal
-              </span>
-              {product.tags.includes('Bestseller') && (
-                <span className="bg-[#B59757] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs">
-                  Bestseller
+            {/* ONLY End of Season Sale over image with continuous blink */}
+            {isSale && (
+              <div className="absolute top-4 left-4 z-10 pointer-events-none">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] shadow-md ring-1 ring-white/50 animate-pulse">
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                  </span>
+                  <span>End of Season Sale</span>
                 </span>
-              )}
-            </div>
-
-            {/* Discount Badge */}
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full border border-[#DCD3C7] text-xs font-bold text-[#7A1B38] shadow-xs">
-              {discountPercent}% OFF
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Thumbnails (if multiple images) */}
@@ -235,23 +235,38 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           </div>
 
           {/* Pricing Box */}
-          <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs flex items-center justify-between flex-wrap gap-3">
-            <div>
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl sm:text-4xl font-serif font-bold text-[#7A1B38]">
-                  ₹{product.price.toLocaleString('en-IN')}
+          <div className="p-5 sm:p-6 bg-white rounded-3xl border border-[#DCD3C7] shadow-sm space-y-3">
+            {isSale && (
+              <div className="flex items-center justify-between pb-2.5 border-b border-[#F3ECE2]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#E11D48] flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
+                  </span>
+                  End of Season Sale
                 </span>
-                <span className="text-base text-[#8A8178] line-through">
-                  ₹{product.originalPrice.toLocaleString('en-IN')}
+                <span className="bg-emerald-50 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">
+                  Save ₹{(product.originalPrice - product.price).toLocaleString('en-IN')}
                 </span>
               </div>
-              <span className="text-[11px] text-[#5C7056] font-semibold block mt-0.5">
-                Inclusive of all taxes • Free express doorstep delivery
-              </span>
+            )}
+
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-baseline gap-3.5 flex-wrap">
+                <span className="text-4xl sm:text-5xl font-serif font-black text-[#7A1B38] tracking-tight">
+                  ₹{product.price.toLocaleString('en-IN')}
+                </span>
+                <span className="text-lg sm:text-xl text-[#8A8178] line-through font-normal">
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
+                </span>
+                <span className="text-xs sm:text-sm font-extrabold text-[#E11D48] bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg">
+                  {discountPercent}% OFF
+                </span>
+              </div>
             </div>
 
-            <span className="bg-[#7A1B38]/10 text-[#7A1B38] text-xs font-bold px-3.5 py-1.5 rounded-full border border-[#7A1B38]/20">
-              Save ₹{(product.originalPrice - product.price).toLocaleString('en-IN')}
+            <span className="text-xs text-[#5C7056] font-medium block">
+              Inclusive of all taxes • Free express doorstep delivery across India
             </span>
           </div>
 

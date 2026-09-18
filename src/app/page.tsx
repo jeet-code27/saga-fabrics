@@ -32,7 +32,7 @@ export default function HomePage() {
 
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const [activeFilter, setActiveFilter] = useState<
-    'All' | 'Short cotton kurti @₹650 seasons end sale' | 'Stitched' | 'Unstitched' | '3-Piece Set'
+    'All' | 'End of Season Sale' | 'Stitched' | 'Unstitched' | '3-Piece Set'
   >('All');
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
@@ -56,11 +56,12 @@ export default function HomePage() {
   // Filter products based on tab
   const filteredProducts = PRODUCTS.filter((p) => {
     if (activeFilter === 'All') return true;
-    if (activeFilter === 'Short cotton kurti @₹650 seasons end sale') {
+    if (activeFilter === 'End of Season Sale') {
       return (
-        p.tags.includes('Short cotton kurti @₹650 seasons end sale') ||
+        p.tags.includes('End of Season Sale') ||
         p.tags.includes('Season End Sale') ||
-        p.price === 650
+        p.price === 650 ||
+        p.price === 999
       );
     }
     if (activeFilter === 'Stitched') {
@@ -119,14 +120,15 @@ export default function HomePage() {
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'Short cotton kurti @₹650 seasons end sale', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
+              {(['All', 'End of Season Sale', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
                 const count = PRODUCTS.filter((p) => {
                   if (filter === 'All') return true;
-                  if (filter === 'Short cotton kurti @₹650 seasons end sale') {
+                  if (filter === 'End of Season Sale') {
                     return (
-                      p.tags.includes('Short cotton kurti @₹650 seasons end sale') ||
+                      p.tags.includes('End of Season Sale') ||
                       p.tags.includes('Season End Sale') ||
-                      p.price === 650
+                      p.price === 650 ||
+                      p.price === 999
                     );
                   }
                   if (filter === 'Stitched') {
@@ -144,15 +146,15 @@ export default function HomePage() {
 
                 const label = filter === 'All'
                   ? 'All Collection'
-                  : filter === 'Short cotton kurti @₹650 seasons end sale'
-                  ? 'Season End Sale'
+                  : filter === 'End of Season Sale'
+                  ? 'End of Season Sale'
                   : filter === 'Stitched'
                   ? 'Stitched Suits'
                   : filter === 'Unstitched'
                   ? 'Unstitched Suits'
                   : '3-Piece Sets';
 
-                const isSale = filter === 'Short cotton kurti @₹650 seasons end sale';
+                const isSale = filter === 'End of Season Sale';
 
                 return (
                   <button
@@ -161,13 +163,19 @@ export default function HomePage() {
                     className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
                       activeFilter === filter
                         ? isSale
-                          ? 'bg-[#E11D48] text-white shadow-lg border-[#E11D48] ring-2 ring-[#E11D48]/30'
+                          ? 'bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-lg border-[#E11D48] ring-2 ring-[#E11D48]/30'
                           : 'bg-[#7A1B38] text-white shadow-md border-[#7A1B38]'
                         : isSale
                         ? 'bg-rose-50 text-[#E11D48] border-[#E11D48]/40 hover:bg-rose-100/70 shadow-2xs'
                         : 'bg-white text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38] shadow-2xs'
                     }`}
                   >
+                    {isSale && (
+                      <span className="relative flex h-2 w-2 shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
+                      </span>
+                    )}
                     <span>{label}</span>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
                       activeFilter === filter
