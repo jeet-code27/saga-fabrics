@@ -26,6 +26,7 @@ import {
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [passcode, setPasscode] = useState('');
   const [passError, setPassError] = useState('');
 
@@ -37,6 +38,23 @@ export default function AdminPage() {
 
   const [sendingEmailId, setSendingEmailId] = useState<string | null>(null);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+  const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'Knowledgepark@2026';
+
+  // Check saved session on initial load
+  useEffect(() => {
+    try {
+      const savedAuth = localStorage.getItem('saga_admin_auth');
+      if (savedAuth === CORRECT_PASS) {
+        setIsAuthenticated(true);
+        fetchOrders();
+      }
+    } catch {
+      // Local storage unavailable
+    } finally {
+      setCheckingAuth(false);
+    }
+  }, []);
 
   const handleResendEmail = async (orderId: string, type: 'confirmation' | 'status_update' | 'admin_alert' = 'confirmation') => {
     setSendingEmailId(orderId);
@@ -61,16 +79,28 @@ export default function AdminPage() {
     }
   };
 
-  const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'Knowledgepark@2026';
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (passcode === CORRECT_PASS) {
+      try {
+        localStorage.setItem('saga_admin_auth', passcode);
+      } catch (err) {
+        console.error('Failed to save admin session:', err);
+      }
       setIsAuthenticated(true);
       fetchOrders();
     } else {
       setPassError('Incorrect Admin Passcode. Please try again.');
     }
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('saga_admin_auth');
+    } catch (err) {
+      console.error('Failed to clear admin session:', err);
+    }
+    setIsAuthenticated(false);
   };
 
   const fetchOrders = async () => {
@@ -140,6 +170,17 @@ export default function AdminPage() {
   const totalOrders = orders.length;
   const pendingShipments = orders.filter((o) => o.status === 'Processing' || o.status === 'Pending').length;
   const deliveredOrders = orders.filter((o) => o.status === 'Delivered').length;
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-[#9E6962] border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-xs text-[#78716C] font-medium tracking-wide">Verifying session...</span>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -212,7 +253,7 @@ export default function AdminPage() {
                 <span className="hidden sm:inline">Refresh</span>
               </button>
               <button
-                onClick={() => setIsAuthenticated(false)}
+                onClick={handleLogout}
                 className="px-3.5 py-2 rounded-full border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-semibold transition-colors"
               >
                 Logout
