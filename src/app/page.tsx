@@ -37,12 +37,23 @@ export default function HomePage() {
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
   // Handle Direct Buy trigger
-  const handleDirectBuy = (product: Product, size: Size = 'M') => {
+  const handleDirectBuy = (product: Product, size?: Size) => {
+    const isStitched =
+      product.tags.includes('Stitched Suit') ||
+      product.tags.includes('Short Kurti') ||
+      product.tags.includes('Long Kurti') ||
+      product.tags.includes('Cotton Kurti') ||
+      (product.sizes && !product.sizes.includes('Unstitched'));
+
+    const effectiveSize: Size = isStitched
+      ? (size && size !== 'Unstitched' ? size : (product.sizes?.[0] || 'M'))
+      : 'Unstitched';
+
     trackAddToCart(product, 1);
     setCheckoutState({
       isOpen: true,
       product,
-      size,
+      size: effectiveSize,
     });
   };
 

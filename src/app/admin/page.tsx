@@ -416,9 +416,15 @@ export default function AdminPage() {
                                 <p className="font-bold text-[#2D2A26] line-clamp-1 max-w-[160px] font-serif">
                                   {item.productTitle}
                                 </p>
-                                <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
-                                  Unstitched
-                                </span>
+                                {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
+                                  <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
+                                    Unstitched
+                                  </span>
+                                ) : (
+                                  <span className="inline-block bg-amber-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded mt-0.5 shadow-2xs tracking-wide">
+                                    Size: {item.size} (Stitched)
+                                  </span>
+                                )}
                               </div>
                             </div>
                           ) : (
@@ -537,12 +543,23 @@ export default function AdminPage() {
                 />
                 <div className="flex-1">
                   <h4 className="font-serif font-bold text-sm text-[#2D2A26]">{selectedOrder.items[0].productTitle}</h4>
-                  <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1">
-                    <span>Item Spec: <strong className="text-[#9E6962]">100% Unstitched Fabric Set</strong></span>
+                  <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1.5 flex-wrap">
+                    <span>
+                      Item Spec:{' '}
+                      {(!selectedOrder.items[0].size || selectedOrder.items[0].size.toLowerCase().includes('unstitched') || selectedOrder.items[0].size.toLowerCase() === 'free size') ? (
+                        <strong className="text-[#9E6962] bg-[#9E6962]/10 px-2 py-0.5 rounded">100% Unstitched Fabric Set</strong>
+                      ) : (
+                        <strong className="text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded font-extrabold">
+                          👗 Stitched • Size: {selectedOrder.items[0].size}
+                        </strong>
+                      )}
+                    </span>
+                    <span>•</span>
+                    <span>Qty: <strong>{selectedOrder.items[0].quantity || 1}</strong></span>
                     <span>•</span>
                     <span>Price: <strong>₹{selectedOrder.items[0].price}</strong></span>
                   </div>
-                  <p className="text-[11px] text-[#78716C] font-mono mt-1">Payment ID: {selectedOrder.razorpayPaymentId}</p>
+                  <p className="text-[11px] text-[#78716C] font-mono mt-1.5">Payment ID: {selectedOrder.razorpayPaymentId}</p>
                 </div>
               </div>
             )}

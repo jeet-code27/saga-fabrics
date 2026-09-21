@@ -25,6 +25,29 @@ const createTransporter = () => {
 };
 
 const LOGO_URL = 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/saga-fabrics-logo-new_skmnli.png';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://sagafabrics.in';
+
+function getAbsoluteImageUrl(imgUrl?: string): string {
+  if (!imgUrl) return '';
+  if (imgUrl.startsWith('http://') || imgUrl.startsWith('https://')) return imgUrl;
+  return `${APP_URL}${imgUrl.startsWith('/') ? '' : '/'}${imgUrl}`;
+}
+
+function getItemSpecHTML(size?: string): string {
+  const isUnstitched = !size || size.toLowerCase().includes('unstitched') || size.toLowerCase() === 'free size';
+  if (isUnstitched) {
+    return `
+      <span style="display: inline-block; background-color: #F3ECE2; color: #7A1B38; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 6px; border: 1px solid #E4D9CC;">
+        ✂️ 100% Unstitched Fabric Set
+      </span>
+    `;
+  }
+  return `
+    <span style="display: inline-block; background-color: #FEF3C7; color: #92400E; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 6px; border: 1px solid #FCD34D;">
+      👗 STITCHED | SIZE: ${size.toUpperCase()}
+    </span>
+  `;
+}
 
 const BRAND_NAME = 'SAGA FABRICS';
 const FROM_EMAIL = `"Saga Fabrics" <${process.env.SMTP_USER || 'saga.fabricss@gmail.com'}>`;
@@ -76,21 +99,28 @@ export async function sendCustomerOrderConfirmationEmail(order: Order): Promise<
   }
 
   const itemsListHTML = order.items
-    .map(
-      (item) => `
+    .map((item) => {
+      const fullImg = getAbsoluteImageUrl(item.image);
+      return `
       <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1;">
+        <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; vertical-align: top; width: 64px;">
+          ${fullImg ? `<img src="${fullImg}" alt="${item.productTitle}" width="54" height="68" style="width: 54px; height: 68px; object-fit: cover; border-radius: 8px; border: 1px solid #EDE7E1; display: block;" />` : ''}
+        </td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; vertical-align: top;">
           <strong style="color: #2D2A26; font-size: 14px; display: block; font-family: 'Georgia', serif;">${item.productTitle}</strong>
-          <span style="color: #78716C; font-size: 12px; display: inline-block; margin-top: 4px;">
-            Spec: <strong style="color: #9E6962;">100% Unstitched Fabric Set</strong> | Qty: ${item.quantity}
+          <div style="margin-top: 6px;">
+            ${getItemSpecHTML(item.size)}
+          </div>
+          <span style="color: #78716C; font-size: 12px; display: inline-block; margin-top: 6px;">
+            Qty: <strong>${item.quantity}</strong> × ₹${item.price.toLocaleString('en-IN')}
           </span>
         </td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; text-align: right; font-weight: bold; color: #2D2A26; font-size: 14px;">
+        <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; text-align: right; vertical-align: top; font-weight: bold; color: #2D2A26; font-size: 14px;">
           ₹${(item.price * item.quantity).toLocaleString('en-IN')}
         </td>
       </tr>
-    `
-    )
+    `;
+    })
     .join('');
 
   const htmlContent = `
@@ -228,19 +258,29 @@ export async function sendAdminOrderNotificationEmail(order: Order): Promise<boo
   const transporter = createTransporter();
 
   const itemsListHTML = order.items
-    .map(
-      (item) => `
-      <tr>
-        <td style="padding: 10px; border-bottom: 1px solid #EDE7E1; font-size: 13px;">
-          <strong>${item.productTitle}</strong><br/>
-          Spec: <span style="color: #9E6962; font-weight: bold;">100% Unstitched Fabric Set</span> | Qty: ${item.quantity}
+    .map((item) => {
+      const fullImg = getAbsoluteImageUrl(item.image);
+      return `
+      <tr style="border-bottom: 1px solid #EDE7E1;">
+        <td style="padding: 12px 8px; vertical-align: top; width: 64px;">
+          ${fullImg ? `<img src="${fullImg}" alt="${item.productTitle}" width="54" height="68" style="width: 54px; height: 68px; object-fit: cover; border-radius: 8px; border: 1px solid #EDE7E1; display: block;" />` : ''}
         </td>
-        <td style="padding: 10px; border-bottom: 1px solid #EDE7E1; text-align: right; font-weight: bold; font-size: 13px;">
+        <td style="padding: 12px 10px; vertical-align: top;">
+          <div style="color: #78716C; font-size: 11px; font-family: monospace; margin-bottom: 2px;">SKU: ${item.productId || 'N/A'}</div>
+          <strong style="color: #2D2A26; font-size: 14px; display: block; font-family: 'Georgia', serif;">${item.productTitle}</strong>
+          <div style="margin-top: 6px;">
+            ${getItemSpecHTML(item.size)}
+          </div>
+          <div style="color: #78716C; font-size: 12px; margin-top: 6px;">
+            Quantity to Dispatch: <strong style="color: #2D2A26; font-size: 13px;">${item.quantity} Item${item.quantity > 1 ? 's' : ''}</strong> (@ ₹${item.price.toLocaleString('en-IN')})
+          </div>
+        </td>
+        <td style="padding: 12px 8px; vertical-align: top; text-align: right; font-weight: bold; font-size: 14px; color: #2D2A26;">
           ₹${(item.price * item.quantity).toLocaleString('en-IN')}
         </td>
       </tr>
-    `
-    )
+    `;
+    })
     .join('');
 
   const htmlContent = `
@@ -430,11 +470,25 @@ export async function sendOrderStatusUpdateEmail(order: Order): Promise<boolean>
                   </p>
 
                   <!-- Order Summary Box -->
-                  <div style="background-color: #FAF6F0; border-radius: 10px; padding: 16px; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">
-                    <strong style="color: #9E6962; font-family: monospace;">Order ID: ${order.id}</strong><br/>
-                    Item: <strong>${order.items[0]?.productTitle || 'Saga Fabrics Couture'}</strong> (${order.items[0]?.size || 'Unstitched'})<br/>
-                    Total Amount: <strong>₹${order.totalAmount.toLocaleString('en-IN')}</strong><br/>
-                    Delivery Address: ${order.customer.address}, ${order.customer.city}, ${order.customer.state} - ${order.customer.pincode}
+                  <div style="background-color: #FAF6F0; border-radius: 12px; padding: 18px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; border: 1px solid #EDE7E1;">
+                    <div style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px dashed #EDE7E1;">
+                      <span style="color: #78716C; font-size: 11px; text-transform: uppercase; font-weight: bold;">Order Tracking Identifier</span>
+                      <div style="color: #9E6962; font-family: monospace; font-size: 16px; font-weight: bold;">${order.id}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                      <strong style="color: #2D2A26; font-size: 14px; font-family: 'Georgia', serif;">${order.items[0]?.productTitle || 'Saga Fabrics Couture'}</strong>
+                      <div style="margin-top: 4px;">
+                        ${getItemSpecHTML(order.items[0]?.size)}
+                      </div>
+                      <div style="color: #78716C; font-size: 12px; margin-top: 4px;">
+                        Quantity: <strong>${order.items[0]?.quantity || 1}</strong> • Total Paid: <strong style="color: #9E6962;">₹${order.totalAmount.toLocaleString('en-IN')}</strong>
+                      </div>
+                    </div>
+
+                    <div style="padding-top: 10px; border-top: 1px solid #EDE7E1; font-size: 12px; color: #5C554E;">
+                      <strong>Delivery To:</strong> ${order.customer.name}, ${order.customer.address}, ${order.customer.city}, ${order.customer.state} - <strong>${order.customer.pincode}</strong> (Ph: ${order.customer.phone})
+                    </div>
                   </div>
 
                 </td>
