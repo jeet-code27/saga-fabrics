@@ -84,12 +84,13 @@ export interface TrackProductParams {
  * 1. ViewContent: When user views a product page or detail modal
  */
 export const trackViewContent = (product: TrackProductParams) => {
+  const numericPrice = parseFloat(Number(product.price).toFixed(2));
   trackEvent('ViewContent', {
     content_name: product.title,
     content_category: product.category || (product.tags ? product.tags.join(', ') : 'Suits & Kurtis'),
     content_ids: [product.id],
     content_type: 'product',
-    value: product.price,
+    value: numericPrice,
     currency: 'INR',
   });
 };
@@ -98,12 +99,21 @@ export const trackViewContent = (product: TrackProductParams) => {
  * 2. AddToCart: When user clicks "Buy Now" or adds product to shopping bag
  */
 export const trackAddToCart = (product: TrackProductParams, quantity: number = 1) => {
+  const itemPrice = parseFloat(Number(product.price).toFixed(2));
+  const totalVal = parseFloat(Number(product.price * quantity).toFixed(2));
   trackEvent('AddToCart', {
     content_name: product.title,
     content_category: product.category || (product.tags ? product.tags.join(', ') : 'Suits & Kurtis'),
     content_ids: [product.id],
     content_type: 'product',
-    value: product.price * quantity,
+    contents: [
+      {
+        id: product.id,
+        quantity: quantity,
+        item_price: itemPrice,
+      },
+    ],
+    value: totalVal,
     currency: 'INR',
     num_items: quantity,
   });
@@ -113,12 +123,22 @@ export const trackAddToCart = (product: TrackProductParams, quantity: number = 1
  * 3. InitiateCheckout: When user enters checkout drawer / flow
  */
 export const trackInitiateCheckout = (product: TrackProductParams, quantity: number = 1, totalAmount?: number) => {
+  const rawTotal = totalAmount ?? (product.price * quantity);
+  const totalVal = parseFloat(Number(rawTotal).toFixed(2));
+  const itemPrice = parseFloat(Number(product.price).toFixed(2));
   trackEvent('InitiateCheckout', {
     content_name: product.title,
     content_category: product.category || (product.tags ? product.tags.join(', ') : 'Suits & Kurtis'),
     content_ids: [product.id],
     content_type: 'product',
-    value: totalAmount ?? (product.price * quantity),
+    contents: [
+      {
+        id: product.id,
+        quantity: quantity,
+        item_price: itemPrice,
+      },
+    ],
+    value: totalVal,
     currency: 'INR',
     num_items: quantity,
   });
@@ -128,12 +148,13 @@ export const trackInitiateCheckout = (product: TrackProductParams, quantity: num
  * 4. AddPaymentInfo: When customer submits form and initiates Razorpay gateway
  */
 export const trackAddPaymentInfo = (product: TrackProductParams, totalAmount: number, quantity: number = 1) => {
+  const totalVal = parseFloat(Number(totalAmount).toFixed(2));
   trackEvent('AddPaymentInfo', {
     content_name: product.title,
     content_category: product.category || (product.tags ? product.tags.join(', ') : 'Suits & Kurtis'),
     content_ids: [product.id],
     content_type: 'product',
-    value: totalAmount,
+    value: totalVal,
     currency: 'INR',
     num_items: quantity,
   });
@@ -148,12 +169,22 @@ export const trackPurchase = (params: {
   totalAmount: number;
   quantity: number;
 }) => {
+  const cleanTotal = parseFloat(Number(params.totalAmount).toFixed(2));
+  const cleanItemPrice = parseFloat(Number(params.product.price).toFixed(2));
+
   trackEvent('Purchase', {
     content_name: params.product.title,
     content_category: params.product.category || (params.product.tags ? params.product.tags.join(', ') : 'Suits & Kurtis'),
     content_ids: [params.product.id],
     content_type: 'product',
-    value: params.totalAmount,
+    contents: [
+      {
+        id: params.product.id,
+        quantity: params.quantity,
+        item_price: cleanItemPrice,
+      },
+    ],
+    value: cleanTotal,
     currency: 'INR',
     num_items: params.quantity,
     order_id: params.orderId,

@@ -200,7 +200,7 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
               trackPurchase({
                 orderId: verifyData.order?.id || orderData.id,
                 product,
-                totalAmount,
+                totalAmount: Number(verifyData.order?.totalAmount || totalAmount),
                 quantity,
               });
 
