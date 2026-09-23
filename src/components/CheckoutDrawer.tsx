@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Product, Size, CustomerInfo, Order } from '@/types';
 import { X, Lock, ShieldCheck, CreditCard, Plus, Minus, Trash2, ShoppingCart } from 'lucide-react';
 import { trackInitiateCheckout, trackAddPaymentInfo, trackPurchase, setUserData } from '@/lib/metaPixel';
+import { trackGABeginCheckout, trackGAAddPaymentInfo, trackGAPurchase } from '@/lib/gtag';
 
 declare global {
   interface Window {
@@ -47,12 +48,13 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   const prevIsOpenRef = React.useRef(false);
 
   useEffect(() => {
-    // Fire InitiateCheckout on drawer open transition (closed → open)
+    // Fire InitiateCheckout & GA4 begin_checkout on drawer open transition (closed → open)
     if (isOpen && !prevIsOpenRef.current && product) {
       trackInitiateCheckout(product, quantity, product.price * quantity);
+      trackGABeginCheckout(product, quantity, size, product.price * quantity);
     }
     prevIsOpenRef.current = isOpen;
-  }, [isOpen, product, quantity]);
+  }, [isOpen, product, quantity, size]);
 
   if (!isOpen) return null;
 
@@ -122,6 +124,8 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
 
     // Meta Pixel: Track AddPaymentInfo Event
     trackAddPaymentInfo(product, totalAmount, quantity);
+    // Google Analytics: Track add_payment_info Event
+    trackGAAddPaymentInfo(product, totalAmount, quantity, size);
 
     try {
       // 1. Create Razorpay order on backend
@@ -196,12 +200,24 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
             setLoading(false);
 
             if (verifyRes.ok && verifyData.success) {
+              const finalAmount = Number(verifyData.order?.totalAmount || totalAmount);
+              const orderIdentifier = verifyData.order?.id || orderData.id;
+
               // Meta Pixel: Track Purchase Event
               trackPurchase({
-                orderId: verifyData.order?.id || orderData.id,
+                orderId: orderIdentifier,
                 product,
-                totalAmount: Number(verifyData.order?.totalAmount || totalAmount),
+                totalAmount: finalAmount,
                 quantity,
+              });
+
+              // Google Analytics 4: Track purchase Event
+              trackGAPurchase({
+                orderId: orderIdentifier,
+                product,
+                totalAmount: finalAmount,
+                quantity,
+                size,
               });
 
               onClose();

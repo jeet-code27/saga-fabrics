@@ -11,6 +11,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { trackViewContent, trackAddToCart, trackContact } from '@/lib/metaPixel';
+import { trackGAViewItem, trackGAAddToCart, trackGAContact } from '@/lib/gtag';
 import {
   Star,
   Shield,
@@ -67,13 +68,30 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     product.tags.includes('End of Season Sale') ||
     product.tags.includes('Season End Sale');
 
-  // Meta Pixel ViewContent event
+  // Meta Pixel ViewContent & GA4 view_item event
   React.useEffect(() => {
     trackViewContent(product);
-  }, [product]);
+    trackGAViewItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      tags: product.tags,
+      size: isStitched ? selectedSize : 'Unstitched',
+    });
+  }, [product, isStitched, selectedSize]);
 
   const handleInitiateBuy = () => {
     trackAddToCart(product, 1);
+    trackGAAddToCart(
+      {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        tags: product.tags,
+      },
+      1,
+      isStitched ? selectedSize : 'Unstitched'
+    );
     setCheckoutOpen(true);
   };
 
@@ -362,7 +380,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               href={`https://wa.me/917023352132?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackContact('WhatsApp Support', product.title)}
+              onClick={() => {
+                trackContact('WhatsApp Support', product.title);
+                trackGAContact('WhatsApp Support');
+              }}
               className="w-full py-3 px-4 bg-white hover:bg-[#F3ECE2] text-[#25D366] font-semibold rounded-2xl transition-colors text-xs sm:text-sm border border-[#DCD3C7] flex items-center justify-center gap-2.5 shadow-2xs text-center"
             >
               <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />

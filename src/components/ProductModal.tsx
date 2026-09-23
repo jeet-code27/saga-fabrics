@@ -6,6 +6,7 @@ import { Product, Size } from '@/types';
 import { X, Star, Shield, RefreshCw, Truck, Sparkles, Ruler } from 'lucide-react';
 import { SizeChartModal } from './SizeChartModal';
 import { trackViewContent, trackAddToCart } from '@/lib/metaPixel';
+import { trackGAViewItem, trackGAAddToCart } from '@/lib/gtag';
 
 interface ProductModalProps {
   product: Product | null;
@@ -27,8 +28,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   React.useEffect(() => {
     if (product) {
       trackViewContent(product);
+      trackGAViewItem({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        tags: product.tags,
+        size: selectedSize,
+      });
     }
-  }, [product]);
+  }, [product, selectedSize]);
 
   if (!product) return null;
 
@@ -231,8 +239,19 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               return (
                 <button
                   onClick={() => {
+                    const finalSize = isKurti ? selectedSize : 'Unstitched';
                     trackAddToCart(product, 1);
-                    onProceedToBuy(product, isKurti ? selectedSize : 'Unstitched');
+                    trackGAAddToCart(
+                      {
+                        id: product.id,
+                        title: product.title,
+                        price: product.price,
+                        tags: product.tags,
+                      },
+                      1,
+                      finalSize
+                    );
+                    onProceedToBuy(product, finalSize);
                   }}
                   className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >

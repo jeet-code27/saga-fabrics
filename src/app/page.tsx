@@ -18,6 +18,7 @@ import { Footer } from '@/components/Footer';
 import { SizeChartModal } from '@/components/SizeChartModal';
 import { Sparkles } from 'lucide-react';
 import { trackAddToCart, trackSearch } from '@/lib/metaPixel';
+import { trackGAAddToCart, trackGASearch } from '@/lib/gtag';
 
 export default function HomePage() {
   const [checkoutState, setCheckoutState] = useState<{
@@ -50,6 +51,17 @@ export default function HomePage() {
       : 'Unstitched';
 
     trackAddToCart(product, 1);
+    trackGAAddToCart(
+      {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        tags: product.tags,
+      },
+      1,
+      effectiveSize
+    );
+
     setCheckoutState({
       isOpen: true,
       product,
@@ -61,6 +73,7 @@ export default function HomePage() {
     setActiveFilter(filter);
     if (filter !== 'All') {
       trackSearch(filter);
+      trackGASearch(filter);
     }
   };
 
