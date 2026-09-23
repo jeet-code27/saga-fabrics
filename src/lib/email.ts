@@ -4,7 +4,7 @@ import { Order } from '@/types';
 
 // Create Nodemailer Transporter
 const createTransporter = () => {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const host = process.env.SMTP_HOST || 'smtppro.zoho.in';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
