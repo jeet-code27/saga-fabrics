@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { JsonLdSchema } from '@/components/JsonLdSchema';
 import { MetaPixel } from '@/components/MetaPixel';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+import { MicrosoftClarity } from '@/components/MicrosoftClarity';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -110,6 +111,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#FAF6F1] text-[#2B2723] font-sans selection:bg-[#9E6962] selection:text-white">
         <GoogleAnalytics />
         <MetaPixel />
+        <MicrosoftClarity />
         {children}
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
