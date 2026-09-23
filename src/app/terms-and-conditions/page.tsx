@@ -102,7 +102,7 @@ export default function TermsAndConditionsPage() {
               Order Cancellation Policy
             </h2>
             <p>
-              Customers can request an order cancellation within <strong>12 hours of placement</strong> or before the item has been dispatched by emailing <strong>saga.fabricss@gmail.com</strong> or messaging WhatsApp <strong>+91 70233 52132</strong>.
+              Customers can request an order cancellation within <strong>12 hours of placement</strong> or before the item has been dispatched by emailing <strong>support@sagafabrics.in</strong> or messaging WhatsApp <strong>+91 70233 52132</strong>.
             </p>
             <p className="text-xs text-[#2B2723]">
               Upon successful cancellation, a 100% full refund will be initiated back to your original payment source (Bank/UPI/Card) within <strong>5 to 7 business days</strong>.
@@ -120,7 +120,7 @@ export default function TermsAndConditionsPage() {
             </p>
             <ul className="list-disc pl-5 space-y-2 text-xs text-[#2B2723]">
               <li>
-                <strong>Defective, Damaged, or Incorrect Items (100% Free Replacement or Refund):</strong> If you receive a damaged, defective, or incorrect piece, please contact us within <strong>7 days of delivery</strong> at <a href="mailto:saga.fabricss@gmail.com" className="text-[#9E6962] underline font-bold">saga.fabricss@gmail.com</a> or WhatsApp <a href="https://wa.me/917023352132" className="text-[#9E6962] underline font-bold">+91 70233 52132</a> with unboxing photos or video evidence. We will arrange a free replacement or initiate a full refund.
+                <strong>Defective, Damaged, or Incorrect Items (100% Free Replacement or Refund):</strong> If you receive a damaged, defective, or incorrect piece, please contact us within <strong>7 days of delivery</strong> at <a href="mailto:support@sagafabrics.in" className="text-[#9E6962] underline font-bold">support@sagafabrics.in</a> or WhatsApp <a href="https://wa.me/917023352132" className="text-[#9E6962] underline font-bold">+91 70233 52132</a> with unboxing photos or video evidence. We will arrange a free replacement or initiate a full refund.
               </li>
               <li>
                 <strong>Size Fit & Exchange (For Stitched Kurtis & Suits):</strong> If you ordered a size that doesn't fit you, you can request a <strong>Size Exchange within 7 days of delivery</strong>. To process the size exchange, the customer is required to pay nominal reverse pickup and courier re-shipping charges. Simply contact our support team on WhatsApp with your Order ID and desired size.
@@ -152,7 +152,7 @@ export default function TermsAndConditionsPage() {
               These terms shall be governed by the laws of India. For any merchant inquiries or support:
             </p>
             <div className="space-y-1.5 pt-2 text-xs text-[#2B2723]">
-              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email: <strong>saga.fabricss@gmail.com</strong></p>
+              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email: <strong>support@sagafabrics.in</strong></p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#9E6962]" /> Phone / WhatsApp: <strong>+91 70233 52132</strong></p>
               <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
               <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#EDE7E1] flex-wrap">

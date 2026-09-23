@@ -133,7 +133,7 @@ export default function PrivacyPolicyPage() {
                 <Phone className="w-4 h-4 text-[#7A1B38]" /> WhatsApp Support: <strong>+91 70233 52132</strong>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong>
+                <Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>support@sagafabrics.in</strong>
               </p>
               <p className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong>

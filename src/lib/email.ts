@@ -50,8 +50,8 @@ function getItemSpecHTML(size?: string): string {
 }
 
 const BRAND_NAME = 'SAGA FABRICS';
-const FROM_EMAIL = `"Saga Fabrics" <${process.env.SMTP_USER || 'saga.fabricss@gmail.com'}>`;
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'saga.fabricss@gmail.com';
+const FROM_EMAIL = `"Saga Fabrics" <${process.env.SMTP_USER || 'support@sagafabrics.in'}>`;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'support@sagafabrics.in';
 
 // Common Email Header HTML with Cloudinary Logo
 function getEmailHeaderHTML(title: string, subtitle: string): string {

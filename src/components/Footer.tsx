@@ -101,8 +101,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7FA79A] shrink-0" />
-                <a href="mailto:saga.fabricss@gmail.com" className="hover:text-[#FAF6F1] transition-colors">
-                  saga.fabricss@gmail.com
+                <a href="mailto:support@sagafabrics.in" className="hover:text-[#FAF6F1] transition-colors">
+                  support@sagafabrics.in
                 </a>
               </li>
               <li className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-[#FAF6F1]/90 flex-wrap gap-1">

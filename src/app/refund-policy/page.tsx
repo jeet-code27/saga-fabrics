@@ -93,7 +93,7 @@ export default function RefundPolicyPage() {
               <CheckCircle2 className="w-5 h-5 text-[#9E6962]" /> 1. How to Request an Order Cancellation
             </h2>
             <p>
-              If you wish to cancel an order, please email our support team at <strong>saga.fabricss@gmail.com</strong> or message us on WhatsApp at <strong>+91 70233 52132</strong> with your Order ID.
+              If you wish to cancel an order, please email our support team at <strong>support@sagafabrics.in</strong> or message us on WhatsApp at <strong>+91 70233 52132</strong> with your Order ID.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
               <li>Cancellations requested before order dispatch will be processed immediately.</li>
@@ -153,7 +153,7 @@ export default function RefundPolicyPage() {
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723]">Need Assistance? Contact Support</h2>
             <div className="space-y-1.5 text-xs text-[#2B2723]">
-              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>saga.fabricss@gmail.com</strong></p>
+              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>support@sagafabrics.in</strong></p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#9E6962]" /> WhatsApp / Phone: <strong>+91 70233 52132</strong></p>
               <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
               <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#EDE7E1] flex-wrap">

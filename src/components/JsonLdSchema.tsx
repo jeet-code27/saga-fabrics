@@ -10,7 +10,7 @@ export const JsonLdSchema: React.FC = () => {
     logo: 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/saga-fabrics-logo-new_skmnli.png',
     image: 'https://res.cloudinary.com/dnd8u5sll/image/upload/v1787209605/saga-fabrics-logo-new_skmnli.png',
     description: 'Shop premium handcrafted ethnic suits, kurtis & unstitched suit sets. Handcrafted artisanal embroidery, free express shipping across India.',
-    email: 'saga.fabricss@gmail.com',
+    email: 'support@sagafabrics.in',
     telephone: '+91-7023352132',
     priceRange: '₹₹',
     currenciesAccepted: 'INR',
