@@ -52,7 +52,7 @@ export default function RefundPolicyPage() {
         </div>
 
         {/* Highlight Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
           <div className="p-6 bg-white rounded-3xl border border-[#EDE7E1] shadow-sm space-y-2">
             <div className="flex items-center gap-2 text-[#9E6962]">
               <Clock className="w-5 h-5" />
@@ -64,9 +64,19 @@ export default function RefundPolicyPage() {
           </div>
 
           <div className="p-6 bg-white rounded-3xl border border-[#EDE7E1] shadow-sm space-y-2">
+            <div className="flex items-center gap-2 text-[#7A1B38]">
+              <RefreshCw className="w-5 h-5" />
+              <h3 className="font-serif font-bold text-sm">7-Day Return & Exchange</h3>
+            </div>
+            <p className="text-xs text-[#5C554E] leading-relaxed">
+              Free replacement for damaged items within <strong>7 days</strong>. Easy size exchanges for stitched kurtis & suits.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white rounded-3xl border border-[#EDE7E1] shadow-sm space-y-2">
             <div className="flex items-center gap-2 text-[#7D8F85]">
               <ShieldCheck className="w-5 h-5" />
-              <h3 className="font-serif font-bold text-sm">Refund Processing Timeline</h3>
+              <h3 className="font-serif font-bold text-sm">Refund Processing</h3>
             </div>
             <p className="text-xs text-[#5C554E] leading-relaxed">
               Refunds are credited back to your original payment mode via Razorpay within <strong>5 to 7 working days</strong>.
@@ -94,21 +104,42 @@ export default function RefundPolicyPage() {
           {/* Section 2 */}
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723] flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-[#9E6962]" /> 2. Damaged or Defective Item Replacement Policy
+              <AlertCircle className="w-5 h-5 text-[#9E6962]" /> 2. 7-Day Return & Replacement for Damaged / Defective Items
             </h2>
             <p>
-              Every unstitched fabric set undergoes strict quality checks prior to dispatch. However, if you receive a damaged or incorrect fabric set:
+              Every garment and fabric set undergoes thorough inspection prior to dispatch. However, if you receive a damaged, defective, or incorrect product:
             </p>
             <ol className="list-decimal pl-5 space-y-1.5 text-xs text-[#2B2723]">
-              <li>Contact us within <strong>48 hours of delivery</strong> with unboxing photos or video evidence.</li>
-              <li>Our team will verify the claim and arrange a free replacement or initiate a full refund.</li>
+              <li>Contact our team within <strong>7 days of delivery</strong> with unboxing photos or video evidence.</li>
+              <li>Our team will verify the claim and arrange a <strong>100% Free Replacement</strong> or initiate a full refund.</li>
             </ol>
           </section>
 
           {/* Section 3 */}
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723] flex items-center gap-2">
-              <RefreshCw className="w-5 h-5 text-[#9E6962]" /> 3. Razorpay Refund Credit Process
+              <RefreshCw className="w-5 h-5 text-[#7A1B38]" /> 3. Size Exchange Policy (For Stitched Kurtis & Suits)
+            </h2>
+            <p>
+              Ordered a size that doesn't fit you comfortably? No worries! We offer convenient size exchanges:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-xs text-[#2B2723]">
+              <li>
+                <strong>7-Day Window:</strong> Size exchange requests must be placed within <strong>7 days of delivery</strong> by contacting us on WhatsApp (<strong>+91 70233 52132</strong>) or Email with your Order ID and required replacement size.
+              </li>
+              <li>
+                <strong>Shipping Charges:</strong> Since free shipping is already provided on the original order, customer is responsible for nominal reverse pickup and courier re-shipping fees for size exchanges.
+              </li>
+              <li>
+                <strong>Item Condition:</strong> The garment must be completely unworn, unwashed, unaltered, and returned in original condition with tags and packaging intact.
+              </li>
+            </ul>
+          </section>
+
+          {/* Section 4 */}
+          <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
+            <h2 className="text-lg font-serif font-bold text-[#2B2723] flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-[#9E6962]" /> 4. Razorpay Refund Credit Process
             </h2>
             <p>
               All approved refunds are automatically routed back to your original source of payment (UPI, Credit Card, Debit Card, Net Banking) via the Razorpay payment gateway.

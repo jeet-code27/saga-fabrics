@@ -33,6 +33,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSizeChart }) => {
       answer: 'Yes! We integrate with Razorpay using 256-bit bank-grade SSL encryption. You can complete payment instantly via Google Pay, PhonePe, Paytm, Credit/Debit cards, or NetBanking.',
     },
     {
+      question: 'What is your Return, Replacement, and Size Exchange Policy?',
+      answer: 'We offer a 7-day return and exchange window! If you receive a damaged, defective, or incorrect piece, we provide a 100% free replacement or refund upon receiving unboxing photos/video within 7 days of delivery. For stitched suits & kurtis, if you ordered a size that does not fit you, you can easily request a size exchange within 7 days by contacting our WhatsApp support (+91 70233 52132) — the customer only needs to pay nominal courier reverse pickup charges.',
+    },
+    {
       question: 'How should I wash and care for these suits and kurtis?',
       answer: 'We recommend gentle hand washing in cold water with a mild detergent for the first few washes. Avoid harsh bleaching. Line dry in shade to preserve natural thread embroidery.',
     },

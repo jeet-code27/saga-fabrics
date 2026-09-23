@@ -7,7 +7,7 @@ import { ArrowLeft, ShieldCheck, Lock, Eye, Mail, Phone, MapPin, AlertCircle } f
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Saga Fabrics',
-  description: 'Saga Fabrics privacy policy how we collect, use & protect your data, plus secure Razorpay payment handling and no-return policy details.',
+  description: 'Saga Fabrics privacy policy how we collect, use & protect your data, secure Razorpay payment handling, and 7-day return & size exchange details.',
   alternates: {
     canonical: 'https://sagafabrics.in/privacy-policy',
   },
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: 'https://sagafabrics.in/privacy-policy',
     siteName: 'Saga Fabrics',
     title: 'Privacy Policy | Saga Fabrics',
-    description: 'Saga Fabrics privacy policy how we collect, use & protect your data, plus secure Razorpay payment handling and no-return policy details.',
+    description: 'Saga Fabrics privacy policy how we collect, use & protect your data, secure Razorpay payment handling, and 7-day return & size exchange details.',
   },
 };
 
@@ -94,11 +94,22 @@ export default function PrivacyPolicyPage() {
           {/* Section 3 */}
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E4D9CC] shadow-2xs space-y-3">
             <h2 className="text-lg font-serif font-bold text-[#2B2723] flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-[#7A1B38]" /> 3. No Return Policy Reminder
+              <AlertCircle className="w-5 h-5 text-[#7A1B38]" /> 3. 7-Day Return & Size Exchange Guidelines
             </h2>
-            <p className="text-xs text-[#2B2723]">
-              As outlined in our Terms & Conditions, all unstitched suit fabric materials sold by Saga Fabrics are strictly <strong>non-returnable and non-refundable</strong> due to fabric cut customization. Please double-check product descriptions and fabric measurements before placing your order.
+            <p className="text-xs text-[#2B2723] leading-relaxed">
+              As outlined in our Terms & Conditions and Refund Policy:
             </p>
+            <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
+              <li>
+                <strong>Damaged or Incorrect Items:</strong> Can be returned for a <strong>100% free replacement or full refund within 7 days of delivery</strong> with unboxing photo or video proof.
+              </li>
+              <li>
+                <strong>Size Exchange (For Stitched Kurtis & Suits):</strong> If you ordered an incorrect size or it does not fit you comfortably, you can request a size exchange within <strong>7 days of delivery</strong>. The customer is responsible for nominal reverse pickup and re-shipping courier charges.
+              </li>
+              <li>
+                <strong>Condition:</strong> Items must be completely unused, unwashed, and returned in their original condition with brand tags intact. Fabric sets that have been cut, stitched, or altered cannot be accepted for return.
+              </li>
+            </ul>
           </section>
 
           {/* Section 4 */}

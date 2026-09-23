@@ -69,14 +69,15 @@ export default function TermsAndConditionsPage() {
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
             <h2 className="text-xl font-serif font-bold text-[#2B2723] flex items-center gap-2">
               <span className="w-7 h-7 rounded-full bg-[#9E6962]/10 text-[#9E6962] text-xs font-mono font-bold flex items-center justify-center">1</span>
-              Product Descriptions & Unstitched Fabric Specs
+              Product Descriptions: Stitched & Unstitched Collections
             </h2>
             <p>
-              Saga Fabrics specializes in premium unstitched suit fabrics, handcrafted dress materials, and artisanal suit sets.
+              Saga Fabrics specializes in handcrafted ethnic wear, offering both <strong>Ready-to-Wear Stitched Garments</strong> (such as Short Kurtis, Long Kurtis, and Stitched Suits in sizes XS to XXL) and <strong>100% Pure Cotton Unstitched Suit Fabric Sets</strong>.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
-              <li>All products sold are <strong>100% Unstitched Fabric Sets</strong> customizable by your tailor to any size.</li>
-              <li>Since our fabrics feature handcrafted artisanal embroidery, slight variations in color tone or thread weave are natural artisanal characteristics.</li>
+              <li><strong>Unstitched Suit Sets:</strong> Include generous unstitched fabric lengths (~2.5m Kurti top, ~2.5m Bottom pants, ~2.25m Pure Dupatta) customizable by your personal tailor to any size from XS to 5XL.</li>
+              <li><strong>Stitched Ready-to-Wear:</strong> Pre-stitched garments crafted according to our standard Women's Size Chart.</li>
+              <li>Since our pieces feature authentic artisanal hand-embroidery and natural printing, minor variations in thread weave or color tone are natural hallmarks of handcrafted authenticity.</li>
             </ul>
           </section>
 
@@ -101,7 +102,7 @@ export default function TermsAndConditionsPage() {
               Order Cancellation Policy
             </h2>
             <p>
-              Customers can request an order cancellation within <strong>12 hours of placement</strong> or before the item has been dispatched by emailing <strong>saga.fabricss@gmail.com</strong>.
+              Customers can request an order cancellation within <strong>12 hours of placement</strong> or before the item has been dispatched by emailing <strong>saga.fabricss@gmail.com</strong> or messaging WhatsApp <strong>+91 70233 52132</strong>.
             </p>
             <p className="text-xs text-[#2B2723]">
               Upon successful cancellation, a 100% full refund will be initiated back to your original payment source (Bank/UPI/Card) within <strong>5 to 7 business days</strong>.
@@ -112,14 +113,21 @@ export default function TermsAndConditionsPage() {
           <section className="bg-white p-6 sm:p-8 rounded-3xl border border-[#EDE7E1] shadow-2xs space-y-3">
             <h2 className="text-xl font-serif font-bold text-[#2B2723] flex items-center gap-2">
               <span className="w-7 h-7 rounded-full bg-[#9E6962]/10 text-[#9E6962] text-xs font-mono font-bold flex items-center justify-center">4</span>
-              Damaged Product Replacement & Refunds
+              7-Day Return, Replacement & Size Exchange Policy
             </h2>
             <p>
-              Due to the custom nature of unstitched fabric sets, we do not accept returns for change of mind. However, if you receive a damaged or incorrect product:
+              We want you to be completely satisfied with your purchase. Returns and size exchanges are accepted under the following clear conditions within <strong>7 days of delivery</strong>:
             </p>
-            <ul className="list-disc pl-5 space-y-1.5 text-xs text-[#2B2723]">
-              <li>Please notify us within <strong>48 hours of delivery</strong> at saga.fabricss@gmail.com with unboxing photos/video.</li>
-              <li>Approved claims will receive a free replacement or a full refund processed to your original payment mode within 5-7 working days.</li>
+            <ul className="list-disc pl-5 space-y-2 text-xs text-[#2B2723]">
+              <li>
+                <strong>Defective, Damaged, or Incorrect Items (100% Free Replacement or Refund):</strong> If you receive a damaged, defective, or incorrect piece, please contact us within <strong>7 days of delivery</strong> at <a href="mailto:saga.fabricss@gmail.com" className="text-[#9E6962] underline font-bold">saga.fabricss@gmail.com</a> or WhatsApp <a href="https://wa.me/917023352132" className="text-[#9E6962] underline font-bold">+91 70233 52132</a> with unboxing photos or video evidence. We will arrange a free replacement or initiate a full refund.
+              </li>
+              <li>
+                <strong>Size Fit & Exchange (For Stitched Kurtis & Suits):</strong> If you ordered a size that doesn't fit you, you can request a <strong>Size Exchange within 7 days of delivery</strong>. To process the size exchange, the customer is required to pay nominal reverse pickup and courier re-shipping charges. Simply contact our support team on WhatsApp with your Order ID and desired size.
+              </li>
+              <li>
+                <strong>Eligibility Criteria:</strong> All returned or exchanged items must be completely unused, unwashed, unaltered, and packed in their original condition with all brand tags attached. Fabric pieces that have already been cut or stitched by your tailor cannot be returned.
+              </li>
             </ul>
           </section>
 
