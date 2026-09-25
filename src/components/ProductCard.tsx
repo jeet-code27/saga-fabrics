@@ -15,11 +15,11 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
 }) => {
-  const isKurti =
-    product.tags.includes('Short Kurti') ||
-    product.tags.includes('Long Kurti') ||
-    product.tags.includes('Cotton Kurti') ||
-    (product.sizes && !product.sizes.includes('Unstitched'));
+  const isUnstitched =
+    product.sizes?.includes('Unstitched') ||
+    product.tags?.includes('Unstitched') ||
+    product.title.toLowerCase().includes('unstitched');
+  const isKurti = !isUnstitched;
 
   const isSale =
     product.tags.includes('End of Season Sale') ||

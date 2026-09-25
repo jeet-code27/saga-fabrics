@@ -10,9 +10,10 @@ interface NavbarProps {
   cartCount?: number;
   onOpenCart?: () => void;
   onOpenSizeChart?: () => void;
+  hideSizeGuide?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpenSizeChart }) => {
+export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpenSizeChart, hideSizeGuide = false }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSizeGuideClick = () => {
@@ -104,14 +105,16 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
               <Link href="/#craft-story" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 Our Story
               </Link>
-              <button
-                type="button"
-                onClick={handleSizeGuideClick}
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs"
-              >
-                <Ruler className="w-3.5 h-3.5" />
-                <span>Size Guide</span>
-              </button>
+              {!hideSizeGuide && (
+                <button
+                  type="button"
+                  onClick={handleSizeGuideClick}
+                  className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs"
+                >
+                  <Ruler className="w-3.5 h-3.5" />
+                  <span>Size Guide</span>
+                </button>
+              )}
               <Link href="/#faq" className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all">
                 FAQs
               </Link>
@@ -160,20 +163,22 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
             >
               🌿 Our Craft Story
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleSizeGuideClick();
-              }}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between w-full text-left cursor-pointer"
-            >
-              <span className="flex items-center gap-2">
-                <Ruler className="w-4 h-4 text-[#7A1B38]" />
-                <span>Women's Size Guide (Chart)</span>
-              </span>
-              <span className="text-[10px] bg-[#65897D]/15 text-[#65897D] font-bold px-2 py-0.5 rounded-full">CM & INCH</span>
-            </button>
+            {!hideSizeGuide && (
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleSizeGuideClick();
+                }}
+                className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between w-full text-left cursor-pointer"
+              >
+                <span className="flex items-center gap-2">
+                  <Ruler className="w-4 h-4 text-[#7A1B38]" />
+                  <span>Women's Size Guide (Chart)</span>
+                </span>
+                <span className="text-[10px] bg-[#65897D]/15 text-[#65897D] font-bold px-2 py-0.5 rounded-full">CM & INCH</span>
+              </button>
+            )}
             <Link
               href="/#faq"
               onClick={() => setMobileMenuOpen(false)}

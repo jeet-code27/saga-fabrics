@@ -24,6 +24,7 @@ import {
   MessageCircle,
   Clock,
   Ruler,
+  Scissors,
 } from 'lucide-react';
 
 interface ProductDetailClientProps {
@@ -35,14 +36,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   product,
   relatedProducts,
 }) => {
-  const isStitched =
-    product.tags.includes('Stitched Suit') ||
-    product.tags.includes('Short Kurti') ||
-    product.tags.includes('Long Kurti') ||
-    product.tags.includes('Cotton Kurti') ||
-    (product.sizes && !product.sizes.includes('Unstitched'));
+  const isUnstitched =
+    product.sizes?.includes('Unstitched') ||
+    product.tags?.includes('Unstitched') ||
+    product.title.toLowerCase().includes('unstitched');
+  const isStitched = !isUnstitched;
+
   const defaultSize: Size =
-    product.sizes && product.sizes.length > 0 ? product.sizes[0] : isStitched ? 'M' : 'Unstitched';
+    isStitched && product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Unstitched';
 
   const [selectedSize, setSelectedSize] = useState<Size>(defaultSize);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -125,10 +126,15 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
       <Navbar
         cartCount={checkoutOpen ? 1 : 0}
         onOpenCart={() => setCheckoutOpen(true)}
-        onOpenSizeChart={() => {
-          const el = document.getElementById('size-chart-section');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }}
+        hideSizeGuide={!isStitched}
+        onOpenSizeChart={
+          isStitched
+            ? () => {
+                const el = document.getElementById('size-chart-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            : undefined
+        }
       />
 
       {/* Main Product Content */}
@@ -391,18 +397,59 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </a>
           </div>
 
-          {/* Embedded Mobile-Responsive Size Chart */}
-          <div id="size-chart-section">
-            <ProductSizeChart
-              selectedSize={selectedSize}
-              availableSizes={product.sizes}
-              onSelectSize={(sz) => {
-                if (!product.sizes || product.sizes.length === 0 || product.sizes.includes(sz)) {
-                  setSelectedSize(sz);
-                }
-              }}
-            />
-          </div>
+          {/* Sizing & Tailoring Guide: Only show Size Chart for Stitched products */}
+          {isStitched ? (
+            <div id="size-chart-section">
+              <ProductSizeChart
+                selectedSize={selectedSize}
+                availableSizes={product.sizes}
+                onSelectSize={(sz) => {
+                  if (!product.sizes || product.sizes.length === 0 || product.sizes.includes(sz)) {
+                    setSelectedSize(sz);
+                  }
+                }}
+              />
+            </div>
+          ) : (
+            <div className="p-5 sm:p-6 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs space-y-4">
+              <div className="flex items-center gap-3 border-b border-[#E4D9CC] pb-3">
+                <div className="w-10 h-10 rounded-2xl bg-[#7A1B38]/10 flex items-center justify-center text-[#7A1B38]">
+                  <Scissors className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#7A1B38] block">
+                    Fabric Dimensions & Tailoring
+                  </span>
+                  <h4 className="font-serif font-bold text-base text-[#2B2723]">
+                    100% Unstitched Fabric Specifications
+                  </h4>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Top / Kurta Fabric</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">~ 2.50 Meters</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Pure Cotton with detailed embroidery</span>
+                </div>
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Bottom / Salwar Fabric</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">~ 2.50 Meters</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Comfortable pure cotton material</span>
+                </div>
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Dupatta Material</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">~ 2.25 Meters</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Lightweight breathable pure mulmul</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-[#5A534C] bg-[#FAF6F1] p-3.5 rounded-xl border border-[#E4D9CC] leading-relaxed flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#B59757] shrink-0" />
+                <span><strong>No Size Chart needed:</strong> Being an unstitched 3-piece fabric set, this can be customized by your boutique or tailor to your exact desired fit (XS to 5XL) and styling.</span>
+              </p>
+            </div>
+          )}
 
           {/* Fabric & Craft Description */}
           <div className="p-5 bg-white rounded-3xl border border-[#DCD3C7] space-y-3 shadow-xs">
@@ -477,10 +524,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
       {/* Footer with smooth Size Guide navigation */}
       <Footer
-        onOpenSizeChart={() => {
-          const el = document.getElementById('size-chart-section');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }}
+        onOpenSizeChart={
+          isStitched
+            ? () => {
+                const el = document.getElementById('size-chart-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            : undefined
+        }
       />
 
       {/* Checkout Slide-over Drawer */}

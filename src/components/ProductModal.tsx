@@ -126,9 +126,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* Size & Fitting Selection */}
             {(() => {
-              const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
+              const isUnstitched =
+                product.sizes?.includes('Unstitched') ||
+                product.tags?.includes('Unstitched') ||
+                product.title.toLowerCase().includes('unstitched');
+              const isStitched = !isUnstitched;
 
-              if (isKurti && product.sizes && product.sizes.length > 1) {
+              if (isStitched && product.sizes && product.sizes.length > 1) {
                 return (
                   <div className="p-3.5 bg-[#FAF6F1] border border-[#E4D9CC] rounded-2xl space-y-2.5">
                     <div className="flex items-center justify-between">
@@ -165,20 +169,43 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 );
               }
 
+              if (isStitched && product.sizes && product.sizes.length === 1) {
+                return (
+                  <div className="p-3.5 bg-[#FAF6F1] border border-[#E4D9CC] rounded-2xl flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-[#7A1B38] tracking-wider block">Stitched & Ready to Wear</span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-xs font-serif font-bold text-[#2B2723]">Available Size:</span>
+                        <span className="px-2 py-0.5 bg-[#7A1B38] text-white text-xs font-bold rounded-lg shadow-2xs">
+                          {product.sizes[0]}
+                        </span>
+                        <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-semibold">
+                          In Stock
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowSizeChart(true)}
+                      className="px-2.5 py-1.5 bg-white hover:bg-[#F3ECE2] text-[#7A1B38] text-[10px] font-bold rounded-lg shrink-0 inline-flex items-center gap-1.5 cursor-pointer shadow-2xs border border-[#DCD3C7] transition-colors"
+                    >
+                      <Ruler className="w-3 h-3" />
+                      <span>Size Chart</span>
+                    </button>
+                  </div>
+                );
+              }
+
               return (
                 <div className="p-3 bg-[#FAF6F1] border border-[#EDE7E1] rounded-2xl flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase font-bold text-[#7D8F85] tracking-wider block">Size & Fitting Specification</span>
                     <span className="text-xs font-serif font-bold text-[#9E6962] block mt-0.5">100% Unstitched Fabric Set</span>
+                    <span className="text-[11px] text-[#8A8178] block">Customizable by your tailor to any size (XS–5XL)</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowSizeChart(true)}
-                    className="px-2.5 py-1.5 bg-[#9E6962] hover:bg-[#865750] text-white text-[10px] font-bold rounded-lg shrink-0 inline-flex items-center gap-1.5 cursor-pointer shadow-2xs transition-colors"
-                  >
-                    <Ruler className="w-3 h-3" />
-                    <span>Customizable • View Guide</span>
-                  </button>
+                  <span className="px-2.5 py-1.5 bg-[#9E6962]/10 text-[#7A1B38] text-[10px] font-bold rounded-lg shrink-0 border border-[#9E6962]/20">
+                    Free Size • Cut Fabric
+                  </span>
                 </div>
               );
             })()}
