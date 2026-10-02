@@ -39,6 +39,7 @@ export interface GAProductParams {
   category?: string;
   tags?: string[];
   size?: string;
+  [key: string]: any;
 }
 
 /**

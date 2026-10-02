@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Product, Size, Order } from '@/types';
+import { useRouter } from 'next/navigation';
+import { Product, Size } from '@/types';
+import { useCart } from '@/context/CartContext';
 import { ProductSizeChart } from '@/components/ProductSizeChart';
-import { CheckoutDrawer } from '@/components/CheckoutDrawer';
-import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { ProductCard } from '@/components/ProductCard';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -26,6 +26,8 @@ import {
   Ruler,
   Scissors,
 } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
+import { DeliveryEstimator } from '@/components/DeliveryEstimator';
 
 interface ProductDetailClientProps {
   product: Product;
@@ -56,9 +58,6 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     }
   }, [product.sizes, selectedSize]);
 
-  // Checkout Drawer state
-  const [checkoutOpen, setCheckoutOpen] = useState<boolean>(false);
-  const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
 
   const currentImage = product.images[selectedImageIndex] || product.images[0];
   const discountPercent = Math.round(
@@ -81,19 +80,18 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     });
   }, [product, isStitched, selectedSize]);
 
-  const handleInitiateBuy = () => {
-    trackAddToCart(product, 1);
-    trackGAAddToCart(
-      {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        tags: product.tags,
-      },
-      1,
-      isStitched ? selectedSize : 'Unstitched'
-    );
-    setCheckoutOpen(true);
+  const router = useRouter();
+  const { addToCart, setDirectBuy } = useCart();
+
+  const handleAddToCart = () => {
+    const finalSize = isStitched ? selectedSize : 'Unstitched';
+    addToCart(product, finalSize, 1);
+  };
+
+  const handleDirectBuyNow = () => {
+    const finalSize = isStitched ? selectedSize : 'Unstitched';
+    setDirectBuy(product, finalSize, 1);
+    router.push('/checkout');
   };
 
   const handleShare = () => {
@@ -115,17 +113,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I am interested in purchasing "${product.title}" (${
-      isStitched ? `Size: ${selectedSize}` : 'Unstitched Set'
-    }) priced at ₹${product.price}. Please assist me!`
+    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Size: ${isStitched ? selectedSize : 'Unstitched Fabric Set'}\n• Fabric: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
   );
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
       {/* Header Navbar with full interactivity */}
       <Navbar
-        cartCount={checkoutOpen ? 1 : 0}
-        onOpenCart={() => setCheckoutOpen(true)}
         hideSizeGuide={!isStitched}
         onOpenSizeChart={
           isStitched
@@ -363,39 +357,50 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </div>
           )}
 
-          {/* Primary Action Buttons - Placed directly below size selector */}
+          {/* Primary Action Buttons - Add to Bag, Buy Now & WhatsApp */}
           <div className="space-y-3 pt-1 w-full">
-            <button
-              type="button"
-              onClick={handleInitiateBuy}
-              className="w-full py-3.5 px-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-3 text-center group"
-            >
-              <ShoppingBag className="w-5 h-5 text-[#B59757] shrink-0 transition-transform group-hover:scale-110" />
-              <div className="flex flex-col items-center justify-center text-center">
-                <span className="font-bold text-sm sm:text-base tracking-wide text-white">
-                  {isStitched ? `Proceed to Buy (Size: ${selectedSize})` : 'Direct Buy (Unstitched Set)'}
-                </span>
-                <span className="text-[11px] text-white/80 font-medium">
-                  Instant Razorpay Checkout • Free Express Shipping
-                </span>
-              </div>
-            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Option 1: Add to Bag */}
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="w-full py-3.5 px-4 bg-white hover:bg-[#FAF6F1] text-[#7A1B38] border-2 border-[#7A1B38] rounded-2xl font-bold text-sm transition-all shadow-2xs hover:shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+              >
+                <ShoppingBag className="w-5 h-5 text-[#7A1B38] transition-transform group-hover:scale-110" />
+                <span>Add to Bag</span>
+              </button>
 
-            {/* WhatsApp Styling Assistant Button */}
+              {/* Option 2: Direct Buy Now */}
+              <button
+                type="button"
+                onClick={handleDirectBuyNow}
+                className="w-full py-3.5 px-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white rounded-2xl font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer group"
+              >
+                <Sparkles className="w-4 h-4 text-[#B59757] transition-transform group-hover:scale-110" />
+                <span>Buy Now (Checkout)</span>
+              </button>
+            </div>
+
+            {/* Option 3: Quick Order on WhatsApp */}
             <a
               href={`https://wa.me/917023352132?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackContact('WhatsApp Support', product.title);
-                trackGAContact('WhatsApp Support');
+                trackContact('WhatsApp Quick Order Button', product.title);
+                trackGAContact('WhatsApp Quick Order');
               }}
-              className="w-full py-3 px-4 bg-white hover:bg-[#F3ECE2] text-[#25D366] font-semibold rounded-2xl transition-colors text-xs sm:text-sm border border-[#DCD3C7] flex items-center justify-center gap-2.5 shadow-2xs text-center"
+              className="w-full py-3 px-4 bg-[#25D366] hover:bg-[#20BE5C] text-white font-semibold rounded-2xl transition-all duration-300 text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center justify-center gap-2.5 text-center cursor-pointer group"
             >
-              <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0" />
-              <span>Order or Chat on WhatsApp (+91 70233 52132)</span>
+              <WhatsAppIcon className="w-5 h-5 fill-current shrink-0 transition-transform group-hover:scale-110" size="18px" />
+              <span>
+                Quick Order on WhatsApp (+91 70233 52132)
+              </span>
             </a>
           </div>
+
+          {/* PIN Code Delivery Estimator (5-7 Days Realistic Guarantee) */}
+          <DeliveryEstimator />
 
           {/* Sizing & Tailoring Guide: Only show Size Chart for Stitched products */}
           {isStitched ? (
@@ -534,30 +539,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         }
       />
 
-      {/* Checkout Slide-over Drawer */}
-      <CheckoutDrawer
-        isOpen={checkoutOpen}
-        product={product}
-        size={isStitched ? selectedSize : 'Unstitched'}
-        onClose={() => setCheckoutOpen(false)}
-        onRemoveProduct={() => setCheckoutOpen(false)}
-        onSuccess={(order) => {
-          setCompletedOrder(order);
-        }}
-      />
-
-      {/* Order Success Confetti Modal */}
-      {completedOrder && (
-        <OrderSuccessModal
-          order={completedOrder}
-          onClose={() => setCompletedOrder(null)}
-        />
-      )}
-
       {/* Sticky Bottom Buy Bar on Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DCD3C7] px-4 py-2.5 sm:hidden shadow-2xl flex items-center justify-between gap-3">
-        <div className="min-w-0">
-          <div className="flex items-baseline gap-1.5">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DCD3C7] px-3 py-2.5 sm:hidden shadow-2xl flex items-center justify-between gap-2">
+        <div className="min-w-0 pr-1">
+          <div className="flex items-baseline gap-1">
             <span className="text-base font-serif font-bold text-[#7A1B38]">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
@@ -566,19 +551,70 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </span>
           </div>
           <span className="text-[10px] text-[#5C7056] font-semibold block truncate">
-            {isStitched ? `Selected Size: ${selectedSize}` : '100% Unstitched Set'}
+            {isStitched ? `Selected: ${selectedSize}` : '100% Unstitched'}
           </span>
         </div>
 
-        <button
-          type="button"
-          onClick={handleInitiateBuy}
-          className="py-2.5 px-5 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
-        >
-          <ShoppingBag className="w-3.5 h-3.5 text-[#B59757]" />
-          <span>{isStitched ? `Buy (${selectedSize})` : 'Buy Now'}</span>
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          {/* Quick WhatsApp Order */}
+          <a
+            href={`https://wa.me/917023352132?text=${whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackContact('WhatsApp Mobile Sticky', product.title);
+              trackGAContact('WhatsApp Mobile Sticky');
+            }}
+            aria-label="Order on WhatsApp"
+            className="p-2.5 bg-[#25D366] hover:bg-[#20BE5C] text-white rounded-xl shadow-md flex items-center justify-center cursor-pointer transition-all active:scale-95"
+          >
+            <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="18px" />
+          </a>
+
+          {/* Add to Bag */}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="py-2.5 px-3 bg-white border border-[#7A1B38] text-[#7A1B38] font-bold text-xs rounded-xl shadow-2xs flex items-center justify-center gap-1 cursor-pointer transition-all active:scale-95"
+          >
+            <ShoppingBag className="w-3.5 h-3.5 text-[#7A1B38]" />
+            <span>Add</span>
+          </button>
+
+          {/* Buy Now (Checkout) */}
+          <button
+            type="button"
+            onClick={handleDirectBuyNow}
+            className="py-2.5 px-3.5 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1 cursor-pointer shrink-0 transition-all active:scale-95"
+          >
+            <span>{isStitched ? `Buy (${selectedSize})` : 'Buy Now'}</span>
+          </button>
+        </div>
       </div>
+
+      {/* Floating Quick Order on WhatsApp Button on Product Page */}
+      <aside className="fixed bottom-20 sm:bottom-8 right-3 sm:right-8 z-40 group animate-fadeIn">
+        <a
+          href={`https://wa.me/917023352132?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => {
+            trackContact('WhatsApp Floating Quick Order', product.title);
+            trackGAContact('WhatsApp Floating Quick Order');
+          }}
+          className="flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20BE5C] text-white pl-3.5 pr-4 py-2.5 sm:py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 ring-4 ring-white/90 border border-[#20BE5C] cursor-pointer"
+          title="Quick Order on WhatsApp"
+        >
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+          </span>
+          <WhatsAppIcon className="w-5 h-5 fill-current shrink-0" size="20px" />
+          <span className="text-xs font-bold tracking-wide">
+            Quick Order on WhatsApp
+          </span>
+        </a>
+      </aside>
     </div>
   );
 };

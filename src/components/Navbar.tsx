@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBag, Sparkles, Menu, X, Phone, MapPin, Ruler } from 'lucide-react';
 import { trackContact } from '@/lib/metaPixel';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
+import { useCart } from '@/context/CartContext';
 
 interface NavbarProps {
   cartCount?: number;
@@ -13,8 +15,21 @@ interface NavbarProps {
   hideSizeGuide?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpenSizeChart, hideSizeGuide = false }) => {
+export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart, onOpenSizeChart, hideSizeGuide = false }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  let liveCartCount = 0;
+  let liveOpenCart = onOpenCart;
+  try {
+    const cartContext = useCart();
+    liveCartCount = cartContext.cartCount;
+    if (!liveOpenCart) {
+      liveOpenCart = cartContext.openCart;
+    }
+  } catch (e) {}
+
+  const effectiveCartCount = cartCount !== undefined ? cartCount : liveCartCount;
+  const effectiveOpenCart = onOpenCart || liveOpenCart;
 
   const handleSizeGuideClick = () => {
     if (onOpenSizeChart) {
@@ -121,14 +136,14 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
             </nav>
 
             <button
-              onClick={onOpenCart}
-              className="relative p-2.5 rounded-full bg-white border border-[#E4D9CC] hover:border-[#7A1B38] text-[#2B2723] hover:text-[#7A1B38] transition-all shadow-xs group shrink-0"
+              onClick={effectiveOpenCart}
+              className="relative p-2.5 rounded-full bg-white border border-[#E4D9CC] hover:border-[#7A1B38] text-[#2B2723] hover:text-[#7A1B38] transition-all shadow-xs group shrink-0 cursor-pointer"
               aria-label="View Shopping Bag"
             >
               <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-105" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-[#7A1B38] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs">
-                  {cartCount}
+              {effectiveCartCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-[#7A1B38] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs animate-scaleIn">
+                  {effectiveCartCount}
                 </span>
               )}
             </button>
@@ -187,13 +202,13 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount = 0, onOpenCart, onOpe
               ❓ Fabric Care & FAQs
             </Link>
             <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#7A1B38]" />
+              <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" size="16px" />
               <a
                 href="https://wa.me/917023352132"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackContact('WhatsApp Support', 'Navbar Menu')}
-                className="hover:underline"
+                className="hover:underline text-[#2B2723] font-medium"
               >
                 WhatsApp Support: +91 70233 52132
               </a>

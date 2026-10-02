@@ -2,17 +2,20 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Product, Size } from '@/types';
-import { X, Star, Shield, RefreshCw, Truck, Sparkles, Ruler } from 'lucide-react';
+import { ShoppingBag, X, Star, Shield, RefreshCw, Truck, Sparkles, Ruler } from 'lucide-react';
 import { SizeChartModal } from './SizeChartModal';
-import { trackViewContent, trackAddToCart } from '@/lib/metaPixel';
-import { trackGAViewItem, trackGAAddToCart } from '@/lib/gtag';
+import { trackViewContent, trackAddToCart, trackContact } from '@/lib/metaPixel';
+import { trackGAViewItem, trackGAAddToCart, trackGAContact } from '@/lib/gtag';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
+import { useCart } from '@/context/CartContext';
 
 interface ProductModalProps {
   product: Product | null;
   initialSize?: Size;
   onClose: () => void;
-  onProceedToBuy: (product: Product, size: Size) => void;
+  onProceedToBuy?: (product: Product, size: Size) => void;
 }
 
 export const ProductModal: React.FC<ProductModalProps> = ({
@@ -21,6 +24,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   onClose,
   onProceedToBuy,
 }) => {
+  const router = useRouter();
+  const { addToCart, setDirectBuy } = useCart();
   const [selectedSize, setSelectedSize] = React.useState<Size>(initialSize);
   const [selectedImageIndex, setSelectedImageIndex] = React.useState<number>(0);
   const [showSizeChart, setShowSizeChart] = React.useState<boolean>(false);
@@ -259,35 +264,63 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
           </div>
 
-          {/* Action Button */}
-          <div className="pt-4 border-t border-[#DCD3C7]">
+          {/* Action Buttons: Add to Bag, Buy Now & WhatsApp */}
+          <div className="pt-4 border-t border-[#DCD3C7] space-y-2.5">
             {(() => {
               const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
+              const finalSize = isKurti ? selectedSize : 'Unstitched';
+              const modalWhatsappMsg = encodeURIComponent(
+                `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Size: ${finalSize}\n• Fabric: ${product.fabric}\n• Link: https://sagafabrics.in/products/${product.id}\n\nPlease share payment and delivery details!`
+              );
+
               return (
-                <button
-                  onClick={() => {
-                    const finalSize = isKurti ? selectedSize : 'Unstitched';
-                    trackAddToCart(product, 1);
-                    trackGAAddToCart(
-                      {
-                        id: product.id,
-                        title: product.title,
-                        price: product.price,
-                        tags: product.tags,
-                      },
-                      1,
-                      finalSize
-                    );
-                    onProceedToBuy(product, finalSize);
-                  }}
-                  className="w-full py-4 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-medium rounded-2xl transition-colors text-sm shadow-md cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>
-                    {isKurti
-                      ? `Proceed to Buy (Size: ${selectedSize}) with Razorpay`
-                      : 'Direct Buy (Unstitched) with Razorpay'}
-                  </span>
-                </button>
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {/* Action 1: Add to Bag */}
+                    <button
+                      onClick={() => {
+                        addToCart(product, finalSize, 1);
+                        onClose();
+                      }}
+                      className="w-full py-3 bg-white hover:bg-[#FAF6F1] text-[#7A1B38] border-2 border-[#7A1B38] font-bold rounded-2xl transition-all text-xs sm:text-sm shadow-2xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 group"
+                    >
+                      <ShoppingBag className="w-4 h-4 text-[#7A1B38] transition-transform group-hover:scale-110" />
+                      <span>Add to Bag</span>
+                    </button>
+
+                    {/* Action 2: Buy Now (Checkout) */}
+                    <button
+                      onClick={() => {
+                        if (onProceedToBuy) {
+                          onProceedToBuy(product, finalSize);
+                        } else {
+                          setDirectBuy(product, finalSize, 1);
+                          onClose();
+                          router.push('/checkout');
+                        }
+                      }}
+                      className="w-full py-3 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-bold rounded-2xl transition-all text-xs sm:text-sm shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 group"
+                    >
+                      <Sparkles className="w-4 h-4 text-[#B59757] transition-transform group-hover:scale-110" />
+                      <span>Buy Now</span>
+                    </button>
+                  </div>
+
+                  {/* Action 3: Quick Order on WhatsApp */}
+                  <a
+                    href={`https://wa.me/917023352132?text=${modalWhatsappMsg}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackContact('WhatsApp Modal Order', product.title);
+                      trackGAContact('WhatsApp Modal Order');
+                    }}
+                    className="w-full py-2.5 bg-[#25D366] hover:bg-[#20BE5C] text-white font-semibold rounded-2xl transition-all text-xs shadow-2xs hover:shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="16px" />
+                    <span>Quick Order on WhatsApp (+91 70233 52132)</span>
+                  </a>
+                </>
               );
             })()}
           </div>

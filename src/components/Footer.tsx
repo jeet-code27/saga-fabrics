@@ -5,6 +5,7 @@ import { MapPin, Phone, Mail, Globe, Share2, ShieldCheck, Lock, Ruler } from 'lu
 import Link from 'next/link';
 import Image from 'next/image';
 import { trackContact } from '@/lib/metaPixel';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 
 interface FooterProps {
   onOpenSizeChart?: () => void;
@@ -88,7 +89,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
                 <span>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#7FA79A] shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" size="16px" />
                 <a
                   href="https://wa.me/917023352132"
                   target="_blank"

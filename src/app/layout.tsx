@@ -5,6 +5,9 @@ import { JsonLdSchema } from '@/components/JsonLdSchema';
 import { MetaPixel } from '@/components/MetaPixel';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { MicrosoftClarity } from '@/components/MicrosoftClarity';
+import { GlobalWhatsAppFloat } from '@/components/GlobalWhatsAppFloat';
+import { CartProvider } from '@/context/CartContext';
+import { CartDrawer } from '@/components/CartDrawer';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -138,7 +141,11 @@ export default function RootLayout({
         <GoogleAnalytics />
         <MetaPixel />
         <MicrosoftClarity />
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+          <GlobalWhatsAppFloat />
+        </CartProvider>
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="lazyOnload"

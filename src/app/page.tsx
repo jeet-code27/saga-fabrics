@@ -7,9 +7,9 @@ import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { BrandTrust } from '@/components/BrandTrust';
 import { CraftCategories } from '@/components/CraftCategories';
+import { useRouter } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
 import { ProductCard } from '@/components/ProductCard';
-import { CheckoutDrawer } from '@/components/CheckoutDrawer';
-import { OrderSuccessModal } from '@/components/OrderSuccessModal';
 import { CraftStory } from '@/components/CraftStory';
 import { StyleGuide } from '@/components/StyleGuide';
 import { CustomerReviews } from '@/components/CustomerReviews';
@@ -21,17 +21,8 @@ import { trackAddToCart, trackSearch } from '@/lib/metaPixel';
 import { trackGAAddToCart, trackGASearch } from '@/lib/gtag';
 
 export default function HomePage() {
-  const [checkoutState, setCheckoutState] = useState<{
-    isOpen: boolean;
-    product: Product | null;
-    size: Size;
-  }>({
-    isOpen: false,
-    product: null,
-    size: 'M',
-  });
-
-  const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
+  const router = useRouter();
+  const { setDirectBuy } = useCart();
   const [activeFilter, setActiveFilter] = useState<
     'All' | 'End of Season Sale' | 'Stitched' | 'Unstitched' | '3-Piece Set'
   >('All');
@@ -50,23 +41,8 @@ export default function HomePage() {
       ? (size && size !== 'Unstitched' ? size : (product.sizes?.[0] || 'M'))
       : 'Unstitched';
 
-    trackAddToCart(product, 1);
-    trackGAAddToCart(
-      {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        tags: product.tags,
-      },
-      1,
-      effectiveSize
-    );
-
-    setCheckoutState({
-      isOpen: true,
-      product,
-      size: effectiveSize,
-    });
+    setDirectBuy(product, effectiveSize, 1);
+    router.push('/checkout');
   };
 
   const handleFilterChange = (filter: typeof activeFilter) => {
@@ -105,12 +81,6 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
       {/* Responsive Header Navbar */}
       <Navbar
-        cartCount={checkoutState.isOpen ? 1 : 0}
-        onOpenCart={() => {
-          if (PRODUCTS.length > 0) {
-            handleDirectBuy(PRODUCTS[0], 'M');
-          }
-        }}
         onOpenSizeChart={() => setIsSizeGuideOpen(true)}
       />
 
@@ -124,7 +94,10 @@ export default function HomePage() {
 
         {/* 3. Craft & Signature Collection Categories Grid */}
         <div id="categories">
-          <CraftCategories onSelectCategory={(cat) => setActiveFilter(cat)} />
+          <CraftCategories
+            activeCategory={activeFilter}
+            onSelectCategory={(cat) => handleFilterChange(cat)}
+          />
         </div>
 
         {/* 4. Curated Products Collection Section */}
@@ -256,25 +229,7 @@ export default function HomePage() {
       {/* Footer */}
       <Footer onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
-      {/* Checkout Slide-over Drawer */}
-      <CheckoutDrawer
-        isOpen={checkoutState.isOpen}
-        product={checkoutState.product}
-        size={checkoutState.size}
-        onClose={() => setCheckoutState({ isOpen: false, product: null, size: 'M' })}
-        onRemoveProduct={() => setCheckoutState((prev) => ({ ...prev, product: null }))}
-        onSuccess={(order) => {
-          setCompletedOrder(order);
-        }}
-      />
 
-      {/* Order Success Confetti Modal */}
-      {completedOrder && (
-        <OrderSuccessModal
-          order={completedOrder}
-          onClose={() => setCompletedOrder(null)}
-        />
-      )}
 
       {/* Global Women's Size Guide & Chart Modal */}
       <SizeChartModal

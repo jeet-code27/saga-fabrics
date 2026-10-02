@@ -78,6 +78,7 @@ export interface TrackProductParams {
   price: number;
   category?: string;
   tags?: string[];
+  [key: string]: any;
 }
 
 /**

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { X, Ruler, Sparkles, Check, HelpCircle, Info, ChevronRight, Calculator } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { Size } from '@/types';
 import {
   WOMENS_SIZES_CM,
@@ -461,8 +462,9 @@ export const SizeChartModal: React.FC<SizeChartModalProps> = ({
 
         {/* Footer Actions */}
         <div className="p-4 sm:p-5 bg-white border-t border-[#DCD3C7] flex items-center justify-between">
-          <div className="text-xs text-[#8A8178]">
-            Need personal sizing assistance? WhatsApp our stylists at{' '}
+          <div className="text-xs text-[#8A8178] flex items-center gap-1.5 flex-wrap">
+            <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" size="16px" />
+            <span>Need personal sizing assistance? WhatsApp our stylists at</span>{' '}
             <a
               href="https://wa.me/917023352132"
               target="_blank"
