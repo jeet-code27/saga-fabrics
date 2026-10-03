@@ -5,7 +5,13 @@ import Image from 'next/image';
 import { Sparkles, ArrowRight, Check } from 'lucide-react';
 import { trackSearch } from '@/lib/metaPixel';
 
-export type CraftFilter = 'All' | 'End of Season Sale' | 'Stitched' | 'Unstitched' | '3-Piece Set';
+export type CraftFilter =
+  | 'All'
+  | 'End of Season Sale'
+  | 'Unstitched'
+  | 'Stitched'
+  | 'Short Kurti'
+  | '3-Piece Set';
 
 interface CraftCategoriesProps {
   activeCategory?: CraftFilter;
@@ -18,21 +24,10 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
 }) => {
   const categories = [
     {
-      id: 'stitched-suits',
-      filterKey: 'Stitched' as const,
-      title: 'Ready-to-Wear Stitched Suits',
-      subtitle: 'Complete 3-piece sets (Kurta, Pant & Dupatta • S to XXL)',
-      tag: 'Ready To Wear',
-      badgeBg: 'bg-[#1B4D3E] text-white',
-      ringColor: 'group-hover:border-[#1B4D3E] group-hover:ring-[#1B4D3E]/20',
-      activeRing: 'border-[#1B4D3E] ring-4 ring-[#1B4D3E]/20 bg-[#1B4D3E]/5',
-      image: '/images/products/stitched-suit-emerald-green.jpeg',
-    },
-    {
       id: 'short-kurti-sale',
       filterKey: 'End of Season Sale' as const,
       title: 'End of Season Sale',
-      subtitle: 'Handcrafted pure cotton kurtis & suits at special prices',
+      subtitle: 'Special limited discounts on pure cotton suits & kurtis from ₹650',
       tag: 'Limited Sale',
       badgeBg: 'bg-[#E11D48] text-white',
       ringColor: 'group-hover:border-[#E11D48] group-hover:ring-[#E11D48]/20',
@@ -40,25 +35,47 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
       image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
     },
     {
-      id: 'ajrakh-edits',
+      id: 'unstitched-edits',
       filterKey: 'Unstitched' as const,
-      title: 'Heritage Embroidered Sets',
-      subtitle: 'Rich neck needlework, artisanal prints & contrasting dupattas',
-      tag: 'Artisanal Craft',
+      title: 'Unstitched Suit Sets',
+      subtitle: '100% pure cotton cut fabric sets for tailor-made fit (XS to 5XL)',
+      tag: 'Cut Fabric',
       badgeBg: 'bg-[#7A1B38] text-white',
       ringColor: 'group-hover:border-[#7A1B38] group-hover:ring-[#7A1B38]/20',
       activeRing: 'border-[#7A1B38] ring-4 ring-[#7A1B38]/20 bg-[#7A1B38]/5',
       image: '/images/products/stitched-suit-navy-maroon.jpeg',
     },
     {
-      id: 'rose-edits',
-      filterKey: '3-Piece Set' as const,
-      title: 'Blush Rose & Pastel Sets',
-      subtitle: 'Breathable pastels & lightweight sheer dupattas for daily luxury',
-      tag: 'Pastel Luxe',
+      id: 'stitched-suits',
+      filterKey: 'Stitched' as const,
+      title: 'Ready-to-Wear Stitched Suits',
+      subtitle: 'Tailored stitched suits & ready-to-wear kurtis (S to XXL)',
+      tag: 'Ready To Wear',
+      badgeBg: 'bg-[#1B4D3E] text-white',
+      ringColor: 'group-hover:border-[#1B4D3E] group-hover:ring-[#1B4D3E]/20',
+      activeRing: 'border-[#1B4D3E] ring-4 ring-[#1B4D3E]/20 bg-[#1B4D3E]/5',
+      image: '/images/products/stitched-suit-emerald-green.jpeg',
+    },
+    {
+      id: 'short-kurtis',
+      filterKey: 'Short Kurti' as const,
+      title: 'Short Cotton Kurtis',
+      subtitle: 'Chic everyday breathable cotton kurtis with artisanal threadwork',
+      tag: 'Everyday Chic',
       badgeBg: 'bg-[#B59757] text-white',
       ringColor: 'group-hover:border-[#B59757] group-hover:ring-[#B59757]/20',
       activeRing: 'border-[#B59757] ring-4 ring-[#B59757]/20 bg-[#B59757]/5',
+      image: '/images/products/short-cotton-kurti-slate-blue-2.png',
+    },
+    {
+      id: 'three-piece-sets',
+      filterKey: '3-Piece Set' as const,
+      title: '3-Piece Complete Sets',
+      subtitle: 'Complete 3-piece sets: Kurta + Trousers/Pants + Designer Dupatta',
+      tag: 'Full 3-Piece',
+      badgeBg: 'bg-[#7A1B38] text-white',
+      ringColor: 'group-hover:border-[#7A1B38] group-hover:ring-[#7A1B38]/20',
+      activeRing: 'border-[#7A1B38] ring-4 ring-[#7A1B38]/20 bg-[#7A1B38]/5',
       image: '/images/products/stitched-suit-rose-pink.jpeg',
     },
   ];
@@ -93,7 +110,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
         </div>
 
         {/* Circular / Story Capsule Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.filterKey;
 

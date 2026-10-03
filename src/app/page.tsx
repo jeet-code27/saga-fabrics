@@ -1,31 +1,138 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { PRODUCTS } from '@/lib/products';
-import { Product, Size, Order } from '@/types';
-import { Navbar } from '@/components/Navbar';
+import { Product, Size } from '@/types';
+import { Navbar, CategoryFilter } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { BrandTrust } from '@/components/BrandTrust';
 import { CraftCategories } from '@/components/CraftCategories';
-import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { ProductCard } from '@/components/ProductCard';
 import { CraftStory } from '@/components/CraftStory';
 import { StyleGuide } from '@/components/StyleGuide';
 import { CustomerReviews } from '@/components/CustomerReviews';
 import { FaqSection } from '@/components/FaqSection';
+import { AtelierLocation } from '@/components/AtelierLocation';
 import { Footer } from '@/components/Footer';
 import { SizeChartModal } from '@/components/SizeChartModal';
 import { Sparkles } from 'lucide-react';
-import { trackAddToCart, trackSearch } from '@/lib/metaPixel';
-import { trackGAAddToCart, trackGASearch } from '@/lib/gtag';
+import { trackSearch } from '@/lib/metaPixel';
+import { trackGASearch } from '@/lib/gtag';
+
+// Category filter product matching logic
+export const filterProductByCategory = (p: Product, filter: CategoryFilter): boolean => {
+  if (filter === 'All') return true;
+
+  if (filter === 'End of Season Sale') {
+    return (
+      p.tags.includes('End of Season Sale') ||
+      p.tags.includes('Season End Sale') ||
+      p.price === 650 ||
+      p.price === 999
+    );
+  }
+
+  if (filter === 'Short Kurti') {
+    return (
+      p.tags.includes('Short Kurti') ||
+      p.title.toLowerCase().includes('short kurti') ||
+      p.subtitle.toLowerCase().includes('short kurti') ||
+      (p.title.toLowerCase().includes('short') && p.title.toLowerCase().includes('kurti'))
+    );
+  }
+
+  if (filter === 'Unstitched') {
+    return (
+      p.tags.includes('Unstitched') ||
+      Boolean(p.sizes && p.sizes.includes('Unstitched')) ||
+      p.title.toLowerCase().includes('unstitched') ||
+      p.subtitle.toLowerCase().includes('unstitched')
+    );
+  }
+
+  if (filter === '3-Piece Set') {
+    return (
+      p.tags.includes('3-Piece Set') ||
+      p.title.toLowerCase().includes('3-piece') ||
+      p.subtitle.toLowerCase().includes('3-piece') ||
+      p.fabric.toLowerCase().includes('3-piece') ||
+      (p.subtitle.toLowerCase().includes('dupatta') &&
+        (p.subtitle.toLowerCase().includes('pant') || p.subtitle.toLowerCase().includes('trouser')))
+    );
+  }
+
+  if (filter === 'Stitched') {
+    const isUnstitched =
+      p.tags.includes('Unstitched') ||
+      Boolean(p.sizes && p.sizes.length === 1 && p.sizes[0] === 'Unstitched') ||
+      p.title.toLowerCase().includes('unstitched') ||
+      p.subtitle.toLowerCase().includes('unstitched');
+    return !isUnstitched;
+  }
+
+  return true;
+};
+
+const FILTER_TABS: { key: CategoryFilter; label: string; isSale?: boolean }[] = [
+  { key: 'All', label: 'All Collection' },
+  { key: 'End of Season Sale', label: 'End of Season Sale', isSale: true },
+  { key: 'Unstitched', label: 'Unstitched Suits' },
+  { key: 'Stitched', label: 'Stitched Suits' },
+  { key: 'Short Kurti', label: 'Short Kurtis' },
+  { key: '3-Piece Set', label: '3-Piece Sets' },
+];
+
+// Handles syncing ?category=... from URL query to state
+function CategoryUrlSync({
+  onSelectCategory,
+}: {
+  onSelectCategory: (cat: CategoryFilter) => void;
+}) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const catParam = searchParams.get('category');
+    if (!catParam) return;
+
+    const lower = catParam.toLowerCase().trim();
+    let matched: CategoryFilter | null = null;
+
+    if (lower === 'sale' || lower === 'end-of-season-sale' || lower === 'deals') {
+      matched = 'End of Season Sale';
+    } else if (lower === 'unstitched' || lower === 'unstitched-suit' || lower === 'cut-fabric') {
+      matched = 'Unstitched';
+    } else if (lower === 'stitched' || lower === 'ready-to-wear' || lower === 'stitched-suits') {
+      matched = 'Stitched';
+    } else if (lower === 'short-kurti' || lower === 'short-kurtis' || lower === 'kurti' || lower === 'kurtis') {
+      matched = 'Short Kurti';
+    } else if (lower === '3-piece-set' || lower === '3-piece' || lower === 'sets' || lower === 'complete-set') {
+      matched = '3-Piece Set';
+    } else if (lower === 'all') {
+      matched = 'All';
+    }
+
+    if (matched) {
+      onSelectCategory(matched);
+      // Smooth scroll to product collection
+      const timer = setTimeout(() => {
+        const el = document.getElementById('collection');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, onSelectCategory]);
+
+  return null;
+}
 
 export default function HomePage() {
   const router = useRouter();
   const { setDirectBuy } = useCart();
-  const [activeFilter, setActiveFilter] = useState<
-    'All' | 'End of Season Sale' | 'Stitched' | 'Unstitched' | '3-Piece Set'
-  >('All');
+  const [activeFilter, setActiveFilter] = useState<CategoryFilter>('All');
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState<boolean>(false);
 
   // Handle Direct Buy trigger
@@ -45,42 +152,28 @@ export default function HomePage() {
     router.push('/checkout');
   };
 
-  const handleFilterChange = (filter: typeof activeFilter) => {
+  const handleFilterChange = useCallback((filter: CategoryFilter) => {
     setActiveFilter(filter);
     if (filter !== 'All') {
       trackSearch(filter);
       trackGASearch(filter);
     }
-  };
+  }, []);
 
-  // Filter products based on tab
-  const filteredProducts = PRODUCTS.filter((p) => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'End of Season Sale') {
-      return (
-        p.tags.includes('End of Season Sale') ||
-        p.tags.includes('Season End Sale') ||
-        p.price === 650 ||
-        p.price === 999
-      );
-    }
-    if (activeFilter === 'Stitched') {
-      return (
-        p.tags.includes('Stitched Suit') ||
-        p.tags.includes('Short Kurti') ||
-        p.tags.includes('Long Kurti') ||
-        p.tags.includes('Cotton Kurti')
-      );
-    }
-    if (activeFilter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
-    if (activeFilter === '3-Piece Set') return p.tags.includes('3-Piece Set');
-    return true;
-  });
+  // Filter products based on active tab
+  const filteredProducts = PRODUCTS.filter((p) => filterProductByCategory(p, activeFilter));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
-      {/* Responsive Header Navbar */}
+      {/* URL category synchronization wrapped in Suspense */}
+      <Suspense fallback={null}>
+        <CategoryUrlSync onSelectCategory={handleFilterChange} />
+      </Suspense>
+
+      {/* Responsive Header Navbar with Dropdown & Active Filter Sync */}
       <Navbar
+        activeCategory={activeFilter}
+        onSelectCategory={handleFilterChange}
         onOpenSizeChart={() => setIsSizeGuideOpen(true)}
       />
 
@@ -112,53 +205,20 @@ export default function HomePage() {
               Curated Suits & Kurtis Collection
             </h2>
             <p className="text-sm sm:text-base text-[#8A8178]">
-              Handcrafted Premium Suits, Kurtis & Unstitched Sets • Order directly with instant Razorpay checkout.
+              Handcrafted Premium Suits, Kurtis & Unstitched Sets • Pure breathable cotton & instant Razorpay checkout.
             </p>
 
             {/* Interactive Filter Tabs */}
             <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {(['All', 'End of Season Sale', 'Stitched', 'Unstitched', '3-Piece Set'] as const).map((filter) => {
-                const count = PRODUCTS.filter((p) => {
-                  if (filter === 'All') return true;
-                  if (filter === 'End of Season Sale') {
-                    return (
-                      p.tags.includes('End of Season Sale') ||
-                      p.tags.includes('Season End Sale') ||
-                      p.price === 650 ||
-                      p.price === 999
-                    );
-                  }
-                  if (filter === 'Stitched') {
-                    return (
-                      p.tags.includes('Stitched Suit') ||
-                      p.tags.includes('Short Kurti') ||
-                      p.tags.includes('Long Kurti') ||
-                      p.tags.includes('Cotton Kurti')
-                    );
-                  }
-                  if (filter === 'Unstitched') return p.tags.includes('Unstitched') || (p.sizes && p.sizes.includes('Unstitched'));
-                  if (filter === '3-Piece Set') return p.tags.includes('3-Piece Set');
-                  return true;
-                }).length;
-
-                const label = filter === 'All'
-                  ? 'All Collection'
-                  : filter === 'End of Season Sale'
-                  ? 'End of Season Sale'
-                  : filter === 'Stitched'
-                  ? 'Stitched Suits'
-                  : filter === 'Unstitched'
-                  ? 'Unstitched Suits'
-                  : '3-Piece Sets';
-
-                const isSale = filter === 'End of Season Sale';
+              {FILTER_TABS.map(({ key, label, isSale }) => {
+                const count = PRODUCTS.filter((p) => filterProductByCategory(p, key)).length;
 
                 return (
                   <button
-                    key={filter}
-                    onClick={() => handleFilterChange(filter)}
+                    key={key}
+                    onClick={() => handleFilterChange(key)}
                     className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
-                      activeFilter === filter
+                      activeFilter === key
                         ? isSale
                           ? 'bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-lg border-[#E11D48] ring-2 ring-[#E11D48]/30'
                           : 'bg-[#7A1B38] text-white shadow-md border-[#7A1B38]'
@@ -175,7 +235,7 @@ export default function HomePage() {
                     )}
                     <span>{label}</span>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                      activeFilter === filter
+                      activeFilter === key
                         ? 'bg-white/20 text-white'
                         : isSale
                         ? 'bg-[#E11D48]/15 text-[#E11D48]'
@@ -210,7 +270,10 @@ export default function HomePage() {
         {/* 7. Verified Customer Reviews */}
         <CustomerReviews />
 
-        {/* 8. Frequently Asked Questions */}
+        {/* 8. Jaipur Atelier Physical Presence & Google Maps */}
+        <AtelierLocation />
+
+        {/* 9. Frequently Asked Questions */}
         <FaqSection onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
         {/* Brand Banner Quote in Royal Burgundy */}
@@ -228,8 +291,6 @@ export default function HomePage() {
 
       {/* Footer */}
       <Footer onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
-
-
 
       {/* Global Women's Size Guide & Chart Modal */}
       <SizeChartModal

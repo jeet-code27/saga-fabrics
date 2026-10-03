@@ -86,7 +86,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
             <ul className="space-y-2 text-[#8A8178]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
-                <span>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017</span>
+                <div>
+                  <span>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017</span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Saga+Fabrics+Ashadeep+Green+Avenue+Jagatpura+Jaipur"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-[11px] text-[#F7C687] hover:underline mt-1 font-semibold"
+                  >
+                    📍 Open in Google Maps (4.9 ★ Verified Atelier)
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-2">
                 <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" size="16px" />
