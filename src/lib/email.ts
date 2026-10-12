@@ -33,7 +33,23 @@ function getAbsoluteImageUrl(imgUrl?: string): string {
   return `${APP_URL}${imgUrl.startsWith('/') ? '' : '/'}${imgUrl}`;
 }
 
-function getItemSpecHTML(size?: string): string {
+function getItemSpecHTML(size?: string, productTitle?: string): string {
+  const isJewel =
+    (productTitle && (
+      productTitle.toLowerCase().includes('jewellery') ||
+      productTitle.toLowerCase().includes('necklace') ||
+      productTitle.toLowerCase().includes('choker')
+    )) ||
+    (size && size.toLowerCase().includes('jewellery'));
+
+  if (isJewel) {
+    return `
+      <span style="display: inline-block; background-color: #FEF3C7; color: #92400E; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 6px; border: 1px solid #FCD34D;">
+        💎 ARTIFICIAL JEWELLERY | FREE SIZE (ADJUSTABLE)
+      </span>
+    `;
+  }
+
   const isUnstitched = !size || size.toLowerCase().includes('unstitched') || size.toLowerCase() === 'free size';
   if (isUnstitched) {
     return `
@@ -109,7 +125,7 @@ export async function sendCustomerOrderConfirmationEmail(order: Order): Promise<
         <td style="padding: 14px 10px; border-bottom: 1px solid #EDE7E1; vertical-align: top;">
           <strong style="color: #2D2A26; font-size: 14px; display: block; font-family: 'Georgia', serif;">${item.productTitle}</strong>
           <div style="margin-top: 6px;">
-            ${getItemSpecHTML(item.size)}
+            ${getItemSpecHTML(item.size, item.productTitle)}
           </div>
           <span style="color: #78716C; font-size: 12px; display: inline-block; margin-top: 6px;">
             Qty: <strong>${item.quantity}</strong> × ₹${item.price.toLocaleString('en-IN')}
@@ -269,7 +285,7 @@ export async function sendAdminOrderNotificationEmail(order: Order): Promise<boo
           <div style="color: #78716C; font-size: 11px; font-family: monospace; margin-bottom: 2px;">SKU: ${item.productId || 'N/A'}</div>
           <strong style="color: #2D2A26; font-size: 14px; display: block; font-family: 'Georgia', serif;">${item.productTitle}</strong>
           <div style="margin-top: 6px;">
-            ${getItemSpecHTML(item.size)}
+            ${getItemSpecHTML(item.size, item.productTitle)}
           </div>
           <div style="color: #78716C; font-size: 12px; margin-top: 6px;">
             Quantity to Dispatch: <strong style="color: #2D2A26; font-size: 13px;">${item.quantity} Item${item.quantity > 1 ? 's' : ''}</strong> (@ ₹${item.price.toLocaleString('en-IN')})

@@ -8,6 +8,7 @@ import { trackSearch } from '@/lib/metaPixel';
 export type CraftFilter =
   | 'All'
   | 'End of Season Sale'
+  | 'Jewellery'
   | 'Unstitched'
   | 'Stitched'
   | 'Short Kurti'
@@ -33,6 +34,17 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
       ringColor: 'group-hover:border-[#E11D48] group-hover:ring-[#E11D48]/20',
       activeRing: 'border-[#E11D48] ring-4 ring-[#E11D48]/20 bg-[#E11D48]/5',
       image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
+    },
+    {
+      id: 'artificial-jewellery',
+      filterKey: 'Jewellery' as const,
+      title: 'Artificial Jewellery',
+      subtitle: 'Handcrafted Kundan, American Diamond & Choker Necklace Sets at ₹1000',
+      tag: 'New Launch',
+      badgeBg: 'bg-[#B59757] text-white',
+      ringColor: 'group-hover:border-[#B59757] group-hover:ring-[#B59757]/20',
+      activeRing: 'border-[#B59757] ring-4 ring-[#B59757]/20 bg-[#B59757]/5',
+      image: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
     },
     {
       id: 'unstitched-edits',
@@ -105,12 +117,12 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
             Explore By Collection & Style
           </h2>
           <p className="text-xs sm:text-sm text-[#8A8178] leading-relaxed">
-            Select a style below to quickly browse complete 3-piece sets, artisanal embroidery, or seasonal edits.
+            Select a style below to quickly browse complete 3-piece sets, artisanal jewellery, or seasonal edits.
           </p>
         </div>
 
         {/* Circular / Story Capsule Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.filterKey;
 

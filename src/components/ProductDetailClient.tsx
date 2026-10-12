@@ -38,14 +38,26 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   product,
   relatedProducts,
 }) => {
-  const isUnstitched =
-    product.sizes?.includes('Unstitched') ||
-    product.tags?.includes('Unstitched') ||
-    product.title.toLowerCase().includes('unstitched');
-  const isStitched = !isUnstitched;
+  const isJewellery =
+    product.tags.includes('Jewellery') ||
+    product.tags.includes('Artificial Jewellery') ||
+    product.title.toLowerCase().includes('jewellery') ||
+    product.title.toLowerCase().includes('necklace') ||
+    product.title.toLowerCase().includes('choker');
 
-  const defaultSize: Size =
-    isStitched && product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Unstitched';
+  const isUnstitched =
+    !isJewellery && (
+      product.sizes?.includes('Unstitched') ||
+      product.tags?.includes('Unstitched') ||
+      product.title.toLowerCase().includes('unstitched')
+    );
+  const isStitched = !isUnstitched && !isJewellery;
+
+  const defaultSize: Size = isJewellery
+    ? 'Free Size'
+    : isStitched && product.sizes && product.sizes.length > 0
+    ? product.sizes[0]
+    : 'Unstitched';
 
   const [selectedSize, setSelectedSize] = useState<Size>(defaultSize);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -76,20 +88,20 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
       title: product.title,
       price: product.price,
       tags: product.tags,
-      size: isStitched ? selectedSize : 'Unstitched',
+      size: isJewellery ? 'Free Size' : isStitched ? selectedSize : 'Unstitched',
     });
-  }, [product, isStitched, selectedSize]);
+  }, [product, isJewellery, isStitched, selectedSize]);
 
   const router = useRouter();
   const { addToCart, setDirectBuy } = useCart();
 
   const handleAddToCart = () => {
-    const finalSize = isStitched ? selectedSize : 'Unstitched';
+    const finalSize = isJewellery ? 'Free Size' : isStitched ? selectedSize : 'Unstitched';
     addToCart(product, finalSize, 1);
   };
 
   const handleDirectBuyNow = () => {
-    const finalSize = isStitched ? selectedSize : 'Unstitched';
+    const finalSize = isJewellery ? 'Free Size' : isStitched ? selectedSize : 'Unstitched';
     setDirectBuy(product, finalSize, 1);
     router.push('/checkout');
   };
@@ -113,7 +125,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Size: ${isStitched ? selectedSize : 'Unstitched Fabric Set'}\n• Fabric: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
+    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Artificial Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
   );
 
   return (
@@ -289,7 +301,24 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           </div>
 
           {/* Size Selection Section */}
-          {isStitched && product.sizes && product.sizes.length > 0 ? (
+          {isJewellery ? (
+            <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-[#B59757] tracking-wider block">
+                  Jewellery Sizing & Inclusions
+                </span>
+                <h4 className="font-serif font-bold text-sm text-[#2B2723] mt-0.5">
+                  Complete Necklace & Matching Earrings Set
+                </h4>
+                <p className="text-xs text-[#8A8178] mt-0.5">
+                  Adjustable dori / clasp chain fits comfortably for all neck sizes
+                </p>
+              </div>
+              <span className="px-3 py-1.5 bg-[#B59757] text-white text-xs font-bold rounded-xl shrink-0 shadow-2xs">
+                Free Size
+              </span>
+            </div>
+          ) : isStitched && product.sizes && product.sizes.length > 0 ? (
             <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#2B2723]">
@@ -403,7 +432,46 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           <DeliveryEstimator />
 
           {/* Sizing & Tailoring Guide: Only show Size Chart for Stitched products */}
-          {isStitched ? (
+          {isJewellery ? (
+            <div className="p-5 sm:p-6 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs space-y-4">
+              <div className="flex items-center gap-3 border-b border-[#E4D9CC] pb-3">
+                <div className="w-10 h-10 rounded-2xl bg-[#B59757]/15 flex items-center justify-center text-[#B59757]">
+                  <Sparkles className="w-5 h-5 text-[#B59757]" />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#B59757] block">
+                    Jewellery Care & Specifications
+                  </span>
+                  <h4 className="font-serif font-bold text-base text-[#2B2723]">
+                    Handcrafted Artificial Jewellery Set
+                  </h4>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Necklace Type</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">Adjustable Choker</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Comfortable fit with adjustable dori</span>
+                </div>
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Earrings Included</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">Matching Pair</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Secure push-back closure</span>
+                </div>
+                <div className="p-3.5 bg-[#FAF6F1] rounded-2xl border border-[#E4D9CC]">
+                  <span className="text-[#8A8178] block font-medium">Plating & Stone</span>
+                  <span className="font-serif font-bold text-sm text-[#2B2723] block mt-0.5">Premium Finish</span>
+                  <span className="text-[11px] text-[#5A534C] mt-1 block">Anti-tarnish coating with crystals / pearls</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-[#5A534C] bg-[#FAF6F1] p-3.5 rounded-xl border border-[#E4D9CC] leading-relaxed flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#B59757] shrink-0" />
+                <span><strong>Care Advice:</strong> Keep away from water, perfumes, and harsh chemicals. Store in an airtight pouch or box after use for lasting shine.</span>
+              </p>
+            </div>
+          ) : isStitched ? (
             <div id="size-chart-section">
               <ProductSizeChart
                 selectedSize={selectedSize}
@@ -459,7 +527,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           {/* Fabric & Craft Description */}
           <div className="p-5 bg-white rounded-3xl border border-[#DCD3C7] space-y-3 shadow-xs">
             <h3 className="font-serif font-bold text-sm text-[#2B2723] uppercase tracking-wider">
-              Artisanal Fabric Details
+              {isJewellery ? 'Artisanal Jewellery Details' : 'Artisanal Fabric Details'}
             </h3>
             <p className="text-xs sm:text-sm text-[#8A8178] leading-relaxed">
               {product.description}
@@ -467,7 +535,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
               <div className="p-3 bg-[#FAF6F1] rounded-xl border border-[#E4D9CC]">
-                <span className="text-[#8A8178] block font-medium">Fabric Type</span>
+                <span className="text-[#8A8178] block font-medium">{isJewellery ? 'Material' : 'Fabric Type'}</span>
                 <span className="font-serif font-bold text-[#2B2723]">{product.fabric}</span>
               </div>
               <div className="p-3 bg-[#FAF6F1] rounded-xl border border-[#E4D9CC]">
@@ -475,7 +543,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <span className="font-serif font-bold text-[#2B2723]">{product.craft}</span>
               </div>
               <div className="p-3 bg-[#FAF6F1] rounded-xl border border-[#E4D9CC]">
-                <span className="text-[#8A8178] block font-medium">Wash Care</span>
+                <span className="text-[#8A8178] block font-medium">{isJewellery ? 'Care Guide' : 'Wash Care'}</span>
                 <span className="font-serif font-bold text-[#2B2723]">{product.care}</span>
               </div>
               <div className="p-3 bg-[#FAF6F1] rounded-xl border border-[#E4D9CC]">

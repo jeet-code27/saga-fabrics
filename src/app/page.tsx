@@ -25,6 +25,16 @@ import { trackGASearch } from '@/lib/gtag';
 export const filterProductByCategory = (p: Product, filter: CategoryFilter): boolean => {
   if (filter === 'All') return true;
 
+  if (filter === 'Jewellery') {
+    return (
+      p.tags.includes('Jewellery') ||
+      p.tags.includes('Artificial Jewellery') ||
+      p.title.toLowerCase().includes('jewellery') ||
+      p.title.toLowerCase().includes('necklace') ||
+      p.title.toLowerCase().includes('choker')
+    );
+  }
+
   if (filter === 'End of Season Sale') {
     return (
       p.tags.includes('End of Season Sale') ||
@@ -44,6 +54,7 @@ export const filterProductByCategory = (p: Product, filter: CategoryFilter): boo
   }
 
   if (filter === 'Unstitched') {
+    if (p.tags.includes('Jewellery') || p.tags.includes('Artificial Jewellery')) return false;
     return (
       p.tags.includes('Unstitched') ||
       Boolean(p.sizes && p.sizes.includes('Unstitched')) ||
@@ -64,6 +75,7 @@ export const filterProductByCategory = (p: Product, filter: CategoryFilter): boo
   }
 
   if (filter === 'Stitched') {
+    if (p.tags.includes('Jewellery') || p.tags.includes('Artificial Jewellery')) return false;
     const isUnstitched =
       p.tags.includes('Unstitched') ||
       Boolean(p.sizes && p.sizes.length === 1 && p.sizes[0] === 'Unstitched') ||
@@ -78,6 +90,7 @@ export const filterProductByCategory = (p: Product, filter: CategoryFilter): boo
 const FILTER_TABS: { key: CategoryFilter; label: string; isSale?: boolean }[] = [
   { key: 'All', label: 'All Collection' },
   { key: 'End of Season Sale', label: 'End of Season Sale', isSale: true },
+  { key: 'Jewellery', label: 'Artificial Jewellery' },
   { key: 'Unstitched', label: 'Unstitched Suits' },
   { key: 'Stitched', label: 'Stitched Suits' },
   { key: 'Short Kurti', label: 'Short Kurtis' },
@@ -101,6 +114,8 @@ function CategoryUrlSync({
 
     if (lower === 'sale' || lower === 'end-of-season-sale' || lower === 'deals') {
       matched = 'End of Season Sale';
+    } else if (lower === 'jewellery' || lower === 'jewelry' || lower === 'artificial-jewellery' || lower === 'choker') {
+      matched = 'Jewellery';
     } else if (lower === 'unstitched' || lower === 'unstitched-suit' || lower === 'cut-fabric') {
       matched = 'Unstitched';
     } else if (lower === 'stitched' || lower === 'ready-to-wear' || lower === 'stitched-suits') {

@@ -131,6 +131,28 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
             {/* Size & Fitting Selection */}
             {(() => {
+              const isJewellery =
+                product.tags.includes('Jewellery') ||
+                product.tags.includes('Artificial Jewellery') ||
+                product.title.toLowerCase().includes('jewellery') ||
+                product.title.toLowerCase().includes('necklace') ||
+                product.title.toLowerCase().includes('choker');
+
+              if (isJewellery) {
+                return (
+                  <div className="p-3 bg-[#FAF6F1] border border-[#E4D9CC] rounded-2xl flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-[#B59757] tracking-wider block">Artificial Jewellery Set</span>
+                      <span className="text-xs font-serif font-bold text-[#2B2723] block mt-0.5">Necklace & Matching Earrings</span>
+                      <span className="text-[11px] text-[#8A8178] block">Adjustable neckline fit for all neck sizes</span>
+                    </div>
+                    <span className="px-2.5 py-1.5 bg-[#B59757] text-white text-[10px] font-bold rounded-lg shrink-0 shadow-2xs">
+                      Free Size
+                    </span>
+                  </div>
+                );
+              }
+
               const isUnstitched =
                 product.sizes?.includes('Unstitched') ||
                 product.tags?.includes('Unstitched') ||
@@ -233,21 +255,48 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </div>
 
             {/* Specification Box */}
-            <div className="p-3.5 bg-[#7A1B38]/5 rounded-2xl border border-[#7A1B38]/20 flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
-              <div className="text-xs space-y-0.5">
-                <span className="font-bold text-[#7A1B38] block">
-                  {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
-                    ? 'Handcrafted Stitched Kurti'
-                    : 'Handcrafted Unstitched Suit Set'}
-                </span>
-                <p className="text-[#8A8178] text-[11px] leading-relaxed">
-                  {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
-                    ? 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Stitched and ready-to-wear in standard sizes.'
-                    : 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Unstitched fabric length ready for custom tailoring to any fit & style.'}
-                </p>
-              </div>
-            </div>
+            {(() => {
+              const isJewellery =
+                product.tags.includes('Jewellery') ||
+                product.tags.includes('Artificial Jewellery') ||
+                product.title.toLowerCase().includes('jewellery') ||
+                product.title.toLowerCase().includes('necklace') ||
+                product.title.toLowerCase().includes('choker');
+
+              if (isJewellery) {
+                return (
+                  <div className="p-3.5 bg-[#B59757]/10 rounded-2xl border border-[#B59757]/30 flex items-start gap-3">
+                    <Sparkles className="w-5 h-5 text-[#B59757] shrink-0 mt-0.5" />
+                    <div className="text-xs space-y-0.5">
+                      <span className="font-bold text-[#2B2723] block">
+                        Handcrafted Artificial Jewellery Set
+                      </span>
+                      <p className="text-[#8A8178] text-[11px] leading-relaxed">
+                        Includes exquisite choker necklace with matching designer earrings. Anti-tarnish polish with comfortable adjustable fit.
+                      </p>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <div className="p-3.5 bg-[#7A1B38]/5 rounded-2xl border border-[#7A1B38]/20 flex items-start gap-3">
+                  <Sparkles className="w-5 h-5 text-[#7A1B38] shrink-0 mt-0.5" />
+                  <div className="text-xs space-y-0.5">
+                    <span className="font-bold text-[#7A1B38] block">
+                      {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
+                        ? 'Handcrafted Stitched Kurti'
+                        : 'Handcrafted Unstitched Suit Set'}
+                    </span>
+                    <p className="text-[#8A8178] text-[11px] leading-relaxed">
+                      {product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'))
+                        ? 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Stitched and ready-to-wear in standard sizes.'
+                        : 'Crafted in 100% breathable pure cotton with delicate artisanal thread embroidery. Unstitched fabric length ready for custom tailoring to any fit & style.'}
+                    </p>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Trust Badges */}
             <div className="grid grid-cols-3 gap-2 pt-2 text-[11px] text-[#8A8178]">
@@ -267,10 +316,16 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           {/* Action Buttons: Add to Bag, Buy Now & WhatsApp */}
           <div className="pt-4 border-t border-[#DCD3C7] space-y-2.5">
             {(() => {
-              const isKurti = product.tags.includes('Short Kurti') || (product.sizes && product.sizes.includes('S'));
-              const finalSize = isKurti ? selectedSize : 'Unstitched';
+              const isJewellery =
+                product.tags.includes('Jewellery') ||
+                product.tags.includes('Artificial Jewellery') ||
+                product.title.toLowerCase().includes('jewellery') ||
+                product.title.toLowerCase().includes('necklace') ||
+                product.title.toLowerCase().includes('choker');
+              const isKurti = !isJewellery && (product.tags.includes('Short Kurti') || (product.sizes && product.sizes.some(s => ['XS','S','M','L','XL','XXL'].includes(s))));
+              const finalSize = isJewellery ? 'Free Size' : isKurti ? selectedSize : 'Unstitched';
               const modalWhatsappMsg = encodeURIComponent(
-                `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Size: ${finalSize}\n• Fabric: ${product.fabric}\n• Link: https://sagafabrics.in/products/${product.id}\n\nPlease share payment and delivery details!`
+                `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Artificial Jewellery Set (Free Size)' : isKurti ? `Size: ${finalSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Link: https://sagafabrics.in/products/${product.id}\n\nPlease share payment and delivery details!`
               );
 
               return (

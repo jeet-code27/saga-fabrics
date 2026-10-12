@@ -24,7 +24,8 @@ export type CategoryFilter =
   | 'Unstitched'
   | 'Stitched'
   | 'Short Kurti'
-  | '3-Piece Set';
+  | '3-Piece Set'
+  | 'Jewellery';
 
 interface NavbarProps {
   cartCount?: number;
@@ -41,6 +42,11 @@ export const CATEGORIES_NAV = [
     slug: 'sale',
     label: 'End of Season Sale',
     isSale: true,
+  },
+  {
+    key: 'Jewellery' as CategoryFilter,
+    slug: 'jewellery',
+    label: 'Artificial Jewellery',
   },
   {
     key: 'Unstitched' as CategoryFilter,
@@ -143,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-7xl mx-auto flex items-center justify-between font-medium tracking-wide">
           <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Ethnic Suits & Kurtis
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Suits, Kurtis & Artificial Jewellery
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="inline-flex items-center gap-1">
@@ -158,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex sm:hidden items-center justify-center w-full text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Handcrafted Suits & Kurtis • Free Express Delivery</span>
+              <span>Suits, Kurtis & Jewellery • Free Express Delivery</span>
             </span>
           </div>
         </div>
