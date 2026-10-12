@@ -661,8 +661,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         </div>
       </div>
 
-      {/* Floating Quick Order on WhatsApp Button on Product Page */}
-      <aside className="fixed bottom-20 sm:bottom-8 right-3 sm:right-8 z-40 group animate-fadeIn">
+      {/* Floating Quick Order on WhatsApp Button on Product Page (Hidden on Mobile/Phone) */}
+      <aside className="hidden sm:block fixed bottom-8 right-8 z-40 group animate-fadeIn">
         <a
           href={`https://wa.me/917023352132?text=${whatsappMessage}`}
           target="_blank"

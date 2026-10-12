@@ -65,22 +65,6 @@ const HERO_SLIDES: Slide[] = [
     previewPrice: '₹999',
     previewOriginalPrice: '₹1,499',
   },
-  {
-    id: 'unstitched-fabric',
-    badge: '100% Pure Cotton • Cut Fabric Edit',
-    ratingText: '4.9 (Pure Mulmul)',
-    headline: 'Tailor-Made Unstitched Suit Sets',
-    description:
-      'Customizable to any size from XS to 5XL. Pure breathable cotton fabric sets with authentic Lucknowi Chikankari needlework, matching bottoms and sheer dupatta.',
-    primaryCtaText: 'Shop Unstitched Suits',
-    targetCategory: 'Unstitched',
-    bgImage: '/images/products/long-kurti-1.png',
-    previewImage: '/images/products/stitched-suit-navy-maroon.jpeg',
-    previewTag: 'Pure Cotton Set',
-    previewTitle: 'Chikankari 3-Piece Suit',
-    previewPrice: '₹1,400',
-    previewOriginalPrice: '₹1,999',
-  },
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
@@ -121,7 +105,9 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
     }
   };
 
-  const activeSlide = HERO_SLIDES[currentSlideIndex];
+  const validIndex =
+    currentSlideIndex < HERO_SLIDES.length ? currentSlideIndex : 0;
+  const activeSlide = HERO_SLIDES[validIndex] || HERO_SLIDES[0];
 
   return (
     <section
@@ -134,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
         <div
           key={slide.id}
           className={`absolute inset-0 bg-cover bg-center sm:bg-[center_top_20%] bg-no-repeat transition-opacity duration-1000 ease-in-out pointer-events-none ${
-            index === currentSlideIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-102'
+            index === validIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-102'
           }`}
           style={{ backgroundImage: `url('${slide.bgImage}')` }}
         />
@@ -229,7 +215,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
                   onClick={() => setCurrentSlideIndex(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
                   className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    idx === currentSlideIndex
+                    idx === validIndex
                       ? 'w-8 bg-[#B59757] shadow-sm'
                       : 'w-2.5 bg-white/40 hover:bg-white/70'
                   }`}
@@ -237,7 +223,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
               ))}
             </div>
             <span className="text-[11px] font-mono text-white/60 tracking-wider">
-              0{currentSlideIndex + 1} / 0{HERO_SLIDES.length}
+              0{validIndex + 1} / 0{HERO_SLIDES.length}
             </span>
           </div>
         </div>
