@@ -64,25 +64,37 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({ order, onC
             </div>
           </div>
 
-          {/* Product Bought Summary */}
-          {item && (
-            <div className="p-3.5 bg-white rounded-2xl border border-[#E7E0D6] flex items-center gap-3">
-              <Image
-                src={item.image}
-                alt={item.productTitle}
-                width={56}
-                height={80}
-                className="w-14 h-20 object-cover object-top rounded-xl border border-[#E7E0D6]"
-              />
-              <div className="flex-1">
-                <h4 className="text-xs font-bold text-[#1C1917] font-serif">{item.productTitle}</h4>
-                <div className="flex items-center gap-3 text-xs text-[#57534E] mt-1">
-                  <span>Type: <strong className="text-[#8B263E]">{item.size === 'Unstitched' ? 'Unstitched Fabric Set' : item.size || 'Unstitched Fabric'}</strong></span>
-                  <span>Total: <strong>₹{order.totalAmount.toLocaleString('en-IN')}</strong></span>
+          {/* Products Bought Summary */}
+          <div className="space-y-2.5">
+            <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider block">
+              Purchased Products ({order.items.length} {order.items.length > 1 ? 'Items' : 'Item'})
+            </span>
+            {order.items.map((it, idx) => (
+              <div key={idx} className="p-3 bg-white rounded-2xl border border-[#E7E0D6] flex items-center gap-3">
+                <Image
+                  src={it.image}
+                  alt={it.productTitle}
+                  width={56}
+                  height={72}
+                  className="w-12 h-16 object-cover object-top rounded-xl border border-[#E7E0D6] shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-xs font-bold text-[#1C1917] font-serif truncate" title={it.productTitle}>
+                    {it.productTitle}
+                  </h4>
+                  <div className="flex items-center gap-2 text-xs text-[#57534E] mt-1 flex-wrap">
+                    <span>
+                      Type: <strong className="text-[#8B263E]">{it.size === 'Unstitched' ? 'Unstitched Set' : `Size: ${it.size}`}</strong>
+                    </span>
+                    <span>•</span>
+                    <span>Qty: <strong>{it.quantity || 1}</strong></span>
+                    <span>•</span>
+                    <span>₹{(it.price * (it.quantity || 1)).toLocaleString('en-IN')}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
 
           {/* Customer Shipping Info */}
           <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E7E0D6] space-y-1.5 text-xs text-[#57534E]">

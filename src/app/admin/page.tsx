@@ -168,6 +168,10 @@ export default function AdminPage() {
 
   const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
   const totalOrders = orders.length;
+  const totalUnitsSold = orders.reduce(
+    (sum, o) => sum + (o.items?.reduce((s, it) => s + (it.quantity || 1), 0) || 0),
+    0
+  );
   const pendingShipments = orders.filter((o) => o.status === 'Processing' || o.status === 'Pending').length;
   const deliveredOrders = orders.filter((o) => o.status === 'Delivered').length;
 
@@ -278,44 +282,54 @@ export default function AdminPage() {
         )}
 
         {/* KPI Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-white p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962]">
-              <IndianRupee className="w-6 h-6" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962] shrink-0">
+              <IndianRupee className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs text-[#78716C] font-medium">Total Revenue</span>
-              <h3 className="text-2xl font-bold text-[#2D2A26] font-serif">₹{totalRevenue.toLocaleString('en-IN')}</h3>
+              <span className="text-[11px] text-[#78716C] font-medium block">Total Revenue</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">₹{totalRevenue.toLocaleString('en-IN')}</h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-700">
-              <ShoppingBag className="w-6 h-6" />
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0">
+              <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs text-[#78716C] font-medium">Total Orders</span>
-              <h3 className="text-2xl font-bold text-[#2D2A26] font-serif">{totalOrders}</h3>
+              <span className="text-[11px] text-[#78716C] font-medium block">Total Orders</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{totalOrders}</h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-700">
-              <Clock className="w-6 h-6" />
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-700 shrink-0">
+              <Package className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs text-[#78716C] font-medium">Pending Dispatch</span>
-              <h3 className="text-2xl font-bold text-[#2D2A26] font-serif">{pendingShipments}</h3>
+              <span className="text-[11px] text-[#78716C] font-medium block">Total Units Sold</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{totalUnitsSold}</h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#7D8F85]/15 flex items-center justify-center text-[#7D8F85]">
-              <CheckCircle2 className="w-6 h-6" />
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-700 shrink-0">
+              <Clock className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs text-[#78716C] font-medium">Delivered Orders</span>
-              <h3 className="text-2xl font-bold text-[#2D2A26] font-serif">{deliveredOrders}</h3>
+              <span className="text-[11px] text-[#78716C] font-medium block">Pending Dispatch</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{pendingShipments}</h3>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5 col-span-2 sm:col-span-1">
+            <div className="w-11 h-11 rounded-2xl bg-[#7D8F85]/15 flex items-center justify-center text-[#7D8F85] shrink-0">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] text-[#78716C] font-medium block">Delivered Orders</span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{deliveredOrders}</h3>
             </div>
           </div>
         </div>
@@ -368,7 +382,7 @@ export default function AdminPage() {
                   <tr>
                     <th className="py-3.5 px-4">Order ID & Date</th>
                     <th className="py-3.5 px-4">Customer Details</th>
-                    <th className="py-3.5 px-4">Product & Spec</th>
+                    <th className="py-3.5 px-4">Product(s) & Specification</th>
                     <th className="py-3.5 px-4">Amount</th>
                     <th className="py-3.5 px-4">Razorpay Payment ID</th>
                     <th className="py-3.5 px-4">Status</th>
@@ -377,11 +391,11 @@ export default function AdminPage() {
                 </thead>
                 <tbody className="divide-y divide-[#F2EAE1]">
                   {filteredOrders.map((order) => {
-                    const item = order.items[0];
+                    const totalUnitsInOrder = order.items?.reduce((sum, it) => sum + (it.quantity || 1), 0) || 0;
                     return (
                       <tr key={order.id} className="hover:bg-[#FDFBF7]/50 transition-colors">
 
-                        <td className="py-4 px-4 font-mono font-bold text-[#9E6962]">
+                        <td className="py-4 px-4 font-mono font-bold text-[#9E6962] align-top">
                           <div>{order.id}</div>
                           <div className="text-[10px] text-[#78716C] font-sans font-normal mt-0.5">
                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
@@ -394,7 +408,7 @@ export default function AdminPage() {
                           </div>
                         </td>
 
-                        <td className="py-4 px-4">
+                        <td className="py-4 px-4 align-top">
                           <div className="font-bold text-[#2D2A26]">{order.customer.name}</div>
                           <div className="text-[#78716C]">{order.customer.phone}</div>
                           <div className="text-[11px] text-[#78716C] truncate max-w-[180px]">
@@ -402,38 +416,62 @@ export default function AdminPage() {
                           </div>
                         </td>
 
-                        <td className="py-4 px-4">
-                          {item ? (
-                            <div className="flex items-center gap-2">
-                              <Image
-                                src={item.image}
-                                alt={item.productTitle}
-                                width={36}
-                                height={44}
-                                className="w-9 h-11 object-cover object-top rounded-lg border border-[#EDE7E1]"
-                              />
-                              <div>
-                                <p className="font-bold text-[#2D2A26] line-clamp-1 max-w-[160px] font-serif">
-                                  {item.productTitle}
-                                </p>
-                                {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
-                                  <span className="inline-block bg-[#9E6962] text-white font-bold text-[10px] px-2 py-0.5 rounded mt-0.5">
-                                    Unstitched
-                                  </span>
-                                ) : (
-                                  <span className="inline-block bg-amber-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded mt-0.5 shadow-2xs tracking-wide">
-                                    Size: {item.size} (Stitched)
-                                  </span>
-                                )}
-                              </div>
+                        <td className="py-4 px-4 align-top">
+                          {order.items && order.items.length > 0 ? (
+                            <div className="space-y-2 min-w-[240px] max-w-[320px]">
+                              {order.items.length > 1 && (
+                                <div className="inline-flex items-center gap-1.5 bg-[#9E6962] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">
+                                  <span>📦 {order.items.length} Products</span>
+                                  <span>•</span>
+                                  <span>{totalUnitsInOrder} Total Units</span>
+                                </div>
+                              )}
+                              {order.items.map((item, idx) => (
+                                <div key={idx} className="flex items-start gap-2.5 bg-[#FAF6F0]/80 p-2 rounded-xl border border-[#EDE7E1]">
+                                  <Image
+                                    src={item.image}
+                                    alt={item.productTitle}
+                                    width={38}
+                                    height={48}
+                                    className="w-9 h-11 object-cover object-top rounded-lg border border-[#EDE7E1] shrink-0"
+                                  />
+                                  <div className="min-w-0 flex-1">
+                                    <p className="font-bold text-[#2D2A26] line-clamp-1 font-serif text-xs" title={item.productTitle}>
+                                      {item.productTitle}
+                                    </p>
+                                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                                      {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
+                                        <span className="inline-block bg-[#9E6962] text-white font-bold text-[9px] px-1.5 py-0.5 rounded">
+                                          Unstitched
+                                        </span>
+                                      ) : (
+                                        <span className="inline-block bg-amber-600 text-white font-extrabold text-[9px] px-1.5 py-0.5 rounded shadow-2xs">
+                                          Size: {item.size}
+                                        </span>
+                                      )}
+                                      <span className="text-[11px] font-bold text-[#2D2A26] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1]">
+                                        Qty: <strong className="text-[#9E6962]">{item.quantity || 1}</strong>
+                                      </span>
+                                      <span className="text-[11px] font-semibold text-[#5C554E]">
+                                        ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
                           ) : (
                             'N/A'
                           )}
                         </td>
 
-                        <td className="py-4 px-4 font-bold text-[#2D2A26] text-sm">
-                          ₹{order.totalAmount.toLocaleString('en-IN')}
+                        <td className="py-4 px-4 font-bold text-[#2D2A26] text-sm align-top">
+                          <div>₹{order.totalAmount.toLocaleString('en-IN')}</div>
+                          {order.items?.length > 1 && (
+                            <span className="text-[10px] text-[#78716C] font-normal block mt-0.5">
+                              ({order.items.length} products total)
+                            </span>
+                          )}
                         </td>
 
                         <td className="py-4 px-4 font-mono text-[11px] text-[#5C554E]">
@@ -532,37 +570,93 @@ export default function AdminPage() {
               </p>
             </div>
 
-            {selectedOrder.items[0] && (
-              <div className="p-4 bg-white rounded-2xl border border-[#EDE7E1] flex items-center gap-4">
-                <Image
-                  src={selectedOrder.items[0].image}
-                  alt={selectedOrder.items[0].productTitle}
-                  width={64}
-                  height={80}
-                  className="w-16 h-20 object-cover object-top rounded-xl border"
-                />
-                <div className="flex-1">
-                  <h4 className="font-serif font-bold text-sm text-[#2D2A26]">{selectedOrder.items[0].productTitle}</h4>
-                  <div className="flex items-center gap-3 text-xs text-[#5C554E] mt-1.5 flex-wrap">
-                    <span>
-                      Item Spec:{' '}
-                      {(!selectedOrder.items[0].size || selectedOrder.items[0].size.toLowerCase().includes('unstitched') || selectedOrder.items[0].size.toLowerCase() === 'free size') ? (
-                        <strong className="text-[#9E6962] bg-[#9E6962]/10 px-2 py-0.5 rounded">100% Unstitched Fabric Set</strong>
-                      ) : (
-                        <strong className="text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded font-extrabold">
-                          👗 Stitched • Size: {selectedOrder.items[0].size}
-                        </strong>
-                      )}
-                    </span>
-                    <span>•</span>
-                    <span>Qty: <strong>{selectedOrder.items[0].quantity || 1}</strong></span>
-                    <span>•</span>
-                    <span>Price: <strong>₹{selectedOrder.items[0].price}</strong></span>
-                  </div>
-                  <p className="text-[11px] text-[#78716C] font-mono mt-1.5">Payment ID: {selectedOrder.razorpayPaymentId}</p>
-                </div>
+            {/* Products Ordered List */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="font-bold text-[#7D8F85] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <Package className="w-3.5 h-3.5 text-[#9E6962]" />
+                  <span>
+                    Ordered Products ({selectedOrder.items?.length || 0} Products • {selectedOrder.items?.reduce((s, i) => s + (i.quantity || 1), 0) || 0} Total Units)
+                  </span>
+                </h4>
+                <span className="text-xs font-semibold text-[#9E6962] bg-[#9E6962]/10 px-2.5 py-0.5 rounded-full">
+                  Total: ₹{selectedOrder.totalAmount.toLocaleString('en-IN')}
+                </span>
               </div>
-            )}
+
+              <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
+                {selectedOrder.items?.map((item, idx) => (
+                  <div key={idx} className="p-3.5 bg-[#FAF6F0]/70 rounded-2xl border border-[#EDE7E1] flex items-center gap-3.5">
+                    <Image
+                      src={item.image}
+                      alt={item.productTitle}
+                      width={56}
+                      height={72}
+                      className="w-14 h-18 object-cover object-top rounded-xl border border-[#EDE7E1] shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <h4 className="font-serif font-bold text-sm text-[#2D2A26] line-clamp-1" title={item.productTitle}>
+                          {item.productTitle}
+                        </h4>
+                        <span className="font-mono text-[10px] text-[#78716C] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1] shrink-0">
+                          SKU: {item.productId || 'N/A'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-xs text-[#5C554E] mt-1.5 flex-wrap">
+                        {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
+                          <span className="text-[#9E6962] bg-[#9E6962]/10 px-2 py-0.5 rounded font-bold text-[10px]">
+                            100% Unstitched Fabric Set
+                          </span>
+                        ) : (
+                          <span className="text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded font-extrabold text-[10px]">
+                            👗 Stitched • Size: {item.size}
+                          </span>
+                        )}
+                        <span>•</span>
+                        <span>Unit: <strong>₹{item.price.toLocaleString('en-IN')}</strong></span>
+                        <span>•</span>
+                        <span className="bg-white px-2 py-0.5 rounded border border-[#EDE7E1]">
+                          Qty: <strong className="text-[#9E6962] font-bold">{item.quantity || 1}</strong>
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs text-[#78716C] mt-2 pt-1 border-t border-[#EDE7E1]/60">
+                        <span>Line Total:</span>
+                        <strong className="text-[#2D2A26] font-bold">
+                          ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
+                        </strong>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Financial & Payment Summary */}
+            <div className="p-4 bg-[#FAF6F0] rounded-2xl border border-[#EDE7E1] space-y-2 text-xs">
+              <div className="flex justify-between text-[#78716C]">
+                <span>Items Subtotal:</span>
+                <span className="font-medium text-[#2D2A26]">
+                  ₹{selectedOrder.items?.reduce((s, i) => s + (i.price * (i.quantity || 1)), 0).toLocaleString('en-IN')}
+                </span>
+              </div>
+              <div className="flex justify-between text-[#78716C]">
+                <span>Express Courier Shipping:</span>
+                <span className="font-bold text-emerald-700">FREE (Complimentary)</span>
+              </div>
+              <div className="flex justify-between text-sm font-bold text-[#2D2A26] pt-2 border-t border-[#EDE7E1]">
+                <span>Grand Total Paid:</span>
+                <span className="text-[#9E6962] font-serif text-base font-bold">
+                  ₹{selectedOrder.totalAmount.toLocaleString('en-IN')}
+                </span>
+              </div>
+              <div className="pt-2 text-[11px] text-[#78716C] font-mono border-t border-dashed border-[#EDE7E1] flex flex-col sm:flex-row justify-between gap-1">
+                <span>Razorpay Payment: {selectedOrder.razorpayPaymentId || 'pay_simulated'}</span>
+                <span>Order ID: {selectedOrder.razorpayOrderId || selectedOrder.id}</span>
+              </div>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
               <button
@@ -575,9 +669,9 @@ export default function AdminPage() {
               </button>
               <button
                 onClick={() => window.print()}
-                className="w-full sm:w-auto px-4 py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-4 py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Printer className="w-4 h-4 text-[#9E6962]" /> Print Slip
+                <Printer className="w-4 h-4 text-[#9E6962]" /> Print Packing Slip
               </button>
               <button
                 onClick={() => setSelectedOrder(null)}

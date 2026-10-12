@@ -427,6 +427,30 @@ export async function sendOrderStatusUpdateEmail(order: Order): Promise<boolean>
       break;
   }
 
+  const itemsListHTML = order.items
+    .map((item) => {
+      const fullImg = getAbsoluteImageUrl(item.image);
+      return `
+      <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #EDE7E1;">
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+          <tr>
+            ${fullImg ? `<td style="width: 50px; vertical-align: top;"><img src="${fullImg}" alt="${item.productTitle}" width="44" height="56" style="border-radius: 6px; object-fit: cover; border: 1px solid #EDE7E1; display: block;" /></td>` : ''}
+            <td style="vertical-align: top; padding-left: 10px;">
+              <strong style="color: #2D2A26; font-size: 13px; font-family: 'Georgia', serif; display: block;">${item.productTitle}</strong>
+              <div style="margin-top: 4px;">
+                ${getItemSpecHTML(item.size)}
+              </div>
+              <div style="color: #78716C; font-size: 11px; margin-top: 4px;">
+                Quantity: <strong>${item.quantity || 1}</strong> • Line Total: <strong style="color: #9E6962;">₹${(item.price * (item.quantity || 1)).toLocaleString('en-IN')}</strong>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    `;
+    })
+    .join('');
+
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -477,12 +501,9 @@ export async function sendOrderStatusUpdateEmail(order: Order): Promise<boolean>
                     </div>
                     
                     <div style="margin-bottom: 12px;">
-                      <strong style="color: #2D2A26; font-size: 14px; font-family: 'Georgia', serif;">${order.items[0]?.productTitle || 'Saga Fabrics Couture'}</strong>
-                      <div style="margin-top: 4px;">
-                        ${getItemSpecHTML(order.items[0]?.size)}
-                      </div>
-                      <div style="color: #78716C; font-size: 12px; margin-top: 4px;">
-                        Quantity: <strong>${order.items[0]?.quantity || 1}</strong> • Total Paid: <strong style="color: #9E6962;">₹${order.totalAmount.toLocaleString('en-IN')}</strong>
+                      ${itemsListHTML}
+                      <div style="text-align: right; font-size: 13px; color: #2D2A26; margin-top: 8px;">
+                        Total Paid: <strong style="color: #9E6962; font-size: 15px; font-family: 'Georgia', serif;">₹${order.totalAmount.toLocaleString('en-IN')}</strong>
                       </div>
                     </div>
 
