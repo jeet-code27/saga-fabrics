@@ -44,11 +44,6 @@ export const CATEGORIES_NAV = [
     isSale: true,
   },
   {
-    key: 'Jewellery' as CategoryFilter,
-    slug: 'jewellery',
-    label: 'Artificial Jewellery',
-  },
-  {
     key: 'Unstitched' as CategoryFilter,
     slug: 'unstitched',
     label: 'Unstitched Suits',
@@ -67,6 +62,11 @@ export const CATEGORIES_NAV = [
     key: '3-Piece Set' as CategoryFilter,
     slug: '3-piece-set',
     label: '3-Piece Sets',
+  },
+  {
+    key: 'Jewellery' as CategoryFilter,
+    slug: 'jewellery',
+    label: 'Anti Tarnish Jewellery',
   },
 ];
 
@@ -149,7 +149,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-7xl mx-auto flex items-center justify-between font-medium tracking-wide">
           <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Suits, Kurtis & Artificial Jewellery
+              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Suits, Kurtis & Anti-Tarnish Jewellery
             </span>
             <span className="text-[#FAF6F1]/40">•</span>
             <span className="inline-flex items-center gap-1">
@@ -164,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex sm:hidden items-center justify-center w-full text-center">
             <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
               <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Suits, Kurtis & Jewellery • Free Express Delivery</span>
+              <span>Suits, Kurtis & Anti-Tarnish Jewellery • Free Express Delivery</span>
             </span>
           </div>
         </div>

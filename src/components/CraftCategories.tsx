@@ -36,17 +36,6 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
       image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
     },
     {
-      id: 'artificial-jewellery',
-      filterKey: 'Jewellery' as const,
-      title: 'Artificial Jewellery',
-      subtitle: 'Handcrafted Kundan, American Diamond & Choker Necklace Sets at ₹1000',
-      tag: 'New Launch',
-      badgeBg: 'bg-[#B59757] text-white',
-      ringColor: 'group-hover:border-[#B59757] group-hover:ring-[#B59757]/20',
-      activeRing: 'border-[#B59757] ring-4 ring-[#B59757]/20 bg-[#B59757]/5',
-      image: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
-    },
-    {
       id: 'unstitched-edits',
       filterKey: 'Unstitched' as const,
       title: 'Unstitched Suit Sets',
@@ -89,6 +78,17 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
       ringColor: 'group-hover:border-[#7A1B38] group-hover:ring-[#7A1B38]/20',
       activeRing: 'border-[#7A1B38] ring-4 ring-[#7A1B38]/20 bg-[#7A1B38]/5',
       image: '/images/products/stitched-suit-rose-pink.jpeg',
+    },
+    {
+      id: 'anti-tarnish-jewellery',
+      filterKey: 'Jewellery' as const,
+      title: 'Anti Tarnish Jewellery',
+      subtitle: 'Handcrafted Kundan, Polki & Choker Sets with matching earrings at ₹999',
+      tag: 'New Launch',
+      badgeBg: 'bg-[#B59757] text-white',
+      ringColor: 'group-hover:border-[#B59757] group-hover:ring-[#B59757]/20',
+      activeRing: 'border-[#B59757] ring-4 ring-[#B59757]/20 bg-[#B59757]/5',
+      image: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
     },
   ];
 

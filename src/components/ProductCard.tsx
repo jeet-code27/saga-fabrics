@@ -86,8 +86,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="font-bold text-[#2B2723]">{product.rating}</span>
               <span className="text-[#8A8178]">({product.reviewsCount})</span>
             </div>
-            <span className="font-medium text-[#5C7056]">
-              {isJewellery ? 'Artificial Jewellery Set' : isKurti ? 'Stitched Pure Cotton' : 'Pure Cotton Unstitched'}
+            <span className="font-medium text-[#B59757]">
+              {isJewellery ? 'Anti-Tarnish Jewellery Set' : isKurti ? 'Stitched Pure Cotton' : 'Pure Cotton Unstitched'}
             </span>
           </div>
 

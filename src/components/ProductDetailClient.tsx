@@ -40,6 +40,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 }) => {
   const isJewellery =
     product.tags.includes('Jewellery') ||
+    product.tags.includes('Anti Tarnish Jewellery') ||
     product.tags.includes('Artificial Jewellery') ||
     product.title.toLowerCase().includes('jewellery') ||
     product.title.toLowerCase().includes('necklace') ||
@@ -125,7 +126,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Artificial Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
+    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
   );
 
   return (
@@ -443,7 +444,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                     Jewellery Care & Specifications
                   </span>
                   <h4 className="font-serif font-bold text-base text-[#2B2723]">
-                    Handcrafted Artificial Jewellery Set
+                    Handcrafted Anti-Tarnish Jewellery Set
                   </h4>
                 </div>
               </div>

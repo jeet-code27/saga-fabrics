@@ -90,11 +90,11 @@ export const filterProductByCategory = (p: Product, filter: CategoryFilter): boo
 const FILTER_TABS: { key: CategoryFilter; label: string; isSale?: boolean }[] = [
   { key: 'All', label: 'All Collection' },
   { key: 'End of Season Sale', label: 'End of Season Sale', isSale: true },
-  { key: 'Jewellery', label: 'Artificial Jewellery' },
   { key: 'Unstitched', label: 'Unstitched Suits' },
   { key: 'Stitched', label: 'Stitched Suits' },
   { key: 'Short Kurti', label: 'Short Kurtis' },
   { key: '3-Piece Set', label: '3-Piece Sets' },
+  { key: 'Jewellery', label: 'Anti Tarnish Jewellery' },
 ];
 
 // Handles syncing ?category=... from URL query to state
@@ -114,7 +114,7 @@ function CategoryUrlSync({
 
     if (lower === 'sale' || lower === 'end-of-season-sale' || lower === 'deals') {
       matched = 'End of Season Sale';
-    } else if (lower === 'jewellery' || lower === 'jewelry' || lower === 'artificial-jewellery' || lower === 'choker') {
+    } else if (lower === 'jewellery' || lower === 'jewelry' || lower === 'anti-tarnish' || lower === 'anti-tarnish-jewellery' || lower === 'choker') {
       matched = 'Jewellery';
     } else if (lower === 'unstitched' || lower === 'unstitched-suit' || lower === 'cut-fabric') {
       matched = 'Unstitched';
@@ -195,7 +195,7 @@ export default function HomePage() {
       {/* Main Content Body */}
       <main className="flex-1">
         {/* 1. Hero Section */}
-        <Hero />
+        <Hero onSelectCategory={handleFilterChange} />
 
         {/* 2. Brand Guarantee Trust Bar */}
         <BrandTrust />

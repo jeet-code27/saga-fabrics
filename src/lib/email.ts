@@ -45,7 +45,7 @@ function getItemSpecHTML(size?: string, productTitle?: string): string {
   if (isJewel) {
     return `
       <span style="display: inline-block; background-color: #FEF3C7; color: #92400E; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 6px; border: 1px solid #FCD34D;">
-        💎 ARTIFICIAL JEWELLERY | FREE SIZE (ADJUSTABLE)
+        💎 ANTI-TARNISH JEWELLERY | FREE SIZE (ADJUSTABLE)
       </span>
     `;
   }

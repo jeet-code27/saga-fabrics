@@ -133,6 +133,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             {(() => {
               const isJewellery =
                 product.tags.includes('Jewellery') ||
+                product.tags.includes('Anti Tarnish Jewellery') ||
                 product.tags.includes('Artificial Jewellery') ||
                 product.title.toLowerCase().includes('jewellery') ||
                 product.title.toLowerCase().includes('necklace') ||
@@ -142,7 +143,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 return (
                   <div className="p-3 bg-[#FAF6F1] border border-[#E4D9CC] rounded-2xl flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-[#B59757] tracking-wider block">Artificial Jewellery Set</span>
+                      <span className="text-[10px] uppercase font-bold text-[#B59757] tracking-wider block">Anti-Tarnish Jewellery Set</span>
                       <span className="text-xs font-serif font-bold text-[#2B2723] block mt-0.5">Necklace & Matching Earrings</span>
                       <span className="text-[11px] text-[#8A8178] block">Adjustable neckline fit for all neck sizes</span>
                     </div>
@@ -258,6 +259,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             {(() => {
               const isJewellery =
                 product.tags.includes('Jewellery') ||
+                product.tags.includes('Anti Tarnish Jewellery') ||
                 product.tags.includes('Artificial Jewellery') ||
                 product.title.toLowerCase().includes('jewellery') ||
                 product.title.toLowerCase().includes('necklace') ||
@@ -269,7 +271,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     <Sparkles className="w-5 h-5 text-[#B59757] shrink-0 mt-0.5" />
                     <div className="text-xs space-y-0.5">
                       <span className="font-bold text-[#2B2723] block">
-                        Handcrafted Artificial Jewellery Set
+                        Handcrafted Anti-Tarnish Jewellery Set
                       </span>
                       <p className="text-[#8A8178] text-[11px] leading-relaxed">
                         Includes exquisite choker necklace with matching designer earrings. Anti-tarnish polish with comfortable adjustable fit.
@@ -318,6 +320,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             {(() => {
               const isJewellery =
                 product.tags.includes('Jewellery') ||
+                product.tags.includes('Anti Tarnish Jewellery') ||
                 product.tags.includes('Artificial Jewellery') ||
                 product.title.toLowerCase().includes('jewellery') ||
                 product.title.toLowerCase().includes('necklace') ||
@@ -325,7 +328,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               const isKurti = !isJewellery && (product.tags.includes('Short Kurti') || (product.sizes && product.sizes.some(s => ['XS','S','M','L','XL','XXL'].includes(s))));
               const finalSize = isJewellery ? 'Free Size' : isKurti ? selectedSize : 'Unstitched';
               const modalWhatsappMsg = encodeURIComponent(
-                `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Artificial Jewellery Set (Free Size)' : isKurti ? `Size: ${finalSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Link: https://sagafabrics.in/products/${product.id}\n\nPlease share payment and delivery details!`
+                `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isKurti ? `Size: ${finalSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Link: https://sagafabrics.in/products/${product.id}\n\nPlease share payment and delivery details!`
               );
 
               return (
