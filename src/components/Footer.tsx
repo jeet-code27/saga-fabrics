@@ -87,9 +87,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
                 <div>
-                  <span>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017</span>
+                  <span>Jagatpura, Jaipur, Rajasthan - 302017</span>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Saga+Fabrics+Ashadeep+Green+Avenue+Jagatpura+Jaipur"
+                    href="https://www.google.com/maps/search/?api=1&query=Saga+Fabrics+Jagatpura+Jaipur"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-[11px] text-[#F7C687] hover:underline mt-1 font-semibold"

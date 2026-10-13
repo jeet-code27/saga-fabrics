@@ -115,7 +115,7 @@ export default function ShippingPolicyPage() {
             <div className="space-y-1.5 text-xs text-[#2B2723]">
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>support@sagafabrics.in</strong></p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#9E6962]" /> WhatsApp / Phone: <strong>+91 70233 52132</strong></p>
-              <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
+              <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>Jagatpura, Jaipur, Rajasthan - 302017, India</strong></p>
               <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#EDE7E1] flex-wrap">
                 <span className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#9E6962] shrink-0" />

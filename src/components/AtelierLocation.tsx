@@ -9,7 +9,7 @@ import { trackGAContact } from '@/lib/gtag';
 
 export const AtelierLocation: React.FC = () => {
   const googleMapsUrl =
-    'https://www.google.com/maps/search/?api=1&query=Saga+Fabrics+Ashadeep+Green+Avenue+Jagatpura+Jaipur';
+    'https://www.google.com/maps/search/?api=1&query=Saga+Fabrics+Jagatpura+Jaipur';
 
   const appointmentMessage = encodeURIComponent(
     'Hello Gaurav & Sonica! I would like to schedule a visit to the Saga Fabrics Jaipur atelier / request a live fabric video call.'
@@ -83,7 +83,7 @@ export const AtelierLocation: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-[#2B2723] leading-relaxed">
-                        A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan – 302017
+                        Jagatpura, Jaipur, Rajasthan – 302017
                       </p>
                       <p className="text-xs text-[#8A8178] mt-1">
                         Landmark: Near Bombay Hospital Road, Jagatpura

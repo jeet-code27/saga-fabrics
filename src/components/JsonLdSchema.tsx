@@ -17,7 +17,7 @@ export const JsonLdSchema: React.FC = () => {
     paymentAccepted: 'Cash, UPI, Credit Card, Debit Card, Net Banking',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'A305, Ashadeep Green Avenue Apartment, Jagatpura',
+      streetAddress: 'Jagatpura',
       addressLocality: 'Jaipur',
       addressRegion: 'Rajasthan',
       postalCode: '302017',

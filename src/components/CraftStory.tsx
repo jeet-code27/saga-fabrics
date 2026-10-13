@@ -74,7 +74,7 @@ export const CraftStory: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 space-y-20">
         
         {/* ========================================================================= */}
-        {/* PART 1: THE REAL FOUNDER STORY (GAURAV MISHRA & SONICA)                   */}
+        {/* PART 1: THE REAL FOUNDER STORY (GAURAV MISRA & SONICA)                   */}
         {/* ========================================================================= */}
         <div>
           {/* Section Heading */}
@@ -118,7 +118,7 @@ export const CraftStory: React.FC = () => {
 
                 <div className="space-y-4 text-sm sm:text-base text-[#615850] leading-relaxed">
                   <p>
-                    Before Saga Fabrics came to life, our days looked very different. <strong>Gaurav Mishra</strong> was navigating the demanding corporate grind of deadlines and boardrooms, while <strong>Sonica</strong> was passionately shaping young minds in the education sector.
+                    Before Saga Fabrics came to life, our days looked very different. <strong>Gaurav Misra</strong> was navigating the demanding corporate grind of deadlines and boardrooms, while <strong>Sonica</strong> was passionately shaping young minds in the education sector.
                   </p>
                   <p>
                     Whenever we went shopping for authentic ethnic suits and kurtis for family, celebrations, or daily comfort, we encountered the same heartbreaking reality: markets flooded with synthetic polyester blends masquerading as cotton, fast-fashion prints that washed away in two washes, and luxury designer labels with exorbitant middleman markups.
@@ -198,7 +198,7 @@ export const CraftStory: React.FC = () => {
                   {/* Signed by Founders */}
                   <div className="pt-4 border-t border-[#E4D9CC] space-y-1">
                     <p className="font-serif italic text-lg sm:text-xl text-[#7A1B38] font-bold">
-                      Gaurav Mishra & Sonica
+                      Gaurav Misra & Sonica
                     </p>
                     <p className="text-xs text-[#8A8178] font-medium uppercase tracking-wider">
                       Founders, Saga Fabrics • Jaipur, India

@@ -136,7 +136,7 @@ export default function PrivacyPolicyPage() {
                 <Mail className="w-4 h-4 text-[#9E6962]" /> Email Support: <strong>support@sagafabrics.in</strong>
               </p>
               <p className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>A305, Ashadeep Green Avenue Apartment, Jagatpura, Jaipur, Rajasthan - 302017, India</strong>
+                <MapPin className="w-4 h-4 text-[#9E6962] shrink-0 mt-0.5" /> Address: <strong>Jagatpura, Jaipur, Rajasthan - 302017, India</strong>
               </p>
               <p className="flex items-center justify-between gap-2 pt-1 border-t border-[#E4D9CC] flex-wrap">
                 <span className="flex items-center gap-2">
