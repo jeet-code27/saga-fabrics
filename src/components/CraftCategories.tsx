@@ -33,7 +33,7 @@ export const CraftCategories: React.FC<CraftCategoriesProps> = ({
       badgeBg: 'bg-[#E11D48] text-white',
       ringColor: 'group-hover:border-[#E11D48] group-hover:ring-[#E11D48]/20',
       activeRing: 'border-[#E11D48] ring-4 ring-[#E11D48]/20 bg-[#E11D48]/5',
-      image: '/images/products/short-cotton-kurti-turquoise-white-1.png',
+      image: '/images/products/short-cotton-kurti-lime-green-5.png',
     },
     {
       id: 'unstitched-edits',
