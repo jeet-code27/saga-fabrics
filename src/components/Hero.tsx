@@ -65,6 +65,22 @@ const HERO_SLIDES: Slide[] = [
     previewPrice: '₹999',
     previewOriginalPrice: '₹1,499',
   },
+  {
+    id: 'free-jhumka-kurtis',
+    badge: '🎁 Festive Special Offer • Complimentary Gift',
+    ratingText: '5.0 (Handcrafted)',
+    headline: 'Buy 1 Kurti, Get 1 Pair of Jhumkas FREE',
+    description:
+      'Elevate your festive elegance with authentic handcrafted short kurtis at ₹1,500. Pure artisanal hand craft with fine needlework — each kurti includes a matching pair of traditional silver jhumka earrings absolutely FREE!',
+    primaryCtaText: 'Shop Handcrafted Kurtis (₹1,500)',
+    targetCategory: 'Short Kurti',
+    bgImage: '/images/products/handcrafted-wine-maroon-short-kurti-free-jhumka.jpeg',
+    previewImage: '/images/products/handcrafted-wine-maroon-short-kurti-free-jhumka.jpeg',
+    previewTag: 'Free Jhumkas Included',
+    previewTitle: 'Handcrafted Wine Maroon Silk Kurti (Size 42)',
+    previewPrice: '₹1,500',
+    previewOriginalPrice: '₹2,499',
+  },
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {

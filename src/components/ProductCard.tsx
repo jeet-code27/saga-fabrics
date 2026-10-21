@@ -34,6 +34,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     product.tags.includes('End of Season Sale') ||
     product.tags.includes('Season End Sale');
 
+  const hasFreeJhumka = product.tags.includes('Free Jhumka');
+  const hasFreeBangles = product.tags.includes('Free Bangles');
+
   const discountPercent = Math.round(
     ((product.originalPrice - product.price) / product.originalPrice) * 100
   );
@@ -54,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
         
-        {/* ONLY End of Season Sale over image with continuous blink */}
+        {/* End of Season Sale over image */}
         {isSale && (
           <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] shadow-md ring-1 ring-white/50 animate-pulse">
@@ -63,6 +66,26 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
               </span>
               <span className="whitespace-nowrap">End of Season Sale</span>
+            </span>
+          </div>
+        )}
+
+        {/* Free Jhumka Offer Badge */}
+        {hasFreeJhumka && !isSale && (
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-rose-700 to-[#7A1B38] shadow-md ring-1 ring-white/50">
+              <Sparkles className="w-3 h-3 text-amber-200 fill-amber-200" />
+              <span className="whitespace-nowrap">FREE Jhumka Offer</span>
+            </span>
+          </div>
+        )}
+
+        {/* Free Bangles Offer Badge */}
+        {hasFreeBangles && !isSale && (
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-emerald-700 to-[#1B4D3E] shadow-md ring-1 ring-white/50">
+              <Sparkles className="w-3 h-3 text-amber-200 fill-amber-200" />
+              <span className="whitespace-nowrap">FREE Bangles Offer</span>
             </span>
           </div>
         )}
@@ -87,7 +110,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="text-[#8A8178]">({product.reviewsCount})</span>
             </div>
             <span className="font-medium text-[#B59757]">
-              {isJewellery ? 'Anti-Tarnish Jewellery Set' : isKurti ? 'Stitched Pure Cotton' : 'Pure Cotton Unstitched'}
+              {isJewellery
+                ? 'Anti-Tarnish Jewellery Set'
+                : product.tags.includes('Silk Kurti') || product.fabric.toLowerCase().includes('silk')
+                ? 'Stitched Festive Silk (Size 42)'
+                : isKurti
+                ? 'Stitched Pure Cotton'
+                : 'Pure Cotton Unstitched'}
             </span>
           </div>
 
@@ -141,12 +170,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <div className="flex items-center gap-2 px-3 py-2 bg-[#7A1B38]/5 rounded-xl border border-[#7A1B38]/15 text-[#7A1B38] text-xs font-semibold">
             <Sparkles className="w-4 h-4 shrink-0 text-[#7A1B38]" />
             <span>
-              {isJewellery
+              {hasFreeBangles
+                ? '3-Piece Pure Cotton Suit + Complimentary Bangles Set'
+                : hasFreeJhumka
+                ? (product.sizes && product.sizes.length === 1
+                    ? `Handcrafted Silk Kurti (Size 42 / XL) + Free Jhumkas`
+                    : `Handcrafted Kurti + Free Jhumkas (Sizes ${product.sizes ? product.sizes.join(', ') : 'M to XXL'})`)
+                : isJewellery
                 ? 'Free Size (Adjustable) • Complete Set'
                 : isKurti 
                   ? (product.sizes && product.sizes.length === 1 
                       ? `Ready to Wear • Size ${product.sizes[0]} Available` 
-                      : 'Ready to Wear • Sizes XS, S, M, L, XL, XXL')
+                      : `Ready to Wear • Sizes ${product.sizes ? product.sizes.join(', ') : 'M, L, XL, XXL'}`)
                   : '100% Pure Cotton Unstitched Suit Set'}
             </span>
           </div>
@@ -162,7 +197,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {isJewellery
               ? 'Buy Now • Free Size'
               : isKurti
-              ? (product.sizes && product.sizes.length === 1 ? `Buy Size ${product.sizes[0]}` : 'Select Size & Buy')
+              ? (product.sizes && product.sizes.length === 1 ? `Buy Size ${product.sizes[0]} (Size 42)` : 'Select Size & Buy')
               : 'View Details & Buy'}
           </span>
         </Link>

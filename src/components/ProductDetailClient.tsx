@@ -81,6 +81,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     product.tags.includes('End of Season Sale') ||
     product.tags.includes('Season End Sale');
 
+  const hasFreeJhumka = product.tags.includes('Free Jhumka');
+  const hasFreeBangles = product.tags.includes('Free Bangles');
+
   // Meta Pixel ViewContent & GA4 view_item event
   React.useEffect(() => {
     trackViewContent(product);
@@ -126,7 +129,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched Fabric Set'}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
+    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched 3-Piece Fabric Set'}${hasFreeJhumka ? '\n• Complimentary Offer: 1 Pair of Traditional Jhumkas Included FREE' : ''}${hasFreeBangles ? '\n• Complimentary Offer: 1 Set of Traditional Bangles Included FREE' : ''}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
   );
 
   return (
@@ -198,6 +201,26 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                   </span>
                   <span>End of Season Sale</span>
+                </span>
+              </div>
+            )}
+
+            {/* Free Jhumka Offer Badge */}
+            {hasFreeJhumka && !isSale && (
+              <div className="absolute top-4 left-4 z-10 pointer-events-none">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-rose-700 to-[#7A1B38] shadow-md ring-1 ring-white/50">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
+                  <span>Free Jhumka Offer</span>
+                </span>
+              </div>
+            )}
+
+            {/* Free Bangles Offer Badge */}
+            {hasFreeBangles && !isSale && (
+              <div className="absolute top-4 left-4 z-10 pointer-events-none">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-emerald-700 to-[#1B4D3E] shadow-md ring-1 ring-white/50">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
+                  <span>Free Bangles Offer</span>
                 </span>
               </div>
             )}
@@ -301,6 +324,56 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </span>
           </div>
 
+          {/* Complimentary Free Jhumka Offer Banner */}
+          {hasFreeJhumka && (
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-50/90 via-[#FAF6F1] to-rose-50/90 rounded-3xl border border-amber-300/80 shadow-xs flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-[#7A1B38] text-white flex items-center justify-center shrink-0 shadow-xs text-lg">
+                ✨
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
+                    Special Festive Offer
+                  </span>
+                  <span className="text-xs font-bold text-emerald-800">
+                    Complimentary Jhumkas Included FREE
+                  </span>
+                </div>
+                <h4 className="font-serif font-bold text-sm text-[#2B2723]">
+                  Buy 1 Handcrafted Kurti, Get 1 Pair of Traditional Jhumkas FREE
+                </h4>
+                <p className="text-xs text-[#5C554E] leading-relaxed">
+                  A matching pair of handcrafted traditional silver jhumka earrings will be packed and shipped along with your kurti at zero additional cost!
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Complimentary Free Bangles Offer Banner */}
+          {hasFreeBangles && (
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-50/90 via-[#FAF6F1] to-emerald-50/90 rounded-3xl border border-amber-300/80 shadow-xs flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-[#1B4D3E] text-white flex items-center justify-center shrink-0 shadow-xs text-lg">
+                ✨
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
+                    Special Festive Offer
+                  </span>
+                  <span className="text-xs font-bold text-emerald-800">
+                    Complimentary Bangles Included FREE
+                  </span>
+                </div>
+                <h4 className="font-serif font-bold text-sm text-[#2B2723]">
+                  Buy 1 Three-Piece Suit, Get 1 Set of Traditional Bangles FREE
+                </h4>
+                <p className="text-xs text-[#5C554E] leading-relaxed">
+                  An exquisite set of traditional silver oxidized bangles / kadas will be packed and shipped along with your 3-piece suit at zero additional cost!
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Size Selection Section */}
           {isJewellery ? (
             <div className="p-4 sm:p-5 bg-white rounded-3xl border border-[#DCD3C7] shadow-xs flex items-center justify-between">
@@ -348,7 +421,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                         : 'bg-[#FAF6F1] text-[#2B2723] border-[#DCD3C7] hover:border-[#7A1B38]'
                     }`}
                   >
-                    <span>{product.sizes && product.sizes.length === 1 ? `Size ${sz}` : sz}</span>
+                    <span>{product.sizes && product.sizes.length === 1 ? (sz === 'XL' ? `Size ${sz} (Size 42)` : `Size ${sz}`) : sz}</span>
                     {product.sizes && product.sizes.length === 1 && (
                       <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
                         In Stock
@@ -360,7 +433,11 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               {product.sizes.length === 1 ? (
                 <p className="text-[11px] text-[#7A1B38] font-medium flex items-center gap-1.5 pt-1">
                   <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
-                  <span>Season's End Clearance: Only Size <strong>{product.sizes[0]}</strong> is available in this piece.</span>
+                  <span>
+                    {isSale
+                      ? `Season's End Clearance: Only Size ${product.sizes[0]} is available in this piece.`
+                      : `Exclusive Tailored Piece: Handcrafted in ready-to-wear Size ${product.sizes[0]} (Size 42 / 42" Bust).`}
+                  </span>
                 </p>
               ) : (
                 <p className="text-[11px] text-[#8A8178]">
