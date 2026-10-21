@@ -49,38 +49,6 @@ const HERO_SLIDES: Slide[] = [
     previewPrice: '₹650',
     previewOriginalPrice: '₹1,499',
   },
-  {
-    id: 'anti-tarnish-jewellery',
-    badge: '✨ New Launch • Anti-Tarnish Jewellery Edit',
-    ratingText: '5.0 (Handcrafted)',
-    headline: 'Exquisite Anti-Tarnish Jewellery Sets',
-    description:
-      'Complete your festive look with regal Kundan Polki, Onyx & Sparkling Choker sets with matching earrings. Handcrafted with durable anti-tarnish finish at just ₹999.',
-    primaryCtaText: 'Shop Jewellery (₹999)',
-    targetCategory: 'Jewellery',
-    bgImage: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
-    previewImage: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
-    previewTag: 'Anti-Tarnish Polish',
-    previewTitle: 'Kundan Polki Choker Set',
-    previewPrice: '₹999',
-    previewOriginalPrice: '₹1,499',
-  },
-  {
-    id: 'free-jhumka-kurtis',
-    badge: '🎁 Festive Special Offer • Complimentary Gift',
-    ratingText: '5.0 (Handcrafted)',
-    headline: 'Buy 1 Kurti, Get 1 Pair of Jhumkas FREE',
-    description:
-      'Elevate your festive elegance with authentic handcrafted short kurtis at ₹1,500. Pure artisanal hand craft with fine needlework — each kurti includes a matching pair of traditional silver jhumka earrings absolutely FREE!',
-    primaryCtaText: 'Shop Handcrafted Kurtis (₹1,500)',
-    targetCategory: 'Short Kurti',
-    bgImage: '/images/products/handcrafted-wine-maroon-short-kurti-free-jhumka.jpeg',
-    previewImage: '/images/products/handcrafted-wine-maroon-short-kurti-free-jhumka.jpeg',
-    previewTag: 'Free Jhumkas Included',
-    previewTitle: 'Handcrafted Wine Maroon Silk Kurti (Size 42)',
-    previewPrice: '₹1,500',
-    previewOriginalPrice: '₹2,499',
-  },
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
@@ -90,7 +58,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
 
   // Auto-play slider interval (5.5 seconds)
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || HERO_SLIDES.length <= 1) return;
 
     slideTimerRef.current = setInterval(() => {
       setCurrentSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -145,24 +113,28 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
       {/* Dark Luxury Gradient Overlay for crisp contrast */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#2B2723]/95 via-[#2B2723]/50 to-[#2B2723]/25 pointer-events-none" />
 
-      {/* Navigation Arrows (Prev / Next) */}
-      <button
-        type="button"
-        onClick={handlePrevSlide}
-        aria-label="Previous Slide"
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-black/35 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg hover:scale-105"
-      >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-      </button>
+      {/* Navigation Arrows (Prev / Next) - Only shown if multiple slides exist */}
+      {HERO_SLIDES.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={handlePrevSlide}
+            aria-label="Previous Slide"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-black/35 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg hover:scale-105"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
 
-      <button
-        type="button"
-        onClick={handleNextSlide}
-        aria-label="Next Slide"
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-black/35 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg hover:scale-105"
-      >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-      </button>
+          <button
+            type="button"
+            onClick={handleNextSlide}
+            aria-label="Next Slide"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-black/35 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg hover:scale-105"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+        </>
+      )}
 
       {/* Hero Content Overlay */}
       <div className="max-w-7xl w-full mx-auto px-6 lg:px-12 py-16 lg:py-24 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
@@ -221,27 +193,29 @@ export const Hero: React.FC<HeroProps> = ({ onSelectCategory }) => {
             </div>
           </div>
 
-          {/* Slider Indicators (Dots & Slide Counter) */}
-          <div className="flex items-center gap-3 pt-4">
-            <div className="flex items-center gap-2">
-              {HERO_SLIDES.map((slide, idx) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  onClick={() => setCurrentSlideIndex(idx)}
-                  aria-label={`Go to slide ${idx + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    idx === validIndex
-                      ? 'w-8 bg-[#B59757] shadow-sm'
-                      : 'w-2.5 bg-white/40 hover:bg-white/70'
-                  }`}
-                />
-              ))}
+          {/* Slider Indicators (Dots & Slide Counter) - Only shown if multiple slides exist */}
+          {HERO_SLIDES.length > 1 && (
+            <div className="flex items-center gap-3 pt-4">
+              <div className="flex items-center gap-2">
+                {HERO_SLIDES.map((slide, idx) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    onClick={() => setCurrentSlideIndex(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                    className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      idx === validIndex
+                        ? 'w-8 bg-[#B59757] shadow-sm'
+                        : 'w-2.5 bg-white/40 hover:bg-white/70'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-[11px] font-mono text-white/60 tracking-wider">
+                0{validIndex + 1} / 0{HERO_SLIDES.length}
+              </span>
             </div>
-            <span className="text-[11px] font-mono text-white/60 tracking-wider">
-              0{validIndex + 1} / 0{HERO_SLIDES.length}
-            </span>
-          </div>
+          )}
         </div>
 
         {/* Right Column: Floating Product Preview Badge tailored to active slide */}
