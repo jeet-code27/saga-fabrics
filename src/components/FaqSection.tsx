@@ -1,108 +1,93 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, Ruler } from 'lucide-react';
+import Link from 'next/link';
+import { Plus } from 'lucide-react';
 
 interface FaqSectionProps {
   onOpenSizeChart?: () => void;
 }
 
+const FAQS: { q: string; a: React.ReactNode; sizeChart?: boolean }[] = [
+  {
+    q: 'Is the fabric really pure cotton?',
+    a: 'Yes. Our cotton suits and kurtis are pure cotton — no polyester blends. The festive short kurtis are silk with a soft inner lining, and each product page lists the exact fabric.',
+  },
+  {
+    q: 'What comes in an unstitched suit set?',
+    a: 'Around 2.5 m for the kurta, 2.5 m for the bottom and 2.25 m for the dupatta — enough for your tailor to stitch any size from XS to 5XL.',
+  },
+  {
+    q: 'How do I pick the right size?',
+    a: 'Stitched pieces follow standard Indian sizes (XS to XXL). Check the size chart, or send us your bust and length on WhatsApp and we’ll tell you which size to order.',
+    sizeChart: true,
+  },
+  {
+    q: 'How fast is delivery?',
+    a: 'We dispatch within 24 hours from Jaipur. Most orders reach you in 2–4 working days, and shipping is free across India.',
+  },
+  {
+    q: 'What if something is wrong with my order?',
+    a: (
+      <>
+        If a piece arrives damaged or wrong, send us the unboxing video within 7 days and we’ll replace it free. For
+        stitched kurtis and suits you can exchange the size within 7 days — you only pay the return courier. Details
+        are in our{' '}
+        <Link href="/refund-policy" className="text-[#7A1B38] underline underline-offset-2">
+          refund policy
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    q: 'Which payment methods do you take?',
+    a: 'UPI (GPay, PhonePe, Paytm), debit and credit cards, and net banking — all through Razorpay’s secure checkout.',
+  },
+  {
+    q: 'How do I wash it?',
+    a: 'Hand wash in cold water with a mild detergent and dry in the shade. Silk kurtis are best dry-cleaned.',
+  },
+];
+
 export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSizeChart }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const faqs = [
-    {
-      question: 'Are your suits & kurtis 100% pure cotton & breathable?',
-      answer: 'Yes, absolutely! Every Saga Fabrics suit and kurti is crafted from 100% pure organic cotton, Chanderi cotton, or soft Mulmul, complete with a breathable pure cotton dupatta for suit sets. We never use synthetic polyester blends.',
-    },
-    {
-      question: 'Are these suits and kurtis stitched or unstitched?',
-      answer: 'We offer authentic unstitched suit sets (Top material: ~2.5m, Bottom material: ~2.5m, Pure Dupatta: ~2.25m) as well as crafted ready-to-wear stitched suit sets and short kurtis. Our unstitched sets are designed for custom boutique tailoring to your perfect fit and style.',
-    },
-    {
-      question: 'How do I choose the right size? Do you have a Women’s Size Chart?',
-      answer: 'Yes! We follow standard Indian and international sizing for stitched kurtis and suits (XS, S, M, L, XL, XXL) with measurements available in both Inches and Centimetres. For unstitched suit sets, each package includes generous fabric lengths (~2.5m Kurti top, ~2.5m Bottom pants, ~2.25m Dupatta) that your tailor can customize to ANY size from XS up to 5XL.',
-      hasSizeChartButton: true,
-    },
-    {
-      question: 'How long does express shipping take across India?',
-      answer: 'All orders are packed with care and dispatched from our studio within 24 hours. Express delivery arrives within 2 to 4 business days across all PIN codes in India, complete with live tracking.',
-    },
-    {
-      question: 'Is instant Razorpay checkout safe? Can I pay with UPI?',
-      answer: 'Yes! We integrate with Razorpay using 256-bit bank-grade SSL encryption. You can complete payment instantly via Google Pay, PhonePe, Paytm, Credit/Debit cards, or NetBanking.',
-    },
-    {
-      question: 'What is your Return, Replacement, and Size Exchange Policy?',
-      answer: 'We offer a 7-day return and exchange window! If you receive a damaged, defective, or incorrect piece, we provide a 100% free replacement or refund upon receiving unboxing photos/video within 7 days of delivery. For stitched suits & kurtis, if you ordered a size that does not fit you, you can easily request a size exchange within 7 days by contacting our WhatsApp support (+91 70233 52132) — the customer only needs to pay nominal courier reverse pickup charges.',
-    },
-    {
-      question: 'How should I wash and care for these suits and kurtis?',
-      answer: 'We recommend gentle hand washing in cold water with a mild detergent for the first few washes. Avoid harsh bleaching. Line dry in shade to preserve natural thread embroidery.',
-    },
-  ];
-
-  const toggleFaq = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-[#FAF6F1] border-b border-[#DCD3C7]">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12">
-        
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <div className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-[#65897D] bg-[#7FA79A]/15 px-4 py-1.5 rounded-full border border-[#7FA79A]/30">
-            <HelpCircle className="w-3.5 h-3.5 text-[#E88DAE]" /> Got Questions?
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-sm text-[#8A8178]">
-            Everything you need to know about our handcrafted suits, kurtis, fabrics, sizing, shipping & payments.
-          </p>
+    <section id="faq" className="py-14 md:py-24 bg-[#FAF6F1] border-t border-[#E4D9CC]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-10">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">Questions</p>
+          <h2 className="mt-1 text-3xl sm:text-5xl font-serif text-[#2B2723]">Before you order</h2>
         </div>
 
-        {/* FAQ Accordion List */}
-        <div className="space-y-4">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
+        <div className="divide-y divide-[#E4D9CC] border-y border-[#E4D9CC]">
+          {FAQS.map((f, i) => {
+            const isOpen = open === i;
             return (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl border border-[#DCD3C7] shadow-2xs overflow-hidden transition-all duration-300"
-              >
+              <div key={f.q}>
                 <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-serif font-medium text-base sm:text-lg text-[#2B2723] hover:text-[#65897D] transition-colors"
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="w-full py-5 flex items-center justify-between gap-4 text-left cursor-pointer"
                 >
-                  <span className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[#FAF6F1] text-[#65897D] font-mono text-xs flex items-center justify-center font-bold shrink-0 border border-[#DCD3C7]">
-                      Q{idx + 1}
-                    </span>
-                    <span>{faq.question}</span>
-                  </span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-[#65897D] shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
+                  <span className="font-serif text-lg sm:text-xl text-[#2B2723]">{f.q}</span>
+                  <Plus
+                    className={`w-5 h-5 text-[#7A1B38] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
                   />
                 </button>
-
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-6 pt-0 text-xs sm:text-sm text-[#8A8178] leading-relaxed border-t border-[#EDE6DC]">
-                    <p className="pt-4">{faq.answer}</p>
-                    {faq.hasSizeChartButton && onOpenSizeChart && (
-                      <div className="pt-4">
-                        <button
-                          type="button"
-                          onClick={onOpenSizeChart}
-                          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#7A1B38] hover:bg-[#5C142A] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
-                        >
-                          <Ruler className="w-4 h-4" />
-                          <span>View Official Women's Size Chart (CM & INCH)</span>
-                        </button>
-                      </div>
+                  <div className="pb-5 -mt-1 text-[15px] text-[#5A524B] leading-relaxed animate-fadeIn">
+                    <p>{f.a}</p>
+                    {f.sizeChart && onOpenSizeChart && (
+                      <button
+                        type="button"
+                        onClick={onOpenSizeChart}
+                        className="mt-3 text-sm font-medium text-[#7A1B38] underline underline-offset-2 cursor-pointer"
+                      >
+                        Open the size chart
+                      </button>
                     )}
                   </div>
                 )}
@@ -111,6 +96,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSizeChart }) => {
           })}
         </div>
 
+        <p className="mt-8 text-center text-sm text-[#6F665E]">
+          Still unsure?{' '}
+          <a
+            href="https://wa.me/917023352132"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#7A1B38] font-medium underline underline-offset-2"
+          >
+            Message us on WhatsApp
+          </a>
+          .
+        </p>
       </div>
     </section>
   );

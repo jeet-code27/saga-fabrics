@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { trackContact } from '@/lib/metaPixel';
 import { trackGAContact } from '@/lib/gtag';
+import { showsBottomNav } from '@/components/MobileBottomNav';
 
 export const GlobalWhatsAppFloat: React.FC = () => {
   const pathname = usePathname();
@@ -19,7 +20,7 @@ export const GlobalWhatsAppFloat: React.FC = () => {
   );
 
   return (
-    <aside className="fixed bottom-6 right-5 sm:right-8 z-40 group animate-fadeIn">
+    <aside className={`fixed bottom-6 right-5 sm:right-8 z-40 group animate-fadeIn ${showsBottomNav(pathname) ? 'hidden md:block' : ''}`}>
       <a
         href={`https://wa.me/917023352132?text=${defaultMessage}`}
         target="_blank"

@@ -1,55 +1,30 @@
 'use client';
 
 import React from 'react';
-import { Award, Truck, RefreshCw, ShieldCheck } from 'lucide-react';
+import { Hand, Truck, RefreshCw, ShieldCheck } from 'lucide-react';
+
+const ITEMS = [
+  { icon: Hand, title: 'Handmade in Jaipur', text: 'Embroidered by hand' },
+  { icon: Truck, title: 'Free shipping', text: 'Anywhere in India' },
+  { icon: RefreshCw, title: '7-day size exchange', text: 'On stitched pieces' },
+  { icon: ShieldCheck, title: 'Secure checkout', text: 'UPI, cards via Razorpay' },
+];
 
 export const BrandTrust: React.FC = () => {
   return (
-    <section className="py-12 bg-[#FAF6F1] border-b border-[#DCD3C7]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
-          
-          <div className="flex items-start gap-4 justify-center sm:justify-start group">
-            <div className="w-12 h-12 rounded-2xl bg-[#7FA79A]/15 border border-[#7FA79A]/30 flex items-center justify-center text-[#65897D] shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <Award className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Handcrafted Suits & Kurtis</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Handcrafted by traditional master artisans across India.</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4 justify-center sm:justify-start group">
-            <div className="w-12 h-12 rounded-2xl bg-[#E88DAE]/15 border border-[#E88DAE]/30 flex items-center justify-center text-[#E88DAE] shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <Truck className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">Free Express Delivery</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Complimentary doorstep delivery across all PIN codes in India.</p>
+    <section className="bg-[#FAF6F1] border-b border-[#E4D9CC]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-5 sm:py-7 grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-5">
+        {ITEMS.map(({ icon: Icon, title, text }) => (
+          <div key={title} className="flex items-center gap-3">
+            <span className="w-10 h-10 rounded-full bg-[#F3ECE2] text-[#7A1B38] flex items-center justify-center shrink-0">
+              <Icon className="w-[18px] h-[18px]" />
+            </span>
+            <div className="min-w-0">
+              <p className="text-[13px] sm:text-sm font-semibold text-[#2B2723] leading-tight">{title}</p>
+              <p className="text-[11px] sm:text-xs text-[#8A8178] leading-tight mt-0.5">{text}</p>
             </div>
           </div>
-
-          <div className="flex items-start gap-4 justify-center sm:justify-start group">
-            <div className="w-12 h-12 rounded-2xl bg-[#7FA79A]/15 border border-[#7FA79A]/30 flex items-center justify-center text-[#65897D] shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">100% Quality Inspected</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Every suit, kurti & fabric length undergoes strict quality check. (No Returns Policy)</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4 justify-center sm:justify-start group">
-            <div className="w-12 h-12 rounded-2xl bg-[#65897D]/15 border border-[#65897D]/30 flex items-center justify-center text-[#65897D] shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-base font-serif font-semibold text-[#2B2723]">Razorpay Secured</h4>
-              <p className="text-xs text-[#8A8178] mt-1 leading-relaxed">Safe instant payments via UPI, Credit/Debit & NetBanking.</p>
-            </div>
-          </div>
-
-        </div>
+        ))}
       </div>
     </section>
   );

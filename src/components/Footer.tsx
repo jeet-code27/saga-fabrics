@@ -44,16 +44,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
               style={{ height: '56px', width: 'auto' }}
             />
             <p className="text-xs text-[#8A8178] leading-relaxed">
-              Celebrating timeless artisanal elegance, <strong>Saga Fabrics</strong> curates handcrafted suits, kurtis & unstitched fabric sets with pure dupattas. Every garment represents centuries of Indian thread embroidery craftsmanship.
+              Hand-embroidered suits, kurtis and jewellery from a small studio in Jaipur, run by Gaurav &amp; Sonica.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#7FA79A] uppercase tracking-wider">Store Navigation</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#D9B871] uppercase tracking-wider">Shop</h4>
             <ul className="space-y-2 text-[#8A8178]">
-              <li><Link href="/#collection" className="hover:text-[#FAF6F1] transition-colors">Suits & Kurtis Collection</Link></li>
-              <li><Link href="/#categories" className="hover:text-[#FAF6F1] transition-colors">Artisanal Collections</Link></li>
+              <li><Link href="/shop" className="hover:text-[#FAF6F1] transition-colors">Shop all</Link></li>
+              <li><Link href="/shop?category=sale" className="hover:text-[#FAF6F1] transition-colors">Diwali Sale</Link></li>
+              <li><Link href="/shop?category=short-kurti" className="hover:text-[#FAF6F1] transition-colors">Short kurtis</Link></li>
+              <li><Link href="/shop?category=unstitched" className="hover:text-[#FAF6F1] transition-colors">Unstitched suits</Link></li>
+              <li><Link href="/shop?category=jewellery" className="hover:text-[#FAF6F1] transition-colors">Jewellery</Link></li>
               <li>
                 <button
                   type="button"
@@ -61,17 +64,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
                   className="hover:text-[#FAF6F1] transition-colors text-left flex items-center gap-1.5 cursor-pointer text-[#FAF6F1]/90"
                 >
                   <Ruler className="w-3.5 h-3.5 text-[#F7C687]" />
-                  <span>Women's Size Guide (Chart)</span>
+                  <span>Size guide</span>
                 </button>
               </li>
-              <li><Link href="/#craft-story" className="hover:text-[#FAF6F1] transition-colors">The Artisanal Craft</Link></li>
-              <li><Link href="/#faq" className="hover:text-[#FAF6F1] transition-colors">Fabric Care & FAQs</Link></li>
+              <li><Link href="/#craft-story" className="hover:text-[#FAF6F1] transition-colors">Our story</Link></li>
+              <li><Link href="/#faq" className="hover:text-[#FAF6F1] transition-colors">FAQs</Link></li>
             </ul>
           </div>
 
           {/* Merchant Policies (Razorpay Mandatory) */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#F7C687] uppercase tracking-wider">Merchant Policies</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#D9B871] uppercase tracking-wider">Policies</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li><Link href="/terms-and-conditions" className="hover:text-[#FAF6F1] transition-colors">Terms & Conditions</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-[#FAF6F1] transition-colors">Privacy Policy</Link></li>
@@ -82,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
 
           {/* Contact Details */}
           <div className="space-y-3 text-xs">
-            <h4 className="text-sm font-serif font-semibold text-[#E88DAE] uppercase tracking-wider">Contact Us</h4>
+            <h4 className="text-sm font-serif font-semibold text-[#D9B871] uppercase tracking-wider">Contact</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#7FA79A] shrink-0 mt-0.5" />
@@ -94,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
                     rel="noopener noreferrer"
                     className="block text-[11px] text-[#F7C687] hover:underline mt-1 font-semibold"
                   >
-                    📍 Open in Google Maps (4.9 ★ Verified Atelier)
+                    Open in Google Maps
                   </a>
                 </div>
               </li>
@@ -107,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
                   onClick={() => trackContact('WhatsApp Support', 'Footer Support Link')}
                   className="hover:text-[#FAF6F1] transition-colors"
                 >
-                  +91 70233 52132 / WhatsApp Support
+                  +91 70233 52132 (WhatsApp)
                 </a>
               </li>
               <li className="flex items-center gap-2">

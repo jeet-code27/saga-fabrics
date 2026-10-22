@@ -1,31 +1,17 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import {
-  ShoppingBag,
-  Sparkles,
-  Menu,
-  X,
-  MapPin,
-  Ruler,
-  ChevronDown,
-  ArrowRight,
-} from 'lucide-react';
+import { ShoppingBag, Menu, X, Ruler, ChevronDown, ArrowRight, Search } from 'lucide-react';
 import { trackContact, trackSearch } from '@/lib/metaPixel';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { useCart } from '@/context/CartContext';
+import { CATEGORIES, CategoryFilter, shopHref, maxSaleDiscount } from '@/lib/catalog';
+import { SALE, isSaleLive } from '@/lib/sale';
+import { SaleCountdown } from '@/components/SaleCountdown';
 
-export type CategoryFilter =
-  | 'All'
-  | 'End of Season Sale'
-  | 'Unstitched'
-  | 'Stitched'
-  | 'Short Kurti'
-  | '3-Piece Set'
-  | 'Jewellery';
+export type { CategoryFilter } from '@/lib/catalog';
 
 interface NavbarProps {
   cartCount?: number;
@@ -36,53 +22,19 @@ interface NavbarProps {
   onSelectCategory?: (category: CategoryFilter) => void;
 }
 
-export const CATEGORIES_NAV = [
-  {
-    key: 'End of Season Sale' as CategoryFilter,
-    slug: 'sale',
-    label: 'End of Season Sale',
-    isSale: true,
-  },
-  {
-    key: 'Unstitched' as CategoryFilter,
-    slug: 'unstitched',
-    label: 'Unstitched Suits',
-  },
-  {
-    key: 'Stitched' as CategoryFilter,
-    slug: 'stitched',
-    label: 'Stitched Suits',
-  },
-  {
-    key: 'Short Kurti' as CategoryFilter,
-    slug: 'short-kurti',
-    label: 'Short Kurtis',
-  },
-  {
-    key: '3-Piece Set' as CategoryFilter,
-    slug: '3-piece-set',
-    label: '3-Piece Sets',
-  },
-  {
-    key: 'Jewellery' as CategoryFilter,
-    slug: 'jewellery',
-    label: 'Anti Tarnish Jewellery',
-  },
-];
+const linkCls =
+  "hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all";
 
 export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   onOpenCart,
   onOpenSizeChart,
   hideSizeGuide = false,
-  activeCategory,
-  onSelectCategory,
 }) => {
-  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(true);
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const saleLive = isSaleLive();
 
   let liveCartCount = 0;
   let liveOpenCart = onOpenCart;
@@ -110,20 +62,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     }, 200);
   };
 
-  const handleCategoryClick = (categoryKey: CategoryFilter, slug: string) => {
+  const closeMenus = (categoryKey?: CategoryFilter) => {
     setDesktopDropdownOpen(false);
     setMobileMenuOpen(false);
-    trackSearch(categoryKey);
-
-    if (onSelectCategory) {
-      onSelectCategory(categoryKey);
-      const el = document.getElementById('collection');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      router.push(`/?category=${slug}#collection`);
-    }
+    if (categoryKey && categoryKey !== 'All') trackSearch(categoryKey);
   };
 
   const handleSizeGuideClick = () => {
@@ -141,348 +83,220 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
+  const menuCategories = saleLive ? CATEGORIES : CATEGORIES.filter((c) => c.key !== 'Sale');
+
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF6F1]/95 backdrop-blur-md border-b border-[#E4D9CC] transition-all shadow-2xs">
-      
-      {/* Announcement Top Bar in Royal Burgundy */}
-      <div className="bg-[#7A1B38] text-[#FAF6F1] text-xs py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between font-medium tracking-wide">
-          <div className="hidden sm:flex items-center gap-4 mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 text-[#FDF4F6]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Handcrafted Suits, Kurtis & Anti-Tarnish Jewellery
+    <header className="sticky top-0 z-40 bg-[#FAF6F1]/95 backdrop-blur-md border-b border-[#E4D9CC]">
+      {/* Announcement bar */}
+      {saleLive ? (
+        <Link
+          href="/shop?category=sale"
+          className="block bg-[#5C1329] text-[#F6E7C1] text-[11px] sm:text-xs py-2 px-4 border-b border-[#D9B871]/25"
+        >
+          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
+            <span className="font-semibold tracking-wide">
+              {SALE.name}: up to {maxSaleDiscount()}% off
             </span>
-            <span className="text-[#FAF6F1]/40">•</span>
-            <span className="inline-flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#B59757]" /> Direct Jaipur Atelier Dispatch
+            <span className="text-[#D9B871]">·</span>
+            <span>
+              Ends in <SaleCountdown className="font-semibold" />
             </span>
-            <span className="text-[#FAF6F1]/40">•</span>
-            <span className="font-bold text-white tracking-wider">
-              FREE EXPRESS SHIPPING PAN-INDIA
-            </span>
+            <span className="hidden sm:inline text-[#D9B871]">·</span>
+            <span className="hidden sm:inline">Free shipping across India</span>
           </div>
-
-          <div className="flex sm:hidden items-center justify-center w-full text-center">
-            <span className="inline-flex items-center gap-1.5 text-[#FDF4F6] font-medium text-[11px] truncate">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757] shrink-0" />
-              <span>Suits, Kurtis & Anti-Tarnish Jewellery • Free Express Delivery</span>
-            </span>
-          </div>
+        </Link>
+      ) : (
+        <div className="bg-[#7A1B38] text-[#FAF6F1] text-[11px] sm:text-xs py-2 px-4 text-center">
+          Handcrafted in Jaipur · Free shipping across India
         </div>
-      </div>
+      )}
 
-      {/* Main Balanced Navbar Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-3 items-center h-20">
-          
-          {/* Left Column: Menu Links (Desktop) & Mobile Toggle */}
+      {/* Main bar */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-3 items-center h-16 md:h-20">
+          {/* Left */}
           <div className="flex items-center justify-start gap-4">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-full hover:bg-[#F3ECE2] text-[#2B2723] transition-colors cursor-pointer"
+              className="md:hidden p-2 -ml-1 rounded-full hover:bg-[#F3ECE2] text-[#2B2723] transition-colors cursor-pointer"
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
             <nav className="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest font-semibold text-[#2B2723]">
-              {/* All Collection Link */}
-              <Link
-                href="/#collection"
-                onClick={() => {
-                  if (onSelectCategory) onSelectCategory('All');
-                }}
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer"
-              >
-                Collection
+              <Link href="/shop" className={linkCls}>
+                Shop
               </Link>
 
-              {/* Categories Dropdown Menu */}
-              <div
-                className="relative"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <button
                   type="button"
                   onClick={() => setDesktopDropdownOpen(!desktopDropdownOpen)}
-                  className={`hover:text-[#7A1B38] transition-colors relative py-1 flex items-center gap-1.5 cursor-pointer group ${
+                  className={`hover:text-[#7A1B38] transition-colors py-1 flex items-center gap-1.5 cursor-pointer uppercase tracking-widest ${
                     desktopDropdownOpen ? 'text-[#7A1B38]' : ''
                   }`}
                 >
                   <span>Categories</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      desktopDropdownOpen ? 'rotate-180 text-[#7A1B38]' : 'text-[#8A8178] group-hover:text-[#7A1B38]'
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${desktopDropdownOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
 
-                {/* Desktop Dropdown Panel */}
                 {desktopDropdownOpen && (
-                  <div
-                    className="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#E4D9CC] py-2 px-1.5 z-50 animate-fadeIn"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div className="py-0.5">
-                      {CATEGORIES_NAV.map((cat) => {
-                        const isSale = cat.isSale;
-                        const isActive = activeCategory === cat.key;
-
-                        return (
-                          <button
-                            key={cat.key}
-                            type="button"
-                            onClick={() => handleCategoryClick(cat.key, cat.slug)}
-                            className={`w-full px-3.5 py-2.5 rounded-xl text-left transition-colors flex items-center justify-between cursor-pointer group ${
-                              isActive
-                                ? 'bg-[#7A1B38]/10 text-[#7A1B38] font-bold'
-                                : isSale
-                                ? 'hover:bg-rose-50 text-[#E11D48] font-medium'
-                                : 'hover:bg-[#FAF6F1] text-[#2B2723] hover:text-[#7A1B38] font-medium'
-                            }`}
-                          >
-                            <span className="text-xs tracking-wide">
-                              {cat.label}
-                            </span>
-                            {isSale && (
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#E11D48]/10 text-[#E11D48]">
-                                Sale
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* View All Option */}
-                    <div className="pt-1 mt-1 border-t border-[#F3ECE2]">
-                      <button
-                        type="button"
-                        onClick={() => handleCategoryClick('All', 'all')}
-                        className="w-full px-3.5 py-2 rounded-xl text-left text-xs font-semibold text-[#8A8178] hover:text-[#7A1B38] hover:bg-[#FAF6F1] flex items-center justify-between transition-colors cursor-pointer"
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-[#E4D9CC] p-1.5 z-50 animate-fadeIn normal-case tracking-normal">
+                    {menuCategories.map((cat) => (
+                      <Link
+                        key={cat.key}
+                        href={shopHref(cat.key)}
+                        onClick={() => closeMenus(cat.key)}
+                        className={`w-full px-3.5 py-2.5 rounded-lg text-left text-sm flex items-center justify-between hover:bg-[#FAF6F1] ${
+                          cat.key === 'Sale' ? 'text-[#7A1B38] font-semibold' : 'text-[#2B2723] hover:text-[#7A1B38] font-medium'
+                        }`}
                       >
-                        <span>All Collection</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                        {cat.label}
+                      </Link>
+                    ))}
+                    <Link
+                      href="/shop"
+                      onClick={() => closeMenus()}
+                      className="mt-1 pt-2 border-t border-[#F3ECE2] w-full px-3.5 py-2 rounded-lg text-sm font-medium text-[#8A8178] hover:text-[#7A1B38] flex items-center justify-between"
+                    >
+                      <span>Shop all</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 )}
               </div>
 
-              {/* Crafts Link */}
-              <Link
-                href="/#categories"
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all"
-              >
-                Crafts
-              </Link>
+              {saleLive && (
+                <Link href="/shop?category=sale" className={`${linkCls} text-[#7A1B38]`}>
+                  {SALE.name}
+                </Link>
+              )}
             </nav>
           </div>
 
-          {/* Center Column: Perfectly Centered Brand Logo */}
+          {/* Center logo */}
           <div className="flex items-center justify-center">
-            <Link href="/" className="group flex items-center justify-center py-1">
+            <Link href="/" className="flex items-center justify-center py-1">
               <Image
                 src="/images/saga-fabrics-new.png"
                 alt="Saga Fabrics"
                 width={180}
                 height={64}
                 priority
-                className="max-h-16 w-auto object-contain transition-transform group-hover:scale-105"
-                style={{ height: '64px', width: 'auto' }}
+                className="w-auto object-contain h-12 md:h-16"
               />
             </Link>
           </div>
 
-          {/* Right Column: Menu Links (Desktop) & Cart */}
-          <div className="flex items-center justify-end gap-6">
+          {/* Right */}
+          <div className="flex items-center justify-end gap-1 sm:gap-6">
             <nav className="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest font-semibold text-[#2B2723]">
-              <Link
-                href="/#craft-story"
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all"
-              >
+              <Link href="/#craft-story" className={linkCls}>
                 Our Story
               </Link>
-
               {!hideSizeGuide && (
                 <button
                   type="button"
                   onClick={handleSizeGuideClick}
-                  className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs"
+                  className={`${linkCls} cursor-pointer flex items-center gap-1 uppercase tracking-widest font-semibold text-xs`}
                 >
                   <Ruler className="w-3.5 h-3.5" />
                   <span>Size Guide</span>
                 </button>
               )}
-
-              <Link
-                href="/#location"
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all flex items-center gap-1"
-              >
-                <MapPin className="w-3 h-3 text-[#B59757]" />
-                <span>Atelier</span>
-              </Link>
-
-              <Link
-                href="/#faq"
-                className="hover:text-[#7A1B38] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#7A1B38] hover:after:w-full after:transition-all"
-              >
+              <Link href="/#faq" className={linkCls}>
                 FAQs
               </Link>
             </nav>
 
-            {/* Cart Trigger Button */}
+            <Link
+              href="/shop"
+              aria-label="Search products"
+              className="md:hidden p-2 rounded-full text-[#2B2723] hover:bg-[#F3ECE2]"
+            >
+              <Search className="w-5 h-5" />
+            </Link>
+
             <button
               onClick={effectiveOpenCart}
-              className="relative p-2.5 rounded-full bg-white border border-[#E4D9CC] hover:border-[#7A1B38] text-[#2B2723] hover:text-[#7A1B38] transition-all shadow-xs group shrink-0 cursor-pointer"
+              className="relative p-2 md:p-2.5 rounded-full md:bg-white md:border border-[#E4D9CC] hover:border-[#7A1B38] text-[#2B2723] hover:text-[#7A1B38] transition-all shrink-0 cursor-pointer"
               aria-label="View Shopping Bag"
             >
-              <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-105" />
+              <ShoppingBag className="w-5 h-5" />
               {effectiveCartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-[#7A1B38] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs animate-scaleIn">
+                <span className="absolute -top-1 -right-1 bg-[#7A1B38] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
                   {effectiveCartCount}
                 </span>
               )}
             </button>
           </div>
-
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FAF6F1] border-b border-[#E4D9CC] px-5 pt-3 pb-6 space-y-4 animate-fadeIn max-h-[85vh] overflow-y-auto">
-          
-          {/* Mobile Categories Section */}
-          <div className="space-y-2">
-            <button
-              type="button"
-              onClick={() => setMobileCategoriesOpen(!mobileCategoriesOpen)}
-              className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#7A1B38] p-2 rounded-xl bg-[#7A1B38]/5 border border-[#7A1B38]/10 cursor-pointer"
-            >
-              <span>🌸 Shop By Category</span>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  mobileCategoriesOpen ? 'rotate-180' : ''
+        <div className="md:hidden bg-[#FAF6F1] border-t border-[#E4D9CC] px-4 pt-3 pb-6 animate-fadeIn max-h-[80vh] overflow-y-auto">
+          <p className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-wider text-[#8A8178]">Shop by category</p>
+          <div className="grid grid-cols-2 gap-2">
+            {menuCategories.map((cat) => (
+              <Link
+                key={cat.key}
+                href={shopHref(cat.key)}
+                onClick={() => closeMenus(cat.key)}
+                className={`px-3 py-3 rounded-lg border text-sm ${
+                  cat.key === 'Sale'
+                    ? 'bg-[#5C1329] border-[#5C1329] text-[#F6E7C1] font-semibold'
+                    : 'bg-white border-[#E4D9CC] text-[#2B2723]'
                 }`}
-              />
-            </button>
-
-            {mobileCategoriesOpen && (
-              <div className="space-y-1 pl-1 pr-1 pt-1">
-                {CATEGORIES_NAV.map((cat) => {
-                  const isSale = cat.isSale;
-                  const isActive = activeCategory === cat.key;
-
-                  return (
-                    <button
-                      key={cat.key}
-                      type="button"
-                      onClick={() => handleCategoryClick(cat.key, cat.slug)}
-                      className={`w-full px-3.5 py-2.5 rounded-xl text-left text-sm flex items-center justify-between cursor-pointer transition-colors ${
-                        isActive
-                          ? 'bg-[#7A1B38]/10 text-[#7A1B38] font-bold'
-                          : isSale
-                          ? 'bg-rose-50/70 text-[#E11D48] font-medium'
-                          : 'hover:bg-[#FAF6F1] text-[#2B2723] font-medium'
-                      }`}
-                    >
-                      <span>{cat.label}</span>
-                      {isSale ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#E11D48]/10 text-[#E11D48]">
-                          Sale
-                        </span>
-                      ) : (
-                        <ArrowRight className="w-3.5 h-3.5 text-[#8A8178]" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+              >
+                {cat.label}
+              </Link>
+            ))}
+            <Link
+              href="/shop"
+              onClick={() => closeMenus()}
+              className="col-span-2 px-3 py-3 rounded-lg border border-[#2B2723] text-sm text-center font-medium"
+            >
+              Shop all products
+            </Link>
           </div>
 
-          {/* Standard Navigation Links */}
-          <nav className="flex flex-col space-y-2 text-sm font-medium text-[#2B2723] pt-2 border-t border-[#E4D9CC]">
-            <Link
-              href="/#collection"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                if (onSelectCategory) onSelectCategory('All');
-              }}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between"
-            >
-              <span>All Collection</span>
-              <span className="text-xs bg-[#F3ECE2] px-2 py-0.5 rounded-md text-[#7A1B38] font-bold">
-                31+ Pieces
-              </span>
+          <nav className="mt-5 pt-3 border-t border-[#E4D9CC] flex flex-col text-sm text-[#2B2723]">
+            <Link href="/#craft-story" onClick={() => closeMenus()} className="px-2 py-3 border-b border-[#EFE6DA]">
+              Our story
             </Link>
-
-            <Link
-              href="/#categories"
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
-            >
-              ✨ Artisanal Crafts
-            </Link>
-
-            <Link
-              href="/#craft-story"
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
-            >
-              🌿 Our Story (Gaurav & Sonica)
-            </Link>
-
             {!hideSizeGuide && (
               <button
                 type="button"
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  closeMenus();
                   handleSizeGuideClick();
                 }}
-                className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center justify-between w-full text-left cursor-pointer"
+                className="px-2 py-3 border-b border-[#EFE6DA] text-left cursor-pointer"
               >
-                <span className="flex items-center gap-2">
-                  <Ruler className="w-4 h-4 text-[#7A1B38]" />
-                  <span>Women's Size Guide (Chart)</span>
-                </span>
-                <span className="text-[10px] bg-[#65897D]/15 text-[#65897D] font-bold px-2 py-0.5 rounded-full">
-                  CM & INCH
-                </span>
+                Size guide
               </button>
             )}
-
-            <Link
-              href="/#location"
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723] flex items-center gap-2"
-            >
-              <MapPin className="w-4 h-4 text-[#B59757]" />
-              <span>Jaipur Atelier & Google Map</span>
+            <Link href="/#location" onClick={() => closeMenus()} className="px-2 py-3 border-b border-[#EFE6DA]">
+              Visit our Jaipur studio
             </Link>
-
-            <Link
-              href="/#faq"
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2.5 rounded-xl hover:bg-[#F3ECE2] text-[#2B2723]"
-            >
-              ❓ Fabric Care & FAQs
+            <Link href="/#faq" onClick={() => closeMenus()} className="px-2 py-3 border-b border-[#EFE6DA]">
+              Fabric care & FAQs
             </Link>
-
-            <div className="pt-2 border-t border-[#E4D9CC] text-xs text-[#8A8178] flex items-center gap-2">
+            <a
+              href="https://wa.me/917023352132"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContact('WhatsApp Support', 'Navbar Menu')}
+              className="px-2 py-3 flex items-center gap-2"
+            >
               <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" size="16px" />
-              <a
-                href="https://wa.me/917023352132"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackContact('WhatsApp Support', 'Navbar Menu')}
-                className="hover:underline text-[#2B2723] font-medium"
-              >
-                WhatsApp Support: +91 70233 52132
-              </a>
-            </div>
+              WhatsApp us: +91 70233 52132
+            </a>
           </nav>
         </div>
       )}

@@ -4,7 +4,17 @@ import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { PRODUCTS } from '@/lib/products';
 import { Product, Size } from '@/types';
-import { Navbar, CategoryFilter } from '@/components/Navbar';
+import { Navbar } from '@/components/Navbar';
+import { DiwaliSaleBanner } from '@/components/DiwaliSaleBanner';
+import {
+  CATEGORIES,
+  CategoryFilter,
+  categoryFromSlug,
+  filterProductByCategory,
+  shopHref,
+} from '@/lib/catalog';
+import { isSaleLive } from '@/lib/sale';
+import Link from 'next/link';
 import { Hero } from '@/components/Hero';
 import { BrandTrust } from '@/components/BrandTrust';
 import { CraftCategories } from '@/components/CraftCategories';
@@ -17,129 +27,24 @@ import { FaqSection } from '@/components/FaqSection';
 import { AtelierLocation } from '@/components/AtelierLocation';
 import { Footer } from '@/components/Footer';
 import { SizeChartModal } from '@/components/SizeChartModal';
-import { Sparkles } from 'lucide-react';
-import { trackSearch } from '@/lib/metaPixel';
+import { ArrowRight } from 'lucide-react';
+import { trackSearch, trackContact } from '@/lib/metaPixel';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
+import { DiyaRow } from '@/components/FestiveDecor';
 import { trackGASearch } from '@/lib/gtag';
 
-// Category filter product matching logic
-export const filterProductByCategory = (p: Product, filter: CategoryFilter): boolean => {
-  if (filter === 'All') return true;
+const HOME_TABS: CategoryFilter[] = ['All', 'Sale', 'Short Kurti', 'Unstitched', 'Stitched', 'Jewellery'];
+const HOME_LIMIT = 8;
 
-  if (filter === 'Jewellery') {
-    return (
-      p.tags.includes('Jewellery') ||
-      p.tags.includes('Artificial Jewellery') ||
-      p.title.toLowerCase().includes('jewellery') ||
-      p.title.toLowerCase().includes('necklace') ||
-      p.title.toLowerCase().includes('choker')
-    );
-  }
-
-  if (filter === 'End of Season Sale') {
-    return (
-      p.tags.includes('End of Season Sale') ||
-      p.tags.includes('Season End Sale') ||
-      p.price === 650 ||
-      p.price === 999
-    );
-  }
-
-  if (filter === 'Short Kurti') {
-    return (
-      p.tags.includes('Short Kurti') ||
-      p.title.toLowerCase().includes('short kurti') ||
-      p.subtitle.toLowerCase().includes('short kurti') ||
-      (p.title.toLowerCase().includes('short') && p.title.toLowerCase().includes('kurti'))
-    );
-  }
-
-  if (filter === 'Unstitched') {
-    if (p.tags.includes('Jewellery') || p.tags.includes('Artificial Jewellery')) return false;
-    return (
-      p.tags.includes('Unstitched') ||
-      Boolean(p.sizes && p.sizes.includes('Unstitched')) ||
-      p.title.toLowerCase().includes('unstitched') ||
-      p.subtitle.toLowerCase().includes('unstitched')
-    );
-  }
-
-  if (filter === '3-Piece Set') {
-    return (
-      p.tags.includes('3-Piece Set') ||
-      p.title.toLowerCase().includes('3-piece') ||
-      p.subtitle.toLowerCase().includes('3-piece') ||
-      p.fabric.toLowerCase().includes('3-piece') ||
-      (p.subtitle.toLowerCase().includes('dupatta') &&
-        (p.subtitle.toLowerCase().includes('pant') || p.subtitle.toLowerCase().includes('trouser')))
-    );
-  }
-
-  if (filter === 'Stitched') {
-    if (p.tags.includes('Jewellery') || p.tags.includes('Artificial Jewellery')) return false;
-    const isUnstitched =
-      p.tags.includes('Unstitched') ||
-      Boolean(p.sizes && p.sizes.length === 1 && p.sizes[0] === 'Unstitched') ||
-      p.title.toLowerCase().includes('unstitched') ||
-      p.subtitle.toLowerCase().includes('unstitched');
-    return !isUnstitched;
-  }
-
-  return true;
-};
-
-const FILTER_TABS: { key: CategoryFilter; label: string; isSale?: boolean }[] = [
-  { key: 'All', label: 'All Collection' },
-  { key: 'End of Season Sale', label: 'End of Season Sale', isSale: true },
-  { key: 'Unstitched', label: 'Unstitched Suits' },
-  { key: 'Stitched', label: 'Stitched Suits' },
-  { key: 'Short Kurti', label: 'Short Kurtis' },
-  { key: '3-Piece Set', label: '3-Piece Sets' },
-  { key: 'Jewellery', label: 'Anti Tarnish Jewellery' },
-];
-
-// Handles syncing ?category=... from URL query to state
-function CategoryUrlSync({
-  onSelectCategory,
-}: {
-  onSelectCategory: (cat: CategoryFilter) => void;
-}) {
+// Old links like /?category=sale now live on the shop page.
+function LegacyCategoryRedirect() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
-    const catParam = searchParams.get('category');
-    if (!catParam) return;
-
-    const lower = catParam.toLowerCase().trim();
-    let matched: CategoryFilter | null = null;
-
-    if (lower === 'sale' || lower === 'end-of-season-sale' || lower === 'deals') {
-      matched = 'End of Season Sale';
-    } else if (lower === 'jewellery' || lower === 'jewelry' || lower === 'anti-tarnish' || lower === 'anti-tarnish-jewellery' || lower === 'choker') {
-      matched = 'Jewellery';
-    } else if (lower === 'unstitched' || lower === 'unstitched-suit' || lower === 'cut-fabric') {
-      matched = 'Unstitched';
-    } else if (lower === 'stitched' || lower === 'ready-to-wear' || lower === 'stitched-suits') {
-      matched = 'Stitched';
-    } else if (lower === 'short-kurti' || lower === 'short-kurtis' || lower === 'kurti' || lower === 'kurtis') {
-      matched = 'Short Kurti';
-    } else if (lower === '3-piece-set' || lower === '3-piece' || lower === 'sets' || lower === 'complete-set') {
-      matched = '3-Piece Set';
-    } else if (lower === 'all') {
-      matched = 'All';
-    }
-
-    if (matched) {
-      onSelectCategory(matched);
-      // Smooth scroll to product collection
-      const timer = setTimeout(() => {
-        const el = document.getElementById('collection');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 150);
-      return () => clearTimeout(timer);
-    }
-  }, [searchParams, onSelectCategory]);
+    const cat = searchParams.get('category');
+    if (cat) router.replace(shopHref(categoryFromSlug(cat)));
+  }, [searchParams, router]);
 
   return null;
 }
@@ -177,12 +82,14 @@ export default function HomePage() {
 
   // Filter products based on active tab
   const filteredProducts = PRODUCTS.filter((p) => filterProductByCategory(p, activeFilter));
+  const tabs = HOME_TABS.filter((k) => k !== 'Sale' || isSaleLive());
+  const tabLabel = (k: CategoryFilter) => (k === 'All' ? 'All' : CATEGORIES.find((c) => c.key === k)?.label || k);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
       {/* URL category synchronization wrapped in Suspense */}
       <Suspense fallback={null}>
-        <CategoryUrlSync onSelectCategory={handleFilterChange} />
+        <LegacyCategoryRedirect />
       </Suspense>
 
       {/* Responsive Header Navbar with Dropdown & Active Filter Sync */}
@@ -194,113 +101,109 @@ export default function HomePage() {
 
       {/* Main Content Body */}
       <main className="flex-1">
-        {/* 1. Hero Section */}
+        {/* Diwali hero slider */}
         <Hero onSelectCategory={handleFilterChange} />
 
-        {/* 2. Brand Guarantee Trust Bar */}
+        {/* Trust strip */}
         <BrandTrust />
 
-        {/* 3. Craft & Signature Collection Categories Grid */}
+        {/* Shop by category */}
         <div id="categories">
-          <CraftCategories
-            activeCategory={activeFilter}
-            onSelectCategory={(cat) => handleFilterChange(cat)}
-          />
+          <CraftCategories />
         </div>
 
-        {/* 4. Curated Products Collection Section */}
-        <section id="collection" className="py-16 md:py-24 px-6 lg:px-12 max-w-7xl mx-auto border-b border-[#E4D9CC]">
-          
-          {/* Section Heading */}
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-[#7A1B38] bg-[#7A1B38]/10 px-4 py-1.5 rounded-full border border-[#7A1B38]/20">
-              <Sparkles className="w-3.5 h-3.5 text-[#B59757]" /> Signature Artisanal Edit
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-serif font-medium text-[#2B2723] tracking-tight">
-              Curated Suits & Kurtis Collection
-            </h2>
-            <p className="text-sm sm:text-base text-[#8A8178]">
-              Handcrafted Premium Suits, Kurtis & Unstitched Sets • Pure breathable cotton & instant Razorpay checkout.
-            </p>
+        {/* Diwali sale block (hidden automatically once the sale ends) */}
+        <DiwaliSaleBanner />
 
-            {/* Interactive Filter Tabs */}
-            <div className="flex items-center justify-center gap-2.5 pt-6 flex-wrap">
-              {FILTER_TABS.map(({ key, label, isSale }) => {
-                const count = PRODUCTS.filter((p) => filterProductByCategory(p, key)).length;
-
-                return (
-                  <button
-                    key={key}
-                    onClick={() => handleFilterChange(key)}
-                    className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
-                      activeFilter === key
-                        ? isSale
-                          ? 'bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-lg border-[#E11D48] ring-2 ring-[#E11D48]/30'
-                          : 'bg-[#7A1B38] text-white shadow-md border-[#7A1B38]'
-                        : isSale
-                        ? 'bg-rose-50 text-[#E11D48] border-[#E11D48]/40 hover:bg-rose-100/70 shadow-2xs'
-                        : 'bg-white text-[#2B2723] border-[#E4D9CC] hover:border-[#7A1B38] shadow-2xs'
-                    }`}
-                  >
-                    {isSale && (
-                      <span className="relative flex h-2 w-2 shrink-0">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
-                      </span>
-                    )}
-                    <span>{label}</span>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                      activeFilter === key
-                        ? 'bg-white/20 text-white'
-                        : isSale
-                        ? 'bg-[#E11D48]/15 text-[#E11D48]'
-                        : 'bg-[#F3ECE2] text-[#7A1B38]'
-                    }`}>
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
+        {/* Featured products: a short preview, the full range lives on /shop */}
+        <section id="collection" className="py-10 sm:py-16 px-3 sm:px-6 lg:px-12 max-w-7xl mx-auto w-full">
+          <div className="flex items-end justify-between gap-4 mb-4 px-1">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">Handcrafted in Jaipur</p>
+              <h2 className="mt-1 text-3xl sm:text-4xl font-serif text-[#2B2723]">Our collection</h2>
             </div>
+            <Link
+              href={shopHref(activeFilter)}
+              className="hidden sm:inline-flex items-center gap-1.5 text-sm text-[#7A1B38] font-medium hover:underline underline-offset-4"
+            >
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
+          <div className="-mx-3 px-3 sm:mx-0 sm:px-0 flex gap-2 overflow-x-auto no-scrollbar pb-1 mb-5">
+            {tabs.map((key) => {
+              const on = activeFilter === key;
+              const isSale = key === 'Sale';
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => handleFilterChange(key)}
+                  className={`shrink-0 px-4 py-2 rounded-full text-[13px] border transition-colors cursor-pointer ${
+                    on
+                      ? 'bg-[#7A1B38] border-[#7A1B38] text-white'
+                      : isSale
+                      ? 'bg-[#FFF6E6] border-[#E6C98A] text-[#7A1B38] font-medium'
+                      : 'bg-white border-[#E4D9CC] text-[#2B2723] hover:border-[#7A1B38]'
+                  }`}
+                >
+                  {tabLabel(key)}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+            {filteredProducts.slice(0, HOME_LIMIT).map((product) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
+          <div className="mt-8 text-center">
+            <Link
+              href={shopHref(activeFilter)}
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-full border border-[#2B2723] text-sm font-medium hover:bg-[#2B2723] hover:text-white transition-colors"
+            >
+              View all {filteredProducts.length} {activeFilter === 'All' ? 'products' : tabLabel(activeFilter).toLowerCase()}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </section>
 
-        {/* 5. Artisanal Heritage Craft Storytelling */}
-        <CraftStory />
-
-        {/* 6. Interactive Style & Occasion Guide */}
+        {/* Festive looks built around real products */}
         <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'M')} />
 
-        {/* 7. Verified Customer Reviews */}
+        {/* Founders' story and how pieces are made */}
+        <CraftStory />
+
+        {/* Customer reviews */}
         <CustomerReviews />
 
-        {/* 8. Jaipur Atelier Physical Presence & Google Maps */}
+        {/* Jaipur studio & map */}
         <AtelierLocation />
 
-        {/* 9. Frequently Asked Questions */}
+        {/* FAQs */}
         <FaqSection onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
-        {/* Brand Banner Quote in Royal Burgundy */}
-        <section className="bg-[#7A1B38] text-[#FAF6F1] py-16 px-6">
-          <div className="max-w-4xl mx-auto text-center space-y-4">
-            <h3 className="text-2xl sm:text-4xl font-serif italic leading-relaxed">
-              "Every thread tells a story of rich artisanal heritage and timeless Indian craftsmanship."
-            </h3>
-            <p className="text-xs uppercase tracking-widest text-[#B59757] font-bold">
-              Saga Fabrics • Handcrafted Suits & Kurtis
+        {/* Personal help strip */}
+        <section className="relative overflow-hidden bg-[#3A0B1A] text-[#F6E7C1] pt-12 pb-20 sm:pt-16 sm:pb-24 px-5">
+          <div className="relative z-10 max-w-2xl mx-auto text-center">
+            <h3 className="text-3xl sm:text-4xl font-serif text-[#FBEFD3]">Need help picking an outfit?</h3>
+            <p className="mt-3 text-sm sm:text-base text-[#F6E7C1]/80">
+              Tell us the occasion and your size on WhatsApp. We&apos;ll send you a few options with real photos.
             </p>
+            <a
+              href="https://wa.me/917023352132?text=Hi%20Saga%20Fabrics!%20Can%20you%20help%20me%20pick%20an%20outfit%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContact('WhatsApp Support', 'Home Help Strip')}
+              className="mt-6 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BE5C] text-white text-sm font-semibold transition-colors"
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-current" size="16px" />
+              Chat on WhatsApp
+            </a>
           </div>
+          <DiyaRow className="absolute bottom-0 inset-x-0 px-2" count={9} />
         </section>
       </main>
 

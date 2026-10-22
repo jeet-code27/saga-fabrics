@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { PRODUCTS } from '@/lib/products';
 import { Product } from '@/types';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
+import { productKind, isJewellery } from '@/lib/catalog';
+import { isSaleProduct } from '@/lib/sale';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -83,18 +85,20 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  // Related products from similar craft or tag
-  const relatedProducts = PRODUCTS.filter(
-    (p) => p.id !== product.id && (p.craft === product.craft || p.tags.some((t) => product.tags.includes(t)))
-  ).slice(0, 4);
+  // Suggestions: same kind of piece first (kurti → kurtis), then shared craft and tags.
+  const others = PRODUCTS.filter((p) => p.id !== product.id && p.inStock);
+  const kind = productKind(product);
+  const score = (p: Product) =>
+    (productKind(p) === kind ? 10 : 0) +
+    (isJewellery(p) === isJewellery(product) ? 4 : 0) +
+    (p.craft === product.craft ? 2 : 0) +
+    p.tags.filter((t) => product.tags.includes(t)).length;
+  const relatedProducts = [...others].sort((a, b) => score(b) - score(a)).slice(0, 8);
 
-  // Fallback if not enough related
-  if (relatedProducts.length < 4) {
-    const additional = PRODUCTS.filter(
-      (p) => p.id !== product.id && !relatedProducts.some((r) => r.id === p.id)
-    ).slice(0, 4 - relatedProducts.length);
-    relatedProducts.push(...additional);
-  }
+  // Cross-sell: jewellery with clothing, festive clothing with jewellery.
+  const pairProducts = isJewellery(product)
+    ? others.filter((p) => !isJewellery(p) && isSaleProduct(p)).slice(0, 6)
+    : others.filter(isJewellery).slice(0, 6);
 
   const primaryImage = product.images[0].startsWith('http')
     ? product.images[0]
@@ -148,6 +152,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <ProductDetailClient
         product={product}
         relatedProducts={relatedProducts}
+        pairProducts={pairProducts}
       />
     </>
   );

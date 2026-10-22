@@ -8,6 +8,7 @@ import { MicrosoftClarity } from '@/components/MicrosoftClarity';
 import { GlobalWhatsAppFloat } from '@/components/GlobalWhatsAppFloat';
 import { CartProvider } from '@/context/CartContext';
 import { CartDrawer } from '@/components/CartDrawer';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -145,6 +146,7 @@ export default function RootLayout({
           {children}
           <CartDrawer />
           <GlobalWhatsAppFloat />
+          <MobileBottomNav />
         </CartProvider>
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"

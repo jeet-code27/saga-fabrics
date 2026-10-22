@@ -8,6 +8,7 @@ import { Product, Size } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { ProductSizeChart } from '@/components/ProductSizeChart';
 import { ProductCard } from '@/components/ProductCard';
+import { SALE, isSaleLive, isSaleProduct } from '@/lib/sale';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { trackViewContent, trackAddToCart, trackContact } from '@/lib/metaPixel';
@@ -32,11 +33,13 @@ import { DeliveryEstimator } from '@/components/DeliveryEstimator';
 interface ProductDetailClientProps {
   product: Product;
   relatedProducts: Product[];
+  pairProducts?: Product[];
 }
 
 export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   product,
   relatedProducts,
+  pairProducts = [],
 }) => {
   const isJewellery =
     product.tags.includes('Jewellery') ||
@@ -77,9 +80,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     ((product.originalPrice - product.price) / product.originalPrice) * 100
   );
 
-  const isSale =
-    product.tags.includes('End of Season Sale') ||
-    product.tags.includes('Season End Sale');
+  const isSale = isSaleProduct(product) && isSaleLive();
 
   const hasFreeJhumka = product.tags.includes('Free Jhumka');
   const hasFreeBangles = product.tags.includes('Free Bangles');
@@ -157,8 +158,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             Home
           </Link>
           <span>/</span>
-          <Link href="/#collection" className="hover:text-[#7A1B38] transition-colors">
-            Collection
+          <Link href="/shop" className="hover:text-[#7A1B38] transition-colors">
+            Shop
           </Link>
           <span>/</span>
           <span className="text-[#2B2723] font-medium truncate max-w-[200px] sm:max-w-none">
@@ -192,35 +193,31 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
 
-            {/* ONLY End of Season Sale over image with continuous blink */}
+            {/* Festive sale badge over image */}
             {isSale && (
               <div className="absolute top-4 left-4 z-10 pointer-events-none">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] shadow-md ring-1 ring-white/50 animate-pulse">
-                  <span className="relative flex h-2 w-2 shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-90"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                  </span>
-                  <span>End of Season Sale</span>
+                <span className="inline-flex items-center text-xs font-semibold tracking-wide px-3 py-1 rounded bg-[#5C1329] text-[#F6E7C1] shadow-md">
+                  {SALE.name}
                 </span>
               </div>
             )}
 
             {/* Free Jhumka Offer Badge */}
-            {hasFreeJhumka && !isSale && (
-              <div className="absolute top-4 left-4 z-10 pointer-events-none">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-rose-700 to-[#7A1B38] shadow-md ring-1 ring-white/50">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
-                  <span>Free Jhumka Offer</span>
+            {hasFreeJhumka && (
+              <div className={`absolute ${isSale ? 'bottom-4' : 'top-4'} left-4 z-10 pointer-events-none`}>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded bg-white/95 text-[#1B4D3E] shadow-md">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Free jhumkas included</span>
                 </span>
               </div>
             )}
 
             {/* Free Bangles Offer Badge */}
-            {hasFreeBangles && !isSale && (
-              <div className="absolute top-4 left-4 z-10 pointer-events-none">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full text-white bg-gradient-to-r from-amber-600 via-emerald-700 to-[#1B4D3E] shadow-md ring-1 ring-white/50">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
-                  <span>Free Bangles Offer</span>
+            {hasFreeBangles && (
+              <div className={`absolute ${isSale ? 'bottom-4' : 'top-4'} left-4 z-10 pointer-events-none`}>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded bg-white/95 text-[#1B4D3E] shadow-md">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Free bangles included</span>
                 </span>
               </div>
             )}
@@ -254,8 +251,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </div>
             <div className="p-3 bg-white rounded-2xl border border-[#DCD3C7] flex flex-col items-center text-center gap-1">
               <Shield className="w-5 h-5 text-[#65897D]" />
-              <span className="font-bold text-[#2B2723]">100% Cotton</span>
-              <span className="text-[10px]">Breathable craft</span>
+              <span className="font-bold text-[#2B2723]">Secure Payment</span>
+              <span className="text-[10px]">UPI & cards</span>
             </div>
             <div className="p-3 bg-white rounded-2xl border border-[#DCD3C7] flex flex-col items-center text-center gap-1">
               <Clock className="w-5 h-5 text-[#65897D]" />
@@ -292,12 +289,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           <div className="p-5 sm:p-6 bg-white rounded-3xl border border-[#DCD3C7] shadow-sm space-y-3">
             {isSale && (
               <div className="flex items-center justify-between pb-2.5 border-b border-[#F3ECE2]">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#E11D48] flex items-center gap-1.5">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
-                  </span>
-                  End of Season Sale
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#7A1B38]">
+                  {SALE.name} price
                 </span>
                 <span className="bg-emerald-50 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">
                   Save ₹{(product.originalPrice - product.price).toLocaleString('en-IN')}
@@ -634,38 +627,48 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         </div>
       </div>
 
-      {/* Related Products from Curated Collection */}
-      {relatedProducts.length > 0 && (
-        <section className="pt-12 border-t border-[#E4D9CC] space-y-6">
-          <div className="flex items-center justify-between">
+      {/* Cross-sell: complete the look */}
+      {pairProducts.length > 0 && (
+        <section className="pt-10 border-t border-[#E4D9CC]">
+          <div className="flex items-end justify-between gap-4 mb-4">
             <div>
-              <span className="text-xs uppercase tracking-widest text-[#7A1B38] font-bold">
-                More Handcrafted Designs
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-serif font-medium text-[#2B2723]">
-                You May Also Love
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">Complete the look</p>
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif text-[#2B2723]">
+                {isJewellery ? 'Wear it with' : 'Pair it with'}
               </h3>
             </div>
             <Link
-              href="/#collection"
-              className="text-xs font-bold text-[#7A1B38] hover:underline"
+              href={isJewellery ? '/shop?category=sale' : '/shop?category=jewellery'}
+              className="text-sm text-[#7A1B38] font-medium hover:underline underline-offset-4 shrink-0"
             >
-              View Full Collection →
+              See all →
             </Link>
           </div>
+          <div className="-mx-4 px-4 sm:mx-0 sm:px-0 flex gap-3 sm:gap-5 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-1">
+            {pairProducts.map((p) => (
+              <div key={p.id} className="snap-start shrink-0 w-[44%] sm:w-[30%] lg:w-[22%]">
+                <ProductCard product={p} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* You may also like */}
+      {relatedProducts.length > 0 && (
+        <section className="pt-10 border-t border-[#E4D9CC]">
+          <div className="flex items-end justify-between gap-4 mb-4">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">More from Saga</p>
+              <h3 className="mt-1 text-2xl sm:text-3xl font-serif text-[#2B2723]">You may also like</h3>
+            </div>
+            <Link href="/shop" className="text-sm text-[#7A1B38] font-medium hover:underline underline-offset-4 shrink-0">
+              Shop all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
             {relatedProducts.map((rel) => (
-              <ProductCard
-                key={rel.id}
-                product={rel}
-                onSelectProduct={() => {}}
-                onDirectBuy={() => {
-                  if (typeof window !== 'undefined') {
-                    window.location.href = `/products/${rel.id}`;
-                  }
-                }}
-              />
+              <ProductCard key={rel.id} product={rel} />
             ))}
           </div>
         </section>
@@ -685,6 +688,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         }
       />
 
+      <div className="h-16 sm:hidden" aria-hidden="true" />
+
       {/* Sticky Bottom Buy Bar on Mobile */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DCD3C7] px-3 py-2.5 sm:hidden shadow-2xl flex items-center justify-between gap-2">
         <div className="min-w-0 pr-1">
@@ -697,7 +702,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </span>
           </div>
           <span className="text-[10px] text-[#5C7056] font-semibold block truncate">
-            {isStitched ? `Selected: ${selectedSize}` : '100% Unstitched'}
+            {isStitched ? `Selected: ${selectedSize}` : isJewellery ? 'Free size' : 'Unstitched set'}
           </span>
         </div>
 
