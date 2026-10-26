@@ -240,23 +240,23 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#FDFBF7] text-[#2D2A26] flex flex-col">
       {/* Admin Top Header */}
       <header className="bg-white border-b border-[#EDE7E1] sticky top-0 z-30 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors" title="Back to storefront">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Link href="/" className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors shrink-0" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <Image src="/images/saga-fabrics-new.png" alt="Saga Fabrics" width={120} height={40} className="h-10 w-auto object-contain" style={{ width: 'auto', height: 'auto' }} />
-              <div>
-                <h1 className="text-lg sm:text-xl font-bold font-serif text-[#9E6962]">Admin</h1>
+              <Image src="/images/saga-fabrics-new.png" alt="Saga Fabrics" width={110} height={36} className="h-8 sm:h-10 w-auto object-contain shrink-0" priority />
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-xl font-bold font-serif text-[#9E6962] truncate">Admin</h1>
                 <p className="text-[11px] text-[#78716C] font-medium hidden sm:block">Orders, products & stock</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               {tab === 'orders' && <button
                 onClick={fetchOrders}
-                className="p-2.5 rounded-full bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] text-[#2D2A26] transition-all text-xs font-semibold flex items-center gap-1.5"
+                className="p-2 sm:p-2.5 rounded-full bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] text-[#2D2A26] transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                 title="Refresh Order List"
               >
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -264,7 +264,7 @@ export default function AdminPage() {
               </button>}
               <button
                 onClick={handleLogout}
-                className="px-3.5 py-2 rounded-full border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-semibold transition-colors"
+                className="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-semibold transition-colors cursor-pointer"
               >
                 Logout
               </button>
@@ -294,7 +294,7 @@ export default function AdminPage() {
       {tab === 'products' && <ProductManager />}
 
       {/* Main Admin Body */}
-      {tab === 'orders' && <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+      {tab === 'orders' && <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 flex-1 w-full space-y-5 sm:space-y-8">
 
         {/* Toast Alert Banner */}
         {toastMsg && (
@@ -308,60 +308,60 @@ export default function AdminPage() {
         )}
 
         {/* KPI Stats Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962] shrink-0">
-              <IndianRupee className="w-5 h-5" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962] shrink-0">
+              <IndianRupee className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <span className="text-[11px] text-[#78716C] font-medium block">Total Revenue</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">₹{totalRevenue.toLocaleString('en-IN')}</h3>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0">
-              <ShoppingBag className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] text-[#78716C] font-medium block">Total Orders</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{totalOrders}</h3>
+            <div className="min-w-0">
+              <span className="text-[10px] sm:text-[11px] text-[#78716C] font-medium block truncate">Total Revenue</span>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2A26] font-serif truncate">₹{totalRevenue.toLocaleString('en-IN')}</h3>
             </div>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-700 shrink-0">
-              <Package className="w-5 h-5" />
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0">
+              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <span className="text-[11px] text-[#78716C] font-medium block">Total Units Sold</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{totalUnitsSold}</h3>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-700 shrink-0">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] text-[#78716C] font-medium block">Pending Dispatch</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{pendingShipments}</h3>
+            <div className="min-w-0">
+              <span className="text-[10px] sm:text-[11px] text-[#78716C] font-medium block truncate">Total Orders</span>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2A26] font-serif truncate">{totalOrders}</h3>
             </div>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3.5 col-span-2 sm:col-span-1">
-            <div className="w-11 h-11 rounded-2xl bg-[#7D8F85]/15 flex items-center justify-center text-[#7D8F85] shrink-0">
-              <CheckCircle2 className="w-5 h-5" />
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-700 shrink-0">
+              <Package className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <span className="text-[11px] text-[#78716C] font-medium block">Delivered Orders</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#2D2A26] font-serif">{deliveredOrders}</h3>
+            <div className="min-w-0">
+              <span className="text-[10px] sm:text-[11px] text-[#78716C] font-medium block truncate">Total Units</span>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2A26] font-serif truncate">{totalUnitsSold}</h3>
+            </div>
+          </div>
+
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-700 shrink-0">
+              <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div className="min-w-0">
+              <span className="text-[10px] sm:text-[11px] text-[#78716C] font-medium block truncate">Pending Dispatch</span>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2A26] font-serif truncate">{pendingShipments}</h3>
+            </div>
+          </div>
+
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs flex items-center gap-3 col-span-2 sm:col-span-1">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#7D8F85]/15 flex items-center justify-center text-[#7D8F85] shrink-0">
+              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div className="min-w-0">
+              <span className="text-[10px] sm:text-[11px] text-[#78716C] font-medium block truncate">Delivered Orders</span>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2A26] font-serif truncate">{deliveredOrders}</h3>
             </div>
           </div>
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="bg-white p-4 rounded-2xl border border-[#EDE7E1] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-[#EDE7E1] shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
 
           <div className="relative w-full sm:w-80">
             <Search className="w-4 h-4 text-[#78716C] absolute left-3.5 top-3" />
@@ -374,12 +374,12 @@ export default function AdminPage() {
             />
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 w-full sm:w-auto">
             {['ALL', 'Pending', 'Processing', 'Dispatched', 'Delivered'].map((status) => (
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${statusFilter === status
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 cursor-pointer ${statusFilter === status
                     ? 'bg-[#9E6962] text-white'
                     : 'bg-[#FDFBF7] text-[#5C554E] hover:bg-[#EDE7E1]'
                   }`}
@@ -390,10 +390,10 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Orders Table */}
-        <div className="bg-white rounded-3xl border border-[#EDE7E1] shadow-xs overflow-hidden">
-          <div className="p-5 border-b border-[#EDE7E1] flex items-center justify-between">
-            <h2 className="text-lg font-bold font-serif text-[#2D2A26]">Customer Orders List</h2>
+        {/* Orders Table & Mobile Cards */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#EDE7E1] shadow-xs overflow-hidden">
+          <div className="p-4 sm:p-5 border-b border-[#EDE7E1] flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4">
+            <h2 className="text-base sm:text-lg font-bold font-serif text-[#2D2A26]">Customer Orders List</h2>
             <span className="text-xs text-[#78716C]">Showing {filteredOrders.length} of {orders.length} orders</span>
           </div>
 
@@ -402,28 +402,20 @@ export default function AdminPage() {
           ) : filteredOrders.length === 0 ? (
             <div className="p-12 text-center text-[#78716C] text-sm">No orders found matching your search.</div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[#FDFBF7] text-[#5C554E] font-bold border-b border-[#EDE7E1] uppercase tracking-wider">
-                  <tr>
-                    <th className="py-3.5 px-4">Order ID & Date</th>
-                    <th className="py-3.5 px-4">Customer Details</th>
-                    <th className="py-3.5 px-4">Product(s) & Specification</th>
-                    <th className="py-3.5 px-4">Amount</th>
-                    <th className="py-3.5 px-4">Razorpay Payment ID</th>
-                    <th className="py-3.5 px-4">Status</th>
-                    <th className="py-3.5 px-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#F2EAE1]">
-                  {filteredOrders.map((order) => {
-                    const totalUnitsInOrder = order.items?.reduce((sum, it) => sum + (it.quantity || 1), 0) || 0;
-                    return (
-                      <tr key={order.id} className="hover:bg-[#FDFBF7]/50 transition-colors">
-
-                        <td className="py-4 px-4 font-mono font-bold text-[#9E6962] align-top">
-                          <div>{order.id}</div>
-                          <div className="text-[10px] text-[#78716C] font-sans font-normal mt-0.5">
+            <>
+              {/* Mobile Orders Card View (Visible on screens < md) */}
+              <div className="block md:hidden divide-y divide-[#EDE7E1]">
+                {filteredOrders.map((order) => {
+                  const totalUnitsInOrder = order.items?.reduce((sum, it) => sum + (it.quantity || 1), 0) || 0;
+                  return (
+                    <div key={order.id} className="p-4 space-y-3 hover:bg-[#FDFBF7]/60 transition-colors">
+                      {/* Top Header: ID, Date & Status Dropdown */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="font-mono font-bold text-sm text-[#9E6962]">
+                            {order.id}
+                          </div>
+                          <div className="text-[10px] text-[#78716C] mt-0.5">
                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
                               day: 'numeric',
                               month: 'short',
@@ -432,165 +424,332 @@ export default function AdminPage() {
                               minute: '2-digit',
                             })}
                           </div>
-                        </td>
+                        </div>
 
-                        <td className="py-4 px-4 align-top">
-                          <div className="font-bold text-[#2D2A26]">{order.customer.name}</div>
-                          <div className="text-[#78716C]">{order.customer.phone}</div>
-                          <div className="text-[11px] text-[#78716C] truncate max-w-[180px]">
-                            {order.customer.city}, {order.customer.state} ({order.customer.pincode})
-                          </div>
-                        </td>
+                        {/* Status dropdown */}
+                        <select
+                          value={order.status}
+                          onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
+                          className={`px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors cursor-pointer focus:outline-none shrink-0 ${order.status === 'Delivered'
+                              ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                              : order.status === 'Dispatched'
+                                ? 'bg-blue-100 text-blue-800 border-blue-300'
+                                : order.status === 'Processing'
+                                  ? 'bg-amber-100 text-amber-800 border-amber-300'
+                                  : 'bg-gray-100 text-gray-800 border-gray-300'
+                            }`}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Processing">Processing</option>
+                          <option value="Dispatched">Dispatched</option>
+                          <option value="Delivered">Delivered</option>
+                          <option value="Cancelled">Cancelled</option>
+                        </select>
+                      </div>
 
-                        <td className="py-4 px-4 align-top">
-                          {order.items && order.items.length > 0 ? (
-                            <div className="space-y-2 min-w-[240px] max-w-[320px]">
-                              {order.items.length > 1 && (
-                                <div className="inline-flex items-center gap-1.5 bg-[#9E6962] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">
-                                  <span>📦 {order.items.length} Products</span>
-                                  <span>•</span>
-                                  <span>{totalUnitsInOrder} Total Units</span>
+                      {/* Customer Details Box */}
+                      <div className="bg-[#FDFBF7] p-2.5 rounded-xl border border-[#EDE7E1] text-xs space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#2D2A26]">{order.customer.name}</span>
+                          <a
+                            href={`tel:${order.customer.phone}`}
+                            className="text-[#9E6962] font-semibold hover:underline flex items-center gap-1 text-[11px]"
+                          >
+                            <Phone className="w-3 h-3" />
+                            {order.customer.phone}
+                          </a>
+                        </div>
+                        <p className="text-[11px] text-[#78716C] truncate">
+                          {order.customer.city}, {order.customer.state} ({order.customer.pincode})
+                        </p>
+                      </div>
+
+                      {/* Products preview */}
+                      {order.items && order.items.length > 0 && (
+                        <div className="space-y-2">
+                          {order.items.length > 1 && (
+                            <div className="inline-flex items-center gap-1.5 bg-[#9E6962] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">
+                              <span>📦 {order.items.length} Products</span>
+                              <span>•</span>
+                              <span>{totalUnitsInOrder} Units</span>
+                            </div>
+                          )}
+                          {order.items.map((item, idx) => (
+                            <div key={idx} className="flex items-start gap-2.5 bg-[#FAF6F0]/80 p-2 rounded-xl border border-[#EDE7E1]">
+                              <Image
+                                src={item.image}
+                                alt={item.productTitle}
+                                width={40}
+                                height={52}
+                                className="w-10 h-13 object-cover object-top rounded-lg border border-[#EDE7E1] shrink-0"
+                              />
+                              <div className="min-w-0 flex-1">
+                                <p className="font-bold text-[#2D2A26] line-clamp-1 font-serif text-xs" title={item.productTitle}>
+                                  {item.productTitle}
+                                </p>
+                                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                                  {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
+                                    <span className="inline-block bg-[#9E6962] text-white font-bold text-[9px] px-1.5 py-0.5 rounded">
+                                      Unstitched
+                                    </span>
+                                  ) : (
+                                    <span className="inline-block bg-amber-600 text-white font-extrabold text-[9px] px-1.5 py-0.5 rounded shadow-2xs">
+                                      Size: {item.size}
+                                    </span>
+                                  )}
+                                  <span className="text-[10px] font-bold text-[#2D2A26] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1]">
+                                    Qty: <strong className="text-[#9E6962]">{item.quantity || 1}</strong>
+                                  </span>
+                                  <span className="text-[10px] font-semibold text-[#5C554E]">
+                                    ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
+                                  </span>
                                 </div>
-                              )}
-                              {order.items.map((item, idx) => (
-                                <div key={idx} className="flex items-start gap-2.5 bg-[#FAF6F0]/80 p-2 rounded-xl border border-[#EDE7E1]">
-                                  <Image
-                                    src={item.image}
-                                    alt={item.productTitle}
-                                    width={38}
-                                    height={48}
-                                    className="w-9 h-11 object-cover object-top rounded-lg border border-[#EDE7E1] shrink-0"
-                                  />
-                                  <div className="min-w-0 flex-1">
-                                    <p className="font-bold text-[#2D2A26] line-clamp-1 font-serif text-xs" title={item.productTitle}>
-                                      {item.productTitle}
-                                    </p>
-                                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                                      {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
-                                        <span className="inline-block bg-[#9E6962] text-white font-bold text-[9px] px-1.5 py-0.5 rounded">
-                                          Unstitched
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Amount & Razorpay ID */}
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <div>
+                          <span className="text-[10px] text-[#78716C] block">Total Amount</span>
+                          <span className="font-bold text-sm text-[#2D2A26] font-serif">
+                            ₹{order.totalAmount.toLocaleString('en-IN')}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[10px] text-[#78716C] block">Payment ID</span>
+                          <span className="font-mono text-[10px] text-[#5C554E] block truncate max-w-[140px]">
+                            {order.razorpayPaymentId || 'pay_simulated'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Mobile Actions Toolbar */}
+                      <div className="flex items-center gap-2 pt-2 border-t border-[#F2EAE1]">
+                        <button
+                          onClick={() => setSelectedOrder(order)}
+                          className="flex-1 py-2 px-3 rounded-xl bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] text-[#2D2A26] text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>View Details</span>
+                        </button>
+                        <button
+                          onClick={() => handleResendEmail(order.id, 'confirmation')}
+                          disabled={sendingEmailId === order.id}
+                          className="py-2 px-3 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors disabled:opacity-50 cursor-pointer"
+                          title="Resend Email"
+                        >
+                          <Send className={`w-3.5 h-3.5 ${sendingEmailId === order.id ? 'animate-spin' : ''}`} />
+                          <span className="hidden xs:inline">Email</span>
+                        </button>
+                        <button
+                          onClick={() => handleDeleteOrder(order.id)}
+                          className="py-2 px-3 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white border border-rose-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                          title="Delete Order"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Desktop/Tablet Orders Table (Hidden on screens < md) */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#FDFBF7] text-[#5C554E] font-bold border-b border-[#EDE7E1] uppercase tracking-wider">
+                    <tr>
+                      <th className="py-3.5 px-4">Order ID & Date</th>
+                      <th className="py-3.5 px-4">Customer Details</th>
+                      <th className="py-3.5 px-4">Product(s) & Specification</th>
+                      <th className="py-3.5 px-4">Amount</th>
+                      <th className="py-3.5 px-4">Razorpay Payment ID</th>
+                      <th className="py-3.5 px-4">Status</th>
+                      <th className="py-3.5 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#F2EAE1]">
+                    {filteredOrders.map((order) => {
+                      const totalUnitsInOrder = order.items?.reduce((sum, it) => sum + (it.quantity || 1), 0) || 0;
+                      return (
+                        <tr key={order.id} className="hover:bg-[#FDFBF7]/50 transition-colors">
+
+                          <td className="py-4 px-4 font-mono font-bold text-[#9E6962] align-top">
+                            <div>{order.id}</div>
+                            <div className="text-[10px] text-[#78716C] font-sans font-normal mt-0.5">
+                              {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                              })}
+                            </div>
+                          </td>
+
+                          <td className="py-4 px-4 align-top">
+                            <div className="font-bold text-[#2D2A26]">{order.customer.name}</div>
+                            <div className="text-[#78716C]">{order.customer.phone}</div>
+                            <div className="text-[11px] text-[#78716C] truncate max-w-[180px]">
+                              {order.customer.city}, {order.customer.state} ({order.customer.pincode})
+                            </div>
+                          </td>
+
+                          <td className="py-4 px-4 align-top">
+                            {order.items && order.items.length > 0 ? (
+                              <div className="space-y-2 min-w-[240px] max-w-[320px]">
+                                {order.items.length > 1 && (
+                                  <div className="inline-flex items-center gap-1.5 bg-[#9E6962] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">
+                                    <span>📦 {order.items.length} Products</span>
+                                    <span>•</span>
+                                    <span>{totalUnitsInOrder} Total Units</span>
+                                  </div>
+                                )}
+                                {order.items.map((item, idx) => (
+                                  <div key={idx} className="flex items-start gap-2.5 bg-[#FAF6F0]/80 p-2 rounded-xl border border-[#EDE7E1]">
+                                    <Image
+                                      src={item.image}
+                                      alt={item.productTitle}
+                                      width={38}
+                                      height={48}
+                                      className="w-9 h-11 object-cover object-top rounded-lg border border-[#EDE7E1] shrink-0"
+                                    />
+                                    <div className="min-w-0 flex-1">
+                                      <p className="font-bold text-[#2D2A26] line-clamp-1 font-serif text-xs" title={item.productTitle}>
+                                        {item.productTitle}
+                                      </p>
+                                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                                        {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
+                                          <span className="inline-block bg-[#9E6962] text-white font-bold text-[9px] px-1.5 py-0.5 rounded">
+                                            Unstitched
+                                          </span>
+                                        ) : (
+                                          <span className="inline-block bg-amber-600 text-white font-extrabold text-[9px] px-1.5 py-0.5 rounded shadow-2xs">
+                                            Size: {item.size}
+                                          </span>
+                                        )}
+                                        <span className="text-[11px] font-bold text-[#2D2A26] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1]">
+                                          Qty: <strong className="text-[#9E6962]">{item.quantity || 1}</strong>
                                         </span>
-                                      ) : (
-                                        <span className="inline-block bg-amber-600 text-white font-extrabold text-[9px] px-1.5 py-0.5 rounded shadow-2xs">
-                                          Size: {item.size}
+                                        <span className="text-[11px] font-semibold text-[#5C554E]">
+                                          ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
                                         </span>
-                                      )}
-                                      <span className="text-[11px] font-bold text-[#2D2A26] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1]">
-                                        Qty: <strong className="text-[#9E6962]">{item.quantity || 1}</strong>
-                                      </span>
-                                      <span className="text-[11px] font-semibold text-[#5C554E]">
-                                        ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
-                                      </span>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            'N/A'
-                          )}
-                        </td>
+                                ))}
+                              </div>
+                            ) : (
+                              'N/A'
+                            )}
+                          </td>
 
-                        <td className="py-4 px-4 font-bold text-[#2D2A26] text-sm align-top">
-                          <div>₹{order.totalAmount.toLocaleString('en-IN')}</div>
-                          {order.items?.length > 1 && (
-                            <span className="text-[10px] text-[#78716C] font-normal block mt-0.5">
-                              ({order.items.length} products total)
-                            </span>
-                          )}
-                        </td>
+                          <td className="py-4 px-4 font-bold text-[#2D2A26] text-sm align-top">
+                            <div>₹{order.totalAmount.toLocaleString('en-IN')}</div>
+                            {order.items?.length > 1 && (
+                              <span className="text-[10px] text-[#78716C] font-normal block mt-0.5">
+                                ({order.items.length} products total)
+                              </span>
+                            )}
+                          </td>
 
-                        <td className="py-4 px-4 font-mono text-[11px] text-[#5C554E]">
-                          {order.razorpayPaymentId || 'pay_simulated'}
-                        </td>
+                          <td className="py-4 px-4 font-mono text-[11px] text-[#5C554E]">
+                            {order.razorpayPaymentId || 'pay_simulated'}
+                          </td>
 
-                        <td className="py-4 px-4">
-                          <select
-                            value={order.status}
-                            onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
-                            className={`px-2.5 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer focus:outline-none ${order.status === 'Delivered'
-                                ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                                : order.status === 'Dispatched'
-                                  ? 'bg-blue-100 text-blue-800 border-blue-300'
-                                  : order.status === 'Processing'
-                                    ? 'bg-amber-100 text-amber-800 border-amber-300'
-                                    : 'bg-gray-100 text-gray-800 border-gray-300'
-                              }`}
-                          >
-                            <option value="Pending">Pending</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Dispatched">Dispatched</option>
-                            <option value="Delivered">Delivered</option>
-                            <option value="Cancelled">Cancelled</option>
-                          </select>
-                        </td>
+                          <td className="py-4 px-4">
+                            <select
+                              value={order.status}
+                              onChange={(e) => handleStatusChange(order.id, e.target.value as OrderStatus)}
+                              className={`px-2.5 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer focus:outline-none ${order.status === 'Delivered'
+                                  ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                  : order.status === 'Dispatched'
+                                    ? 'bg-blue-100 text-blue-800 border-blue-300'
+                                    : order.status === 'Processing'
+                                      ? 'bg-amber-100 text-amber-800 border-amber-300'
+                                      : 'bg-gray-100 text-gray-800 border-gray-300'
+                                }`}
+                            >
+                              <option value="Pending">Pending</option>
+                              <option value="Processing">Processing</option>
+                              <option value="Dispatched">Dispatched</option>
+                              <option value="Delivered">Delivered</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
+                          </td>
 
-                        <td className="py-4 px-4 text-right space-x-2">
-                          <button
-                            onClick={() => handleResendEmail(order.id, 'confirmation')}
-                            disabled={sendingEmailId === order.id}
-                            className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200 transition-colors disabled:opacity-50 inline-flex items-center"
-                            title="Resend Order Confirmation Mail to Customer"
-                          >
-                            <Send className={`w-4 h-4 ${sendingEmailId === order.id ? 'animate-spin' : ''}`} />
-                          </button>
-                          <button
-                            onClick={() => setSelectedOrder(order)}
-                            className="p-1.5 rounded-lg bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] transition-colors inline-flex items-center"
-                            title="View Order Details"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteOrder(order.id)}
-                            className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white transition-colors inline-flex items-center"
-                            title="Delete Order"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </td>
+                          <td className="py-4 px-4 text-right space-x-2">
+                            <button
+                              onClick={() => handleResendEmail(order.id, 'confirmation')}
+                              disabled={sendingEmailId === order.id}
+                              className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200 transition-colors disabled:opacity-50 inline-flex items-center cursor-pointer"
+                              title="Resend Order Confirmation Mail to Customer"
+                            >
+                              <Send className={`w-4 h-4 ${sendingEmailId === order.id ? 'animate-spin' : ''}`} />
+                            </button>
+                            <button
+                              onClick={() => setSelectedOrder(order)}
+                              className="p-1.5 rounded-lg bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] transition-colors inline-flex items-center cursor-pointer"
+                              title="View Order Details"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteOrder(order.id)}
+                              className="p-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white transition-colors inline-flex items-center cursor-pointer"
+                              title="Delete Order"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </td>
 
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </div>
       </main>}
 
       {/* Detailed Order Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-6 border border-[#EDE7E1] shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 border border-[#EDE7E1] shadow-2xl relative my-auto max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setSelectedOrder(null)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-600"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-600 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962]">
+              <div className="w-10 h-10 rounded-full bg-[#9E6962]/10 flex items-center justify-center text-[#9E6962] shrink-0">
                 <Package className="w-5 h-5" />
               </div>
-              <div>
-                <h3 className="text-lg font-bold font-serif text-[#2D2A26]">Order Details • {selectedOrder.id}</h3>
+              <div className="min-w-0 pr-8">
+                <h3 className="text-base sm:text-lg font-bold font-serif text-[#2D2A26] truncate">Order Details • {selectedOrder.id}</h3>
                 <p className="text-xs text-[#78716C]">Placed on {new Date(selectedOrder.createdAt).toLocaleString('en-IN')}</p>
               </div>
             </div>
 
-            <div className="p-4 bg-[#FDFBF7] rounded-2xl border border-[#EDE7E1] space-y-2 text-xs">
+            <div className="p-3.5 sm:p-4 bg-[#FDFBF7] rounded-2xl border border-[#EDE7E1] space-y-2 text-xs">
               <h4 className="font-bold text-[#7D8F85] uppercase tracking-wider text-[10px]">Customer Shipping Details</h4>
               <p className="font-bold text-sm text-[#2D2A26]">{selectedOrder.customer.name}</p>
-              <p className="flex items-center gap-1 text-[#5C554E]">
-                <Phone className="w-3.5 h-3.5 text-[#9E6962]" /> {selectedOrder.customer.phone}
+              <p className="flex items-center gap-1.5 text-[#5C554E]">
+                <Phone className="w-3.5 h-3.5 text-[#9E6962] shrink-0" />
+                <a href={`tel:${selectedOrder.customer.phone}`} className="hover:underline">{selectedOrder.customer.phone}</a>
               </p>
-              <p className="flex items-center gap-1 text-[#5C554E]">
-                <Mail className="w-3.5 h-3.5 text-[#9E6962]" /> {selectedOrder.customer.email || 'N/A'}
+              <p className="flex items-center gap-1.5 text-[#5C554E]">
+                <Mail className="w-3.5 h-3.5 text-[#9E6962] shrink-0" />
+                <span className="truncate">{selectedOrder.customer.email || 'N/A'}</span>
               </p>
-              <p className="flex items-start gap-1 text-[#5C554E] pt-1 border-t border-[#EDE7E1]">
+              <p className="flex items-start gap-1.5 text-[#5C554E] pt-1.5 border-t border-[#EDE7E1]">
                 <MapPin className="w-3.5 h-3.5 text-[#9E6962] shrink-0 mt-0.5" />
                 <span>{selectedOrder.customer.address}, {selectedOrder.customer.city}, {selectedOrder.customer.state} - {selectedOrder.customer.pincode}</span>
               </p>
@@ -598,58 +757,58 @@ export default function AdminPage() {
 
             {/* Products Ordered List */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <h4 className="font-bold text-[#7D8F85] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <h4 className="font-bold text-[#7D8F85] uppercase tracking-wider text-[10px] sm:text-[11px] flex items-center gap-1.5">
                   <Package className="w-3.5 h-3.5 text-[#9E6962]" />
                   <span>
                     Ordered Products ({selectedOrder.items?.length || 0} Products • {selectedOrder.items?.reduce((s, i) => s + (i.quantity || 1), 0) || 0} Total Units)
                   </span>
                 </h4>
-                <span className="text-xs font-semibold text-[#9E6962] bg-[#9E6962]/10 px-2.5 py-0.5 rounded-full">
+                <span className="text-xs font-semibold text-[#9E6962] bg-[#9E6962]/10 px-2.5 py-0.5 rounded-full w-fit">
                   Total: ₹{selectedOrder.totalAmount.toLocaleString('en-IN')}
                 </span>
               </div>
 
-              <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
+              <div className="space-y-2.5 max-h-[240px] sm:max-h-[280px] overflow-y-auto pr-1">
                 {selectedOrder.items?.map((item, idx) => (
-                  <div key={idx} className="p-3.5 bg-[#FAF6F0]/70 rounded-2xl border border-[#EDE7E1] flex items-center gap-3.5">
+                  <div key={idx} className="p-3 sm:p-3.5 bg-[#FAF6F0]/70 rounded-2xl border border-[#EDE7E1] flex items-start gap-3">
                     <Image
                       src={item.image}
                       alt={item.productTitle}
                       width={56}
                       height={72}
-                      className="w-14 h-18 object-cover object-top rounded-xl border border-[#EDE7E1] shrink-0"
+                      className="w-12 h-16 sm:w-14 sm:h-18 object-cover object-top rounded-xl border border-[#EDE7E1] shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <h4 className="font-serif font-bold text-sm text-[#2D2A26] line-clamp-1" title={item.productTitle}>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#2D2A26] line-clamp-1" title={item.productTitle}>
                           {item.productTitle}
                         </h4>
-                        <span className="font-mono text-[10px] text-[#78716C] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1] shrink-0">
+                        <span className="font-mono text-[9px] sm:text-[10px] text-[#78716C] bg-white px-1.5 py-0.5 rounded border border-[#EDE7E1] shrink-0">
                           SKU: {item.productId || 'N/A'}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-xs text-[#5C554E] mt-1.5 flex-wrap">
+                      <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-[#5C554E] mt-1.5 flex-wrap">
                         {(!item.size || item.size.toLowerCase().includes('unstitched') || item.size.toLowerCase() === 'free size') ? (
-                          <span className="text-[#9E6962] bg-[#9E6962]/10 px-2 py-0.5 rounded font-bold text-[10px]">
-                            100% Unstitched Fabric Set
+                          <span className="text-[#9E6962] bg-[#9E6962]/10 px-1.5 sm:px-2 py-0.5 rounded font-bold text-[9px] sm:text-[10px]">
+                            Unstitched Set
                           </span>
                         ) : (
-                          <span className="text-amber-800 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded font-extrabold text-[10px]">
-                            👗 Stitched • Size: {item.size}
+                          <span className="text-amber-800 bg-amber-100 border border-amber-300 px-1.5 sm:px-2 py-0.5 rounded font-extrabold text-[9px] sm:text-[10px]">
+                            👗 Size: {item.size}
                           </span>
                         )}
                         <span>•</span>
-                        <span>Unit: <strong>₹{item.price.toLocaleString('en-IN')}</strong></span>
+                        <span className="text-[11px]">Unit: <strong>₹{item.price.toLocaleString('en-IN')}</strong></span>
                         <span>•</span>
-                        <span className="bg-white px-2 py-0.5 rounded border border-[#EDE7E1]">
+                        <span className="bg-white px-1.5 sm:px-2 py-0.5 rounded border border-[#EDE7E1] text-[11px]">
                           Qty: <strong className="text-[#9E6962] font-bold">{item.quantity || 1}</strong>
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between text-xs text-[#78716C] mt-2 pt-1 border-t border-[#EDE7E1]/60">
-                        <span>Line Total:</span>
+                        <span className="text-[11px]">Line Total:</span>
                         <strong className="text-[#2D2A26] font-bold">
                           ₹{(item.price * (item.quantity || 1)).toLocaleString('en-IN')}
                         </strong>
@@ -661,7 +820,7 @@ export default function AdminPage() {
             </div>
 
             {/* Financial & Payment Summary */}
-            <div className="p-4 bg-[#FAF6F0] rounded-2xl border border-[#EDE7E1] space-y-2 text-xs">
+            <div className="p-3.5 sm:p-4 bg-[#FAF6F0] rounded-2xl border border-[#EDE7E1] space-y-2 text-xs">
               <div className="flex justify-between text-[#78716C]">
                 <span>Items Subtotal:</span>
                 <span className="font-medium text-[#2D2A26]">
@@ -678,30 +837,30 @@ export default function AdminPage() {
                   ₹{selectedOrder.totalAmount.toLocaleString('en-IN')}
                 </span>
               </div>
-              <div className="pt-2 text-[11px] text-[#78716C] font-mono border-t border-dashed border-[#EDE7E1] flex flex-col sm:flex-row justify-between gap-1">
-                <span>Razorpay Payment: {selectedOrder.razorpayPaymentId || 'pay_simulated'}</span>
-                <span>Order ID: {selectedOrder.razorpayOrderId || selectedOrder.id}</span>
+              <div className="pt-2 text-[10px] sm:text-[11px] text-[#78716C] font-mono border-t border-dashed border-[#EDE7E1] flex flex-col sm:flex-row justify-between gap-1">
+                <span className="truncate">Razorpay Payment: {selectedOrder.razorpayPaymentId || 'pay_simulated'}</span>
+                <span className="truncate">Order ID: {selectedOrder.razorpayOrderId || selectedOrder.id}</span>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 pt-1 sm:pt-2">
               <button
                 onClick={() => handleResendEmail(selectedOrder.id, 'confirmation')}
                 disabled={sendingEmailId === selectedOrder.id}
-                className="w-full sm:w-auto px-4 py-3 bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-800 font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                className="w-full sm:w-auto px-4 py-2.5 sm:py-3 bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-800 font-semibold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 <Send className={`w-4 h-4 text-blue-600 ${sendingEmailId === selectedOrder.id ? 'animate-spin' : ''}`} />
                 {sendingEmailId === selectedOrder.id ? 'Sending...' : 'Resend Order Email'}
               </button>
               <button
                 onClick={() => window.print()}
-                className="w-full sm:w-auto px-4 py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2.5 sm:py-3 bg-[#FDFBF7] border border-[#EDE7E1] hover:bg-gray-100 text-[#2D2A26] font-semibold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Printer className="w-4 h-4 text-[#9E6962]" /> Print Packing Slip
               </button>
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="w-full sm:flex-1 py-3 bg-[#9E6962] hover:bg-[#885650] text-white font-semibold text-xs rounded-xl"
+                className="w-full sm:flex-1 py-2.5 sm:py-3 bg-[#9E6962] hover:bg-[#885650] text-white font-semibold text-xs rounded-xl cursor-pointer"
               >
                 Close View
               </button>
