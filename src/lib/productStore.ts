@@ -51,7 +51,7 @@ const cachedAll = unstable_cache(
       return PRODUCTS;
     }
   },
-  ['all-products-v1'],
+  ['all-products-v2'],
   { tags: [PRODUCTS_TAG] }
 );
 

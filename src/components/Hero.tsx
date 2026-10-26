@@ -7,8 +7,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { CategoryFilter } from './Navbar';
 import { Product } from '@/types';
 import { useProducts } from '@/context/ProductsContext';
-import { SALE, isSaleLive } from '@/lib/sale';
-import { maxSaleDiscount, filterProductByCategory } from '@/lib/catalog';
+import { filterProductByCategory } from '@/lib/catalog';
 import { Toran, DiyaRow } from '@/components/FestiveDecor';
 
 interface HeroProps {
@@ -34,43 +33,30 @@ const minPriceIn = (products: Product[], pred: (p: Product) => boolean) => {
   return prices.length ? Math.min(...prices) : 0;
 };
 
-const buildSlides = (saleLive: boolean, products: Product[]): Slide[] => {
+const buildSlides = (products: Product[]): Slide[] => {
   const minPrice = (pred: (p: Product) => boolean) => minPriceIn(products, pred);
   return [
-  saleLive
-    ? {
-        id: 'diwali',
-        eyebrow: `${SALE.name} · up to ${maxSaleDiscount(products)}% off`,
-        title: 'This Diwali, wear something',
-        titleEm: 'made by hand',
-        text: 'Chikankari suits, silk kurtis and jewellery from our Jaipur studio, at festive prices. Free shipping across India.',
-        cta: 'Shop the sale',
-        href: '/shop?category=sale',
-        priceNote: `Kurtis from ${inr(minPrice((p) => filterProductByCategory(p, 'Short Kurti')))}`,
-        image: '/images/products/short-kurti-1.jpg',
-        imageAlt: 'Hand-embroidered white cotton kurti',
-      }
-    : {
-        id: 'handmade',
-        eyebrow: 'Handcrafted in Jaipur',
-        title: 'Suits and kurtis,',
-        titleEm: 'made by hand',
-        text: 'Chikankari suits, cotton and silk kurtis, sent straight from our Jaipur studio. Free shipping across India.',
-        cta: 'Shop the collection',
-        href: '/shop',
-        priceNote: `Kurtis from ${inr(minPrice((p) => filterProductByCategory(p, 'Short Kurti')))}`,
-        image: '/images/products/short-kurti-1.jpg',
-        imageAlt: 'Hand-embroidered white cotton kurti',
-      },
+  {
+    id: 'kurti-jhumka-combo',
+    eyebrow: 'Diwali combo · kurti + jhumkas',
+    title: 'One kurti, one pair of jhumkas,',
+    titleEm: 'one price',
+    text: 'Hand-embroidered chikankari kurtis in pure cotton, each packed with a matching pair of silver-finish jhumkas. Free shipping across India.',
+    cta: 'Shop the combo',
+    href: '/shop?category=short-kurti',
+    priceNote: `${inr(minPrice((p) => p.tags.includes('Free Jhumka')))} · jhumkas free`,
+    image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp',
+    imageAlt: 'White and royal blue hand-embroidered chikankari kurti with a pair of jhumkas',
+  },
   {
     id: 'silk-kurti',
     eyebrow: 'New · festive silk kurtis',
-    title: 'Silk kurtis, with the',
-    titleEm: 'jhumkas on us',
-    text: 'Embroidered festive silk, ready to wear. Our new kurtis come with a free pair of silver-finish jhumkas.',
+    title: 'Festive silk,',
+    titleEm: 'ready to wear',
+    text: 'Wine, peacock teal and midnight black silk kurtis in size 42 — and these come with jhumkas too.',
     cta: 'Shop kurtis',
     href: '/shop?category=short-kurti',
-    priceNote: `From ${inr(minPrice((p) => p.tags.includes('Free Jhumka')))} + free jhumkas`,
+    priceNote: `From ${inr(minPrice((p) => p.tags.includes('Silk Kurti')))} + free jhumkas`,
     image: '/images/products/wine-maroon-silk-short-kurti.webp',
     imageAlt: 'Wine maroon silk short kurti with jhumkas',
   },
@@ -110,7 +96,7 @@ const AUTOPLAY_MS = 6000;
 
 export const Hero: React.FC<HeroProps> = () => {
   const products = useProducts();
-  const slides = buildSlides(isSaleLive(), products);
+  const slides = buildSlides(products);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);

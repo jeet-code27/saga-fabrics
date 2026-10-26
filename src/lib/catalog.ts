@@ -20,7 +20,7 @@ export interface CategoryDef {
 // Order here is the order shown in menus, chips and the "shop by category" row.
 export const CATEGORIES: CategoryDef[] = [
   { key: 'Sale', slug: 'sale', label: 'Diwali Sale', image: '/images/products/wine-maroon-silk-short-kurti.webp' },
-  { key: 'Short Kurti', slug: 'short-kurti', label: 'Short Kurtis', image: '/images/products/short-cotton-kurti-slate-blue-2.png' },
+  { key: 'Short Kurti', slug: 'short-kurti', label: 'Short Kurtis', image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp' },
   { key: 'Unstitched', slug: 'unstitched', label: 'Unstitched Suits', image: '/images/products/chikankari-three-piece-suit-lemon-yellow.webp' },
   { key: 'Stitched', slug: 'stitched', label: 'Stitched Suits', image: '/images/products/stitched-suit-emerald-green.jpeg' },
   { key: '3-Piece Set', slug: '3-piece-set', label: '3-Piece Sets', image: '/images/products/stitched-suit-rose-pink.jpeg' },
