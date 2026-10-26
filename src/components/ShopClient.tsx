@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, Search, X, ChevronDown } from 'lucide-react';
-import { PRODUCTS } from '@/lib/products';
+import { useProducts } from '@/context/ProductsContext';
 import {
   CATEGORIES,
   CategoryFilter,
@@ -15,7 +15,7 @@ import {
   SortKey,
   SORT_OPTIONS,
   PRICE_RANGES,
-  AVAILABLE_SIZES,
+  availableSizes,
   hasFreeGift,
   isUnstitched,
   isJewellery,
@@ -42,6 +42,8 @@ const toggle = (list: string[], v: string) =>
   list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
 
 export function ShopClient() {
+  const PRODUCTS = useProducts();
+  const AVAILABLE_SIZES = availableSizes(PRODUCTS);
   const router = useRouter();
   const params = useSearchParams();
   const category = categoryFromSlug(params.get('category'));
@@ -204,7 +206,7 @@ export function ShopClient() {
                 Ends in <SaleCountdown className="font-semibold" />
               </span>
             ) : (
-              <span className="text-xs shrink-0 font-semibold">Up to {maxSaleDiscount()}% off →</span>
+              <span className="text-xs shrink-0 font-semibold">Up to {maxSaleDiscount(PRODUCTS)}% off →</span>
             )}
           </Link>
         )}

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Order, OrderStatus } from '@/types';
 import Link from 'next/link';
+import { ProductManager } from '@/components/admin/ProductManager';
 import {
   Lock,
   ShoppingBag,
@@ -39,21 +40,23 @@ export default function AdminPage() {
   const [sendingEmailId, setSendingEmailId] = useState<string | null>(null);
   const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
-  const CORRECT_PASS = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'Knowledgepark@2026';
+  const [tab, setTab] = useState<'orders' | 'products'>('orders');
 
-  // Check saved session on initial load
+  // The passcode is checked on the server; the session lives in an httpOnly cookie.
   useEffect(() => {
     try {
-      const savedAuth = localStorage.getItem('saga_admin_auth');
-      if (savedAuth === CORRECT_PASS) {
-        setIsAuthenticated(true);
-        fetchOrders();
-      }
-    } catch {
-      // Local storage unavailable
-    } finally {
-      setCheckingAuth(false);
-    }
+      localStorage.removeItem('saga_admin_auth'); // old client-side session
+    } catch {}
+    fetch('/api/admin/session')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.authenticated) {
+          setIsAuthenticated(true);
+          fetchOrders();
+        }
+      })
+      .catch(() => {})
+      .finally(() => setCheckingAuth(false));
   }, []);
 
   const handleResendEmail = async (orderId: string, type: 'confirmation' | 'status_update' | 'admin_alert' = 'confirmation') => {
@@ -79,27 +82,30 @@ export default function AdminPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcode === CORRECT_PASS) {
-      try {
-        localStorage.setItem('saga_admin_auth', passcode);
-      } catch (err) {
-        console.error('Failed to save admin session:', err);
+    setPassError('');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passcode }),
+      });
+      if (res.ok) {
+        setPasscode('');
+        setIsAuthenticated(true);
+        fetchOrders();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setPassError(data.error === 'Incorrect passcode' ? 'Incorrect Admin Passcode. Please try again.' : data.error || 'Login failed');
       }
-      setIsAuthenticated(true);
-      fetchOrders();
-    } else {
-      setPassError('Incorrect Admin Passcode. Please try again.');
+    } catch {
+      setPassError('Network error. Please try again.');
     }
   };
 
-  const handleLogout = () => {
-    try {
-      localStorage.removeItem('saga_admin_auth');
-    } catch (err) {
-      console.error('Failed to clear admin session:', err);
-    }
+  const handleLogout = async () => {
+    await fetch('/api/admin/logout', { method: 'POST' }).catch(() => {});
     setIsAuthenticated(false);
   };
 
@@ -235,27 +241,27 @@ export default function AdminPage() {
       {/* Admin Top Header */}
       <header className="bg-white border-b border-[#EDE7E1] sticky top-0 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             <div className="flex items-center gap-3">
               <Link href="/" className="p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <Image src="/images/saga-fabrics-new.png" alt="Saga Fabrics" width={120} height={40} className="h-10 w-auto object-contain" style={{ width: 'auto', height: 'auto' }} />
               <div>
-                <h1 className="text-xl font-bold font-serif text-[#9E6962]">SAGA FABRICS Admin</h1>
-                <p className="text-[11px] text-[#78716C] font-medium">Order Fulfillment & Razorpay Payments</p>
+                <h1 className="text-lg sm:text-xl font-bold font-serif text-[#9E6962]">Admin</h1>
+                <p className="text-[11px] text-[#78716C] font-medium hidden sm:block">Orders, products & stock</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <button
+              {tab === 'orders' && <button
                 onClick={fetchOrders}
                 className="p-2.5 rounded-full bg-[#FDFBF7] hover:bg-[#9E6962] hover:text-white border border-[#EDE7E1] text-[#2D2A26] transition-all text-xs font-semibold flex items-center gap-1.5"
                 title="Refresh Order List"
               >
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                 <span className="hidden sm:inline">Refresh</span>
-              </button>
+              </button>}
               <button
                 onClick={handleLogout}
                 className="px-3.5 py-2 rounded-full border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-semibold transition-colors"
@@ -267,8 +273,28 @@ export default function AdminPage() {
         </div>
       </header>
 
+      {/* Section tabs */}
+      <nav className="bg-white border-b border-[#EDE7E1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-1">
+          {(['orders', 'products'] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              className={`px-5 py-3 text-sm font-semibold border-b-2 -mb-px capitalize cursor-pointer ${
+                tab === t ? 'border-[#7A1B38] text-[#7A1B38]' : 'border-transparent text-[#78716C]'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {tab === 'products' && <ProductManager />}
+
       {/* Main Admin Body */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+      {tab === 'orders' && <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
 
         {/* Toast Alert Banner */}
         {toastMsg && (
@@ -532,7 +558,7 @@ export default function AdminPage() {
             </div>
           )}
         </div>
-      </main>
+      </main>}
 
       {/* Detailed Order Modal */}
       {selectedOrder && (

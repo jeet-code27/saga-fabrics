@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { CategoryFilter } from './Navbar';
-import { PRODUCTS } from '@/lib/products';
+import { Product } from '@/types';
+import { useProducts } from '@/context/ProductsContext';
 import { SALE, isSaleLive } from '@/lib/sale';
 import { maxSaleDiscount, filterProductByCategory } from '@/lib/catalog';
 import { Toran, DiyaRow } from '@/components/FestiveDecor';
@@ -28,14 +29,18 @@ interface Slide {
 }
 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`;
-const minPrice = (pred: (p: (typeof PRODUCTS)[number]) => boolean) =>
-  Math.min(...PRODUCTS.filter(pred).map((p) => p.price));
+const minPriceIn = (products: Product[], pred: (p: Product) => boolean) => {
+  const prices = products.filter(pred).map((p) => p.price);
+  return prices.length ? Math.min(...prices) : 0;
+};
 
-const buildSlides = (saleLive: boolean): Slide[] => [
+const buildSlides = (saleLive: boolean, products: Product[]): Slide[] => {
+  const minPrice = (pred: (p: Product) => boolean) => minPriceIn(products, pred);
+  return [
   saleLive
     ? {
         id: 'diwali',
-        eyebrow: `${SALE.name} · up to ${maxSaleDiscount()}% off`,
+        eyebrow: `${SALE.name} · up to ${maxSaleDiscount(products)}% off`,
         title: 'This Diwali, wear something',
         titleEm: 'made by hand',
         text: 'Chikankari suits, silk kurtis and jewellery from our Jaipur studio, at festive prices. Free shipping across India.',
@@ -93,7 +98,8 @@ const buildSlides = (saleLive: boolean): Slide[] => [
     image: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg',
     imageAlt: 'Kundan polki choker set',
   },
-];
+  ];
+};
 
 // Fixed positions so server and client render the same sparkles.
 const SPARKLES = [
@@ -103,7 +109,8 @@ const SPARKLES = [
 const AUTOPLAY_MS = 6000;
 
 export const Hero: React.FC<HeroProps> = () => {
-  const slides = buildSlides(isSaleLive());
+  const products = useProducts();
+  const slides = buildSlides(isSaleLive(), products);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);

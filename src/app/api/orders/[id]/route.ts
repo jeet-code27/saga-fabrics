@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { isAdmin, unauthorized } from '@/lib/adminAuth';
 import { updateOrderStatus, deleteOrder, getOrderById } from '@/lib/db';
 import { sendOrderStatusUpdateEmail } from '@/lib/email';
 
@@ -6,6 +7,7 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!(await isAdmin())) return unauthorized();
   try {
     const { id } = await params;
     const order = await getOrderById(id);
@@ -22,6 +24,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!(await isAdmin())) return unauthorized();
   try {
     const { id } = await params;
     const { status } = await request.json();
@@ -50,6 +53,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!(await isAdmin())) return unauthorized();
   try {
     const { id } = await params;
     const deleted = await deleteOrder(id);

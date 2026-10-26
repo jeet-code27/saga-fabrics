@@ -1,5 +1,4 @@
 import { Product } from '@/types';
-import { PRODUCTS } from '@/lib/products';
 import { isSaleProduct, discountPercent } from '@/lib/sale';
 
 export type CategoryFilter =
@@ -163,11 +162,11 @@ export const PRICE_RANGES: PriceRange[] = [
 const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 
 // Sizes that actually exist in the catalogue (ready-to-wear only).
-export const AVAILABLE_SIZES: string[] = Array.from(
-  new Set(PRODUCTS.flatMap((p) => (isUnstitched(p) || isJewellery(p) ? [] : p.sizes || [])))
+export const availableSizes = (products: Product[]): string[] => Array.from(
+  new Set(products.flatMap((p) => (isUnstitched(p) || isJewellery(p) ? [] : p.sizes || [])))
 )
   .filter((s) => s !== 'Unstitched')
   .sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
 
-export const maxSaleDiscount = (): number =>
-  PRODUCTS.filter(isSaleProduct).reduce((m, p) => Math.max(m, discountPercent(p)), 0);
+export const maxSaleDiscount = (products: Product[]): number =>
+  products.filter(isSaleProduct).reduce((m, p) => Math.max(m, discountPercent(p)), 0);

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { PRODUCTS } from '@/lib/products';
+import { useProducts } from '@/context/ProductsContext';
 import { Product, Size } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { DiwaliSaleBanner } from '@/components/DiwaliSaleBanner';
@@ -50,6 +50,7 @@ function LegacyCategoryRedirect() {
 }
 
 export default function HomePage() {
+  const PRODUCTS = useProducts();
   const router = useRouter();
   const { setDirectBuy } = useCart();
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('All');

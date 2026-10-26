@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
-import { PRODUCTS } from '@/lib/products';
+import { getStoreProducts } from '@/lib/productStore';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://sagafabrics.in';
   const currentDate = new Date();
 
@@ -44,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
+  const productRoutes: MetadataRoute.Sitemap = (await getStoreProducts()).map((product) => ({
     url: `${baseUrl}/products/${product.id}`,
     lastModified: currentDate,
     changeFrequency: 'weekly',

@@ -11,7 +11,7 @@ export const GlobalWhatsAppFloat: React.FC = () => {
   const pathname = usePathname();
 
   // On individual product pages, the product-specific Quick Order button is rendered
-  if (pathname && pathname.startsWith('/products/')) {
+  if (pathname && (pathname.startsWith('/products/') || pathname.startsWith('/admin'))) {
     return null;
   }
 

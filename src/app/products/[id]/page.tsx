@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PRODUCTS } from '@/lib/products';
+import { getAllProducts, getProductById, getStoreProducts } from '@/lib/productStore';
 import { Product } from '@/types';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
 import { productKind, isJewellery } from '@/lib/catalog';
@@ -12,14 +12,14 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
-  return PRODUCTS.map((product) => ({
+  return (await getAllProducts()).map((product) => ({
     id: product.id,
   }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
-  const product = PRODUCTS.find((p) => p.id === id);
+  const product = await getProductById(id);
 
   if (!product) {
     return {
@@ -79,14 +79,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { id } = await params;
-  const product = PRODUCTS.find((p) => p.id === id);
+  const product = await getProductById(id);
 
   if (!product) {
     notFound();
   }
 
   // Suggestions: same kind of piece first (kurti → kurtis), then shared craft and tags.
-  const others = PRODUCTS.filter((p) => p.id !== product.id && p.inStock);
+  const others = (await getStoreProducts()).filter((p) => p.id !== product.id);
   const kind = productKind(product);
   const score = (p: Product) =>
     (productKind(p) === kind ? 10 : 0) +

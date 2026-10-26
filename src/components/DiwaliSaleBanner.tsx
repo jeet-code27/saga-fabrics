@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { PRODUCTS } from '@/lib/products';
+import { useProducts } from '@/context/ProductsContext';
 import { SALE, isSaleLive, isSaleProduct } from '@/lib/sale';
 import { maxSaleDiscount } from '@/lib/catalog';
 import { SaleCountdown } from '@/components/SaleCountdown';
 
 // Home page festive block: headline, countdown and a peek at real sale pieces.
 export const DiwaliSaleBanner: React.FC = () => {
+  const PRODUCTS = useProducts();
   if (!isSaleLive()) return null;
 
   const picks = PRODUCTS.filter(isSaleProduct).slice(0, 4);
@@ -29,7 +30,7 @@ export const DiwaliSaleBanner: React.FC = () => {
             {SALE.name}
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#F6E7C1]/80 max-w-md">
-            Up to {maxSaleDiscount()}% off, plus free jhumkas or bangles on selected pieces. {SALE.tagline}.
+            Up to {maxSaleDiscount(PRODUCTS)}% off, plus free jhumkas or bangles on selected pieces. {SALE.tagline}.
           </p>
 
           <div className="mt-6">

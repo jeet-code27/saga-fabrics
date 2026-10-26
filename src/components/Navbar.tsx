@@ -10,6 +10,7 @@ import { useCart } from '@/context/CartContext';
 import { CATEGORIES, CategoryFilter, shopHref, maxSaleDiscount } from '@/lib/catalog';
 import { SALE, isSaleLive } from '@/lib/sale';
 import { SaleCountdown } from '@/components/SaleCountdown';
+import { useProducts } from '@/context/ProductsContext';
 
 export type { CategoryFilter } from '@/lib/catalog';
 
@@ -35,6 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const saleLive = isSaleLive();
+  const products = useProducts();
 
   let liveCartCount = 0;
   let liveOpenCart = onOpenCart;
@@ -95,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
             <span className="font-semibold tracking-wide">
-              {SALE.name}: up to {maxSaleDiscount()}% off
+              {SALE.name}: up to {maxSaleDiscount(products)}% off
             </span>
             <span className="text-[#D9B871]">·</span>
             <span>

@@ -101,11 +101,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   const { addToCart, setDirectBuy } = useCart();
 
   const handleAddToCart = () => {
+    if (!product.inStock) return;
     const finalSize = isJewellery ? 'Free Size' : isStitched ? selectedSize : 'Unstitched';
     addToCart(product, finalSize, 1);
   };
 
   const handleDirectBuyNow = () => {
+    if (!product.inStock) return;
     const finalSize = isJewellery ? 'Free Size' : isStitched ? selectedSize : 'Unstitched';
     setDirectBuy(product, finalSize, 1);
     router.push('/checkout');
@@ -459,7 +461,17 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
           {/* Primary Action Buttons - Add to Bag, Buy Now & WhatsApp */}
           <div className="space-y-3 pt-1 w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {!product.inStock && (
+              <div className="p-4 rounded-2xl bg-[#F3ECE2] border border-[#E4D9CC] text-sm text-[#2B2723]">
+                <p className="font-semibold">Sold out</p>
+                <p className="text-[#6F665E] mt-0.5">
+                  This piece is out of stock right now.{' '}
+                  <Link href="/shop" className="text-[#7A1B38] underline underline-offset-2">See what&apos;s available</Link>
+                  {' '}or message us on WhatsApp to ask about a restock.
+                </p>
+              </div>
+            )}
+            {product.inStock && <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Option 1: Add to Bag */}
               <button
                 type="button"
@@ -479,7 +491,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <Sparkles className="w-4 h-4 text-[#B59757] transition-transform group-hover:scale-110" />
                 <span>Buy Now (Checkout)</span>
               </button>
-            </div>
+            </div>}
 
             {/* Option 3: Quick Order on WhatsApp */}
             <a
@@ -722,8 +734,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="18px" />
           </a>
 
+          {!product.inStock && (
+            <span className="py-2.5 px-4 bg-[#F3ECE2] text-[#6F665E] font-bold text-xs rounded-xl">Sold out</span>
+          )}
+
           {/* Add to Bag */}
-          <button
+          {product.inStock && <><button
             type="button"
             onClick={handleAddToCart}
             className="py-2.5 px-3 bg-white border border-[#7A1B38] text-[#7A1B38] font-bold text-xs rounded-xl shadow-2xs flex items-center justify-center gap-1 cursor-pointer transition-all active:scale-95"
@@ -739,7 +755,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             className="py-2.5 px-3.5 bg-[#7A1B38] hover:bg-[#5C142A] text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1 cursor-pointer shrink-0 transition-all active:scale-95"
           >
             <span>{isStitched ? `Buy (${selectedSize})` : 'Buy Now'}</span>
-          </button>
+          </button></>}
         </div>
       </div>
 

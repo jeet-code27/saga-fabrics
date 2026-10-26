@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { PRODUCTS } from '@/lib/products';
+import { useProducts } from '@/context/ProductsContext';
 import { Product, Size } from '@/types';
 
 interface StyleGuideProps {
@@ -31,6 +31,7 @@ const LOOKS = [
 ];
 
 export const StyleGuide: React.FC<StyleGuideProps> = () => {
+  const PRODUCTS = useProducts();
   const looks = LOOKS.map((l) => ({ ...l, product: PRODUCTS.find((p) => p.id === l.productId) })).filter(
     (l): l is (typeof l & { product: Product }) => Boolean(l.product)
   );

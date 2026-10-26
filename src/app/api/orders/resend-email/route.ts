@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { isAdmin, unauthorized } from '@/lib/adminAuth';
 import { getOrderById } from '@/lib/db';
 import {
   sendCustomerOrderConfirmationEmail,
@@ -7,6 +8,7 @@ import {
 } from '@/lib/email';
 
 export async function POST(request: Request) {
+  if (!(await isAdmin())) return unauthorized();
   try {
     const { orderId, type } = await request.json();
 
