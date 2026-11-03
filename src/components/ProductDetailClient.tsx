@@ -23,7 +23,7 @@ import {
   Share2,
   Check,
   MessageCircle,
-  Clock,
+  RotateCcw,
   Ruler,
   Scissors,
 } from 'lucide-react';
@@ -257,9 +257,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               <span className="text-[10px]">UPI & cards</span>
             </div>
             <div className="p-3 bg-white rounded-2xl border border-[#DCD3C7] flex flex-col items-center text-center gap-1">
-              <Clock className="w-5 h-5 text-[#65897D]" />
-              <span className="font-bold text-[#2B2723]">Fast Dispatch</span>
-              <span className="text-[10px]">Within 24 Hours</span>
+              <RotateCcw className="w-5 h-5 text-[#65897D]" />
+              <span className="font-bold text-[#2B2723]">7 Days Return & Exchange</span>
+              <span className="text-[10px]">Easy & hassle-free</span>
             </div>
           </div>
         </div>
