@@ -33,7 +33,7 @@ import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { DiyaRow } from '@/components/FestiveDecor';
 import { trackGASearch } from '@/lib/gtag';
 
-const HOME_TABS: CategoryFilter[] = ['All', 'Sale', 'Short Kurti', 'Unstitched', 'Stitched', 'Jewellery'];
+const HOME_TABS: CategoryFilter[] = ['All', 'Sale', 'Velvet', 'Short Kurti', 'Unstitched', 'Stitched', 'Jewellery'];
 const HOME_LIMIT = 8;
 
 // Old links like /?category=sale now live on the shop page.

@@ -4,6 +4,7 @@ import { isSaleProduct, discountPercent } from '@/lib/sale';
 export type CategoryFilter =
   | 'All'
   | 'Sale'
+  | 'Velvet'
   | 'Unstitched'
   | 'Stitched'
   | 'Short Kurti'
@@ -20,6 +21,7 @@ export interface CategoryDef {
 // Order here is the order shown in menus, chips and the "shop by category" row.
 export const CATEGORIES: CategoryDef[] = [
   { key: 'Sale', slug: 'sale', label: 'Diwali Sale', image: '/images/products/wine-maroon-silk-short-kurti.webp' },
+  { key: 'Velvet', slug: 'velvet-suits', label: 'Velvet Suits', image: '/images/products/velvet-suit-emerald-green.webp' },
   { key: 'Short Kurti', slug: 'short-kurti', label: 'Short Kurtis', image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp' },
   { key: 'Unstitched', slug: 'unstitched', label: 'Unstitched Suits', image: '/images/products/chikankari-three-piece-suit-lemon-yellow.webp' },
   { key: 'Stitched', slug: 'stitched', label: 'Stitched Suits', image: '/images/products/stitched-suit-emerald-green.jpeg' },
@@ -53,6 +55,8 @@ const SLUG_ALIASES: Record<string, CategoryFilter> = {
   '3-piece': '3-Piece Set',
   sets: '3-Piece Set',
   'complete-set': '3-Piece Set',
+  'velvet-suits': 'Velvet',
+  velvet: 'Velvet',
 };
 
 export const categoryFromSlug = (slug: string | null | undefined): CategoryFilter =>
@@ -89,6 +93,8 @@ export const filterProductByCategory = (p: Product, filter: CategoryFilter): boo
       return !isJewellery(p) && !isUnstitched(p);
     case 'Short Kurti':
       return p.tags.includes('Short Kurti') || text(p).includes('short kurti');
+    case 'Velvet':
+      return p.tags.includes('Velvet Suit') || /velvet/i.test(p.title);
     case '3-Piece Set':
       return (
         p.tags.includes('3-Piece Set') ||

@@ -37,16 +37,28 @@ const buildSlides = (products: Product[]): Slide[] => {
   const minPrice = (pred: (p: Product) => boolean) => minPriceIn(products, pred);
   return [
   {
+    id: 'velvet-suits',
+    eyebrow: 'New in · velvet suits',
+    title: 'Winter velvet suits,',
+    titleEm: 'jhumkas included',
+    text: 'Ready-to-wear velvet kurta, pants and dupatta with stone work, in ten rich colours. Sizes L and XL, with a free pair of jhumkas.',
+    cta: 'Shop velvet suits',
+    href: '/shop?category=velvet-suits',
+    priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · jhumkas free`,
+    image: '/images/products/velvet-suit-emerald-green.webp',
+    imageAlt: 'Emerald green velvet suit set with stone work',
+  },
+  {
     id: 'kurti-jhumka-combo',
-    eyebrow: 'Diwali combo · kurti + jhumkas',
+    eyebrow: 'Combo · kurti + jhumkas',
     title: 'One kurti, one pair of jhumkas,',
     titleEm: 'one price',
     text: 'Hand-embroidered chikankari kurtis in pure cotton, each packed with a matching pair of silver-finish jhumkas. Free shipping across India.',
     cta: 'Shop the combo',
     href: '/shop?category=short-kurti',
-    priceNote: `${inr(minPrice((p) => p.tags.includes('Free Jhumka')))} · jhumkas free`,
-    image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp',
-    imageAlt: 'White and royal blue hand-embroidered chikankari kurti with a pair of jhumkas',
+    priceNote: `${inr(minPrice((p) => p.tags.includes('Free Jhumka') && p.tags.includes('Chikankari')))} · jhumkas free`,
+    image: '/images/products/hand-embroidered-white-navy-chikankari-kurti.webp',
+    imageAlt: 'White and navy hand-embroidered chikankari kurti with a pair of jhumkas',
   },
   {
     id: 'silk-kurti',

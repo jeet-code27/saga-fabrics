@@ -6,7 +6,7 @@ export type ProductType = 'Stitched' | 'Unstitched' | 'Jewellery';
 
 export const ALL_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 
-export const CATEGORY_TAGS = ['Short Kurti', 'Long Kurti', 'Silk Kurti', 'Cotton Kurti', 'Stitched Suit', '3-Piece Set', 'Chikankari'];
+export const CATEGORY_TAGS = ['Short Kurti', 'Long Kurti', 'Silk Kurti', 'Cotton Kurti', 'Stitched Suit', 'Velvet Suit', '3-Piece Set', 'Chikankari'];
 
 export const OFFER_TAGS: { tag: string; label: string }[] = [
   { tag: 'Special Offer', label: 'In Diwali Sale' },
