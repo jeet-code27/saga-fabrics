@@ -9,6 +9,7 @@ import { useCart } from '@/context/CartContext';
 import { ProductSizeChart } from '@/components/ProductSizeChart';
 import { ProductCard } from '@/components/ProductCard';
 import { SALE, isSaleLive, isSaleProduct } from '@/lib/sale';
+import { hasFreeEarrings, garmentNoun } from '@/lib/catalog';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { trackViewContent, trackAddToCart, trackContact } from '@/lib/metaPixel';
@@ -82,7 +83,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
   const isSale = isSaleProduct(product) && isSaleLive();
 
-  const hasFreeJhumka = product.tags.includes('Free Jhumka');
+  const hasFreeJhumka = hasFreeEarrings(product);
+  const garment = garmentNoun(product);
   const hasFreeBangles = product.tags.includes('Free Bangles');
 
   // Meta Pixel ViewContent & GA4 view_item event
@@ -132,7 +134,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched 3-Piece Fabric Set'}${hasFreeJhumka ? '\n• Complimentary Offer: 1 Pair of Traditional Jhumkas Included FREE' : ''}${hasFreeBangles ? '\n• Complimentary Offer: 1 Set of Traditional Bangles Included FREE' : ''}\n• Material/Craft: ${product.fabric}\n• Product Link: ${typeof window !== 'undefined' ? window.location.href : `https://sagafabrics.in/products/${product.id}`}\n\nPlease share delivery details and confirm my order!`
+    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched 3-Piece Fabric Set'}${hasFreeJhumka ? '\n• Complimentary Offer: 1 Pair of Earrings Included FREE' : ''}${hasFreeBangles ? '\n• Complimentary Offer: 1 Set of Traditional Bangles Included FREE' : ''}\n• Material/Craft: ${product.fabric}\n• Product Link: https://sagafabrics.in/products/${product.id}\n\nPlease share delivery details and confirm my order!`
   );
 
   return (
@@ -204,12 +206,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               </div>
             )}
 
-            {/* Free Jhumka Offer Badge */}
+            {/* Free Earrings Offer Badge */}
             {hasFreeJhumka && (
               <div className={`absolute ${isSale ? 'bottom-4' : 'top-4'} left-4 z-10 pointer-events-none`}>
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded bg-white/95 text-[#1B4D3E] shadow-md">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Free jhumkas included</span>
+                  <span>Free earrings included</span>
                 </span>
               </div>
             )}
@@ -305,12 +307,16 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <span className="text-4xl sm:text-5xl font-serif font-black text-[#7A1B38] tracking-tight">
                   ₹{product.price.toLocaleString('en-IN')}
                 </span>
-                <span className="text-lg sm:text-xl text-[#8A8178] line-through font-normal">
-                  ₹{product.originalPrice.toLocaleString('en-IN')}
-                </span>
-                <span className="text-xs sm:text-sm font-extrabold text-[#E11D48] bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg">
-                  {discountPercent}% OFF
-                </span>
+                {discountPercent > 0 && (
+                  <>
+                    <span className="text-lg sm:text-xl text-[#8A8178] line-through font-normal">
+                      ₹{product.originalPrice.toLocaleString('en-IN')}
+                    </span>
+                    <span className="text-xs sm:text-sm font-extrabold text-[#E11D48] bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg">
+                      {discountPercent}% OFF
+                    </span>
+                  </>
+                )}
               </div>
             </div>
 
@@ -319,7 +325,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             </span>
           </div>
 
-          {/* Complimentary Free Jhumka Offer Banner */}
+          {/* Complimentary free earrings offer */}
           {hasFreeJhumka && (
             <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-50/90 via-[#FAF6F1] to-rose-50/90 rounded-3xl border border-amber-300/80 shadow-xs flex items-start gap-3.5">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-[#7A1B38] text-white flex items-center justify-center shrink-0 shadow-xs text-lg">
@@ -328,17 +334,19 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
-                    Special Festive Offer
+                    Special Offer
                   </span>
                   <span className="text-xs font-bold text-emerald-800">
-                    Complimentary Jhumkas Included FREE
+                    Earrings included free
                   </span>
                 </div>
                 <h4 className="font-serif font-bold text-sm text-[#2B2723]">
-                  Buy 1 Handcrafted Kurti, Get 1 Pair of Traditional Jhumkas FREE
+                  {garment === 'suit'
+                    ? 'Buy this suit set, get a pair of earrings free'
+                    : 'Buy this kurti, get a pair of earrings free'}
                 </h4>
                 <p className="text-xs text-[#5C554E] leading-relaxed">
-                  A matching pair of handcrafted traditional silver jhumka earrings will be packed and shipped along with your kurti at zero additional cost!
+                  A pair of silver-finish earrings is packed and shipped with your {garment === 'suit' ? 'suit set' : 'kurti'} at no extra cost.
                 </p>
               </div>
             </div>
@@ -353,7 +361,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
-                    Special Festive Offer
+                    Special Offer
                   </span>
                   <span className="text-xs font-bold text-emerald-800">
                     Complimentary Bangles Included FREE
@@ -429,9 +437,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <p className="text-[11px] text-[#7A1B38] font-medium flex items-center gap-1.5 pt-1">
                   <Sparkles className="w-3.5 h-3.5 text-[#B59757]" />
                   <span>
-                    {isSale
-                      ? `Season's End Clearance: Only Size ${product.sizes[0]} is available in this piece.`
-                      : `Exclusive Tailored Piece: Handcrafted in ready-to-wear Size ${product.sizes[0]} (Size 42 / 42" Bust).`}
+                    {`Only size ${product.sizes[0]} is available in this piece.`}
                   </span>
                 </p>
               ) : (
@@ -709,9 +715,11 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
             <span className="text-base font-serif font-bold text-[#7A1B38]">
               ₹{product.price.toLocaleString('en-IN')}
             </span>
-            <span className="text-[11px] text-[#8A8178] line-through">
-              ₹{product.originalPrice.toLocaleString('en-IN')}
-            </span>
+            {discountPercent > 0 && (
+              <span className="text-[11px] text-[#8A8178] line-through">
+                ₹{product.originalPrice.toLocaleString('en-IN')}
+              </span>
+            )}
           </div>
           <span className="text-[10px] text-[#5C7056] font-semibold block truncate">
             {isStitched ? `Selected: ${selectedSize}` : isJewellery ? 'Free size' : 'Unstitched set'}

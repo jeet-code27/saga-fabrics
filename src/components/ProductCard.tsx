@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Product, Size } from '@/types';
 import { Star } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { productKind, isSingleSize, defaultSize } from '@/lib/catalog';
+import { productKind, isSingleSize, defaultSize, hasFreeEarrings } from '@/lib/catalog';
 import { SALE, isSaleLive, isSaleProduct, discountPercent } from '@/lib/sale';
 
 interface ProductCardProps {
@@ -23,8 +23,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
   const onSale = isSaleProduct(product) && isSaleLive();
   const quickAdd = isSingleSize(product);
 
-  const gift = product.tags.includes('Free Jhumka')
-    ? 'Free Jhumkas'
+  const gift = hasFreeEarrings(product)
+    ? 'Free Earrings'
     : product.tags.includes('Free Bangles')
     ? 'Free Bangles'
     : null;

@@ -67,6 +67,7 @@ const fromProduct = (p: Product | null): FormState => {
   }
   const offers = OFFER_TAGS.map((o) => o.tag).filter((t) => p.tags.includes(t));
   if (p.tags.some((t) => SALE_TAGS.includes(t)) && !offers.includes('Special Offer')) offers.unshift('Special Offer');
+  if (p.tags.includes('Free Jhumka') && !offers.includes('Free Earrings')) offers.push('Free Earrings');
   return {
     title: p.title,
     subtitle: p.subtitle,
@@ -325,7 +326,7 @@ export function ProductForm({ product, onClose, onSaved }: Props) {
             </div>
             <div>
               <label className={labelCls} htmlFor="pf-subtitle">Short line under the name</label>
-              <input id="pf-subtitle" className={inputCls} value={f.subtitle} onChange={(e) => set('subtitle', e.target.value)} placeholder="e.g. Pure cotton stitched kurti • Free jhumkas included" />
+              <input id="pf-subtitle" className={inputCls} value={f.subtitle} onChange={(e) => set('subtitle', e.target.value)} placeholder="e.g. Pure cotton stitched kurti • Free earrings included" />
             </div>
           </section>
 

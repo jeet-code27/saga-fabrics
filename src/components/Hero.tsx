@@ -7,7 +7,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { CategoryFilter } from './Navbar';
 import { Product } from '@/types';
 import { useProducts } from '@/context/ProductsContext';
-import { filterProductByCategory } from '@/lib/catalog';
+import { filterProductByCategory, hasFreeEarrings } from '@/lib/catalog';
 import { Toran, DiyaRow } from '@/components/FestiveDecor';
 
 interface HeroProps {
@@ -40,37 +40,37 @@ const buildSlides = (products: Product[]): Slide[] => {
     id: 'velvet-suits',
     eyebrow: 'New in · velvet suits',
     title: 'Winter velvet suits,',
-    titleEm: 'jhumkas included',
-    text: 'Ready-to-wear velvet kurta, pants and dupatta with stone work, in ten rich colours. Sizes L and XL, with a free pair of jhumkas.',
+    titleEm: 'earrings included',
+    text: 'Ready-to-wear velvet kurta, pants and dupatta with stone work, in ten rich colours. Sizes L and XL, with a free pair of earrings.',
     cta: 'Shop velvet suits',
     href: '/shop?category=velvet-suits',
-    priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · jhumkas free`,
-    image: '/images/products/velvet-suit-emerald-green.webp',
+    priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · earrings free`,
+    image: '/images/products/velvet-suit-set-emerald-green.jpg',
     imageAlt: 'Emerald green velvet suit set with stone work',
   },
   {
-    id: 'kurti-jhumka-combo',
-    eyebrow: 'Combo · kurti + jhumkas',
-    title: 'One kurti, one pair of jhumkas,',
+    id: 'kurti-earrings-combo',
+    eyebrow: 'Combo · kurti + earrings',
+    title: 'One kurti, one pair of earrings,',
     titleEm: 'one price',
-    text: 'Hand-embroidered chikankari kurtis in pure cotton, each packed with a matching pair of silver-finish jhumkas. Free shipping across India.',
+    text: 'Hand-embroidered chikankari kurtis in pure cotton, each packed with a pair of silver-finish earrings. Free shipping across India.',
     cta: 'Shop the combo',
     href: '/shop?category=short-kurti',
-    priceNote: `${inr(minPrice((p) => p.tags.includes('Free Jhumka') && p.tags.includes('Chikankari')))} · jhumkas free`,
+    priceNote: `${inr(minPrice((p) => hasFreeEarrings(p) && p.tags.includes('Chikankari')))} · earrings free`,
     image: '/images/products/hand-embroidered-white-navy-chikankari-kurti.webp',
-    imageAlt: 'White and navy hand-embroidered chikankari kurti with a pair of jhumkas',
+    imageAlt: 'White and navy hand-embroidered chikankari kurti with a pair of earrings',
   },
   {
     id: 'silk-kurti',
     eyebrow: 'New · festive silk kurtis',
     title: 'Festive silk,',
     titleEm: 'ready to wear',
-    text: 'Wine, peacock teal and midnight black silk kurtis in size 42 — and these come with jhumkas too.',
+    text: 'Wine, peacock teal and midnight black silk kurtis in size 42 — and these come with earrings too.',
     cta: 'Shop kurtis',
     href: '/shop?category=short-kurti',
-    priceNote: `From ${inr(minPrice((p) => p.tags.includes('Silk Kurti')))} + free jhumkas`,
+    priceNote: `From ${inr(minPrice((p) => p.tags.includes('Silk Kurti')))} + free earrings`,
     image: '/images/products/wine-maroon-silk-short-kurti.webp',
-    imageAlt: 'Wine maroon silk short kurti with jhumkas',
+    imageAlt: 'Wine maroon silk short kurti with earrings',
   },
   {
     id: 'chikankari-set',

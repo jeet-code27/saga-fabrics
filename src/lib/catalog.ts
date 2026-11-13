@@ -21,7 +21,7 @@ export interface CategoryDef {
 // Order here is the order shown in menus, chips and the "shop by category" row.
 export const CATEGORIES: CategoryDef[] = [
   { key: 'Sale', slug: 'sale', label: 'Diwali Sale', image: '/images/products/wine-maroon-silk-short-kurti.webp' },
-  { key: 'Velvet', slug: 'velvet-suits', label: 'Velvet Suits', image: '/images/products/velvet-suit-emerald-green.webp' },
+  { key: 'Velvet', slug: 'velvet-suits', label: 'Velvet Suits', image: '/images/products/velvet-suit-set-emerald-green.jpg' },
   { key: 'Short Kurti', slug: 'short-kurti', label: 'Short Kurtis', image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp' },
   { key: 'Unstitched', slug: 'unstitched', label: 'Unstitched Suits', image: '/images/products/chikankari-three-piece-suit-lemon-yellow.webp' },
   { key: 'Stitched', slug: 'stitched', label: 'Stitched Suits', image: '/images/products/stitched-suit-emerald-green.jpeg' },
@@ -122,8 +122,17 @@ export const isSingleSize = (p: Product): boolean =>
 export const defaultSize = (p: Product): string =>
   isUnstitched(p) ? 'Unstitched' : isJewellery(p) ? 'Free Size' : p.sizes?.[0] || 'M';
 
-export const hasFreeGift = (p: Product): boolean =>
-  p.tags.includes('Free Jhumka') || p.tags.includes('Free Bangles');
+// 'Free Jhumka' is the old name of the free-earrings tag; both still count.
+export const hasFreeEarrings = (p: Product): boolean =>
+  p.tags.includes('Free Earrings') || p.tags.includes('Free Jhumka');
+
+export const hasFreeGift = (p: Product): boolean => hasFreeEarrings(p) || p.tags.includes('Free Bangles');
+
+// What to call the garment in offer copy: a suit set or a kurti.
+export const garmentNoun = (p: Product): 'suit' | 'kurti' =>
+  ['Stitched Suit', '3-Piece Set', 'Velvet Suit', 'Unstitched'].some((t) => p.tags.includes(t)) || /suit/i.test(p.title)
+    ? 'suit'
+    : 'kurti';
 
 export type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'discount' | 'rating';
 

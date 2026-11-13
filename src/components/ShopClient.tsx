@@ -170,7 +170,7 @@ export function ShopClient() {
             onChange={() => setFilters((f) => ({ ...f, giftOnly: !f.giftOnly }))}
             className="w-4 h-4 accent-[#7A1B38]"
           />
-          Comes with free jhumkas / bangles
+          Comes with free earrings / bangles
         </label>
       </fieldset>
     </div>
