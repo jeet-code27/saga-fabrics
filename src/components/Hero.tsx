@@ -41,7 +41,7 @@ const buildSlides = (products: Product[]): Slide[] => {
     eyebrow: 'New in · velvet suits',
     title: 'Winter velvet suits,',
     titleEm: 'earrings included',
-    text: 'Ready-to-wear velvet kurta, pants and dupatta with stone work, in ten rich colours. Sizes L and XL, with a free pair of earrings.',
+    text: 'Ready-to-wear velvet kurta, pants and dupatta with stone work, in eleven rich colours. Sizes L and XL, with a free pair of earrings.',
     cta: 'Shop velvet suits',
     href: '/shop?category=velvet-suits',
     priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · earrings free`,
