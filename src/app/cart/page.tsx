@@ -20,9 +20,8 @@ import {
 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { WhatsAppIcon } from '@/components/WhatsAppIcon';
-import { trackInitiateCheckout, trackContact } from '@/lib/metaPixel';
-import { trackGABeginCheckout, trackGAContact } from '@/lib/gtag';
+import { trackInitiateCheckout } from '@/lib/metaPixel';
+import { trackGABeginCheckout } from '@/lib/gtag';
 
 export default function CartPage() {
   const router = useRouter();
@@ -77,20 +76,6 @@ export default function CartPage() {
     router.push('/checkout');
   };
 
-  const whatsappCartMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to order the items in my cart:\n\n` +
-      cart
-        .map(
-          (item, idx) =>
-            `${idx + 1}. ${item.productTitle} (${item.size}) x ${item.quantity} = ₹${(
-              item.price * item.quantity
-            ).toLocaleString('en-IN')}`
-        )
-        .join('\n') +
-      `\n\n• Total Items: ${cartCount}\n• Total Amount: ₹${cartTotal.toLocaleString(
-        'en-IN'
-      )}\n\nPlease assist with confirming my order and delivery details!`
-  );
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF6F1] text-[#2B2723] selection:bg-[#7A1B38] selection:text-white">
@@ -324,22 +309,6 @@ export default function CartPage() {
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
 
-                {/* WhatsApp Alternative */}
-                <div>
-                  <a
-                    href={`https://wa.me/917023352132?text=${whatsappCartMessage}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackContact('WhatsApp Cart Page Order', `${cartCount} items`);
-                      trackGAContact('WhatsApp Cart Page Order');
-                    }}
-                    className="w-full py-3 px-4 bg-white hover:bg-emerald-50 text-[#25D366] border border-[#25D366]/40 rounded-2xl font-semibold text-xs transition-colors flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="18px" />
-                    <span>Order Bag via WhatsApp</span>
-                  </a>
-                </div>
 
                 {/* Trust Seals */}
                 <div className="pt-2 border-t border-[#F3ECE2] space-y-2 text-[11px] text-[#8A8178]">

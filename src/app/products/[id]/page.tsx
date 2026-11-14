@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getAllProducts, getProductById, getStoreProducts } from '@/lib/productStore';
 import { Product } from '@/types';
 import { ProductDetailClient } from '@/components/ProductDetailClient';
+import { productMetaDescription, productSeoTitle } from '@/lib/seo';
 import { productKind, isJewellery } from '@/lib/catalog';
 import { isSaleProduct } from '@/lib/sale';
 
@@ -32,11 +33,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     ? product.images[0]
     : `https://sagafabrics.in${product.images[0]}`;
 
-  const descText = `${product.subtitle}. Handcrafted pure cotton. Free express delivery in India.`;
-  const cleanDescription = descText.length > 160 ? descText.slice(0, 157) + '...' : descText;
+  const cleanDescription = productMetaDescription(product);
+  const seoTitle = productSeoTitle(product);
 
   return {
-    title: `${product.title} | Saga Fabrics`,
+    title: seoTitle,
     description: cleanDescription,
     keywords: [
       product.title,
@@ -44,14 +45,10 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       product.craft,
       product.color,
       'Saga Fabrics',
-      'pure cotton kurti',
-      'stitched suit set',
-      'unstitched suits',
       'Jaipur ethnic wear',
-      'Lucknowi Chikankari',
     ],
     openGraph: {
-      title: `${product.title} | Saga Fabrics`,
+      title: seoTitle,
       description: cleanDescription,
       url: `https://sagafabrics.in/products/${product.id}`,
       siteName: 'Saga Fabrics',
@@ -67,7 +64,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.title} | Saga Fabrics`,
+      title: seoTitle,
       description: cleanDescription,
       images: [primaryImage],
     },

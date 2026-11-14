@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
           {/* Brand Intro Column */}
           <div className="space-y-4 md:col-span-1">
             <Image
-              src="/images/saga-fabrics-new.png"
+              src="/images/saga-fabrics-new.webp"
               alt="Saga Fabrics"
               width={180}
               height={64}

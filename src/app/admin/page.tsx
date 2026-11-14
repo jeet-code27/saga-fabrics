@@ -246,7 +246,7 @@ export default function AdminPage() {
               <Link href="/" className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 text-[#78716C] hover:text-[#9E6962] transition-colors shrink-0" title="Back to storefront">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <Image src="/images/saga-fabrics-new.png" alt="Saga Fabrics" width={110} height={36} className="h-8 sm:h-10 w-auto object-contain shrink-0" priority />
+              <Image src="/images/saga-fabrics-new.webp" alt="Saga Fabrics" width={110} height={36} className="h-8 sm:h-10 w-auto object-contain shrink-0" priority />
               <div className="min-w-0">
                 <h1 className="text-base sm:text-xl font-bold font-serif text-[#9E6962] truncate">Admin</h1>
                 <p className="text-[11px] text-[#78716C] font-medium hidden sm:block">Orders, products & stock</p>

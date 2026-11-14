@@ -9,17 +9,17 @@ const STEPS = [
   {
     title: 'Drawn by hand',
     text: 'Each motif is traced onto the fabric before a single stitch goes in.',
-    image: '/images/craft/step-1-motif-design.jpg',
+    image: '/images/craft/step-1-motif-design.webp',
   },
   {
     title: 'Embroidered by karigars',
     text: 'Necklines, borders and jaal are worked by hand — that is why no two pieces are exactly alike.',
-    image: '/images/craft/step-3-chikankari-threadwork.png',
+    image: '/images/craft/step-3-chikankari-threadwork.webp',
   },
   {
     title: 'Washed, checked, packed',
     text: 'We wash, check and fold every piece ourselves in Jaipur before it ships to you.',
-    image: '/images/craft/step-4-preshrunk-comfort.png',
+    image: '/images/craft/step-4-preshrunk-comfort.webp',
   },
 ];
 

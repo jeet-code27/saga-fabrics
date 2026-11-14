@@ -110,10 +110,21 @@ export const Hero: React.FC<HeroProps> = () => {
   const products = useProducts();
   const slides = buildSlides(products);
   const [index, setIndex] = useState(0);
+  // Only load a slide's photo once it is showing or up next, so the first photo isn't
+  // competing with three hidden ones when the page opens.
+  const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);
 
   const go = useCallback((dir: 1 | -1) => setIndex((i) => (i + dir + slides.length) % slides.length), [slides.length]);
+
+  useEffect(() => {
+    const t = setTimeout(
+      () => setLoaded((prev) => (prev.has(index) && prev.has((index + 1) % slides.length) ? prev : new Set([...prev, index, (index + 1) % slides.length]))),
+      index === 0 ? 2500 : 0
+    );
+    return () => clearTimeout(t);
+  }, [index, slides.length]);
 
   useEffect(() => {
     if (paused) return;
@@ -176,7 +187,7 @@ export const Hero: React.FC<HeroProps> = () => {
                 <div className="relative w-[54%] max-w-[210px] sm:max-w-[300px] lg:max-w-[380px]">
                   <div className="absolute -inset-2.5 sm:-inset-3 rounded-t-full rounded-b-2xl border border-[#D9B871]/50" />
                   <div className="relative aspect-[4/5] rounded-t-full rounded-b-xl overflow-hidden ring-2 ring-[#D9B871] bg-[#5C1329] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)]">
-                    <Image
+                    {(i === 0 || loaded.has(i)) && <Image
                       src={s.image}
                       alt={s.imageAlt}
                       fill
@@ -185,7 +196,7 @@ export const Hero: React.FC<HeroProps> = () => {
                       className={`object-cover object-top transition-transform duration-[6000ms] ease-out ${
                         active ? 'scale-105' : 'scale-100'
                       }`}
-                    />
+                    />}
                   </div>
                   <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-[#F6E7C1] text-[#4A0F22] text-[11px] sm:text-xs font-semibold shadow-lg">
                     {s.priceNote}
@@ -199,9 +210,14 @@ export const Hero: React.FC<HeroProps> = () => {
                 className={`order-2 lg:order-1 text-center lg:text-left min-w-0 ${active ? 'animate-riseIn' : ''}`}
               >
                 <p className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#D9B871]">{s.eyebrow}</p>
-                <h1 className="mt-2 sm:mt-3 text-[2rem] leading-[1.08] sm:text-5xl lg:text-6xl font-serif text-[#FBEFD3]">
-                  {s.title} <em className="text-[#E6C98A]">{s.titleEm}</em>
-                </h1>
+                {/* Only the first slide is the page's H1; the rest are H2s with the same look. */}
+                {React.createElement(
+                  i === 0 ? 'h1' : 'h2',
+                  { className: 'mt-2 sm:mt-3 text-[2rem] leading-[1.08] sm:text-5xl lg:text-6xl font-serif text-[#FBEFD3]' },
+                  <>
+                    {s.title} <em className="text-[#E6C98A]">{s.titleEm}</em>
+                  </>
+                )}
                 <p className="mt-3 sm:mt-4 text-sm sm:text-base text-[#F6E7C1]/80 max-w-md mx-auto lg:mx-0">{s.text}</p>
                 <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                   <Link

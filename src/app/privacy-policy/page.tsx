@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 import { ArrowLeft, ShieldCheck, Lock, Eye, Mail, Phone, MapPin, AlertCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Saga Fabrics',
+  title: 'Privacy Policy | Saga Fabrics, Jaipur Ethnic Wear',
   description: 'Saga Fabrics privacy policy how we collect, use & protect your data, secure Razorpay payment handling, and 7-day return & size exchange details.',
   alternates: {
     canonical: 'https://sagafabrics.in/privacy-policy',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: 'https://sagafabrics.in/privacy-policy',
     siteName: 'Saga Fabrics',
-    title: 'Privacy Policy | Saga Fabrics',
+    title: 'Privacy Policy | Saga Fabrics, Jaipur Ethnic Wear',
     description: 'Saga Fabrics privacy policy how we collect, use & protect your data, secure Razorpay payment handling, and 7-day return & size exchange details.',
   },
 };

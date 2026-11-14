@@ -38,6 +38,18 @@ interface Filters {
 
 const EMPTY_FILTERS: Filters = { prices: [], sizes: [], giftOnly: false };
 
+// One line under the heading for each category.
+const SHOP_INTRO: Record<CategoryFilter, string> = {
+  All: 'Hand-embroidered chikankari, velvet suit sets, silk kurtis and anti-tarnish jewellery from our Jaipur studio. Free shipping across India.',
+  Sale: 'Our current offers on suits, kurtis and jewellery. Free shipping across India.',
+  Velvet: 'Stitched velvet kurta, pants and dupatta sets with stone work. Each one comes with a free pair of earrings.',
+  'Short Kurti': 'Ready-to-wear short kurtis in cotton chikankari and festive silk.',
+  Unstitched: 'Kurta, bottom and dupatta lengths you can get tailored to any size.',
+  Stitched: 'Ready-to-wear kurtis and suit sets in standard sizes.',
+  '3-Piece Set': 'Complete sets with kurta, bottom and dupatta.',
+  Jewellery: 'Anti-tarnish kundan, polki and crystal necklace sets with earrings.',
+};
+
 const toggle = (list: string[], v: string) =>
   list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
 
@@ -106,7 +118,7 @@ export function ShopClient() {
 
   const activeCount = filters.prices.length + filters.sizes.length + (filters.giftOnly ? 1 : 0);
   const heading =
-    category === 'All' ? 'Shop All' : CATEGORIES.find((c) => c.key === category)?.label || 'Shop';
+    category === 'All' ? 'Shop Chikankari Suits, Kurtis & Jewellery' : CATEGORIES.find((c) => c.key === category)?.label || 'Shop';
 
   const filterPanel = (
     <div className="space-y-7">
@@ -185,12 +197,13 @@ export function ShopClient() {
         <nav className="text-xs text-[#8A8178] mb-2" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-[#7A1B38]">Home</Link>
           <span className="mx-1.5">/</span>
-          <span className="text-[#2B2723]">{heading}</span>
+          <span className="text-[#2B2723]">{category === 'All' ? 'Shop' : heading}</span>
         </nav>
-        <div className="flex items-end justify-between gap-4 mb-4">
-          <h1 className="text-3xl sm:text-4xl font-serif text-[#2B2723]">{heading}</h1>
+        <div className="flex items-end justify-between gap-4">
+          <h1 className="text-[1.7rem] leading-tight sm:text-4xl font-serif text-[#2B2723]">{heading}</h1>
           <span className="text-xs text-[#8A8178] pb-1.5 shrink-0">{results.length} items</span>
         </div>
+        <p className="mt-1.5 mb-4 text-sm text-[#6F665E] max-w-2xl">{SHOP_INTRO[category]}</p>
 
         {saleLive && (
           <Link
@@ -213,7 +226,7 @@ export function ShopClient() {
 
         {/* Category chips: scroll sideways on phones */}
         <div className="-mx-3 px-3 sm:mx-0 sm:px-0 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-          {[{ key: 'All' as CategoryFilter, label: 'All' }, ...CATEGORIES].map((c) => {
+          {[{ key: 'All' as CategoryFilter, label: 'All' }, ...CATEGORIES.filter((c) => c.key !== 'Sale' || saleLive)].map((c) => {
             const on = category === c.key;
             const isSale = c.key === 'Sale';
             return (
@@ -316,6 +329,18 @@ export function ShopClient() {
             )}
           </section>
         </div>
+
+        {/* Plain-text overview: helps shoppers and search engines understand the range */}
+        <section className="mt-14 pt-8 border-t border-[#E4D9CC] max-w-3xl">
+          <h2 className="font-serif text-2xl text-[#2B2723]">About our collection</h2>
+          <p className="mt-3 text-sm sm:text-[15px] text-[#5A524B] leading-relaxed">
+            Every piece at Saga Fabrics is picked by our founders and checked in Jaipur before it ships. You&apos;ll find
+            hand-embroidered chikankari suits and kurtis, unstitched 3-piece sets you can get tailored to your size,
+            ready-to-wear velvet suit sets with stone work, festive silk kurtis and anti-tarnish jewellery. Many pieces
+            come with a free pair of earrings or a set of bangles. Orders are dispatched from Jaipur with free shipping
+            across India, and you can message us on WhatsApp for help with size or colour.
+          </p>
+        </section>
       </main>
 
       <Footer onOpenSizeChart={() => setSizeGuideOpen(true)} />

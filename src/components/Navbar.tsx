@@ -184,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center justify-center">
             <Link href="/" className="flex items-center justify-center py-1">
               <Image
-                src="/images/saga-fabrics-new.png"
+                src="/images/saga-fabrics-new.webp"
                 alt="Saga Fabrics"
                 width={180}
                 height={64}

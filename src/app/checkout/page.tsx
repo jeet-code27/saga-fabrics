@@ -21,8 +21,8 @@ import {
 } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { OrderSuccessModal } from '@/components/OrderSuccessModal';
-import { trackInitiateCheckout, trackAddPaymentInfo, trackPurchase, setUserData, trackContact } from '@/lib/metaPixel';
-import { trackGABeginCheckout, trackGAAddPaymentInfo, trackGAPurchase, trackGAContact } from '@/lib/gtag';
+import { trackInitiateCheckout, trackAddPaymentInfo, trackPurchase, setUserData } from '@/lib/metaPixel';
+import { trackGABeginCheckout, trackGAAddPaymentInfo, trackGAPurchase } from '@/lib/gtag';
 import { getDeliveryEstimate } from '@/lib/deliveryEstimator';
 
 declare global {
@@ -314,23 +314,6 @@ export default function CheckoutPage() {
     }
   };
 
-  // WhatsApp manual order fallback
-  const whatsappCheckoutMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to complete my order via WhatsApp:\n\n` +
-      checkoutItems
-        .map(
-          (item, idx) =>
-            `${idx + 1}. ${item.productTitle} (${item.size}) x ${item.quantity} = ₹${(
-              item.price * item.quantity
-            ).toLocaleString('en-IN')}`
-        )
-        .join('\n') +
-      `\n\n• Total Amount: ₹${effectiveTotal.toLocaleString('en-IN')}\n` +
-      `• Name: ${form.name || '[My Name]'}\n` +
-      `• Mobile: ${form.phone || '[My Phone]'}\n` +
-      `• City: ${form.city || '[City]'}\n` +
-      `• PIN: ${form.pincode || '[PIN]'}\n\nPlease share payment/dispatch instructions!`
-  );
 
   return (
     <div className="min-h-screen bg-[#FAF6F1] text-[#2B2723] flex flex-col selection:bg-[#7A1B38] selection:text-white">
@@ -348,7 +331,7 @@ export default function CheckoutPage() {
 
           <Link href="/" className="flex items-center justify-center">
             <Image
-              src="/images/saga-fabrics-new.png"
+              src="/images/saga-fabrics-new.webp"
               alt="Saga Fabrics"
               width={160}
               height={50}
@@ -611,22 +594,6 @@ export default function CheckoutPage() {
                     <span>Instant UPI (GPay/PhonePe/Paytm), Cards & NetBanking</span>
                   </div>
 
-                  {/* WhatsApp Quick Order Option */}
-                  <div className="pt-2">
-                    <a
-                      href={`https://wa.me/917023352132?text=${whatsappCheckoutMessage}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackContact('Checkout WhatsApp Option', `${effectiveCount} items`);
-                        trackGAContact('Checkout WhatsApp Option');
-                      }}
-                      className="w-full py-3 px-4 bg-white hover:bg-emerald-50 text-[#25D366] border border-[#25D366]/40 rounded-2xl font-semibold text-xs transition-colors flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer"
-                    >
-                      <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="18px" />
-                      <span>Prefer to Order via WhatsApp? Click Here</span>
-                    </a>
-                  </div>
                 </div>
 
               </form>

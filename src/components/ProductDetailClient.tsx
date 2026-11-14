@@ -133,8 +133,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     }
   };
 
+  // WhatsApp is for questions and support only; orders go through checkout.
   const whatsappMessage = encodeURIComponent(
-    `Hello Saga Fabrics! I want to quickly order this handcrafted piece:\n\n• Product: ${product.title}\n• Price: ₹${product.price.toLocaleString('en-IN')}\n• Specification: ${isJewellery ? 'Anti-Tarnish Jewellery Set (Free Size)' : isStitched ? `Size: ${selectedSize}` : 'Unstitched 3-Piece Fabric Set'}${hasFreeJhumka ? '\n• Complimentary Offer: 1 Pair of Earrings Included FREE' : ''}${hasFreeBangles ? '\n• Complimentary Offer: 1 Set of Traditional Bangles Included FREE' : ''}\n• Material/Craft: ${product.fabric}\n• Product Link: https://sagafabrics.in/products/${product.id}\n\nPlease share delivery details and confirm my order!`
+    `Hi Saga Fabrics! I have a question about this product:\n${product.title}\nhttps://sagafabrics.in/products/${product.id}`
   );
 
   return (
@@ -499,21 +500,19 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               </button>
             </div>}
 
-            {/* Option 3: Quick Order on WhatsApp */}
+            {/* Questions about size, colour or fabric */}
             <a
               href={`https://wa.me/917023352132?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackContact('WhatsApp Quick Order Button', product.title);
-                trackGAContact('WhatsApp Quick Order');
+                trackContact('WhatsApp Product Question', product.title);
+                trackGAContact('WhatsApp Product Question');
               }}
-              className="w-full py-3 px-4 bg-[#25D366] hover:bg-[#20BE5C] text-white font-semibold rounded-2xl transition-all duration-300 text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center justify-center gap-2.5 text-center cursor-pointer group"
+              className="w-full py-3 px-4 bg-white hover:bg-emerald-50 text-[#1E8E4B] border border-[#25D366]/50 font-semibold rounded-2xl transition-colors text-xs sm:text-sm flex items-center justify-center gap-2.5 text-center cursor-pointer"
             >
-              <WhatsAppIcon className="w-5 h-5 fill-current shrink-0 transition-transform group-hover:scale-110" size="18px" />
-              <span>
-                Quick Order on WhatsApp (+91 70233 52132)
-              </span>
+              <WhatsAppIcon className="w-5 h-5 fill-current shrink-0" size="18px" />
+              <span>Have a question? Ask us on WhatsApp</span>
             </a>
           </div>
 
@@ -727,16 +726,16 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         </div>
 
         <div className="flex items-center gap-1.5 shrink-0">
-          {/* Quick WhatsApp Order */}
+          {/* Ask a question on WhatsApp */}
           <a
             href={`https://wa.me/917023352132?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {
-              trackContact('WhatsApp Mobile Sticky', product.title);
-              trackGAContact('WhatsApp Mobile Sticky');
+              trackContact('WhatsApp Product Question', product.title);
+              trackGAContact('WhatsApp Product Question');
             }}
-            aria-label="Order on WhatsApp"
+            aria-label="Ask a question on WhatsApp"
             className="p-2.5 bg-[#25D366] hover:bg-[#20BE5C] text-white rounded-xl shadow-md flex items-center justify-center cursor-pointer transition-all active:scale-95"
           >
             <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" size="18px" />
@@ -767,26 +766,22 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         </div>
       </div>
 
-      {/* Floating Quick Order on WhatsApp Button on Product Page (Hidden on Mobile/Phone) */}
+      {/* Floating WhatsApp help button (desktop only) */}
       <aside className="hidden sm:block fixed bottom-8 right-8 z-40 group animate-fadeIn">
         <a
           href={`https://wa.me/917023352132?text=${whatsappMessage}`}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => {
-            trackContact('WhatsApp Floating Quick Order', product.title);
-            trackGAContact('WhatsApp Floating Quick Order');
+            trackContact('WhatsApp Product Question', product.title);
+            trackGAContact('WhatsApp Product Question');
           }}
           className="flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20BE5C] text-white pl-3.5 pr-4 py-2.5 sm:py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 ring-4 ring-white/90 border border-[#20BE5C] cursor-pointer"
-          title="Quick Order on WhatsApp"
+          title="Ask us on WhatsApp"
         >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-          </span>
           <WhatsAppIcon className="w-5 h-5 fill-current shrink-0" size="20px" />
           <span className="text-xs font-bold tracking-wide">
-            Quick Order on WhatsApp
+            Questions? Chat on WhatsApp
           </span>
         </a>
       </aside>

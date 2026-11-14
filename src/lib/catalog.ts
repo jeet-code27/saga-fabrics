@@ -24,7 +24,7 @@ export const CATEGORIES: CategoryDef[] = [
   { key: 'Velvet', slug: 'velvet-suits', label: 'Velvet Suits', image: '/images/products/velvet-suit-set-emerald-green.jpg' },
   { key: 'Short Kurti', slug: 'short-kurti', label: 'Short Kurtis', image: '/images/products/hand-embroidered-white-royal-blue-chikankari-kurti.webp' },
   { key: 'Unstitched', slug: 'unstitched', label: 'Unstitched Suits', image: '/images/products/chikankari-three-piece-suit-lemon-yellow.webp' },
-  { key: 'Stitched', slug: 'stitched', label: 'Stitched Suits', image: '/images/products/stitched-suit-emerald-green.jpeg' },
+  { key: 'Stitched', slug: 'stitched', label: 'Stitched Suits', image: '/images/products/stitched-suit-emerald-green.webp' },
   { key: '3-Piece Set', slug: '3-piece-set', label: '3-Piece Sets', image: '/images/products/stitched-suit-rose-pink.jpeg' },
   { key: 'Jewellery', slug: 'jewellery', label: 'Jewellery', image: '/images/products/royal-pearl-kundan-polki-choker-set.jpeg' },
 ];
