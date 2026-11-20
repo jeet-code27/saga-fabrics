@@ -16,7 +16,7 @@ const LOOKS = [
   {
     occasion: 'Diwali puja',
     productId: 'saga-036',
-    note: 'The wine silk kurti, the earrings that come free with it, and a pair of juttis. That’s the whole look.',
+    note: 'The wine silk kurti with silver earrings and a pair of juttis. That’s the whole look.',
   },
   {
     occasion: 'Family dinner',

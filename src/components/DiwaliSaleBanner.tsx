@@ -30,7 +30,7 @@ export const DiwaliSaleBanner: React.FC = () => {
             {SALE.name}
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#F6E7C1]/80 max-w-md">
-            Up to {maxSaleDiscount(PRODUCTS)}% off, plus free earrings or bangles on selected pieces. {SALE.tagline}.
+            Up to {maxSaleDiscount(PRODUCTS)}% off, plus free bangles on selected suit sets. {SALE.tagline}.
           </p>
 
           <div className="mt-6">

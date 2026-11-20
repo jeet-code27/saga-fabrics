@@ -42,7 +42,7 @@ const EMPTY_FILTERS: Filters = { prices: [], sizes: [], giftOnly: false };
 const SHOP_INTRO: Record<CategoryFilter, string> = {
   All: 'Hand-embroidered chikankari, velvet suit sets, silk kurtis and anti-tarnish jewellery from our Jaipur studio. Free shipping across India.',
   Sale: 'Our current offers on suits, kurtis and jewellery. Free shipping across India.',
-  Velvet: 'Stitched velvet kurta, pants and dupatta sets with stone work. Each one comes with a free pair of earrings.',
+  Velvet: 'Stitched velvet kurta, pants and dupatta sets with stone work, in sizes L and XL.',
   'Short Kurti': 'Ready-to-wear short kurtis in cotton chikankari and festive silk.',
   Unstitched: 'Kurta, bottom and dupatta lengths you can get tailored to any size.',
   Stitched: 'Ready-to-wear kurtis and suit sets in standard sizes.',
@@ -182,7 +182,7 @@ export function ShopClient() {
             onChange={() => setFilters((f) => ({ ...f, giftOnly: !f.giftOnly }))}
             className="w-4 h-4 accent-[#7A1B38]"
           />
-          Comes with free earrings / bangles
+          Comes with free bangles
         </label>
       </fieldset>
     </div>
@@ -336,8 +336,8 @@ export function ShopClient() {
           <p className="mt-3 text-sm sm:text-[15px] text-[#5A524B] leading-relaxed">
             Every piece at Saga Fabrics is picked by our founders and checked in Jaipur before it ships. You&apos;ll find
             hand-embroidered chikankari suits and kurtis, unstitched 3-piece sets you can get tailored to your size,
-            ready-to-wear velvet suit sets with stone work, festive silk kurtis and anti-tarnish jewellery. Many pieces
-            come with a free pair of earrings or a set of bangles. Orders are dispatched from Jaipur with free shipping
+            ready-to-wear velvet suit sets with stone work, festive silk kurtis and anti-tarnish jewellery. Some suit sets
+            come with a free set of bangles. Orders are dispatched from Jaipur with free shipping
             across India, and you can message us on WhatsApp for help with size or colour.
           </p>
         </section>
