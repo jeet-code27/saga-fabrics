@@ -70,7 +70,7 @@ export const PRODUCTS: Product[] = [
     care: 'Gentle hand wash in cold water',
     color: 'Blush Pink & Mauve',
     colorHex: '#E9B3C8',
-    images: ['/images/products/chikankari-cotton-suit-blush-pink-mauve.webp'],
+    images: ['/images/products/chikankari-cotton-suit-blush-pink-mauve-v2.webp'],
     sizes: ['Unstitched'],
     tags: ['Unstitched', '3-Piece Set', 'Chikankari', 'New Arrival'],
     inStock: true,
