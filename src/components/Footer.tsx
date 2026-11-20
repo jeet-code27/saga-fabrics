@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeChart }) => {
             <h4 className="text-sm font-serif font-semibold text-[#D9B871] uppercase tracking-wider">Shop</h4>
             <ul className="space-y-2 text-[#8A8178]">
               <li><Link href="/shop" className="hover:text-[#FAF6F1] transition-colors">Shop all</Link></li>
-              <li><Link href="/shop?category=sale" className="hover:text-[#FAF6F1] transition-colors">Diwali Sale</Link></li>
+              <li><Link href="/shop?category=velvet-suits" className="hover:text-[#FAF6F1] transition-colors">Velvet suits (winter)</Link></li>
               <li><Link href="/shop?category=short-kurti" className="hover:text-[#FAF6F1] transition-colors">Short kurtis</Link></li>
               <li><Link href="/shop?category=unstitched" className="hover:text-[#FAF6F1] transition-colors">Unstitched suits</Link></li>
               <li><Link href="/shop?category=jewellery" className="hover:text-[#FAF6F1] transition-colors">Jewellery</Link></li>

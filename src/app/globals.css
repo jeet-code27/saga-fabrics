@@ -116,17 +116,17 @@
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Diya flame flicker */
-@keyframes flicker {
-  0%, 100% { transform: scale(1, 1) rotate(0deg); opacity: 1; }
-  25% { transform: scale(0.94, 1.06) rotate(-2deg); opacity: 0.92; }
-  50% { transform: scale(1.04, 0.95) rotate(1.5deg); opacity: 1; }
-  75% { transform: scale(0.97, 1.04) rotate(-1deg); opacity: 0.95; }
+/* Gentle snowfall for the winter sections */
+@keyframes snowfall {
+  0%   { transform: translate3d(0, -10px, 0); }
+  50%  { transform: translate3d(12px, 50vh, 0); }
+  100% { transform: translate3d(-6px, 110vh, 0); }
 }
-.diya-flame {
-  transform-box: fill-box;
-  transform-origin: 50% 85%;
-  animation: flicker 1.6s ease-in-out infinite;
+.snowflake {
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
 }
 
 /* Hero text rise-in on each slide */
@@ -138,17 +138,8 @@
   animation: riseIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Small gold sparkles drifting in festive sections */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.15; transform: scale(0.8); }
-  50% { opacity: 0.9; transform: scale(1.15); }
-}
-.twinkle {
-  animation: twinkle 3s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .diya-flame, .twinkle, .animate-riseIn, .animate-ticker {
+  .snowflake, .animate-riseIn, .animate-ticker {
     animation: none !important;
   }
 }

@@ -8,7 +8,7 @@ import { CategoryFilter } from './Navbar';
 import { Product } from '@/types';
 import { useProducts } from '@/context/ProductsContext';
 import { filterProductByCategory } from '@/lib/catalog';
-import { Toran, DiyaRow } from '@/components/FestiveDecor';
+import { Snowfall } from '@/components/WinterDecor';
 
 interface HeroProps {
   onSelectCategory?: (category: CategoryFilter) => void;
@@ -37,6 +37,18 @@ const buildSlides = (products: Product[]): Slide[] => {
   const minPrice = (pred: (p: Product) => boolean) => minPriceIn(products, pred);
   return [
   {
+    id: 'velvet-suits',
+    eyebrow: 'New winter arrivals',
+    title: 'Velvet suits for',
+    titleEm: 'the cold months',
+    text: 'Soft velvet kurta, pants and dupatta with stone work, in eleven rich colours. Ready to wear in sizes L and XL.',
+    cta: 'Shop velvet suits',
+    href: '/shop?category=velvet-suits',
+    priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · stitched 3-piece`,
+    image: '/images/products/velvet-suit-set-emerald-green.jpg',
+    imageAlt: 'Emerald green velvet suit set with stone work',
+  },
+  {
     id: 'chikankari-cotton-suits',
     eyebrow: 'New in · cotton chikankari suits',
     title: 'Chikankari suit sets,',
@@ -49,21 +61,9 @@ const buildSlides = (products: Product[]): Slide[] => {
     imageAlt: 'Sea green cotton chikankari suit set',
   },
   {
-    id: 'velvet-suits',
-    eyebrow: 'New in · velvet suits',
-    title: 'Winter velvet suits,',
-    titleEm: 'ready to wear',
-    text: 'Velvet kurta, pants and dupatta with stone work, in eleven rich colours. Sizes L and XL.',
-    cta: 'Shop velvet suits',
-    href: '/shop?category=velvet-suits',
-    priceNote: `${inr(minPrice((p) => p.tags.includes('Velvet Suit')))} · stitched 3-piece`,
-    image: '/images/products/velvet-suit-set-emerald-green.jpg',
-    imageAlt: 'Emerald green velvet suit set with stone work',
-  },
-  {
     id: 'silk-kurti',
-    eyebrow: 'Festive silk kurtis',
-    title: 'Festive silk,',
+    eyebrow: 'Silk short kurtis',
+    title: 'Silk kurtis,',
     titleEm: 'ready to wear',
     text: 'Wine, peacock teal and midnight black silk kurtis in size 42.',
     cta: 'Shop kurtis',
@@ -98,11 +98,6 @@ const buildSlides = (products: Product[]): Slide[] => {
   },
   ];
 };
-
-// Fixed positions so server and client render the same sparkles.
-const SPARKLES = [
-  [6, 22], [14, 70], [24, 38], [38, 12], [47, 82], [58, 30], [66, 64], [78, 18], [88, 52], [94, 80],
-];
 
 const AUTOPLAY_MS = 6000;
 
@@ -153,22 +148,14 @@ export const Hero: React.FC<HeroProps> = () => {
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
-      {/* Backdrop: warm glow, gold dot jaal, twinkles */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,#7A1B38_0%,#4A0F22_45%,#2A0712_100%)]" />
-      <div className="absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle,#D9B871_1px,transparent_1.5px)] [background-size:22px_22px]" />
-      {SPARKLES.map(([x, y], i) => (
-        <span
-          key={i}
-          className="twinkle absolute w-1.5 h-1.5 rounded-full bg-[#FDE68A] shadow-[0_0_8px_2px_rgba(253,230,138,0.6)]"
-          style={{ left: `${x}%`, top: `${y}%`, animationDelay: `${(i * 0.43) % 3}s` }}
-          aria-hidden="true"
-        />
-      ))}
-
-      <Toran className="relative z-10" />
+      {/* Backdrop: deep plum glow, faint gold dot jaal and a light snowfall */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,#6B1A3A_0%,#3E0E24_50%,#1F0712_100%)]" />
+      <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(circle,#D9B871_1px,transparent_1.5px)] [background-size:22px_22px]" />
+      <Snowfall />
+      <div className="relative z-10 h-px bg-gradient-to-r from-transparent via-[#D9B871]/50 to-transparent" />
 
       {/* Slides are stacked in one grid cell so the section keeps the height of the tallest */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 pt-2 sm:pt-4 pb-20 sm:pb-24 grid grid-cols-1">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 pt-8 sm:pt-12 pb-20 sm:pb-24 grid grid-cols-1">
         {slides.map((s, i) => {
           const active = i === index;
           return (
@@ -275,7 +262,6 @@ export const Hero: React.FC<HeroProps> = () => {
         </button>
       </div>
 
-      <DiyaRow className="absolute z-10 bottom-0 inset-x-0 px-2" count={9} />
     </section>
   );
 };

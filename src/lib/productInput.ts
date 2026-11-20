@@ -9,7 +9,7 @@ export const ALL_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL']
 export const CATEGORY_TAGS = ['Short Kurti', 'Long Kurti', 'Silk Kurti', 'Cotton Kurti', 'Stitched Suit', 'Velvet Suit', '3-Piece Set', 'Chikankari'];
 
 export const OFFER_TAGS: { tag: string; label: string }[] = [
-  { tag: 'Special Offer', label: 'In Diwali Sale' },
+  { tag: 'Special Offer', label: 'In sale' },
   { tag: 'Free Earrings', label: 'Free earrings' },
   { tag: 'Free Bangles', label: 'Free bangles' },
   { tag: 'Bestseller', label: 'Bestseller' },
@@ -32,7 +32,7 @@ export function buildTagsAndSizes(
   offers: string[],
   previousTags: string[] = []
 ): { tags: string[]; sizes: string[] } {
-  // Old clearance tags are folded into the single "In Diwali Sale" switch.
+  // Old clearance tags are folded into the single "In sale" switch.
   const managed = new Set([...TYPE_TAGS, ...CATEGORY_TAGS, ...OFFER_TAGS.map((o) => o.tag), 'End of Season Sale', 'Season End Sale', 'Free Jhumka']);
   const kept = previousTags.filter((t) => !managed.has(t));
   const typeTags = type === 'Jewellery' ? ['Jewellery', 'Anti Tarnish Jewellery'] : type === 'Unstitched' ? ['Unstitched'] : ['Stitched'];

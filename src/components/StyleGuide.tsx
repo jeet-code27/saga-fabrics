@@ -11,22 +11,22 @@ interface StyleGuideProps {
   onSelectProduct?: (product: Product, size?: Size) => void;
 }
 
-// Three festive outfits, each built around one real product.
+// Three winter outfits, each built around one real product.
 const LOOKS = [
   {
-    occasion: 'Diwali puja',
-    productId: 'saga-036',
-    note: 'The wine silk kurti with silver earrings and a pair of juttis. That’s the whole look.',
+    occasion: 'Winter wedding',
+    productId: 'saga-053',
+    note: 'Emerald velvet with stone work and the dupatta pinned on one shoulder. Add a pair of gold earrings and you’re ready.',
   },
   {
-    occasion: 'Family dinner',
-    productId: 'saga-042',
-    note: 'Lemon-yellow chikankari with the dupatta on one shoulder. Stack the bangles we send along.',
+    occasion: 'Evening function',
+    productId: 'saga-044',
+    note: 'Wine purple velvet keeps you warm through a long December evening and looks rich in photos.',
   },
   {
     occasion: 'Gift for her',
     productId: 'saga-034',
-    note: 'A kundan set for your sister or bhabhi — anti-tarnish, so it still shines next Diwali.',
+    note: 'A kundan set for your sister or bhabhi for the wedding season — anti-tarnish, so it keeps its shine.',
   },
 ];
 
@@ -42,8 +42,8 @@ export const StyleGuide: React.FC<StyleGuideProps> = () => {
     <section className="py-14 md:py-24 bg-[#FAF6F1]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="text-center mb-8 sm:mb-12">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">Festive looks</p>
-          <h2 className="mt-1 text-3xl sm:text-5xl font-serif text-[#2B2723]">What to wear this Diwali</h2>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[#A08350]">Winter looks</p>
+          <h2 className="mt-1 text-3xl sm:text-5xl font-serif text-[#2B2723]">What to wear this winter</h2>
         </div>
 
         <div className="-mx-4 px-4 sm:mx-0 sm:px-0 flex md:grid md:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory">

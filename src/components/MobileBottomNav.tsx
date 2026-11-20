@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Home, LayoutGrid, ShoppingBag, Sparkles } from 'lucide-react';
+import { Home, LayoutGrid, ShoppingBag, Sparkles, Snowflake } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 import { trackContact } from '@/lib/metaPixel';
@@ -29,6 +29,7 @@ function BottomNavInner() {
   if (!showsBottomNav(pathname)) return null;
 
   const onSalePage = pathname === '/shop' && params.get('category') === 'sale';
+  const onWinterPage = pathname === '/shop' && params.get('category') === 'velvet-suits';
   const saleLive = isSaleLive();
 
   return (
@@ -59,13 +60,19 @@ function BottomNavInner() {
                 <Sparkles className="w-5 h-5 text-[#F6E7C1]" />
               </span>
               <span className={`text-[10px] tracking-wide ${onSalePage ? 'text-[#7A1B38] font-semibold' : 'text-[#7A1B38]'}`}>
-                {SALE.name.split(' ')[0]} Sale
+                {SALE.name}
               </span>
             </Link>
           ) : (
-            <Link href="/#faq" className={itemCls(false)}>
-              <Sparkles className="w-5 h-5" />
-              FAQs
+            <Link href="/shop?category=velvet-suits" className="relative flex flex-col items-center justify-end pb-2 h-full">
+              <span
+                className={`absolute -top-4 w-12 h-12 rounded-full flex items-center justify-center border-4 border-white shadow-md ${
+                  onWinterPage ? 'bg-[#7A1B38]' : 'bg-[#5C1329]'
+                }`}
+              >
+                <Snowflake className="w-5 h-5 text-[#F6E7C1]" />
+              </span>
+              <span className={`text-[10px] tracking-wide text-[#7A1B38] ${onWinterPage ? 'font-semibold' : ''}`}>Winter</span>
             </Link>
           )}
 

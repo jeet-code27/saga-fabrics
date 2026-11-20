@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useProducts } from '@/context/ProductsContext';
 import { Product, Size } from '@/types';
 import { Navbar } from '@/components/Navbar';
-import { DiwaliSaleBanner } from '@/components/DiwaliSaleBanner';
+import { WinterArrivals } from '@/components/WinterArrivals';
 import {
   CATEGORIES,
   CategoryFilter,
@@ -30,7 +30,6 @@ import { SizeChartModal } from '@/components/SizeChartModal';
 import { ArrowRight } from 'lucide-react';
 import { trackSearch, trackContact } from '@/lib/metaPixel';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
-import { DiyaRow } from '@/components/FestiveDecor';
 import { trackGASearch } from '@/lib/gtag';
 
 const HOME_TABS: CategoryFilter[] = ['All', 'Sale', 'Velvet', 'Short Kurti', 'Unstitched', 'Stitched', 'Jewellery'];
@@ -102,7 +101,7 @@ export default function HomePage() {
 
       {/* Main Content Body */}
       <main className="flex-1">
-        {/* Diwali hero slider */}
+        {/* Hero slider */}
         <Hero onSelectCategory={handleFilterChange} />
 
         {/* Trust strip */}
@@ -113,8 +112,8 @@ export default function HomePage() {
           <CraftCategories />
         </div>
 
-        {/* Diwali sale block (hidden automatically once the sale ends) */}
-        <DiwaliSaleBanner />
+        {/* New winter arrivals: velvet suit sets */}
+        <WinterArrivals />
 
         {/* Featured products: a short preview, the full range lives on /shop */}
         <section id="collection" className="py-10 sm:py-16 px-3 sm:px-6 lg:px-12 max-w-7xl mx-auto w-full">
@@ -171,7 +170,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Festive looks built around real products */}
+        {/* Winter looks built around real products */}
         <StyleGuide onSelectProduct={(prod, size) => handleDirectBuy(prod, size || 'M')} />
 
         {/* Founders' story and how pieces are made */}
@@ -187,7 +186,7 @@ export default function HomePage() {
         <FaqSection onOpenSizeChart={() => setIsSizeGuideOpen(true)} />
 
         {/* Personal help strip */}
-        <section className="relative overflow-hidden bg-[#3A0B1A] text-[#F6E7C1] pt-12 pb-20 sm:pt-16 sm:pb-24 px-5">
+        <section className="relative overflow-hidden bg-[#3A0B1A] text-[#F6E7C1] py-12 sm:py-16 px-5">
           <div className="relative z-10 max-w-2xl mx-auto text-center">
             <h3 className="text-3xl sm:text-4xl font-serif text-[#FBEFD3]">Need help picking an outfit?</h3>
             <p className="mt-3 text-sm sm:text-base text-[#F6E7C1]/80">
@@ -204,7 +203,6 @@ export default function HomePage() {
               Chat on WhatsApp
             </a>
           </div>
-          <DiyaRow className="absolute bottom-0 inset-x-0 px-2" count={9} />
         </section>
       </main>
 

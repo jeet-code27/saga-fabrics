@@ -108,9 +108,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </Link>
       ) : (
-        <div className="bg-[#7A1B38] text-[#FAF6F1] text-[11px] sm:text-xs py-2 px-4 text-center">
-          Handcrafted in Jaipur · Free shipping across India
-        </div>
+        <Link
+          href="/shop?category=velvet-suits"
+          className="block bg-[#5C1329] text-[#F6E7C1] text-[11px] sm:text-xs py-2 px-4 text-center"
+        >
+          <span className="font-semibold">New winter arrivals: velvet suit sets</span>
+          <span className="text-[#D9B871]"> · </span>
+          <span className="hidden sm:inline">Free shipping across India · </span>
+          <span className="underline underline-offset-2">Shop now</span>
+        </Link>
       )}
 
       {/* Main bar */}
